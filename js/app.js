@@ -1423,9 +1423,9 @@ class EchoesOfTheMoonApp {
       ? "DOSSIÊ CIENTÍFICO E TÉCNICO DA NASA"
       : "NASA SCIENTIFIC & TECHNICAL DOSSIER";
     document.getElementById("scienceModalTitle").textContent = loc.name;
-    document.getElementById("closeScienceModalBtn").textContent = isPt
-      ? "✕ Fechar"
-      : "✕ Close";
+    const closeSciBtn = document.getElementById("closeScienceModalBtn");
+    closeSciBtn.textContent = "✕";
+    closeSciBtn.setAttribute("aria-label", isPt ? "Fechar" : "Close");
 
     document.getElementById("sciTabAnatomy").textContent = isPt
       ? "Fotografia & Peças Interativas"

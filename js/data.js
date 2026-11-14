@@ -249,40 +249,40 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "lrrr-h1",
-          x: 50,
-          y: 44,
+          x: 56,
+          y: 48,
           title: "Matriz 10 × 10 de Prismas Corner-Cube",
           detail:
             "100 cavidades circulares contendo prismas de três faces perpendiculares entre si. Ao contrário de um espelho plano, qualquer raio laser que entra em um prisma corner-cube reflete nas 3 faces e sai exatamente paralelo à direção de chegada, retornando direto para o telescópio na Terra!"
         },
         {
           id: "lrrr-h2",
-          x: 34,
-          y: 35,
+          x: 50,
+          y: 40,
           title: "Prismas de Sílica Fundida (3,8 cm)",
           detail:
             "Fabricados com sílica fundida sintética ultra-pura (fused silica), escolhida por ter coeficiente de dilatação térmica quase zero — essencial para não deformar o feixe de luz entre os -170°C da noite lunar e os +120°C do dia lunar."
         },
         {
           id: "lrrr-h3",
-          x: 68,
-          y: 62,
+          x: 63,
+          y: 60,
           title: "Estrutura de Alumínio e Sombra Térmica",
           detail:
             "Cada prisma fica recuado dentro de uma cavidade cônica no bloco de alumínio, protegendo o vidro contra a luz solar lateral e ajudando a estabilizar a temperatura dos elementos ópticos."
         },
         {
           id: "lrrr-h4",
-          x: 24,
-          y: 68,
+          x: 45,
+          y: 58,
           title: "Bolha de Nivelamento e Gnomon Solar",
           detail:
             "Buzz Aldrin e Neil Armstrong usaram um nível de bolha e um indicador de sombra solar para alinhar o painel com precisão em direção à região central onde a Terra oscila no céu da Lua."
         },
         {
           id: "lrrr-h5",
-          x: 76,
-          y: 30,
+          x: 61,
+          y: 44,
           title: "Superfície Exposta à Poeira Lunar (Degradação)",
           detail:
             "Estudos recentes (Williams et al., 2021) mostram que uma fina camada microscópica de poeira lunar eletrostática reduziu a eficiência de retorno em cerca de 10 vezes ao longo das décadas — mas o painel continua refletindo fótons suficientes para a ciência hoje!"
@@ -358,40 +358,40 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "lrrr-h1",
-          x: 50,
-          y: 44,
+          x: 56,
+          y: 48,
           title: "10 × 10 Corner-Cube Prism Matrix",
           detail:
             "100 recessed cavities holding three-sided orthogonal prisms. Any laser beam entering a corner cube bounces off all three inner faces and exits exactly parallel to its incoming path, heading straight back to the telescope on Earth."
         },
         {
           id: "lrrr-h2",
-          x: 34,
-          y: 35,
+          x: 50,
+          y: 40,
           title: "Fused Silica Prisms (3.8 cm)",
           detail:
             "Crafted from synthetic ultra-pure fused silica with near-zero thermal expansion so the prisms keep their sub-arcsecond optical precision between -170°C lunar nights and +120°C lunar days."
         },
         {
           id: "lrrr-h3",
-          x: 68,
-          y: 62,
+          x: 63,
+          y: 60,
           title: "Recessed Aluminum Thermal Cavities",
           detail:
             "Each prism sits recessed inside a machined aluminum pocket to shade the silica from oblique sunlight and minimize thermal gradients."
         },
         {
           id: "lrrr-h4",
-          x: 24,
-          y: 68,
+          x: 45,
+          y: 58,
           title: "Bubble Level & Solar Gnomon",
           detail:
             "Used by Buzz Aldrin and Neil Armstrong to level the pallet on the lunar regolith and orient its face accurately toward Earth's sky position."
         },
         {
           id: "lrrr-h5",
-          x: 76,
-          y: 30,
+          x: 61,
+          y: 44,
           title: "Lunar Dust & Thermal Degradation Layer",
           detail:
             "Over decades, fine lunar dust levitated by micrometeorites and thermal effects reduced return intensity (Williams et al., 2021), yet single-photon detectors on Earth still receive its reflections every clear night."
@@ -491,7 +491,7 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "pse-h1",
-          x: 50,
+          x: 42,
           y: 48,
           title: "Cilindro Central com 4 Sismômetros (3 Eixos)",
           detail:
@@ -500,31 +500,31 @@ export const ARTIFACTS = [
         {
           id: "pse-h2",
           x: 22,
-          y: 62,
+          y: 60,
           title: "Asas de Painéis Solares Desdobráveis",
           detail:
             "Duas pás cobertas de células fotovoltaicas que geravam energia elétrica durante o dia lunar. Quando o sol se punha, o aparelho entrava automaticamente em modo de espera."
         },
         {
           id: "pse-h3",
-          x: 50,
-          y: 30,
+          x: 42,
+          y: 34,
           title: "Aquecedor Nuclear de Radioisótopo (RHU)",
           detail:
             "Para enfrentar a noite lunar de 340 horas a -170°C, uma cápsula de Plutônio-238 gerava calor constante para manter o instrumento acima de -54°C — o primeiro uso importante de energia nuclear em missão tripulada da NASA!"
         },
         {
           id: "pse-h4",
-          x: 78,
-          y: 62,
+          x: 47,
+          y: 56,
           title: "Manta Térmica e Sistema de Power Dumps",
           detail:
             "Enquanto a noite congelava, o meio-dia lunar escaldava os circuitos. Os cientistas na Terra aplicavam cortes programados de energia (power dumps) para tentar resfriar o equipamento."
         },
         {
           id: "pse-h5",
-          x: 50,
-          y: 14,
+          x: 42,
+          y: 24,
           title: "Antena de Transmissão S-Band",
           detail:
             "Transmitiu dados vitais sobre 100 a 200 impactos de meteoritos e moonquakes até 25 de agosto de 1969 às 04:00 UT, inaugurando a sismologia fora da Terra."
@@ -592,7 +592,7 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "pse-h1",
-          x: 50,
+          x: 42,
           y: 48,
           title: "Central Cylinder with 4 Seismometers (3 Axes)",
           detail:
@@ -601,31 +601,31 @@ export const ARTIFACTS = [
         {
           id: "pse-h2",
           x: 22,
-          y: 62,
+          y: 60,
           title: "Deployable Solar Panel Wings",
           detail:
             "Two solar arrays resting near the regolith that converted sunlight into electricity during the lunar day before the unit entered standby mode at sunset."
         },
         {
           id: "pse-h3",
-          x: 50,
-          y: 30,
+          x: 42,
+          y: 34,
           title: "Radioisotope Heater Unit (Nuclear Warmth)",
           detail:
             "During the 340-hour lunar night (-170°C), a Plutonium-238 heater maintained at least -54°C — the first major use of nuclear energy on a crewed NASA mission."
         },
         {
           id: "pse-h4",
-          x: 78,
-          y: 62,
+          x: 47,
+          y: 56,
           title: "Thermal Shroud & Power Dump System",
           detail:
             "To fight scorching midday temperatures, engineers on Earth executed 'power dumps' to cool the electronics, though overheating eventually ended its mission on Aug 25, 1969."
         },
         {
           id: "pse-h5",
-          x: 50,
-          y: 14,
+          x: 42,
+          y: 24,
           title: "S-Band Command & Telemetry Antenna",
           detail:
             "Transmitted three weeks of pioneering seismic data to Earth stations, proving lunar seismology worked and enabling the Apollo 12–16 network."
@@ -720,40 +720,40 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "lrv-h1",
-          x: 24,
-          y: 72,
+          x: 48,
+          y: 68,
           title: "Rodas de Fio de Piano e Titânio (81 cm / 5,4 kg)",
           detail:
             "Sem ar nem borracha! Cada roda é uma malha tecida à mão com fios de aço de mola musical (piano wire) revestida com tiras de titânio em formato de divisa para flutuar sobre a poeira lunar sem afundar, pesando apenas 5,4 kg cada."
         },
         {
           id: "lrv-h2",
-          x: 26,
-          y: 28,
+          x: 37,
+          y: 27,
           title: "Câmera Colorida de Ed Fendell & Antena Guarda-Chuva",
           detail:
             "Na frente ficam a antena de alto ganho (como um guarda-chuva dourado invertido) e a câmera de TV colorida controlada remotamente de Houston por Ed Fendell para filmar a decolagem final da Apollo 17!"
         },
         {
           id: "lrv-h3",
-          x: 45,
-          y: 44,
+          x: 48,
+          y: 46,
           title: "Painel com Giroscópio Direcional ('O Fio de Ariadne')",
           detail:
             "Como a Lua não tem campo magnético global nem GPS, um giroscópio direcional e odômetros em cada roda calculavam continuamente a distância e a seta exata em linha reta de volta para o Módulo Lunar."
         },
         {
           id: "lrv-h4",
-          x: 56,
-          y: 50,
+          x: 55,
+          y: 49,
           title: "Manche em 'T' e Cinto do 'Seatbelt Basalt'",
           detail:
             "Trajes pressurizados não permitiam girar um volante comum, então o LRV usava um manche em 'T' entre os bancos. Na Apollo 15, Scott e Irwin fingiram um defeito no cinto de segurança daqui para parar e pegar o famoso 'Seatbelt Basalt'!"
         },
         {
           id: "lrv-h5",
-          x: 78,
-          y: 66,
+          x: 70,
+          y: 56,
           title: "Para-Lama Traseiro Direito (O Reparo da Apollo 17)",
           detail:
             "Na Apollo 17, Eugene Cernan esbarrou com o martelo no para-lama traseiro direito e o quebrou, levantando uma chuva de poeira abrasiva. A solução? Improvisaram um para-lama novo usando mapas lunares plastificados e fita adesiva (duct tape)!"
@@ -836,40 +836,40 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "lrv-h1",
-          x: 24,
-          y: 72,
+          x: 48,
+          y: 68,
           title: "Piano-Wire & Titanium Mesh Wheels (81 cm / 5.4 kg)",
           detail:
             "Woven from music spring wire with titanium chevron treads to float across abrasive lunar dust without sinking or puncturing, weighing just 5.4 kg (12 lbs) per wheel."
         },
         {
           id: "lrv-h2",
-          x: 26,
-          y: 28,
+          x: 37,
+          y: 27,
           title: "Ed Fendell's Color TV Camera & Golden Umbrella Antenna",
           detail:
             "Mounted up front, the high-gain umbrella antenna and color TV camera were remotely tilted from Houston by Ed Fendell on Dec 14, 1972 to film Apollo 17's liftoff into space."
         },
         {
           id: "lrv-h3",
-          x: 45,
-          y: 44,
+          x: 48,
+          y: 46,
           title: "Directional Gyroscope Navigation Console ('Ariadne's Thread')",
           detail:
             "With no magnetic field or GPS on the Moon, a directional gyroscope and wheel odometers continuously displayed exact straight-line bearing and distance back to the Lunar Module."
         },
         {
           id: "lrv-h4",
-          x: 56,
-          y: 50,
+          x: 55,
+          y: 49,
           title: "T-Shaped Hand Controller & 'Seatbelt Basalt' Seats",
           detail:
             "Designed for pressurized gloves. On Apollo 15, David Scott and James Irwin faked a seatbelt issue here so Houston would let them stop and secretly collect the 'Seatbelt Basalt'!"
         },
         {
           id: "lrv-h5",
-          x: 78,
-          y: 66,
+          x: 70,
+          y: 56,
           title: "Right-Rear Fender (Apollo 17 Map & Duct Tape Repair)",
           detail:
             "When Eugene Cernan accidentally knocked off the rear fender extension on Apollo 17, kicking up clouds of dark lunar dust, the crew improvised a replacement using laminated lunar maps and clamps!"
@@ -972,40 +972,40 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "eagle-h1",
-          x: 50,
-          y: 38,
+          x: 56,
+          y: 28,
           title: "Plataforma de Decolagem Octogonal & Defletor de Chamas",
           detail:
             "O topo do estágio de descida serviu como rampa de lançamento na gravidade de 1/6 para o estágio de subida disparar rumo à nave Columbia em órbita lunar."
         },
         {
           id: "eagle-h2",
-          x: 36,
-          y: 52,
+          x: 55,
+          y: 51,
           title: "Escada de 9 Degraus & Placa 'We Came in Peace'",
           detail:
             "Presa entre o terceiro e o quarto degrau da perna dianteira está a placa de aço inoxidável assinada por Armstrong, Aldrin, Collins e o presidente Nixon celebrando o primeiro pouso humano."
         },
         {
           id: "eagle-h3",
-          x: 68,
-          y: 48,
+          x: 71,
+          y: 47,
           title: "Compartimento Científico SEQ Bay (Quadrante II)",
           detail:
             "Aqui viajaram guardados o Retrorefletor Laser (LRRR) e o Sismômetro Passivo (PSE), retirados pelos astronautas através de um sistema de cabos."
         },
         {
           id: "eagle-h4",
-          x: 20,
-          y: 76,
+          x: 53,
+          y: 84,
           title: "Sapatas de Pouso de 94 cm & Sondas de Contato Lunar",
           detail:
             "Quatro pratos circulares de alumínio em colmeia absorveram o impacto do pouso. Hastes metálicas sob as sapatas acenderam a luz 'CONTACT LIGHT' na cabine segundos antes do toque!"
         },
         {
           id: "eagle-h5",
-          x: 50,
-          y: 66,
+          x: 62,
+          y: 54,
           title: "Saia do Motor de Descida & Manta de Kapton Dourado",
           detail:
             "O motor desacelerou a nave durante os 12 minutos finais. As folhas douradas de Kapton refletiam a radiação solar intensa no vácuo."
@@ -1068,40 +1068,40 @@ export const ARTIFACTS = [
       hotspots: [
         {
           id: "eagle-h1",
-          x: 50,
-          y: 38,
+          x: 56,
+          y: 28,
           title: "Octagonal Launch Deck & Blast Deflector",
           detail:
             "Served as the launchpad in 1/6 lunar gravity when the Ascent Stage fired its engine to carry Armstrong and Aldrin back to orbit."
         },
         {
           id: "eagle-h2",
-          x: 36,
-          y: 52,
+          x: 55,
+          y: 51,
           title: "9-Rung Ladder & 'We Came in Peace' Plaque",
           detail:
             "Mounted on the front landing gear strut between the third and fourth rungs is the stainless-steel plaque commemorating humanity's first footsteps on another world."
         },
         {
           id: "eagle-h3",
-          x: 68,
-          y: 48,
+          x: 71,
+          y: 47,
           title: "Scientific Equipment (SEQ) Bay",
           detail:
             "External compartment that housed the Apollo 11 Laser Retroreflector (LRRR) and Passive Seismic Experiment (PSE) during the flight from Earth."
         },
         {
           id: "eagle-h4",
-          x: 20,
-          y: 76,
+          x: 53,
+          y: 84,
           title: "Honeycomb Landing Pads & Lunar Contact Probes",
           detail:
             "Four crushable aluminum honeycomb footpads absorbed touchdown energy, while wire probes beneath them triggered the 'CONTACT LIGHT' in the cabin."
         },
         {
           id: "eagle-h5",
-          x: 50,
-          y: 66,
+          x: 62,
+          y: 54,
           title: "Throttleable Descent Engine Skirt & Kapton Foil",
           detail:
             "Slowed the spacecraft during the 12-minute descent and insulated propellant tanks from extreme solar radiation."
