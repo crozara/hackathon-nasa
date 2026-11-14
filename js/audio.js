@@ -203,18 +203,9 @@ export class MuseumAudioEngine {
   }
 
   // ==========================================================================
-  // WEB SPEECH API FIRST-PERSON NARRATOR (PT-BR & EN-US)
+  // PRE-GENERATED NEURAL MP3 + WEB SPEECH API FALLBACK NARRATOR
   // ==========================================================================
-  speakStory(paragraphs, lang = "pt", ageProfile = "adult", callbacks = {}) {
-    if (!("speechSynthesis" in window)) {
-      alert(
-        lang === "pt"
-          ? "Seu navegador não suporta síntese de voz nativa."
-          : "Your browser does not support native speech synthesis."
-      );
-      return;
-    }
-
+  speakStory(paragraphs, lang = "pt", ageProfile = "adult", callbacks = {}, artifactId = null) {
     this.stopSpeech(false);
     this.playQuindarTone(true);
 
@@ -223,7 +214,7 @@ export class MuseumAudioEngine {
     this.isSpeaking = true;
     this.isPaused = false;
 
-    const voices = window.speechSynthesis.getVoices();
+    const voices = "speechSynthesis" in window ? window.speechSynthesis.getVoices() : [];
     const targetLangPrefix = lang === "pt" ? "pt" : "en";
     const preferredVoice =
       voices.find(
@@ -234,25 +225,25 @@ export class MuseumAudioEngine {
 
     let index = 0;
 
-    const speakNext = () => {
-      if (!this.isSpeaking || index >= paragraphs.length) {
-        this.isSpeaking = false;
-        this.isPaused = false;
-        this.currentParagraphIndex = -1;
-        this.playQuindarTone(false);
-        if (this.onParagraphChange) this.onParagraphChange(-1);
-        if (this.onSpeechEnd) this.onSpeechEnd();
+    const finishNarration = () => {
+      this.isSpeaking = false;
+      this.isPaused = false;
+      this.currentParagraphIndex = -1;
+      this.currentAudioEl = null;
+      this.playQuindarTone(false);
+      if (this.onParagraphChange) this.onParagraphChange(-1);
+      if (this.onSpeechEnd) this.onSpeechEnd();
+    };
+
+    const speakWithWebSpeech = (pIdx) => {
+      if (!("speechSynthesis" in window)) {
+        finishNarration();
         return;
       }
-
-      this.currentParagraphIndex = index;
-      if (this.onParagraphChange) this.onParagraphChange(index);
-
-      const utterance = new SpeechSynthesisUtterance(paragraphs[index]);
+      const utterance = new SpeechSynthesisUtterance(paragraphs[pIdx]);
       utterance.lang = lang === "pt" ? "pt-BR" : "en-US";
       if (preferredVoice) utterance.voice = preferredVoice;
 
-      // Subtle age-profile tuning
       if (ageProfile === "child") {
         utterance.pitch = 1.08;
         utterance.rate = 0.98 * this.speechRate;
@@ -272,20 +263,67 @@ export class MuseumAudioEngine {
       };
 
       utterance.onerror = () => {
-        this.isSpeaking = false;
-        this.currentParagraphIndex = -1;
-        if (this.onParagraphChange) this.onParagraphChange(-1);
-        if (this.onSpeechEnd) this.onSpeechEnd();
+        finishNarration();
       };
 
       window.speechSynthesis.speak(utterance);
+    };
+
+    const speakNext = () => {
+      if (!this.isSpeaking || index >= paragraphs.length) {
+        finishNarration();
+        return;
+      }
+
+      this.currentParagraphIndex = index;
+      if (this.onParagraphChange) this.onParagraphChange(index);
+
+      if (artifactId) {
+        const audioUrl = `assets/audio/${artifactId}-${lang}-${ageProfile}-p${index}.mp3`;
+        const audioEl = new Audio(audioUrl);
+        audioEl.playbackRate = this.speechRate;
+        this.currentAudioEl = audioEl;
+
+        let fellBack = false;
+        const fallback = () => {
+          if (fellBack || !this.isSpeaking) return;
+          fellBack = true;
+          this.currentAudioEl = null;
+          speakWithWebSpeech(index);
+        };
+
+        audioEl.onended = () => {
+          if (this.isSpeaking && !fellBack) {
+            this.currentAudioEl = null;
+            index++;
+            speakNext();
+          }
+        };
+        audioEl.onerror = fallback;
+        audioEl.play().catch(fallback);
+        return;
+      }
+
+      speakWithWebSpeech(index);
     };
 
     speakNext();
   }
 
   togglePauseSpeech() {
-    if (!("speechSynthesis" in window) || !this.isSpeaking) return false;
+    if (!this.isSpeaking) return false;
+    if (this.currentAudioEl) {
+      if (this.isPaused) {
+        this.currentAudioEl.play().catch(() => {});
+        this.isPaused = false;
+        return false;
+      } else {
+        this.currentAudioEl.pause();
+        this.isPaused = true;
+        return true;
+      }
+    }
+    if (!("speechSynthesis" in window)) return false;
     if (this.isPaused) {
       window.speechSynthesis.resume();
       this.isPaused = false;
@@ -298,6 +336,13 @@ export class MuseumAudioEngine {
   }
 
   stopSpeech(playTone = true) {
+    if (this.currentAudioEl) {
+      try {
+        this.currentAudioEl.pause();
+        this.currentAudioEl.currentTime = 0;
+      } catch (_) {}
+      this.currentAudioEl = null;
+    }
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }

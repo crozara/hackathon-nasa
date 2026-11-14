@@ -281,10 +281,16 @@ class EchoesOfTheMoonApp {
       } else {
         const paragraphs = this.currentArtifact[this.lang].stories[this.ageProfile];
         this.updateSpeechButtons(true, false);
-        this.audio.speakStory(paragraphs, this.lang, this.ageProfile, {
-          onParagraphChange: (idx) => this.highlightParagraph(idx),
-          onSpeechEnd: () => this.updateSpeechButtons(false, false)
-        });
+        this.audio.speakStory(
+          paragraphs,
+          this.lang,
+          this.ageProfile,
+          {
+            onParagraphChange: (idx) => this.highlightParagraph(idx),
+            onSpeechEnd: () => this.updateSpeechButtons(false, false)
+          },
+          this.currentArtifact.id
+        );
       }
     });
 
@@ -1058,10 +1064,16 @@ class EchoesOfTheMoonApp {
         this.openStoryView();
         const paragraphs = this.currentArtifact[this.lang].stories[this.ageProfile];
         this.updateSpeechButtons(true, false);
-        this.audio.speakStory(paragraphs, this.lang, this.ageProfile, {
-          onParagraphChange: (pIdx) => this.highlightParagraph(pIdx),
-          onSpeechEnd: () => this.updateSpeechButtons(false, false)
-        });
+        this.audio.speakStory(
+          paragraphs,
+          this.lang,
+          this.ageProfile,
+          {
+            onParagraphChange: (pIdx) => this.highlightParagraph(pIdx),
+            onSpeechEnd: () => this.updateSpeechButtons(false, false)
+          },
+          this.currentArtifact.id
+        );
       });
     });
 
