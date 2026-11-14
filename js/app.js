@@ -51,6 +51,9 @@ class EchoesOfTheMoonApp {
       onStationChange: (artifactId, idx, inspectMode) => {
         this.stationIndex = idx;
         this.isStoryOpen = Boolean(inspectMode);
+        if (this.isStoryOpen && artifactId) {
+          this.visitedStations.add(artifactId);
+        }
         this.audio.stopSpeech(false);
         this.audio.playQuindarTone(true);
         this.renderUI();
@@ -392,21 +395,71 @@ class EchoesOfTheMoonApp {
 
   openCertificateModal() {
     const isPt = this.lang === "pt";
-    document.getElementById("certKicker").textContent = isPt
-      ? "MISSÃO CONCLUÍDA • 4/4 HISTÓRIAS DESCOBERTAS"
-      : "MISSION COMPLETE • 4/4 STORIES DISCOVERED";
-    document.getElementById("certModalTitle").textContent = isPt
-      ? "Parabéns, Explorador Lunar!"
-      : "Congratulations, Lunar Explorer!";
-    document.getElementById("certModalSub").textContent = isPt
-      ? "Você ouviu a voz de todos os monumentos da Apollo. Digite seu nome abaixo para personalizar e baixar seu certificado oficial."
-      : "You heard the voice of every Apollo monument. Enter your name below to personalize and download your official certificate.";
-    document.getElementById("certNameInput").placeholder = isPt
-      ? "Seu nome completo..."
-      : "Your full name...";
-    document.getElementById("downloadCertBtn").textContent = isPt
-      ? "Baixar Certificado (PNG)"
-      : "Download Certificate (PNG)";
+    const age = this.ageProfile || "adult";
+
+    const copy = {
+      pt: {
+        child: {
+          kicker: "MISSÃO CUMPRIDA • 4/4 HISTÓRIAS DESCOBERTAS",
+          title: "Parabéns, pequeno explorador!",
+          sub: "Você conheceu todas as máquinas mágicas deixadas na Lua! Escreva seu nome abaixo para personalizar e baixar seu certificado de aventura.",
+          placeholder: "Escreva seu nome aqui...",
+          btn: "Baixar Meu Certificado (PNG)",
+          defaultName: "Pequeno Explorador Lunar"
+        },
+        teen: {
+          kicker: "EXPEDIÇÃO CONCLUÍDA • 4/4 MONUMENTOS",
+          title: "Parabéns, cadete espacial!",
+          sub: "Você desvendou a engenharia e a ciência de todos os equipamentos da Apollo. Digite seu nome para emitir e baixar sua credencial lunar.",
+          placeholder: "Seu nome completo...",
+          btn: "Baixar Certificado (PNG)",
+          defaultName: "Cadete Espacial"
+        },
+        adult: {
+          kicker: "ARQUIVO COMPLETO • 4/4 MEMÓRIAS LUNARES",
+          title: "Parabéns, curador lunar!",
+          sub: "Você percorreu todos os relatos históricos da Apollo na superfície lunar. Insira seu nome abaixo para personalizar e baixar seu certificado oficial.",
+          placeholder: "Seu nome completo...",
+          btn: "Baixar Certificado (PNG)",
+          defaultName: "Curador Lunar"
+        }
+      },
+      en: {
+        child: {
+          kicker: "MISSION COMPLETE • 4/4 STORIES DISCOVERED",
+          title: "Congratulations, little explorer!",
+          sub: "You met every amazing machine left behind on the Moon! Type your name below to personalize and download your adventure certificate.",
+          placeholder: "Write your name here...",
+          btn: "Download My Certificate (PNG)",
+          defaultName: "Little Lunar Explorer"
+        },
+        teen: {
+          kicker: "EXPEDITION COMPLETE • 4/4 MONUMENTS",
+          title: "Congratulations, space cadet!",
+          sub: "You uncovered the engineering and science behind all four Apollo monuments. Enter your name to generate and download your lunar credential.",
+          placeholder: "Your full name...",
+          btn: "Download Certificate (PNG)",
+          defaultName: "Space Cadet"
+        },
+        adult: {
+          kicker: "ARCHIVE COMPLETE • 4/4 LUNAR MEMORIES",
+          title: "Congratulations, lunar curator!",
+          sub: "You have explored all historical Apollo accounts on the lunar surface. Enter your name below to personalize and download your official certificate.",
+          placeholder: "Your full name...",
+          btn: "Download Certificate (PNG)",
+          defaultName: "Lunar Curator"
+        }
+      }
+    };
+
+    const c = copy[isPt ? "pt" : "en"][age] || copy[isPt ? "pt" : "en"].adult;
+    this._certDefaultName = c.defaultName;
+
+    document.getElementById("certKicker").textContent = c.kicker;
+    document.getElementById("certModalTitle").textContent = c.title;
+    document.getElementById("certModalSub").textContent = c.sub;
+    document.getElementById("certNameInput").placeholder = c.placeholder;
+    document.getElementById("downloadCertBtn").textContent = c.btn;
 
     document.getElementById("certificateModal").classList.remove("hidden");
     this.audio.playQuindarTone(true);
@@ -425,7 +478,10 @@ class EchoesOfTheMoonApp {
     const h = canvas.height;
     const isPt = this.lang === "pt";
     const rawName = (document.getElementById("certNameInput").value || "").trim();
-    const explorerName = rawName || (isPt ? "Pequeno Explorador Lunar" : "Young Lunar Explorer");
+    const explorerName =
+      rawName ||
+      this._certDefaultName ||
+      (isPt ? "Pequeno Explorador Lunar" : "Young Lunar Explorer");
 
     // Deep space background
     const bgGrad = ctx.createRadialGradient(w * 0.5, h * 0.35, 80, w * 0.5, h * 0.5, w * 0.72);
