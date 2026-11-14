@@ -351,9 +351,9 @@ button {
 }
 
 .pill-btn {
-  padding: 6px 13px;
+  padding: 10px 20px;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-dim);
   transition: all 0.2s ease;
@@ -626,7 +626,7 @@ button {
 }
 
 /* ============================================================================
-   4. STATE 2: TRANSLUCENT TELEMETRY TRANSMISSION TERMINAL (HUD STORY DRAWER)
+   4. STATE 2: 1969 NASA PRINTED APOLLO FLIGHT MANUAL (SKEUOMORPHIC STORYBOOK)
    ============================================================================ */
 .story-reading-drawer {
   position: fixed;
@@ -636,9 +636,9 @@ button {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(2, 5, 12, 0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(5, 7, 13, 0.84);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   user-select: text;
   animation: fadeInModal 0.3s ease;
 }
@@ -650,20 +650,21 @@ button {
 .story-drawer-inner {
   width: min(1060px, 95vw);
   max-height: 90vh;
-  padding: 24px 34px;
+  padding: 26px 36px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  border-radius: 20px;
-  background: rgba(10, 15, 30, 0.65);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  color: #F1F5F9;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 4px;
+  background: #F2EDE6;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: #16161E;
+  border: 1px solid #C8BFA8;
   box-shadow:
-    0 28px 80px rgba(0, 0, 0, 0.78),
-    inset 0 1px 0 rgba(56, 189, 248, 0.12);
+    0 28px 70px rgba(0, 0, 0, 0.82),
+    4px 4px 0 #DFD8CC,
+    8px 8px 0 #C7BEB0;
   animation: bookOpenIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -678,8 +679,7 @@ button {
   }
 }
 
-/* Declutter: Hide Age Chips, Audio Speed Button, Status Tag & Book Spine */
-.drawer-age-chips,
+/* Remove heavy spine crease and redundant controls; keep age chips visible inside book */
 .story-age-selector,
 .status-tag,
 #narrateSpeedBtn,
@@ -687,91 +687,111 @@ button {
   display: none !important;
 }
 
-/* Top Navigation: Single Minimal Telemetry Close Control */
+/* Top Navigation: Analog Typewriter Control */
 .drawer-top-nav {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(78, 41, 7, 0.3);
 }
 
+/* Analog Buttons (.btn-narrate-primary, .btn-back-walk) */
+.btn-narrate-primary,
 .btn-back-walk {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 0;
-  border: none;
-  background: transparent;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #94A3B8;
-  transition: color 0.2s ease;
-}
-
-.btn-back-walk:hover {
-  color: #38BDF8;
-}
-
-/* Clean HUD Audio Decoding Bar */
-.story-audio-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding: 0;
-  background: transparent;
-  border: none;
-}
-
-.btn-narrate-primary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 8px 16px;
-  border-radius: 8px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid var(--accent, #38BDF8);
-  color: var(--accent, #38BDF8);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 0.75rem;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid #16161E;
+  color: #16161E;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   box-shadow: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .btn-narrate-primary::before {
   content: "▶";
   font-size: 0.65rem;
   line-height: 1;
-  color: var(--accent, #38BDF8);
+  color: currentColor;
 }
 
-.btn-narrate-primary:hover {
-  background: rgba(56, 189, 248, 0.16);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
-  transform: translateY(-1px);
+.btn-narrate-primary:hover,
+.btn-back-walk:hover {
+  background: #16161E;
+  color: #F2EDE6;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Analog Audio & Profile Bar inside Storybook */
+.story-audio-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
 .btn-narrate-sec {
-  padding: 7px 12px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  padding: 8px 14px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid #16161E;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: #CBD5E1;
-  transition: all 0.2s ease;
+  color: #16161E;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-narrate-sec:hover {
-  border-color: #38BDF8;
-  color: #F1F5F9;
+  background: #16161E;
+  color: #F2EDE6;
+}
+
+.drawer-age-chips {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.age-chip {
+  padding: 6px 12px;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid rgba(78, 41, 7, 0.45);
+  color: #4E2907;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.age-chip:hover {
+  border-color: #16161E;
+  color: #16161E;
+}
+
+.age-chip.active {
+  background: #4E2907;
+  border-color: #4E2907;
+  color: #F2EDE6;
 }
 
 .mini-wave {
@@ -785,8 +805,8 @@ button {
   width: 2px;
   height: 4px;
   border-radius: 1px;
-  background: var(--accent, #38BDF8);
-  opacity: 0.45;
+  background: currentColor;
+  opacity: 0.55;
 }
 
 .mini-wave.playing span {
@@ -803,38 +823,63 @@ button {
   to { height: 14px; }
 }
 
-/* Telemetry Two-Column HUD Grid (No Book / Paper Artifacts) */
+/* 1969 NASA Printed Spread Grid */
 .book-spread-grid {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
+  gap: 32px;
   flex: 1;
   min-height: 0;
-  background: transparent;
+  background: #F2EDE6;
   border: none;
   box-shadow: none;
   overflow: hidden;
 }
 
 .book-page {
-  padding: 0;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
   gap: 18px;
   min-height: 0;
-  background: transparent;
-  color: #F1F5F9;
+  background: #F2EDE6;
+  color: #16161E;
 }
 
+/* Left Page with 3 Ring-Binder Holes (::before) */
 .book-page-left {
+  position: relative;
   overflow-y: auto;
-  padding-right: 6px;
+  padding-left: 52px;
+  padding-right: 22px;
+  border-right: 1px dashed rgba(78, 41, 7, 0.28);
+}
+
+.book-page-left::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: #080B12;
+  border: 1px solid rgba(78, 41, 7, 0.38);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.9),
+    0 -125px 0 -1px #080B12,
+    0 -125px 0 0 rgba(78, 41, 7, 0.38),
+    0 125px 0 -1px #080B12,
+    0 125px 0 0 rgba(78, 41, 7, 0.38);
+  pointer-events: none;
 }
 
 .book-page-right {
   justify-content: space-between;
   overflow: hidden;
+  padding-left: 8px;
 }
 
 .book-page-right .story-paragraphs-flow {
@@ -845,58 +890,64 @@ button {
   justify-content: flex-start;
 }
 
-/* Telemetry Header & Metadata */
+/* Typewriter Stamped Headers & Metadata (#4E2907, Courier New) */
 .story-header-block {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
+#storyCodeMeta,
 .story-code-meta {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #38BDF8;
+  color: #4E2907;
 }
 
 #storyMainTitle {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 1.22;
-  color: #F1F5F9;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #4E2907;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .story-persona-sub {
-  font-family: var(--font-serif);
+  font-family: Georgia, serif;
   font-style: italic;
-  font-size: 1.04rem;
-  color: #94A3B8;
+  font-size: 1.02rem;
+  color: #4E2907;
 }
 
-/* HUD Media Frame with Subtle Cyan Glow */
+/* Polaroid Developed Photo Style */
 .book-media-frame {
   width: 100%;
-  border-radius: 16px;
+  border-radius: 2px;
   overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.18);
-  aspect-ratio: 16 / 9;
-  max-height: 205px;
-  background: rgba(2, 6, 17, 0.6);
-  box-shadow: 0 12px 32px rgba(56, 189, 248, 0.15);
+  background: #FFFFFF;
+  padding: 8px 8px 32px 8px;
+  border: 1px solid #DED8CE;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.14),
+    0 1px 3px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
 }
 
 .book-media-frame img {
   width: 100%;
-  height: 100%;
+  height: 185px;
   object-fit: cover;
   display: block;
+  filter: sepia(0.1) contrast(1.03);
 }
 
-/* Immersive Telemetry Body Typography */
+/* Printed Serif Story Body Typography */
 .story-paragraphs-flow,
 .story-content-flow {
   display: flex;
@@ -905,60 +956,64 @@ button {
 }
 
 .story-p {
-  font-family: var(--font-serif);
+  font-family: Georgia, serif;
   font-size: 1.15rem;
-  line-height: 1.8;
-  color: #F1F5F9;
-  padding: 0;
-  border: none;
+  line-height: 1.7;
+  color: #16161E;
+  padding: 6px 8px;
+  border-left: 3px solid transparent;
   background: transparent;
-  transition: color 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
+/* Active Reading Highlight (No Neon Glow) */
 .story-p.speaking-now {
-  border-left: 2px solid var(--accent, #38BDF8);
+  background: #E6DFD3;
+  border-left: 3px solid #4E2907;
   padding-left: 14px;
-  color: #FFFFFF;
+  color: #16161E;
+  box-shadow: none;
 }
 
 .story-quote-highlight {
-  font-family: var(--font-serif);
+  font-family: Georgia, serif;
   font-style: italic;
-  font-size: 1rem;
-  line-height: 1.68;
-  color: #CBD5E1;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #4E2907;
   padding: 12px 0 0;
   border: none;
-  border-top: 1px solid rgba(56, 189, 248, 0.16);
+  border-top: 1px dashed rgba(78, 41, 7, 0.35);
   background: transparent;
 }
 
 .book-chapter-bridge {
   margin-top: 8px;
   padding-top: 14px;
-  border-top: 1px solid rgba(56, 189, 248, 0.16);
+  border-top: 1px dashed rgba(78, 41, 7, 0.35);
   background: transparent;
 }
 
 .book-chapter-bridge small {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #38BDF8;
+  color: #4E2907;
   margin-bottom: 6px;
 }
 
 .book-chapter-bridge p {
-  font-family: var(--font-serif);
+  font-family: Georgia, serif;
   font-style: italic;
   font-size: 0.98rem;
   line-height: 1.65;
-  color: #CBD5E1;
+  color: #16161E;
 }
 
-/* Internal Signal Page Controls */
+/* Internal Manual Page Controls */
 .book-page-nav {
   display: flex;
   align-items: center;
@@ -966,25 +1021,24 @@ button {
   gap: 12px;
   padding-top: 14px;
   margin-top: auto;
-  border-top: 1px solid rgba(56, 189, 248, 0.14);
+  border-top: 1px dashed rgba(78, 41, 7, 0.3);
 }
 
 .book-page-btn,
 .btn-next-artifact {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   padding: 0;
-  border-radius: 50%;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #38BDF8;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  background: transparent;
+  border: 1px solid #16161E;
+  color: #16161E;
+  font-family: 'Courier New', Courier, monospace;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .book-page-btn svg,
@@ -997,27 +1051,28 @@ button {
 
 .book-page-btn:hover:not(:disabled),
 .btn-next-artifact:hover:not(:disabled) {
-  transform: scale(1.1);
-  background: rgba(56, 189, 248, 0.16);
-  border-color: #38BDF8;
-  color: #F1F5F9;
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.38);
+  background: #16161E;
+  border-color: #16161E;
+  color: #F2EDE6;
+  box-shadow: none;
+  transform: none;
 }
 
 .book-page-btn:disabled,
 .btn-next-artifact:disabled {
-  opacity: 0.28;
+  opacity: 0.3;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
 .book-page-indicator {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #38BDF8;
+  color: #4E2907;
 }
 
 .book-page-turn-next,
@@ -1036,14 +1091,14 @@ button {
   }
 }
 
-/* HUD Footer: Left/Right Icon Buttons + Centered Science CTA */
+/* Manual Footer: Left/Right Chapter Buttons + Technical Dossier Stamp CTA */
 .story-footer-actions {
   display: grid;
-  grid-template-columns: 44px 1fr 44px;
+  grid-template-columns: 42px 1fr 42px;
   align-items: center;
   gap: 16px;
   padding-top: 14px;
-  border-top: 1px solid rgba(56, 189, 248, 0.16);
+  border-top: 1px dashed rgba(78, 41, 7, 0.3);
   margin-top: auto;
 }
 
@@ -1055,25 +1110,25 @@ button {
 .btn-open-science {
   justify-self: center;
   padding: 10px 22px;
-  border-radius: 999px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  font-family: var(--font-mono);
-  font-size: 0.73rem;
-  font-weight: 500;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid #16161E;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: #38BDF8;
+  color: #16161E;
   text-align: center;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-deep-science:hover,
 .btn-open-science:hover {
-  background: rgba(56, 189, 248, 0.16);
-  border-color: #38BDF8;
-  color: #F1F5F9;
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.2);
+  background: #16161E;
+  border-color: #16161E;
+  color: #F2EDE6;
+  box-shadow: none;
 }
 
 #storyNextArtifactBtn {
@@ -1087,7 +1142,8 @@ button {
     overflow-y: auto;
   }
   .book-page-left {
-    border-bottom: 1px solid rgba(56, 189, 248, 0.14);
+    border-right: none;
+    border-bottom: 1px dashed rgba(78, 41, 7, 0.3);
     padding-bottom: 18px;
   }
   .story-drawer-inner {
@@ -1100,13 +1156,13 @@ button {
   }
 }
 
-/* 3D Mode: Translucent Right-Side Telemetry HUD Panel */
+/* 3D Mode: Right-Side 1969 NASA Manual Panel */
 body.in-3d-mode .story-reading-drawer {
   top: 78px;
   right: 28px;
   bottom: 24px;
   left: auto;
-  width: min(540px, 92vw);
+  width: min(560px, 92vw);
   z-index: 25;
   padding: 0;
   display: block;
@@ -1122,12 +1178,13 @@ body.in-3d-mode .story-drawer-inner {
   max-height: none;
   padding: 24px 26px;
   overflow-y: auto;
-  border-radius: 20px;
-  background: rgba(10, 15, 30, 0.65);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  background: #F2EDE6;
+  color: #16161E;
+  border: 1px solid #C8BFA8;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.85),
+    4px 4px 0 #DFD8CC;
   animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1151,8 +1208,9 @@ body.in-3d-mode .book-spread-grid {
 }
 
 body.in-3d-mode .book-page {
-  padding: 0;
+  padding: 8px 12px 8px 46px;
   overflow: visible;
+  border-right: none;
 }
 
 body.in-3d-mode .book-media-frame,
@@ -1168,13 +1226,13 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 .story-drawer-inner::-webkit-scrollbar,
 .book-page-left::-webkit-scrollbar,
 .book-page-right .story-paragraphs-flow::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 .story-drawer-inner::-webkit-scrollbar-thumb,
 .book-page-left::-webkit-scrollbar-thumb,
 .book-page-right .story-paragraphs-flow::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.25);
+  background: rgba(78, 41, 7, 0.32);
   border-radius: 999px;
 }
 
@@ -1544,8 +1602,231 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 }
 
 /* ============================================================================
-   6. WELCOME ONBOARDING OVERLAY (MINIMALIST & BREATHABLE)
+   6. FULL-SCREEN ONBOARDING MODAL (LANGUAGE & AGE PROFILE SELECTION)
    ============================================================================ */
+.onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 18%, rgba(15, 25, 48, 0.88), rgba(2, 4, 10, 0.96) 72%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow-y: auto;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.onboarding-overlay.hidden {
+  display: none !important;
+}
+
+.onboarding-card {
+  width: min(680px, 100%);
+  padding: clamp(28px, 4vw, 44px);
+  border-radius: 24px;
+  background: rgba(8, 12, 24, 0.86);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  text-align: center;
+  animation: onboardingCardIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes onboardingCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.onboarding-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.onboarding-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #60a5fa;
+}
+
+.onboarding-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4.5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.onboarding-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.onboarding-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.onboarding-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.onboarding-lang-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.onboarding-lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-soft);
+  transition: all 0.22s ease;
+}
+
+.onboarding-lang-btn strong {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.onboarding-lang-btn span {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+}
+
+.onboarding-lang-btn:hover {
+  border-color: rgba(147, 197, 253, 0.45);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.onboarding-lang-btn.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.28);
+  color: #ffffff;
+}
+
+.onboarding-lang-btn.active span {
+  color: #dbeafe;
+}
+
+.onboarding-age-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.onboarding-age-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  padding: 18px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  text-align: left;
+  transition: all 0.22s ease;
+}
+
+.onboarding-age-btn strong {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.onboarding-age-btn small {
+  font-size: 0.78rem;
+  line-height: 1.38;
+  color: var(--text-dim);
+}
+
+.onboarding-age-btn:hover {
+  border-color: rgba(147, 197, 253, 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-2px);
+}
+
+.onboarding-age-btn.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.28);
+}
+
+.onboarding-age-btn.active small {
+  color: #dbeafe;
+}
+
+.onboarding-enter-btn {
+  width: 100%;
+  margin-top: 4px;
+  padding: 18px 28px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border: 1px solid rgba(147, 197, 253, 0.45);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 32px rgba(59, 130, 246, 0.45), 0 12px 28px rgba(0, 0, 0, 0.6);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+}
+
+.onboarding-enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 42px rgba(59, 130, 246, 0.7), 0 16px 34px rgba(0, 0, 0, 0.7);
+  filter: brightness(1.06);
+}
+
+@media (max-width: 680px) {
+  .onboarding-age-grid {
+    grid-template-columns: 1fr;
+  }
+  .onboarding-lang-group {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .welcome-overlay {
   position: fixed;
   inset: 0;
@@ -1946,21 +2227,21 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
   color: var(--text-white);
 }
 
-/* Observatory Minimal Navbar */
+/* Observatory Minimal Navbar (Resized & Decluttered) */
 .editorial-navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 40;
-  height: 76px;
-  padding: 0 clamp(20px, 5vw, 64px);
+  height: 96px;
+  padding: 0 clamp(24px, 5vw, 64px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  background: rgba(0, 0, 0, 0.72);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 24px;
+  background: rgba(0, 0, 0, 0.76);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -1968,7 +2249,7 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 .editorial-brand {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 14px;
   text-decoration: none;
   color: inherit;
 }
@@ -1981,14 +2262,14 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 
 .brand-text-stack strong {
   font-family: var(--font-display);
-  font-size: 0.96rem;
+  font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .brand-text-stack span {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--text-dim);
   text-transform: uppercase;
@@ -1997,14 +2278,14 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 .editorial-nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 36px;
 }
 
 .editorial-nav-links a {
   text-decoration: none;
   color: var(--text-soft);
-  font-size: 0.86rem;
-  font-weight: 400;
+  font-size: 1.1rem;
+  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -2015,13 +2296,13 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 .editorial-nav-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
+/* Hide static navbar age selector & language toggle (now in Onboarding Modal & Storybook) */
+.editorial-age-group,
 .lang-text-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: none !important;
 }
 
 .lang-link {
@@ -2043,13 +2324,13 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 13px 28px;
-  border-radius: 10px;
+  gap: 10px;
+  padding: 15px 32px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 0 28px rgba(59, 130, 246, 0.45), 0 8px 20px rgba(0, 0, 0, 0.5);
@@ -2063,21 +2344,21 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 }
 
 .btn-nav-3d {
-  padding: 9px 18px;
-  font-size: 0.82rem;
-  border-radius: 8px;
+  padding: 13px 26px;
+  font-size: 1rem;
+  border-radius: 10px;
 }
 
 .btn-tech-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 13px 24px;
-  border-radius: 10px;
+  padding: 15px 28px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.16);
   color: var(--text-soft);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: all 0.22s ease;
 }
@@ -2092,7 +2373,7 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 .editorial-hero {
   position: relative;
   min-height: 100vh;
-  padding: 110px clamp(20px, 5vw, 76px) 64px;
+  padding: 124px clamp(20px, 5vw, 76px) 64px;
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
   align-items: center;

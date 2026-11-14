@@ -4429,7 +4429,7 @@ const STATION_ORDER = ["lrrr", "pse", "eagle", "lrv"];
 
 class EchoesOfTheMoonApp {
   constructor() {
-    this.lang = "pt";
+    this.lang = "en";
     this.ageProfile = "adult"; // 'child' | 'teen' | 'adult'
     this.stationIndex = 0;
     this.storyPageIndex = 0;
@@ -4556,25 +4556,46 @@ class EchoesOfTheMoonApp {
   }
 
   bindEvents() {
-    // 1. Language Switchers
+    // 1. Language Switchers (including Onboarding Modal)
     document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         this.lang = btn.getAttribute("data-lang-btn");
-        this.audio.stopSpeech(false);
-        this.audio.playPing(780, 0.08);
+        if (this.audio) {
+          this.audio.stopSpeech(false);
+          if (typeof this.audio.playPing === "function") {
+            this.audio.playPing(780, 0.08);
+          }
+        }
         this.renderUI();
       });
     });
 
-    // 2. Age Profile Switchers
+    // 2. Age Profile Switchers (including Onboarding Modal & Storybook)
     document.querySelectorAll("[data-age-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         this.ageProfile = btn.getAttribute("data-age-btn");
-        this.audio.stopSpeech(false);
-        this.audio.playPing(920, 0.08);
+        if (this.audio) {
+          this.audio.stopSpeech(false);
+          if (typeof this.audio.playPing === "function") {
+            this.audio.playPing(920, 0.08);
+          }
+        }
         this.renderUI();
       });
     });
+
+    // 2b. Onboarding Enter Button ("ENTER THE MUSEUM / ENTRAR NO MUSEU")
+    const enterMuseumBtn = document.getElementById("enterMuseumBtn");
+    const onboardingModal = document.getElementById("onboardingModal");
+    if (enterMuseumBtn && onboardingModal) {
+      enterMuseumBtn.addEventListener("click", () => {
+        onboardingModal.classList.add("hidden");
+        if (this.audio && typeof this.audio.playPing === "function") {
+          this.audio.playPing(880, 0.1);
+        }
+        this.renderUI();
+      });
+    }
 
     // 3. On-Demand 3D Mode Triggers
     ["open3DModeBtn", "heroOpen3DBtn", "artemisOpen3DBtn"].forEach((id) => {
@@ -5297,6 +5318,21 @@ class EchoesOfTheMoonApp {
   renderEditorialSite() {
     const isPt = this.lang === "pt";
     const t = this.t;
+
+    const onbTitle = document.getElementById("onboardingTitle");
+    const onbSub = document.getElementById("onboardingSubtitle");
+    const onbChildTitle = document.getElementById("onbAgeChildTitle");
+    const onbTeenTitle = document.getElementById("onbAgeTeenTitle");
+    const onbAdultTitle = document.getElementById("onbAgeAdultTitle");
+    if (onbTitle) onbTitle.textContent = isPt ? "Ecos da Lua" : "Echoes of the Moon";
+    if (onbSub) {
+      onbSub.textContent = isPt
+        ? "O Museu do Silêncio Lunar — Histórias em primeira pessoa das máquinas deixadas na Lua."
+        : "The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.";
+    }
+    if (onbChildTitle) onbChildTitle.textContent = isPt ? "Criança" : "Child / Criança";
+    if (onbTeenTitle) onbTeenTitle.textContent = isPt ? "Adolescente" : "Teen / Adolescente";
+    if (onbAdultTitle) onbAdultTitle.textContent = isPt ? "Adulto" : "Adult / Adulto";
 
     document.getElementById("navBrandTitle").textContent = isPt ? "Ecos da Lua" : "Echoes of the Moon";
     document.getElementById("navLinkStories").textContent = isPt ? "Histórias" : "Stories";
