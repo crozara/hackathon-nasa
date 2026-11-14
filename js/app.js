@@ -980,7 +980,7 @@ class EchoesOfTheMoonApp {
     const isPt = this.lang === "pt";
     const t = this.t;
 
-    document.getElementById("navBrandTitle").textContent = isPt ? "Ecos da Lua" : "Echoes of the Moon";
+    document.getElementById("navBrandTitle").textContent = "Museum of Lost Space Technology";
     document.getElementById("navLinkStories").textContent = isPt ? "Histórias" : "Stories";
     document.getElementById("navLinkArtemis").textContent = isPt ? "Legado Artemis" : "Artemis Legacy";
     document.getElementById("navAgeChild").textContent = isPt ? "Criança" : "Child";

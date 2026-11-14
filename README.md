@@ -1,4 +1,4 @@
-# 🌕 The Silent Lunar Museum — *Abandoned, But Not Forgotten*
+# 🌕 Museum of Lost Space Technology — *Abandoned, But Not Forgotten*
 
 > **NASA Space Apps Challenge — Storytelling about NASA's Discarded Equipment on the Moon and Mars**
 

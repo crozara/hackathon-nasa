@@ -7,9 +7,9 @@
 export const UI_TEXT = {
   pt: {
     museumTitle: "MUSEU DO SILÊNCIO LUNAR",
-    museumSubtitle: "Abandoned, But Not Forgotten — Ecos da Lua",
+    museumSubtitle: "Abandoned, But Not Forgotten — Museum of Lost Space Technology",
     nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • ARQUIVO APOLLO",
-    onboardingWelcome: "Ecos da Lua",
+    onboardingWelcome: "Museum of Lost Space Technology",
     onboardingLead:
       "O Museu do Silêncio Lunar — Histórias em primeira pessoa das máquinas históricas deixadas na Lua.",
     selectLanguageLabel: "SELECIONE O IDIOMA",
@@ -93,9 +93,9 @@ export const UI_TEXT = {
   },
   en: {
     museumTitle: "THE SILENT LUNAR MUSEUM",
-    museumSubtitle: "Abandoned, But Not Forgotten — Echoes of the Moon",
+    museumSubtitle: "Abandoned, But Not Forgotten — Museum of Lost Space Technology",
     nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • APOLLO ARCHIVE",
-    onboardingWelcome: "Echoes of the Moon",
+    onboardingWelcome: "Museum of Lost Space Technology",
     onboardingLead:
       "The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.",
     selectLanguageLabel: "SELECT LANGUAGE",
