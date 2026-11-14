@@ -238,19 +238,21 @@ class EchoesOfTheMoonApp {
       });
     }
 
-    // 2c. Reopen Settings Button in Navbar
-    const reopenSettingsBtn = document.getElementById("reopenSettingsBtn");
-    if (reopenSettingsBtn && onboardingModal) {
-      reopenSettingsBtn.addEventListener("click", () => {
-        this.lang = localStorage.getItem("nasa_lang") || this.lang;
-        this.ageProfile = localStorage.getItem("nasa_age") || this.ageProfile;
-        this.updateOnboardingLanguageUI();
-        onboardingModal.classList.remove("hidden");
-        if (this.audio && typeof this.audio.playPing === "function") {
-          this.audio.playPing(820, 0.08);
-        }
-      });
-    }
+    // 2c. Reopen Settings Button in Navbar & 3D Topbar
+    ["reopenSettingsBtn", "reopenSettings3DBtn"].forEach((btnId) => {
+      const btn = document.getElementById(btnId);
+      if (btn && onboardingModal) {
+        btn.addEventListener("click", () => {
+          this.lang = localStorage.getItem("nasa_lang") || this.lang;
+          this.ageProfile = localStorage.getItem("nasa_age") || this.ageProfile;
+          this.updateOnboardingLanguageUI();
+          onboardingModal.classList.remove("hidden");
+          if (this.audio && typeof this.audio.playPing === "function") {
+            this.audio.playPing(820, 0.08);
+          }
+        });
+      }
+    });
 
     // 3. On-Demand 3D Mode Triggers
     ["open3DModeBtn", "heroOpen3DBtn", "artemisOpen3DBtn"].forEach((id) => {
@@ -264,10 +266,13 @@ class EchoesOfTheMoonApp {
     });
 
     // 4. Ambient Sound Toggle
-    document.getElementById("ambientSoundBtn").addEventListener("click", () => {
-      this.audio.toggleAmbient();
-      this.updateAmbientUI();
-    });
+    const ambientSoundBtn = document.getElementById("ambientSoundBtn");
+    if (ambientSoundBtn) {
+      ambientSoundBtn.addEventListener("click", () => {
+        this.audio.toggleAmbient();
+        this.updateAmbientUI();
+      });
+    }
 
     // 5. Lateral Travel Navigation in 3D Mode
     document.getElementById("prevStationBtn").addEventListener("click", () => {
@@ -308,11 +313,14 @@ class EchoesOfTheMoonApp {
       this.closeStoryView();
     });
 
-    document.getElementById("returnToWalkBrand").addEventListener("click", () => {
-      if (this.isStoryOpen) {
-        this.closeStoryView();
-      }
-    });
+    const returnToWalkBrand = document.getElementById("returnToWalkBrand");
+    if (returnToWalkBrand) {
+      returnToWalkBrand.addEventListener("click", () => {
+        if (this.isStoryOpen) {
+          this.closeStoryView();
+        }
+      });
+    }
 
     document.getElementById("storyDrawer").addEventListener("click", (e) => {
       if (e.target.id === "storyDrawer") {
@@ -964,6 +972,7 @@ class EchoesOfTheMoonApp {
   updateAmbientUI() {
     const btn = document.getElementById("ambientSoundBtn");
     const txt = document.getElementById("ambientSoundText");
+    if (!btn || !txt) return;
     const isOn = this.audio.ambientRunning;
     btn.classList.toggle("active", isOn);
     txt.textContent =
@@ -987,12 +996,14 @@ class EchoesOfTheMoonApp {
     document.getElementById("navAgeTeen").textContent = isPt ? "Adolescente" : "Teen";
     document.getElementById("navAgeAdult").textContent = isPt ? "Adulto" : "Adult";
     document.getElementById("open3DModeBtn").textContent = isPt ? "Explorar em 3D" : "Explore in 3D";
-    const reopenSettingsBtn = document.getElementById("reopenSettingsBtn");
-    if (reopenSettingsBtn) {
-      const settingsLabel = isPt ? "Perfil e Idioma" : "Profile & Language";
-      reopenSettingsBtn.setAttribute("title", settingsLabel);
-      reopenSettingsBtn.setAttribute("aria-label", settingsLabel);
-    }
+    const settingsLabel = isPt ? "Perfil e Idioma" : "Profile & Language";
+    ["reopenSettingsBtn", "reopenSettings3DBtn"].forEach((btnId) => {
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        btn.setAttribute("title", settingsLabel);
+        btn.setAttribute("aria-label", settingsLabel);
+      }
+    });
 
     document.getElementById("heroTeleTop").textContent = isPt
       ? "384.400 KM  •  1/6 GRAVIDADE"
@@ -1228,12 +1239,16 @@ class EchoesOfTheMoonApp {
     this.renderEditorialSite();
 
     // 2. Update Topbar Pills
-    document.getElementById("museumTitleText").textContent = isPt
-      ? "MUSEU DO SILÊNCIO LUNAR"
-      : "THE SILENT LUNAR MUSEUM";
-    document.getElementById("topAgeChild").textContent = isPt ? "Criança" : "Child";
-    document.getElementById("topAgeTeen").textContent = isPt ? "Adolescente" : "Teen";
-    document.getElementById("topAgeAdult").textContent = isPt ? "Adulto" : "Adult";
+    const museumTitleEl = document.getElementById("museumTitleText");
+    if (museumTitleEl) {
+      museumTitleEl.textContent = "MUSEUM OF LOST SPACE TECHNOLOGY";
+    }
+    const topChildEl = document.getElementById("topAgeChild");
+    const topTeenEl = document.getElementById("topAgeTeen");
+    const topAdultEl = document.getElementById("topAgeAdult");
+    if (topChildEl) topChildEl.textContent = isPt ? "Criança" : "Child";
+    if (topTeenEl) topTeenEl.textContent = isPt ? "Adolescente" : "Teen";
+    if (topAdultEl) topAdultEl.textContent = isPt ? "Adulto" : "Adult";
     this.updateAmbientUI();
 
     const badgeBtn = document.getElementById("missionProgressBadge");
