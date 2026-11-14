@@ -14,6 +14,7 @@ window.MUSEUM_TEXTURES = {
 // Complete Bilingual (PT / EN) & Age-Adaptive (Child / Teen / Adult) Dataset
 // Grounded in official NASA archival research & mission reports
 // ============================================================================
+
 const UI_TEXT = {
   pt: {
     museumTitle: "MUSEU DO SILÊNCIO LUNAR",
@@ -188,6 +189,7 @@ const UI_TEXT = {
     }
   }
 };
+
 const ARTIFACTS = [
   // ==========================================================================
   // 1. LUNAR LASER RANGING RETROREFLECTOR (LRRR - APOLLO 11)
@@ -1123,6 +1125,7 @@ const ARTIFACTS = [
     }
   }
 ];
+
 const QUIZ_QUESTIONS = {
   pt: [
     {
@@ -1233,6 +1236,7 @@ const QUIZ_QUESTIONS = {
 // Uses Web Audio API (procedural space drone & Apollo Quindar tones)
 // and Web Speech API (bilingual PT-BR / EN-US first-person narration)
 // ============================================================================
+
 class MuseumAudioEngine {
   constructor() {
     this.ctx = null;
@@ -1547,6 +1551,7 @@ class MuseumAudioEngine {
 // THE SILENT MUSEUM: NASA ENGINEERING BLUEPRINTS (SVG SCHEMATICS)
 // High-precision technical schematics for LRRR, PSE, LRV, and LM-5 EAGLE
 // ============================================================================
+
 function getArtifactBlueprintSVG(artifactId) {
   switch (artifactId) {
     case "lrrr":
@@ -1840,6 +1845,7 @@ function getArtifactBlueprintSVG(artifactId) {
 // THE SILENT MUSEUM: INTERACTIVE SCIENCE LABORATORIES
 // Hands-on physics & engineering simulators for LRRR, PSE, LRV, and EAGLE
 // ============================================================================
+
 class ScienceLabController {
   constructor(container, audioEngine) {
     this.container = container;
@@ -2684,6 +2690,7 @@ class ScienceLabController {
 // - Lightweight single-pass WebGL rendering + 3-point Solar & Earthshine lighting
 // - Photorealistic Earthrise backdrop with Fresnel atmospheric glow
 // ============================================================================
+
 class LunarSurface3D {
   constructor(container, artifacts, callbacks = {}) {
     this.container = container;
@@ -3890,6 +3897,7 @@ class LunarSurface3D {
 // One Focal Point at a Time: Walk on the 3D Moon -> Listen to the Object's Voice
 // -> Open Deep Science & NASA Specs on Demand
 // ============================================================================
+
 const STATION_ORDER = ["lrrr", "pse", "eagle", "lrv"];
 
 class EchoesOfTheMoonApp {
@@ -4230,55 +4238,15 @@ class EchoesOfTheMoonApp {
       : "Open 3D View →";
 
     document.getElementById("storiesKicker").textContent = isPt
-      ? "ARQUIVO DE VOZES LUNARES • 04 MONUMENTOS"
-      : "LUNAR VOICES ARCHIVE • 04 MONUMENTS";
+      ? "04 MONUMENTOS LUNARES"
+      : "04 LUNAR MONUMENTS";
 
-    // Act I Prologue & Interactive Curiosity Hooks
-    document.getElementById("prologueKicker").textContent = isPt
-      ? "ATO I • O SILÊNCIO APÓS A PARTIDA"
-      : "ACT I • THE SILENCE AFTER DEPARTURE";
-    document.getElementById("prologueTitle").textContent = isPt
-      ? "O mundo celebrou quem voltou. Mas quem ficou lá em cima?"
-      : "The world celebrated who returned. But who stayed behind?";
-    document.getElementById("prologueLead").textContent = isPt
-      ? "Quando os astronautas da Apollo decolaram de volta para a Terra, deixaram para trás engenhocas que enfrentaram noites de -170 °C, poeira elétrica e solidão absoluta. Cada uma delas tem uma história — e uma descoberta científica que mudou o que sabemos sobre o universo."
-      : "When the Apollo astronauts lifted off back to Earth, they left behind machines that endured -170 °C nights, static dust, and total silence. Each holds a story — and a scientific breakthrough that reshaped what we know about our universe.";
-    document.getElementById("discoveryProgressText").textContent = isPt
-      ? `Descobertas na expedição: ${this.visitedStations.size} de ${STATION_ORDER.length}`
-      : `Expedition discoveries: ${this.visitedStations.size} of ${STATION_ORDER.length}`;
-
-    const hooksData = isPt
-      ? [
-          { tag: "01 • Óptica & Luz", q: "Como um espelho sem bateria ainda responde a lasers hoje?" },
-          { tag: "02 • Sismologia", q: "Como um sensor sobreviveu a noites lunares de -170 °C?" },
-          { tag: "03 • Pouso Histórico", q: "O que ficou gravado para sempre na escada do Eagle?" },
-          { tag: "04 • Navegação", q: "Como um jipe guiou astronautas na Lua sem GPS ou bússola?" }
-        ]
-      : [
-          { tag: "01 • Optics & Light", q: "How does a batteryless mirror still answer Earth's lasers today?" },
-          { tag: "02 • Seismology", q: "How did a sensor survive -170 °C lunar nights?" },
-          { tag: "03 • Historic Landing", q: "What message remained forever on Eagle's ladder?" },
-          { tag: "04 • Navigation", q: "How did a rover navigate the Moon without GPS or compass?" }
-        ];
-
-    const hooksEl = document.getElementById("curiosityHooksGrid");
-    hooksEl.innerHTML = hooksData
-      .map(
-        (h, idx) => `
-      <button class="curiosity-hook-btn" data-jump-chapter="${idx}">
-        <span class="hook-tag">${h.tag}</span>
-        <strong>${h.q}</strong>
-      </button>
-    `
-      )
-      .join("");
-
-    hooksEl.querySelectorAll("[data-jump-chapter]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const idx = parseInt(btn.getAttribute("data-jump-chapter"), 10);
-        this.jumpToChapterCard(idx);
-      });
-    });
+    const progressTextEl = document.getElementById("discoveryProgressText");
+    if (progressTextEl) {
+      progressTextEl.textContent = isPt
+        ? `Descobertas na expedição: ${this.visitedStations.size} de ${STATION_ORDER.length}`
+        : `Expedition discoveries: ${this.visitedStations.size} of ${STATION_ORDER.length}`;
+    }
 
     const learningTakeaways = {
       lrrr: {
@@ -4333,9 +4301,12 @@ class EchoesOfTheMoonApp {
     document.getElementById("storiesHeading").textContent = isPt
       ? "Abandonados, mas nunca esquecidos."
       : "Abandoned, but never forgotten.";
-    document.getElementById("storiesSubheading").textContent = isPt
-      ? "Escolha a faixa etária no topo da página para adaptar o tom de cada narrativa — de curioso e lúdico a científico e poético."
-      : "Choose an age group at the top to adapt each narrative's voice — from playful and curious to poetic and scientific.";
+    const subheadingEl = document.getElementById("storiesSubheading");
+    if (subheadingEl) {
+      subheadingEl.textContent = isPt
+        ? "Escolha a faixa etária no topo da página para adaptar o tom de cada narrativa."
+        : "Choose an age group at the top to adapt each narrative's voice.";
+    }
 
     document.getElementById("artemisKicker").textContent = isPt
       ? "DO PASSADO APOLLO AO FUTURO ARTEMIS"
@@ -4367,50 +4338,27 @@ class EchoesOfTheMoonApp {
       const visitedClass = this.visitedStations.has(id) ? "is-visited" : "";
       return `
         <button class="showcase-tab-btn ${activeClass} ${visitedClass}" data-showcase-tab="${idx}" style="--tab-accent: ${tabArt.accentColor}">
-          <span class="showcase-tab-kicker">0${idx + 1} • ${tabArt.mission.toUpperCase()}</span>
-          <span class="showcase-tab-title">${tabLoc.shortName || tabLoc.name}</span>
+          <span class="showcase-tab-title">0${idx + 1} · ${tabLoc.shortName || tabLoc.name}</span>
         </button>
       `;
     }).join("");
 
     listEl.innerHTML = `
       <div class="showcase-tabs-bar">${tabsHtml}</div>
-      <article id="chapter-card-${activeIdx}" class="editorial-chapter-card showcase-stage" style="--card-accent: ${item.accentColor}">
+      <article id="chapter-card-${activeIdx}" class="editorial-chapter-card exhibit-open-stage showcase-stage" style="--card-accent: ${item.accentColor}">
         <div class="chapter-media-wrap">
           <img src="${item.imagePath}" alt="${itemLoc.name}" />
-          <span class="chapter-index-badge">0${activeIdx + 1} / 04 • ${item.mission.toUpperCase()}</span>
-          <span class="showcase-coords-pill">${item.coordinates.display}</span>
         </div>
         <div class="chapter-body-col">
-          <span class="chapter-meta-line">${item.datePlaced} • ${statusLabel}</span>
+          <span class="chapter-meta-line">${item.mission.toUpperCase()} · ${item.datePlaced}</span>
           <h3>${itemLoc.name}</h3>
-          <p class="chapter-persona">"${itemLoc.personaTitle}"</p>
           <p class="showcase-excerpt">${excerpt}</p>
-          <div class="chapter-learning-pill">
-            <small>${isPt ? "O que você aprende aqui" : "What you learn here"}</small>
-            <p>${takeaway}</p>
-          </div>
           <div class="chapter-actions-row">
-            <button class="btn-chapter-voice" data-voice-idx="${activeIdx}">
-              ${isPt ? "Ouvir Voz" : "Hear Voice"}
-            </button>
             <button class="btn-chapter-primary" data-read-idx="${activeIdx}">
-              ${isPt ? "História Completa" : "Full Story"}
+              ${isPt ? "Ler & Ouvir História" : "Read & Hear Story"}
             </button>
-            <button class="btn-chapter-ghost" data-sci-idx="${activeIdx}">
-              ${isPt ? "Ciência & NASA" : "Science & NASA"}
-            </button>
-            <button class="btn-chapter-ghost" data-3d-idx="${activeIdx}">
-              ${isPt ? "Ver em 3D →" : "View in 3D →"}
-            </button>
-          </div>
-          <div class="showcase-footer-nav">
-            <button class="showcase-step-btn" id="showcasePrevBtn">
-              ← ${isPt ? "Anterior" : "Previous"}
-            </button>
-            <span class="showcase-step-counter">0${activeIdx + 1} / 0${STATION_ORDER.length}</span>
-            <button class="showcase-step-btn" id="showcaseNextBtn">
-              ${isPt ? "Próximo" : "Next"} →
+            <button class="btn-chapter-link" data-3d-idx="${activeIdx}">
+              ${isPt ? "Explorar em 3D →" : "Explore in 3D →"}
             </button>
           </div>
         </div>
@@ -4423,18 +4371,6 @@ class EchoesOfTheMoonApp {
         this.audio.playPing(840, 0.07);
         this.renderUI();
       });
-    });
-
-    document.getElementById("showcasePrevBtn").addEventListener("click", () => {
-      this.stationIndex = (this.stationIndex - 1 + STATION_ORDER.length) % STATION_ORDER.length;
-      this.audio.playPing(780, 0.07);
-      this.renderUI();
-    });
-
-    document.getElementById("showcaseNextBtn").addEventListener("click", () => {
-      this.stationIndex = (this.stationIndex + 1) % STATION_ORDER.length;
-      this.audio.playPing(860, 0.07);
-      this.renderUI();
     });
 
     // Bind dynamic card actions

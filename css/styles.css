@@ -2058,7 +2058,9 @@ button {
 .showcase-tabs-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 4px;
 }
 
 .showcase-tab-btn {
@@ -2067,24 +2069,26 @@ button {
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 14px 16px;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -5px;
   text-align: left;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.58;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
 }
 
 .showcase-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.055);
-  border-color: rgba(255, 255, 255, 0.18);
-  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .showcase-tab-btn.active {
-  background: linear-gradient(155deg, rgba(20, 32, 58, 0.85), rgba(8, 12, 24, 0.95));
-  border-color: var(--tab-accent, rgba(96, 165, 250, 0.65));
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  opacity: 1;
+  background: transparent;
+  border-bottom-color: var(--tab-accent, #60a5fa);
+  box-shadow: none;
 }
 
 .showcase-tab-kicker {
@@ -2231,6 +2235,70 @@ button {
 .editorial-chapter-card:hover {
   border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
+}
+
+/* Open Editorial Exhibit (No heavy outer box) */
+.editorial-chapter-card.exhibit-open-stage {
+  grid-template-columns: 1.12fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  padding: 28px 0 8px;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.editorial-chapter-card.exhibit-open-stage:hover {
+  border-color: transparent;
+  transform: none;
+}
+
+.exhibit-open-stage .chapter-media-wrap {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.72);
+}
+
+.exhibit-science-note {
+  border-left: 2px solid var(--card-accent, #60a5fa);
+  padding: 2px 0 2px 16px;
+  margin: 4px 0;
+}
+
+.exhibit-science-note small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--card-accent, #60a5fa);
+  margin-bottom: 4px;
+}
+
+.exhibit-science-note p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+.btn-chapter-link {
+  padding: 8px 4px;
+  background: transparent;
+  border: none;
+  color: #93c5fd;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-chapter-link:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.section-header-block .discovery-progress-pill {
+  margin-top: 22px;
 }
 
 .editorial-chapter-card.is-reversed .chapter-media-wrap {
