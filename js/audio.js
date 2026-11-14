@@ -310,4 +310,63 @@ export class MuseumAudioEngine {
     if (this.onParagraphChange) this.onParagraphChange(-1);
     if (this.onSpeechEnd) this.onSpeechEnd();
   }
+
+  /**
+   * Procedural realistic paper page-turn sound via filtered noise + soft settle thud
+   */
+  playPageTurnSound(forward = true) {
+    try {
+      this.initContext();
+      if (this.ctx.state === "suspended") {
+        this.ctx.resume();
+      }
+      const now = this.ctx.currentTime;
+      const duration = 0.24;
+      const sampleRate = this.ctx.sampleRate;
+      const bufferSize = Math.floor(sampleRate * duration);
+      const buffer = this.ctx.createBuffer(1, bufferSize, sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        const env = Math.sin((i / bufferSize) * Math.PI);
+        data[i] = (Math.random() * 2 - 1) * env;
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.Q.value = 1.1;
+      filter.frequency.setValueAtTime(forward ? 950 : 2300, now);
+      filter.frequency.exponentialRampToValueAtTime(forward ? 2500 : 880, now + duration);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.14, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+      noise.start(now);
+      noise.stop(now + duration);
+
+      // Soft paper settle thud at the end of the turn
+      const thudOsc = this.ctx.createOscillator();
+      const thudGain = this.ctx.createGain();
+      thudOsc.type = "sine";
+      thudOsc.frequency.setValueAtTime(125, now + 0.14);
+      thudOsc.frequency.exponentialRampToValueAtTime(60, now + 0.23);
+      thudGain.gain.setValueAtTime(0.001, now + 0.14);
+      thudGain.gain.linearRampToValueAtTime(0.045, now + 0.16);
+      thudGain.gain.exponentialRampToValueAtTime(0.0005, now + 0.24);
+      thudOsc.connect(thudGain);
+      thudGain.connect(this.ctx.destination);
+      thudOsc.start(now + 0.14);
+      thudOsc.stop(now + 0.25);
+    } catch (_) {
+      // Ignore audio errors if blocked
+    }
+  }
 }

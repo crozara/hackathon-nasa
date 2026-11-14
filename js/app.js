@@ -17,6 +17,7 @@ class EchoesOfTheMoonApp {
     this.lang = "pt";
     this.ageProfile = "adult"; // 'child' | 'teen' | 'adult'
     this.stationIndex = 0;
+    this.storyPageIndex = 0;
     this.is3DActive = false;
     this.isStoryOpen = false;
     this.activeSciTab = "anatomy";
@@ -50,6 +51,7 @@ class EchoesOfTheMoonApp {
     this.surface3D = new LunarSurface3D(viewport, ARTIFACTS, {
       onStationChange: (artifactId, idx, inspectMode) => {
         this.stationIndex = idx;
+        this.storyPageIndex = 0;
         this.isStoryOpen = Boolean(inspectMode);
         if (this.isStoryOpen && artifactId) {
           this.visitedStations.add(artifactId);
@@ -203,9 +205,47 @@ class EchoesOfTheMoonApp {
       }
     });
 
+    document.getElementById("storyDrawer").addEventListener("click", (e) => {
+      if (e.target.id === "storyDrawer") {
+        this.closeStoryView();
+      }
+    });
+
+    document.getElementById("bookPrevPageBtn").addEventListener("click", () => {
+      if (this.storyPageIndex > 0) {
+        this.storyPageIndex -= 1;
+        this.audio.playPageTurnSound(false);
+        this.renderStoryDrawer("prev");
+      }
+    });
+
+    document.getElementById("bookNextPageBtn").addEventListener("click", () => {
+      const paragraphs = this.currentArtifact[this.lang].stories[this.ageProfile] || [];
+      const totalPages = Math.max(1, paragraphs.length);
+      if (this.storyPageIndex < totalPages - 1) {
+        this.storyPageIndex += 1;
+        this.audio.playPageTurnSound(true);
+        this.renderStoryDrawer("next");
+      }
+    });
+
+    document.getElementById("storyPrevArtifactBtn").addEventListener("click", () => {
+      const prevIdx = (this.stationIndex - 1 + STATION_ORDER.length) % STATION_ORDER.length;
+      this.storyPageIndex = 0;
+      this.audio.playPageTurnSound(false);
+      if (this.surface3D && this.is3DActive) {
+        this.surface3D.goToStation(prevIdx, true);
+      } else {
+        this.stationIndex = prevIdx;
+        this.visitedStations.add(this.currentArtifact.id);
+        this.renderUI();
+      }
+    });
+
     document.getElementById("storyNextArtifactBtn").addEventListener("click", () => {
       const nextIdx = (this.stationIndex + 1) % STATION_ORDER.length;
-      this.audio.playQuindarTone(true);
+      this.storyPageIndex = 0;
+      this.audio.playPageTurnSound(true);
       if (this.surface3D && this.is3DActive) {
         this.surface3D.goToStation(nextIdx, true);
       } else {
@@ -322,6 +362,7 @@ class EchoesOfTheMoonApp {
 
   openStoryView() {
     this.isStoryOpen = true;
+    this.storyPageIndex = 0;
     this.visitedStations.add(this.currentArtifact.id);
     this.audio.playQuindarTone(true);
     if (this.surface3D && this.is3DActive) {
@@ -785,7 +826,12 @@ class EchoesOfTheMoonApp {
           <p class="showcase-excerpt">${excerpt}</p>
           <div class="chapter-actions-row">
             <button class="btn-chapter-primary" data-read-idx="${activeIdx}">
-              ${isPt ? "Ler & Ouvir História" : "Read & Hear Story"}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+              </svg>
+              <span>${isPt ? "Ler & Ouvir História" : "Read & Hear Story"}</span>
             </button>
             <button class="btn-chapter-link" data-3d-idx="${activeIdx}">
               ${isPt ? "Explorar em 3D →" : "Explore in 3D →"}
@@ -965,7 +1011,7 @@ class EchoesOfTheMoonApp {
     }
   }
 
-  renderStoryDrawer() {
+  renderStoryDrawer(turnDir = null) {
     const isPt = this.lang === "pt";
     const art = this.currentArtifact;
     const loc = art[this.lang];
@@ -976,12 +1022,22 @@ class EchoesOfTheMoonApp {
         ? "Voltar à Cena 3D"
         : "Back to 3D View"
       : isPt
-      ? "Fechar História"
-      : "Close Story";
+      ? "Fechar Livro"
+      : "Close Book";
+    const chapterNum = `0${this.stationIndex + 1}`;
+    const chapterTotal = `0${STATION_ORDER.length}`;
     document.getElementById("storyStatusTag").textContent = t.statusLabels[art.statusType];
-    document.getElementById("storyCodeMeta").textContent = `${art.mission.toUpperCase()} • ${art.datePlaced} • ${art.coordinates.display}`;
+    document.getElementById("storyCodeMeta").textContent = isPt
+      ? `CAPÍTULO ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`
+      : `CHAPTER ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`;
     document.getElementById("storyMainTitle").textContent = loc.name;
     document.getElementById("storyPersonaSub").textContent = `"${loc.personaTitle}"`;
+
+    const bookImg = document.getElementById("bookArtifactImage");
+    if (bookImg) {
+      bookImg.src = art.imagePath;
+      bookImg.alt = loc.name;
+    }
 
     document.querySelector(".age-chip-child").textContent = isPt ? "Criança" : "Child";
     document.querySelector(".age-chip-teen").textContent = isPt ? "Adolescente" : "Teen";
@@ -989,19 +1045,91 @@ class EchoesOfTheMoonApp {
 
     this.updateSpeechButtons(this.audio.isSpeaking, this.audio.isPaused);
 
-    const paragraphs = loc.stories[this.ageProfile];
+    const paragraphs = loc.stories[this.ageProfile] || [];
+    const perPage = 1;
+    const totalPages = Math.max(1, Math.ceil(paragraphs.length / perPage));
+    if (this.storyPageIndex >= totalPages) this.storyPageIndex = totalPages - 1;
+    if (this.storyPageIndex < 0) this.storyPageIndex = 0;
+
+    const startIdx = this.storyPageIndex * perPage;
+    const pageSlice = paragraphs.slice(startIdx, startIdx + perPage);
+
+    const chapterBridges = {
+      lrrr: {
+        pt: "Enquanto meus prismas seguem respondendo aos lasers da Terra, a poucos metros dali outro guardião da Apollo 11 escutava o coração da Lua bater pela primeira vez...",
+        en: "While my prisms keep answering Earth's lasers, just steps away another Apollo 11 guardian was listening to the Moon's heartbeat for the very first time..."
+      },
+      pse: {
+        pt: "Antes mesmo que eu pudesse registrar o primeiro tremor lunar, uma nave dourada nos trouxe até este solo — e deixou sua base para sempre em Mare Tranquillitatis...",
+        en: "Before I could record a single moonquake, a golden lander carried us to this soil — and left its descent stage forever in Mare Tranquillitatis..."
+      },
+      eagle: {
+        pt: "O Eagle abriu as portas da Lua em 1969. Mas a humanidade logo quis explorar montanhas e crateras mais distantes — e para isso precisou de rodas...",
+        en: "Eagle opened the doorway to the Moon in 1969. Soon humanity wanted to venture farther across mountains and craters — and for that, we needed wheels..."
+      },
+      lrv: {
+        pt: "Das marcas de pneus nas montanhas lunares ao futuro do Programa Artemis: cada equipamento silencioso desta jornada continua guiando nossos próximos passos.",
+        en: "From tire tracks across lunar highlands to the future of the Artemis Program: every silent machine in this journey continues to guide our next giant leaps."
+      }
+    };
+
+    const isLastPage = this.storyPageIndex === totalPages - 1;
+    const bridgeText = chapterBridges[art.id] ? chapterBridges[art.id][this.lang] : "";
+    const bridgeHtml =
+      isLastPage && bridgeText
+        ? `<div class="book-chapter-bridge">
+            <small>${
+              art.id === "lrv"
+                ? isPt
+                  ? "Epílogo da Expedição"
+                  : "Expedition Epilogue"
+                : isPt
+                ? "Conexão com o Próximo Capítulo"
+                : "Next Chapter Connection"
+            }</small>
+            <p>${bridgeText}</p>
+          </div>`
+        : "";
+
     const flow = document.getElementById("storyParagraphsFlow");
-    flow.innerHTML = paragraphs
-      .map((p, idx) => `<p class="story-p" id="sp-${idx}">${p}</p>`)
-      .join("");
+    flow.innerHTML =
+      pageSlice
+        .map((p, offset) => `<p class="story-p" id="sp-${startIdx + offset}">${p}</p>`)
+        .join("") + bridgeHtml;
+
+    const rightPage = document.getElementById("bookRightPage");
+    if (rightPage) {
+      rightPage.classList.remove("book-page-turn-next", "book-page-turn-prev");
+      if (turnDir === "next" || turnDir === "prev") {
+        void rightPage.offsetWidth;
+        rightPage.classList.add(turnDir === "next" ? "book-page-turn-next" : "book-page-turn-prev");
+      }
+    }
+
+    const prevBtn = document.getElementById("bookPrevPageBtn");
+    const nextBtn = document.getElementById("bookNextPageBtn");
+    const pageInd = document.getElementById("bookPageIndicator");
+    if (prevBtn && nextBtn && pageInd) {
+      prevBtn.disabled = this.storyPageIndex === 0;
+      nextBtn.disabled = this.storyPageIndex >= totalPages - 1;
+      prevBtn.textContent = isPt ? "← Página Anterior" : "← Previous Page";
+      nextBtn.textContent = isPt ? "Próxima Página →" : "Next Page →";
+      pageInd.textContent = isPt
+        ? `Página ${this.storyPageIndex + 1} de ${totalPages}`
+        : `Page ${this.storyPageIndex + 1} of ${totalPages}`;
+    }
 
     document.getElementById("storyQuoteHighlight").textContent = `"${loc.quote}"`;
     document.getElementById("openScienceBtnText").textContent = isPt
       ? "Ver Ciência, Fotografia & Ficha Técnica"
       : "View Science, Photo & NASA Tech Specs";
+    const prevArtText = document.getElementById("storyPrevArtifactText");
+    if (prevArtText) {
+      prevArtText.textContent = isPt ? "Capítulo Anterior" : "Previous Chapter";
+    }
     document.getElementById("storyNextArtifactText").textContent = isPt
-      ? "Próximo Equipamento"
-      : "Next Equipment";
+      ? "Próximo Capítulo"
+      : "Next Chapter";
   }
 
   updateSpeechButtons(isSpeaking, isPaused) {
@@ -1028,9 +1156,21 @@ class EchoesOfTheMoonApp {
   }
 
   highlightParagraph(idx) {
-    document.querySelectorAll(".story-p").forEach((el, i) => {
-      el.classList.toggle("speaking-now", i === idx);
-      if (i === idx) {
+    if (idx < 0) {
+      document.querySelectorAll(".story-p").forEach((el) => el.classList.remove("speaking-now"));
+      return;
+    }
+    const targetPage = idx;
+    if (targetPage !== this.storyPageIndex) {
+      const forward = targetPage > this.storyPageIndex;
+      this.storyPageIndex = targetPage;
+      this.audio.playPageTurnSound(forward);
+      this.renderStoryDrawer(forward ? "next" : "prev");
+    }
+    document.querySelectorAll(".story-p").forEach((el) => {
+      const isMatch = el.id === `sp-${idx}`;
+      el.classList.toggle("speaking-now", isMatch);
+      if (isMatch) {
         el.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     });

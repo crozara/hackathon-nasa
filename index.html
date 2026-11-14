@@ -210,21 +210,15 @@
   </div>
 
   <!-- ========================================================================
-       SHARED STORY READING DRAWER (WORKS FROM STATIC SITE & 3D MODE)
+       SHARED OPEN-BOOK STORY READER (WORKS FROM STATIC SITE & 3D MODE)
        ======================================================================== -->
   <aside class="story-reading-drawer hidden" id="storyDrawer">
     <div class="story-drawer-inner">
       <div class="drawer-top-nav">
         <button class="btn-back-walk" id="closeStoryBtn">
-          ← <span id="backToWalkText">Fechar História</span>
+          ← <span id="backToWalkText">Fechar Livro</span>
         </button>
         <span class="status-tag" id="storyStatusTag">ATIVO HOJE</span>
-      </div>
-
-      <div class="story-header-block">
-        <span class="story-code-meta" id="storyCodeMeta">APOLLO 11 • 20 JUL 1969</span>
-        <h1 id="storyMainTitle">Retrorefletor Lunar da Apollo 11</h1>
-        <p class="story-persona-sub" id="storyPersonaSub">"O Espelho Imortal que Conversa com a Luz"</p>
       </div>
 
       <div class="story-audio-bar">
@@ -242,11 +236,38 @@
         </div>
       </div>
 
-      <div class="story-paragraphs-flow" id="storyParagraphsFlow"></div>
+      <div class="book-spread-grid">
+        <div class="book-page book-page-left">
+          <div class="story-header-block">
+            <span class="story-code-meta" id="storyCodeMeta">APOLLO 11 • 20 JUL 1969</span>
+            <h1 id="storyMainTitle">Retrorefletor Lunar da Apollo 11</h1>
+            <p class="story-persona-sub" id="storyPersonaSub">"O Espelho Imortal que Conversa com a Luz"</p>
+          </div>
 
-      <blockquote class="story-quote-highlight" id="storyQuoteHighlight"></blockquote>
+          <div class="book-media-frame">
+            <img id="bookArtifactImage" src="assets/images/lrrr.jpg" alt="" />
+          </div>
+
+          <blockquote class="story-quote-highlight" id="storyQuoteHighlight"></blockquote>
+        </div>
+
+        <div class="book-spine-crease" aria-hidden="true"></div>
+
+        <div class="book-page book-page-right" id="bookRightPage">
+          <div class="story-paragraphs-flow" id="storyParagraphsFlow"></div>
+
+          <div class="book-page-nav">
+            <button class="book-page-btn" id="bookPrevPageBtn">← Anterior</button>
+            <span class="book-page-indicator" id="bookPageIndicator">Página 1 de 2</span>
+            <button class="book-page-btn" id="bookNextPageBtn">Próxima →</button>
+          </div>
+        </div>
+      </div>
 
       <div class="story-footer-actions">
+        <button class="book-page-btn" id="storyPrevArtifactBtn">
+          ← <span id="storyPrevArtifactText">Equipamento Anterior</span>
+        </button>
         <button class="btn-deep-science" id="openScienceModalBtn">
           <span id="openScienceBtnText">Ver Ciência, Fotografia &amp; Ficha Técnica</span>
         </button>

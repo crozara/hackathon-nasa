@@ -693,19 +693,22 @@ const ARTIFACTS = [
           "Bip-bip! Quer dar uma carona comigo pelas montanhas da Lua? Eu sou o Lunar Roving Vehicle — o famoso 'Moon Buggy' ou Jipe Lunar! Antes de mim, na Apollo 11, os astronautas só podiam andar a pé pertinho da nave para o oxigênio não acabar. Então a NASA construiu a mim e aos meus irmãos das missões Apollo 15, 16 e 17!",
           "Para caber dentro da nave espacial, eu fiz mágica: viajei todo dobradinho como um origami de alumínio! Quando chegamos na Lua, os astronautas puxaram meus cabos e, em só 7 minutinhos, pluft: me abriram! Eu peso só 35 quilinhos na gravidade da Lua, mas sou tão forte que consigo carregar mais que o dobro do meu próprio peso em astronautas, ferramentas e pedras lunares!",
           "Minhas rodas não têm pneu de borracha (porque borracha estragaria no frio e calor da Lua). Elas são tecidas com fios de aço de corda de piano! E eu não tenho volante redondo: sou guiado por uma alavanca em formato de 'T', igual a um joystick de videogame! Na Apollo 15, os astronautas David Scott e James Irwin até fingiram pelo rádio que meu cinto de segurança tinha estragado só para parar escondidos e pegar uma pedra cheia de bolinhas chamada 'Basalto do Cinto de Segurança'!",
-          "E sabe qual foi minha missão mais emocionante? No último dia da Apollo 17, em 1972, eles me estacionaram virado para a nave e deixaram minha câmera de TV colorida ligada. Lá da Terra, um controlador chamado Ed Fendell moveu meu 'olho' para cima e eu filmei ao vivo meus amigos subindo de volta para o planeta azul! Depois que eles sumiram nas estrelas, fiquei aqui em silêncio, com as marcas dos meus pneus desenhadas na poeira onde o vento nunca sopra. Eu não fui esquecido: só fiquei guardando a vaga até vocês voltarem!"
+          "E sabe qual foi minha missão mais emocionante? No último dia da Apollo 17, em 1972, eles me estacionaram virado para a nave e deixaram minha câmera de TV colorida ligada. Lá da Terra, um controlador chamado Ed Fendell moveu meu 'olho' para cima e eu filmei ao vivo meus amigos subindo de volta para o planeta azul!",
+          "Depois que eles sumiram nas estrelas, fiquei aqui em silêncio, com as marcas dos meus pneus desenhadas na poeira onde o vento nunca sopra. Eu não fui esquecido: só fiquei guardando a vaga até vocês voltarem!"
         ],
         teen: [
           "Eles me trouxeram dobrado como um origami de alumínio no ventre do Módulo Lunar, ocupando apenas 1,67 × 1,52 × 0,91 metros. Quando tocaram o solo cinzento, puxaram meu sistema de cabos e polias e, em sete minutos, ganhei forma: 3,1 metros de comprimento, quatro motores elétricos independentes de 36 volts (baterias de prata-zinco) e quatro rodas de 81 cm tecidas com fios de aço de mola musical (piano wire) e tiras de titânio!",
           "Antes de mim, os astronautas andavam presos a uma coleira invisível pelo limite de oxigênio: a Apollo 11 coletou 21 kg em duas horas a pé. Comigo, nas missões Apollo 15, 16 e 17, a exploração explodiu para 90,5 km rodados no total! Só na estreia na Apollo 15, percorri 27,9 km (4 vezes mais que as três missões anteriores juntas!) e trouxe 77,31 kg de rochas. E na Apollo 15 ainda fui cúmplice de uma travessura histórica: com o tempo curto, David Scott e James Irwin fingiram para Houston um problema no meu cinto de segurança só para parar e recolher escondidos um basalto vulcânico cheio de vesículas — o famoso 'Seatbelt Basalt'!",
           "Como a Lua não tem campo magnético para bússola nem satélites de GPS, como a Apollo 17 conseguiu se afastar 7,6 km da nave (rodando 35,9 km no total, mesmo depois de consertarem meu para-lama quebrado com mapas e fita adesiva)? Meu painel tinha um computador de navegação com giroscópio direcional e odômetros em cada roda. A cada giro, eu calculava exatamente a direção e a distância em linha reta de volta para o Módulo Lunar — o 'fio de Ariadne' que garantia o caminho para casa.",
-          "Meu último ato foi de arrepiar: em 14 de dezembro de 1972, quando Jack Schmitt disse a última palavra na Lua ('Ignition') e o módulo Challenger disparou os motores no vale Taurus-Littrow, Ed Fendell, sentado em Houston, operou remotamente minha câmera de TV colorida (compensando o atraso de sinal da Lua) para inclinar minha lente para cima e transmitir ao vivo a despedida da humanidade. Hoje a sonda LRO fotografa a mim e aos meus rastros intocados a 27 cm por pixel, protegidos por uma Zona de Exclusão da NASA de 225 metros!"
+          "Meu último ato foi de arrepiar: em 14 de dezembro de 1972, quando Jack Schmitt disse a última palavra na Lua ('Ignition') e o módulo Challenger disparou os motores no vale Taurus-Littrow, Ed Fendell, sentado em Houston, operou remotamente minha câmera de TV colorida (compensando o atraso de sinal da Lua) para inclinar minha lente para cima e transmitir ao vivo a despedida da humanidade.",
+          "Hoje a sonda LRO fotografa a mim e aos meus rastros intocados a 27 cm por pixel, protegidos por uma Zona de Exclusão da NASA de 225 metros!"
         ],
         adult: [
           "Eles me trouxeram dobrado como um origami de alumínio no ventre de uma águia de metal. Quando tocaram o solo cinzento, puxaram meus cabos e, em sete minutos, ganhei forma, quatro rodas de fios de piano e um coração elétrico de trinta e seis volts.",
           "Antes de mim, os humanos andavam presos a uma coleira invisível: o medo de que o oxigênio acabasse longe demais de casa. Comigo, eles ganharam horizontes. Pesando apenas 210 kg na Terra (35 kg na gravidade lunar de 1/6), fui projetado para carregar até 490 kg adicionais — mais que o dobro do meu próprio peso em sonhos, ferramentas e rochas de bilhões de anos. Ao longo das missões Apollo 15 (Hadley-Apennine), Apollo 16 (Descartes) e Apollo 17 (Taurus-Littrow), nós três somamos 90,5 quilômetros rodados, subindo encostas de até 45° com motores individuais em cada roda e manche em formato de 'T'.",
           "Ouvi o riso de David Scott e James Irwin na Apollo 15 quando fingiram consertar meu cinto de segurança só para apanhar uma pedra vulcânica no caminho — o eterno 'Seatbelt Basalt'. Senti na Apollo 17 o improviso genial de Eugene Cernan e Jack Schmitt consertando meu para-lama traseiro direito contra a chuva de poeira abrasiva. E sempre — a cada centímetro rodado em um mundo sem campo magnético nem GPS — meu giroscópio direcional e meus odômetros funcionaram como o fio de Ariadne, guardando em silêncio a direção e a distância exatas em linha reta de volta para casa, mesmo a 7,6 km de distância do módulo.",
-          "No último dia, em 14 de dezembro de 1972, eles limparam a poeira do meu painel e me estacionaram a uma distância segura. Não puxaram um freio de esquecimento; deixaram minha câmera ligada e minha antena dourada apontada para a Terra. Quando Jack Schmitt pronunciou 'Ignition' e o clarão do motor rasgou o silêncio do vale de Taurus-Littrow, meus olhos de vidro se ergueram para o céu negro, guiados remotamente lá de Houston por Edward 'Ed' Fendell, para assistir aos meus amigos virarem uma estrela subindo de volta para o mundo azul. A bateria esfriou. O longo inverno de 170 graus negativos chegou, seguido pelo sol escaldante, milhares de vezes. Mas se você olhar lá de cima hoje pelas lentes da sonda LRO, verá que meus rastros continuam intocados na poeira onde o vento não sopra, protegidos pelas Zonas de Exclusão da NASA. Eu não fui abandonado. Eu apenas fiquei guardando a vaga até vocês voltarem."
+          "No último dia, em 14 de dezembro de 1972, eles limparam a poeira do meu painel e me estacionaram a uma distância segura. Não puxaram um freio de esquecimento; deixaram minha câmera ligada e minha antena dourada apontada para a Terra. Quando Jack Schmitt pronunciou 'Ignition' e o clarão do motor rasgou o silêncio do vale de Taurus-Littrow, meus olhos de vidro se ergueram para o céu negro, guiados remotamente lá de Houston por Edward 'Ed' Fendell, para assistir aos meus amigos virarem uma estrela subindo de volta para o mundo azul.",
+          "A bateria esfriou. O longo inverno de 170 graus negativos chegou, seguido pelo sol escaldante, milhares de vezes. Mas se você olhar lá de cima hoje pelas lentes da sonda LRO, verá que meus rastros continuam intocados na poeira onde o vento não sopra, protegidos pelas Zonas de Exclusão da NASA. Eu não fui abandonado. Eu apenas fiquei guardando a vaga até vocês voltarem."
         ]
       },
       missionContext:
@@ -806,19 +809,22 @@ const ARTIFACTS = [
           "Beep-beep! Want to go for a ride across the mountains of the Moon? I am the Lunar Roving Vehicle — the famous 'Moon Buggy'! Before me, on Apollo 11, astronauts could only walk a short distance on foot so their oxygen wouldn't run out. So NASA built me and my twin brothers for Apollo 15, 16, and 17!",
           "To fit inside the spaceship, I did a magic trick: I traveled folded up tight like an aluminum origami! When we landed on the Moon, the astronauts pulled my cables and in just 7 minutes — pop! — I unfolded into a real electric car! I weigh only 35 kilograms in Moon gravity, yet I'm strong enough to carry more than double my own weight in astronauts, tools, and ancient Moon rocks!",
           "My wheels don't have rubber tires filled with air (rubber would crack in the extreme lunar cold and heat). Instead, they are woven out of piano wire! And instead of a steering wheel, astronauts drove me with a T-shaped joystick between the seats! On Apollo 15, astronauts David Scott and James Irwin even fibbed to Mission Control that my seatbelt was stuck just so they could secretly stop and pick up a bubbly volcanic rock now famous as the 'Seatbelt Basalt'!",
-          "Do you know my most emotional moment? On the final day of Apollo 17 in 1972, they parked me facing the spaceship and left my color TV camera switched on. All the way from Earth, a controller named Ed Fendell tilted my camera lens upward so I could film my friends blasting off back to the blue planet! After they vanished into the stars, I stayed quietly in the valley with my wheel tracks still drawn in the windless dust. I wasn't forgotten — I'm just saving your parking spot until you come back!"
+          "Do you know my most emotional moment? On the final day of Apollo 17 in 1972, they parked me facing the spaceship and left my color TV camera switched on. All the way from Earth, a controller named Ed Fendell tilted my camera lens upward so I could film my friends blasting off back to the blue planet!",
+          "After they vanished into the stars, I stayed quietly in the valley with my wheel tracks still drawn in the windless dust. I wasn't forgotten — I'm just saving your parking spot until you come back!"
         ],
         teen: [
           "They brought me folded like aluminum origami inside the Lunar Module's quadrant bay, packed into just 1.67 × 1.52 × 0.91 meters. Once on the gray regolith, the astronauts pulled my cable-and-pulley deployment system and in seven minutes I took shape: 3.1 meters long, powered by four independent electric wheel motors on two 36-volt silver-zinc batteries, riding on 81 cm wheels woven from music spring piano wire and titanium chevrons!",
           "Before me, astronauts were tethered to their lander by oxygen limits: Apollo 11 covered a short walk in two hours and gathered 21 kg of rock. With me on Apollo 15, 16, and 17, lunar exploration exploded to 90.5 km driven in total! On my very first mission (Apollo 15), I drove 27.9 km (4 times the previous three missions combined!) and hauled 77.31 kg of samples. I even helped pull off a legendary astronaut prank: running behind schedule on Apollo 15, David Scott and James Irwin faked a seatbelt problem on my seat just to stop and grab a vesicular volcanic rock — immortalized at NASA as the 'Seatbelt Basalt'!",
           "Since the Moon has no global magnetic field for a compass and no GPS satellites, how did Apollo 17 venture 7.6 km away from their lander (driving 35.9 km total, even after fixing my broken rear fender with laminated maps and duct tape)? My dashboard carried an autonomous navigation computer using a directional gyroscope and wheel odometers. With every rotation, I calculated our exact bearing and straight-line distance back to the Lunar Module — a digital 'Thread of Ariadne' guaranteeing the way home.",
-          "My final act became space history: on December 14, 1972, when Jack Schmitt spoke the last word on the Moon ('Ignition') and the Challenger ascent stage fired its engine in Taurus-Littrow valley, Edward 'Ed' Fendell in Houston remotely tilted my color TV camera upward (compensating for the Earth–Moon signal delay) to broadcast humanity's departure live. Today, NASA's LRO photographs me and my parallel tire tracks at 27 cm/pixel, protected inside a 225-meter NASA Exclusion Zone!"
+          "My final act became space history: on December 14, 1972, when Jack Schmitt spoke the last word on the Moon ('Ignition') and the Challenger ascent stage fired its engine in Taurus-Littrow valley, Edward 'Ed' Fendell in Houston remotely tilted my color TV camera upward (compensating for the Earth–Moon signal delay) to broadcast humanity's departure live.",
+          "Today, NASA's LRO photographs me and my parallel tire tracks at 27 cm/pixel, protected inside a 225-meter NASA Exclusion Zone!"
         ],
         adult: [
           "They brought me folded like an aluminum origami in the belly of a metal eagle. When they touched the gray soil, they pulled my cables and, in seven minutes, I took shape — four wheels of piano wire and a thirty-six-volt electric heart.",
           "Before me, humans walked tethered to an invisible leash: the fear that oxygen might run out too far from home. With me, they gained horizons. Weighing just 210 kg on Earth (35 kg in the Moon's 1/6 gravity), I was engineered to carry up to 490 kg of payload — more than double my own weight in dreams, geological tools, and billion-year-old rocks. Across Apollo 15 (Hadley-Apennine), Apollo 16 (Descartes), and Apollo 17 (Taurus-Littrow), we three rovers logged 90.5 kilometers, climbing slopes up to 45° with individual hub motors and a T-shaped hand controller.",
           "I heard the laughter of David Scott and James Irwin on Apollo 15 when they pretended to fix my seatbelt just to snatch a vesicular volcanic rock along the trail — the famous 'Seatbelt Basalt'. On Apollo 17, I felt Eugene Cernan and Jack Schmitt improvise an emergency repair on my broken right-rear fender to stop a rooster tail of abrasive lunar dust. And always — with every centimeter rolled across a world without a magnetic field or GPS — my directional gyroscope and wheel odometers served as Ariadne's thread, silently holding the exact straight-line bearing and distance back home.",
-          "On the final day, December 14, 1972, they brushed the dust from my console and parked me at a safe distance. They did not pull a brake of oblivion; they left my camera powered on beneath my golden umbrella antenna. When Jack Schmitt spoke 'Ignition' and the engine flash tore through the silence of Taurus-Littrow valley, my glass eyes tilted toward the black sky, guided remotely from Houston by Edward 'Ed' Fendell, to watch my friends become a rising star heading back to the blue world. My battery grew cold. The long winter of minus 170 degrees arrived, followed by the scorching sun, thousands of times. Yet if you look down through the lens of the Lunar Reconnaissance Orbiter today, you will see my tracks still untouched in the dust where the wind never blows, guarded by NASA's Exclusion Zones. I was not abandoned. I only stayed behind to save your parking spot until you return."
+          "On the final day, December 14, 1972, they brushed the dust from my console and parked me at a safe distance. They did not pull a brake of oblivion; they left my camera powered on beneath my golden umbrella antenna. When Jack Schmitt spoke 'Ignition' and the engine flash tore through the silence of Taurus-Littrow valley, my glass eyes tilted toward the black sky, guided remotely from Houston by Edward 'Ed' Fendell, to watch my friends become a rising star heading back to the blue world.",
+          "My battery grew cold. The long winter of minus 170 degrees arrived, followed by the scorching sun, thousands of times. Yet if you look down through the lens of the Lunar Reconnaissance Orbiter today, you will see my tracks still untouched in the dust where the wind never blows, guarded by NASA's Exclusion Zones. I was not abandoned. I only stayed behind to save your parking spot until you return."
         ]
       },
       missionContext:
@@ -1542,6 +1548,65 @@ class MuseumAudioEngine {
     this.currentParagraphIndex = -1;
     if (this.onParagraphChange) this.onParagraphChange(-1);
     if (this.onSpeechEnd) this.onSpeechEnd();
+  }
+
+  /**
+   * Procedural realistic paper page-turn sound via filtered noise + soft settle thud
+   */
+  playPageTurnSound(forward = true) {
+    try {
+      this.initContext();
+      if (this.ctx.state === "suspended") {
+        this.ctx.resume();
+      }
+      const now = this.ctx.currentTime;
+      const duration = 0.24;
+      const sampleRate = this.ctx.sampleRate;
+      const bufferSize = Math.floor(sampleRate * duration);
+      const buffer = this.ctx.createBuffer(1, bufferSize, sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        const env = Math.sin((i / bufferSize) * Math.PI);
+        data[i] = (Math.random() * 2 - 1) * env;
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.Q.value = 1.1;
+      filter.frequency.setValueAtTime(forward ? 950 : 2300, now);
+      filter.frequency.exponentialRampToValueAtTime(forward ? 2500 : 880, now + duration);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.14, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+      noise.start(now);
+      noise.stop(now + duration);
+
+      // Soft paper settle thud at the end of the turn
+      const thudOsc = this.ctx.createOscillator();
+      const thudGain = this.ctx.createGain();
+      thudOsc.type = "sine";
+      thudOsc.frequency.setValueAtTime(125, now + 0.14);
+      thudOsc.frequency.exponentialRampToValueAtTime(60, now + 0.23);
+      thudGain.gain.setValueAtTime(0.001, now + 0.14);
+      thudGain.gain.linearRampToValueAtTime(0.045, now + 0.16);
+      thudGain.gain.exponentialRampToValueAtTime(0.0005, now + 0.24);
+      thudOsc.connect(thudGain);
+      thudGain.connect(this.ctx.destination);
+      thudOsc.start(now + 0.14);
+      thudOsc.stop(now + 0.25);
+    } catch (_) {
+      // Ignore audio errors if blocked
+    }
   }
 }
 
@@ -3905,6 +3970,7 @@ class EchoesOfTheMoonApp {
     this.lang = "pt";
     this.ageProfile = "adult"; // 'child' | 'teen' | 'adult'
     this.stationIndex = 0;
+    this.storyPageIndex = 0;
     this.is3DActive = false;
     this.isStoryOpen = false;
     this.activeSciTab = "anatomy";
@@ -3938,6 +4004,7 @@ class EchoesOfTheMoonApp {
     this.surface3D = new LunarSurface3D(viewport, ARTIFACTS, {
       onStationChange: (artifactId, idx, inspectMode) => {
         this.stationIndex = idx;
+        this.storyPageIndex = 0;
         this.isStoryOpen = Boolean(inspectMode);
         if (this.isStoryOpen && artifactId) {
           this.visitedStations.add(artifactId);
@@ -4091,9 +4158,47 @@ class EchoesOfTheMoonApp {
       }
     });
 
+    document.getElementById("storyDrawer").addEventListener("click", (e) => {
+      if (e.target.id === "storyDrawer") {
+        this.closeStoryView();
+      }
+    });
+
+    document.getElementById("bookPrevPageBtn").addEventListener("click", () => {
+      if (this.storyPageIndex > 0) {
+        this.storyPageIndex -= 1;
+        this.audio.playPageTurnSound(false);
+        this.renderStoryDrawer("prev");
+      }
+    });
+
+    document.getElementById("bookNextPageBtn").addEventListener("click", () => {
+      const paragraphs = this.currentArtifact[this.lang].stories[this.ageProfile] || [];
+      const totalPages = Math.max(1, paragraphs.length);
+      if (this.storyPageIndex < totalPages - 1) {
+        this.storyPageIndex += 1;
+        this.audio.playPageTurnSound(true);
+        this.renderStoryDrawer("next");
+      }
+    });
+
+    document.getElementById("storyPrevArtifactBtn").addEventListener("click", () => {
+      const prevIdx = (this.stationIndex - 1 + STATION_ORDER.length) % STATION_ORDER.length;
+      this.storyPageIndex = 0;
+      this.audio.playPageTurnSound(false);
+      if (this.surface3D && this.is3DActive) {
+        this.surface3D.goToStation(prevIdx, true);
+      } else {
+        this.stationIndex = prevIdx;
+        this.visitedStations.add(this.currentArtifact.id);
+        this.renderUI();
+      }
+    });
+
     document.getElementById("storyNextArtifactBtn").addEventListener("click", () => {
       const nextIdx = (this.stationIndex + 1) % STATION_ORDER.length;
-      this.audio.playQuindarTone(true);
+      this.storyPageIndex = 0;
+      this.audio.playPageTurnSound(true);
       if (this.surface3D && this.is3DActive) {
         this.surface3D.goToStation(nextIdx, true);
       } else {
@@ -4210,6 +4315,7 @@ class EchoesOfTheMoonApp {
 
   openStoryView() {
     this.isStoryOpen = true;
+    this.storyPageIndex = 0;
     this.visitedStations.add(this.currentArtifact.id);
     this.audio.playQuindarTone(true);
     if (this.surface3D && this.is3DActive) {
@@ -4673,7 +4779,12 @@ class EchoesOfTheMoonApp {
           <p class="showcase-excerpt">${excerpt}</p>
           <div class="chapter-actions-row">
             <button class="btn-chapter-primary" data-read-idx="${activeIdx}">
-              ${isPt ? "Ler & Ouvir História" : "Read & Hear Story"}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+              </svg>
+              <span>${isPt ? "Ler & Ouvir História" : "Read & Hear Story"}</span>
             </button>
             <button class="btn-chapter-link" data-3d-idx="${activeIdx}">
               ${isPt ? "Explorar em 3D →" : "Explore in 3D →"}
@@ -4853,7 +4964,7 @@ class EchoesOfTheMoonApp {
     }
   }
 
-  renderStoryDrawer() {
+  renderStoryDrawer(turnDir = null) {
     const isPt = this.lang === "pt";
     const art = this.currentArtifact;
     const loc = art[this.lang];
@@ -4864,12 +4975,22 @@ class EchoesOfTheMoonApp {
         ? "Voltar à Cena 3D"
         : "Back to 3D View"
       : isPt
-      ? "Fechar História"
-      : "Close Story";
+      ? "Fechar Livro"
+      : "Close Book";
+    const chapterNum = `0${this.stationIndex + 1}`;
+    const chapterTotal = `0${STATION_ORDER.length}`;
     document.getElementById("storyStatusTag").textContent = t.statusLabels[art.statusType];
-    document.getElementById("storyCodeMeta").textContent = `${art.mission.toUpperCase()} • ${art.datePlaced} • ${art.coordinates.display}`;
+    document.getElementById("storyCodeMeta").textContent = isPt
+      ? `CAPÍTULO ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`
+      : `CHAPTER ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`;
     document.getElementById("storyMainTitle").textContent = loc.name;
     document.getElementById("storyPersonaSub").textContent = `"${loc.personaTitle}"`;
+
+    const bookImg = document.getElementById("bookArtifactImage");
+    if (bookImg) {
+      bookImg.src = art.imagePath;
+      bookImg.alt = loc.name;
+    }
 
     document.querySelector(".age-chip-child").textContent = isPt ? "Criança" : "Child";
     document.querySelector(".age-chip-teen").textContent = isPt ? "Adolescente" : "Teen";
@@ -4877,19 +4998,91 @@ class EchoesOfTheMoonApp {
 
     this.updateSpeechButtons(this.audio.isSpeaking, this.audio.isPaused);
 
-    const paragraphs = loc.stories[this.ageProfile];
+    const paragraphs = loc.stories[this.ageProfile] || [];
+    const perPage = 1;
+    const totalPages = Math.max(1, Math.ceil(paragraphs.length / perPage));
+    if (this.storyPageIndex >= totalPages) this.storyPageIndex = totalPages - 1;
+    if (this.storyPageIndex < 0) this.storyPageIndex = 0;
+
+    const startIdx = this.storyPageIndex * perPage;
+    const pageSlice = paragraphs.slice(startIdx, startIdx + perPage);
+
+    const chapterBridges = {
+      lrrr: {
+        pt: "Enquanto meus prismas seguem respondendo aos lasers da Terra, a poucos metros dali outro guardião da Apollo 11 escutava o coração da Lua bater pela primeira vez...",
+        en: "While my prisms keep answering Earth's lasers, just steps away another Apollo 11 guardian was listening to the Moon's heartbeat for the very first time..."
+      },
+      pse: {
+        pt: "Antes mesmo que eu pudesse registrar o primeiro tremor lunar, uma nave dourada nos trouxe até este solo — e deixou sua base para sempre em Mare Tranquillitatis...",
+        en: "Before I could record a single moonquake, a golden lander carried us to this soil — and left its descent stage forever in Mare Tranquillitatis..."
+      },
+      eagle: {
+        pt: "O Eagle abriu as portas da Lua em 1969. Mas a humanidade logo quis explorar montanhas e crateras mais distantes — e para isso precisou de rodas...",
+        en: "Eagle opened the doorway to the Moon in 1969. Soon humanity wanted to venture farther across mountains and craters — and for that, we needed wheels..."
+      },
+      lrv: {
+        pt: "Das marcas de pneus nas montanhas lunares ao futuro do Programa Artemis: cada equipamento silencioso desta jornada continua guiando nossos próximos passos.",
+        en: "From tire tracks across lunar highlands to the future of the Artemis Program: every silent machine in this journey continues to guide our next giant leaps."
+      }
+    };
+
+    const isLastPage = this.storyPageIndex === totalPages - 1;
+    const bridgeText = chapterBridges[art.id] ? chapterBridges[art.id][this.lang] : "";
+    const bridgeHtml =
+      isLastPage && bridgeText
+        ? `<div class="book-chapter-bridge">
+            <small>${
+              art.id === "lrv"
+                ? isPt
+                  ? "Epílogo da Expedição"
+                  : "Expedition Epilogue"
+                : isPt
+                ? "Conexão com o Próximo Capítulo"
+                : "Next Chapter Connection"
+            }</small>
+            <p>${bridgeText}</p>
+          </div>`
+        : "";
+
     const flow = document.getElementById("storyParagraphsFlow");
-    flow.innerHTML = paragraphs
-      .map((p, idx) => `<p class="story-p" id="sp-${idx}">${p}</p>`)
-      .join("");
+    flow.innerHTML =
+      pageSlice
+        .map((p, offset) => `<p class="story-p" id="sp-${startIdx + offset}">${p}</p>`)
+        .join("") + bridgeHtml;
+
+    const rightPage = document.getElementById("bookRightPage");
+    if (rightPage) {
+      rightPage.classList.remove("book-page-turn-next", "book-page-turn-prev");
+      if (turnDir === "next" || turnDir === "prev") {
+        void rightPage.offsetWidth;
+        rightPage.classList.add(turnDir === "next" ? "book-page-turn-next" : "book-page-turn-prev");
+      }
+    }
+
+    const prevBtn = document.getElementById("bookPrevPageBtn");
+    const nextBtn = document.getElementById("bookNextPageBtn");
+    const pageInd = document.getElementById("bookPageIndicator");
+    if (prevBtn && nextBtn && pageInd) {
+      prevBtn.disabled = this.storyPageIndex === 0;
+      nextBtn.disabled = this.storyPageIndex >= totalPages - 1;
+      prevBtn.textContent = isPt ? "← Página Anterior" : "← Previous Page";
+      nextBtn.textContent = isPt ? "Próxima Página →" : "Next Page →";
+      pageInd.textContent = isPt
+        ? `Página ${this.storyPageIndex + 1} de ${totalPages}`
+        : `Page ${this.storyPageIndex + 1} of ${totalPages}`;
+    }
 
     document.getElementById("storyQuoteHighlight").textContent = `"${loc.quote}"`;
     document.getElementById("openScienceBtnText").textContent = isPt
       ? "Ver Ciência, Fotografia & Ficha Técnica"
       : "View Science, Photo & NASA Tech Specs";
+    const prevArtText = document.getElementById("storyPrevArtifactText");
+    if (prevArtText) {
+      prevArtText.textContent = isPt ? "Capítulo Anterior" : "Previous Chapter";
+    }
     document.getElementById("storyNextArtifactText").textContent = isPt
-      ? "Próximo Equipamento"
-      : "Next Equipment";
+      ? "Próximo Capítulo"
+      : "Next Chapter";
   }
 
   updateSpeechButtons(isSpeaking, isPaused) {
@@ -4916,9 +5109,21 @@ class EchoesOfTheMoonApp {
   }
 
   highlightParagraph(idx) {
-    document.querySelectorAll(".story-p").forEach((el, i) => {
-      el.classList.toggle("speaking-now", i === idx);
-      if (i === idx) {
+    if (idx < 0) {
+      document.querySelectorAll(".story-p").forEach((el) => el.classList.remove("speaking-now"));
+      return;
+    }
+    const targetPage = idx;
+    if (targetPage !== this.storyPageIndex) {
+      const forward = targetPage > this.storyPageIndex;
+      this.storyPageIndex = targetPage;
+      this.audio.playPageTurnSound(forward);
+      this.renderStoryDrawer(forward ? "next" : "prev");
+    }
+    document.querySelectorAll(".story-p").forEach((el) => {
+      const isMatch = el.id === `sp-${idx}`;
+      el.classList.toggle("speaking-now", isMatch);
+      if (isMatch) {
         el.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     });
