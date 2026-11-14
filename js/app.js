@@ -1238,19 +1238,16 @@ class EchoesOfTheMoonApp {
     const loc = art[this.lang];
     const t = this.t;
 
-    document.getElementById("backToWalkText").textContent = this.is3DActive
-      ? isPt
-        ? "Voltar à Cena 3D"
-        : "Back to 3D View"
-      : isPt
-      ? "Fechar Livro"
-      : "Close Book";
+    document.getElementById("backToWalkText").textContent = isPt
+      ? "FECHAR TRANSMISSÃO"
+      : "CLOSE TRANSMISSION";
     const chapterNum = `0${this.stationIndex + 1}`;
     const chapterTotal = `0${STATION_ORDER.length}`;
-    document.getElementById("storyStatusTag").textContent = t.statusLabels[art.statusType];
+    const statusTagEl = document.getElementById("storyStatusTag");
+    if (statusTagEl) statusTagEl.textContent = t.statusLabels[art.statusType];
     document.getElementById("storyCodeMeta").textContent = isPt
-      ? `CAPÍTULO ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`
-      : `CHAPTER ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`;
+      ? `SINAL ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`
+      : `SIGNAL ${chapterNum}/${chapterTotal} • ${art.mission.toUpperCase()} • ${art.datePlaced}`;
     document.getElementById("storyMainTitle").textContent = loc.name;
     document.getElementById("storyPersonaSub").textContent = `"${loc.personaTitle}"`;
 
@@ -1260,9 +1257,12 @@ class EchoesOfTheMoonApp {
       bookImg.alt = loc.name;
     }
 
-    document.querySelector(".age-chip-child").textContent = isPt ? "Criança" : "Child";
-    document.querySelector(".age-chip-teen").textContent = isPt ? "Adolescente" : "Teen";
-    document.querySelector(".age-chip-adult").textContent = isPt ? "Adulto" : "Adult";
+    const chipChild = document.querySelector(".age-chip-child");
+    const chipTeen = document.querySelector(".age-chip-teen");
+    const chipAdult = document.querySelector(".age-chip-adult");
+    if (chipChild) chipChild.textContent = isPt ? "Criança" : "Child";
+    if (chipTeen) chipTeen.textContent = isPt ? "Adolescente" : "Teen";
+    if (chipAdult) chipAdult.textContent = isPt ? "Adulto" : "Adult";
 
     this.updateSpeechButtons(this.audio.isSpeaking, this.audio.isPaused);
 
@@ -1327,30 +1327,52 @@ class EchoesOfTheMoonApp {
       }
     }
 
+    const arrowLeftSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>`;
+    const arrowRightSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>`;
+
     const prevBtn = document.getElementById("bookPrevPageBtn");
     const nextBtn = document.getElementById("bookNextPageBtn");
     const pageInd = document.getElementById("bookPageIndicator");
     if (prevBtn && nextBtn && pageInd) {
+      const prevPageLabel = isPt ? "Página Anterior" : "Previous Page";
+      const nextPageLabel = isPt ? "Próxima Página" : "Next Page";
+
       prevBtn.disabled = this.storyPageIndex === 0;
       nextBtn.disabled = this.storyPageIndex >= totalPages - 1;
-      prevBtn.textContent = isPt ? "← Página Anterior" : "← Previous Page";
-      nextBtn.textContent = isPt ? "Próxima Página →" : "Next Page →";
+
+      prevBtn.innerHTML = arrowLeftSvg;
+      prevBtn.setAttribute("aria-label", prevPageLabel);
+      prevBtn.setAttribute("title", prevPageLabel);
+
+      nextBtn.innerHTML = arrowRightSvg;
+      nextBtn.setAttribute("aria-label", nextPageLabel);
+      nextBtn.setAttribute("title", nextPageLabel);
+
       pageInd.textContent = isPt
-        ? `Página ${this.storyPageIndex + 1} de ${totalPages}`
-        : `Page ${this.storyPageIndex + 1} of ${totalPages}`;
+        ? `SINAL ${this.storyPageIndex + 1} / ${totalPages}`
+        : `SIGNAL ${this.storyPageIndex + 1} / ${totalPages}`;
     }
 
     document.getElementById("storyQuoteHighlight").textContent = `"${loc.quote}"`;
     document.getElementById("openScienceBtnText").textContent = isPt
       ? "Ver Ciência, Fotografia & Ficha Técnica"
       : "View Science, Photo & NASA Tech Specs";
-    const prevArtText = document.getElementById("storyPrevArtifactText");
-    if (prevArtText) {
-      prevArtText.textContent = isPt ? "Capítulo Anterior" : "Previous Chapter";
+
+    const prevArtifactBtn = document.getElementById("storyPrevArtifactBtn");
+    const nextArtifactBtn = document.getElementById("storyNextArtifactBtn");
+    const prevChapterLabel = isPt ? "Capítulo Anterior" : "Previous Chapter";
+    const nextChapterLabel = isPt ? "Próximo Capítulo" : "Next Chapter";
+
+    if (prevArtifactBtn) {
+      prevArtifactBtn.innerHTML = arrowLeftSvg;
+      prevArtifactBtn.setAttribute("aria-label", prevChapterLabel);
+      prevArtifactBtn.setAttribute("title", prevChapterLabel);
     }
-    document.getElementById("storyNextArtifactText").textContent = isPt
-      ? "Próximo Capítulo"
-      : "Next Chapter";
+    if (nextArtifactBtn) {
+      nextArtifactBtn.innerHTML = arrowRightSvg;
+      nextArtifactBtn.setAttribute("aria-label", nextChapterLabel);
+      nextArtifactBtn.setAttribute("title", nextChapterLabel);
+    }
   }
 
   updateSpeechButtons(isSpeaking, isPaused) {
@@ -1360,17 +1382,17 @@ class EchoesOfTheMoonApp {
     const wave = document.getElementById("miniWave");
 
     if (!isSpeaking) {
-      playTxt.textContent = isPt ? "Ouvir o Objeto Narrar" : "Listen to Object Narrate";
+      playTxt.textContent = isPt ? "OUVIR TRANSMISSÃO" : "LISTEN TO TRANSMISSION";
       stopBtn.classList.add("hidden");
       wave.classList.remove("playing");
     } else {
       playTxt.textContent = isPaused
         ? isPt
-          ? "Continuar Voz"
-          : "Resume Voice"
+          ? "CONTINUAR TRANSMISSÃO"
+          : "RESUME TRANSMISSION"
         : isPt
-        ? "Pausar Voz"
-        : "Pause Voice";
+        ? "PAUSAR TRANSMISSÃO"
+        : "PAUSE TRANSMISSION";
       stopBtn.classList.remove("hidden");
       wave.classList.toggle("playing", !isPaused);
     }
