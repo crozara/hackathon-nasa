@@ -25,6 +25,8 @@ class EchoesOfTheMoonApp {
     this.visitedStations = new Set();
     this.expandedInlineCards = new Set();
     this._hasRenderedEditorialOnce = false;
+    this._hasSeenMissionLetter = false;
+    this._hasShownCertReward = false;
 
     this.audio = new MuseumAudioEngine();
     this.surface3D = null;
@@ -68,14 +70,21 @@ class EchoesOfTheMoonApp {
     this.audio.stopSpeech(false);
     document.body.classList.add("in-3d-mode");
     document.getElementById("staticMuseumSite").classList.add("hidden");
+    document.getElementById("storyDrawer").classList.add("hidden");
+    document.getElementById("scienceModal").classList.add("hidden");
+    document.getElementById("walkHudDock").classList.remove("hidden");
     document.getElementById("mode3DWrapper").classList.remove("hidden");
 
     this.ensure3DInitialized();
     this.surface3D.onResize();
+    this.surface3D.setInspectMode(false);
     this.surface3D.snapToStation(this.stationIndex, false);
     this.surface3D.descendToSurface();
     this.audio.playQuindarTone(true);
     this.renderUI();
+    if (!this._hasSeenMissionLetter) {
+      this.openMissionLetter();
+    }
   }
 
   exit3DMode() {
@@ -276,6 +285,36 @@ class EchoesOfTheMoonApp {
       this.anatomyMode = "blueprint";
       this.renderAnatomyPane();
     });
+
+    document.getElementById("startExpeditionBtn").addEventListener("click", () => {
+      this.closeMissionLetter();
+    });
+
+    document.getElementById("missionProgressBadge").addEventListener("click", () => {
+      if (this.visitedStations.size >= STATION_ORDER.length) {
+        this.openCertificateModal();
+      } else {
+        this.openMissionLetter();
+      }
+    });
+
+    document.getElementById("closeCertificateBtn").addEventListener("click", () => {
+      this.closeCertificateModal();
+    });
+
+    document.getElementById("certificateModal").addEventListener("click", (e) => {
+      if (e.target.id === "certificateModal") {
+        this.closeCertificateModal();
+      }
+    });
+
+    document.getElementById("certNameInput").addEventListener("input", () => {
+      this.renderCertificateCanvas();
+    });
+
+    document.getElementById("downloadCertBtn").addEventListener("click", () => {
+      this.downloadCertificate();
+    });
   }
 
   openStoryView() {
@@ -301,6 +340,229 @@ class EchoesOfTheMoonApp {
     document.getElementById("storyDrawer").classList.add("hidden");
     document.getElementById("walkHudDock").classList.remove("hidden");
     this.renderUI();
+    if (this.visitedStations.size >= STATION_ORDER.length && !this._hasShownCertReward) {
+      this._hasShownCertReward = true;
+      this.openCertificateModal();
+    }
+  }
+
+  openMissionLetter() {
+    this._hasSeenMissionLetter = true;
+    const isPt = this.lang === "pt";
+    const visited = this.visitedStations.size;
+
+    document.getElementById("letterStamp").textContent = isPt
+      ? "DIÁRIO DE BORDO • MISSÃO APOLLO"
+      : "MISSION LOGBOOK • APOLLO";
+    document.getElementById("letterTitle").textContent = isPt
+      ? "Preparando a sua viagem à Lua, pequeno explorador!"
+      : "Preparing your journey to the Moon, young explorer!";
+    document.getElementById("letterBody").innerHTML = isPt
+      ? `
+        <p>Seja bem-vindo(a) à superfície lunar. Em poucos instantes você caminhará pelo mesmo solo silencioso onde máquinas históricas da NASA permanecem desde 1969.</p>
+        <p>Lembre-se: os modelos 3D que você verá são <strong>representações ilustrativas</strong> criadas para dar vida a essa expedição.</p>
+        <p>Aproveite a jornada, aproxime-se de cada equipamento e <strong>conheça todas as ${STATION_ORDER.length} histórias</strong> (${visited}/${STATION_ORDER.length} descobertas) para desbloquear seu <strong>Certificado Oficial de Explorador Lunar</strong>!</p>
+      `
+      : `
+        <p>Welcome to the lunar surface. In just a moment, you will walk across the same silent soil where historic NASA machines have rested since 1969.</p>
+        <p>Remember: the 3D models ahead are <strong>illustrative representations</strong> crafted to bring this expedition to life.</p>
+        <p>Enjoy the journey, visit each monument, and <strong>discover all ${STATION_ORDER.length} stories</strong> (${visited}/${STATION_ORDER.length} unlocked) to earn your <strong>Official Lunar Explorer Certificate</strong>!</p>
+      `;
+    document.getElementById("letterSignature").textContent = isPt
+      ? "— Curadoria do Museu do Silêncio Lunar"
+      : "— Curators of the Silent Lunar Museum";
+    document.getElementById("startExpeditionBtn").textContent = isPt
+      ? "Iniciar Exploração →"
+      : "Start Exploration →";
+
+    const fill = document.getElementById("letterProgressFill");
+    fill.style.width = "0%";
+    document.getElementById("missionLetterModal").classList.remove("hidden");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fill.style.width = "100%";
+      });
+    });
+  }
+
+  closeMissionLetter() {
+    document.getElementById("missionLetterModal").classList.add("hidden");
+    this.audio.playPing(880, 0.08);
+  }
+
+  openCertificateModal() {
+    const isPt = this.lang === "pt";
+    document.getElementById("certKicker").textContent = isPt
+      ? "MISSÃO CONCLUÍDA • 4/4 HISTÓRIAS DESCOBERTAS"
+      : "MISSION COMPLETE • 4/4 STORIES DISCOVERED";
+    document.getElementById("certModalTitle").textContent = isPt
+      ? "Parabéns, Explorador Lunar!"
+      : "Congratulations, Lunar Explorer!";
+    document.getElementById("certModalSub").textContent = isPt
+      ? "Você ouviu a voz de todos os monumentos da Apollo. Digite seu nome abaixo para personalizar e baixar seu certificado oficial."
+      : "You heard the voice of every Apollo monument. Enter your name below to personalize and download your official certificate.";
+    document.getElementById("certNameInput").placeholder = isPt
+      ? "Seu nome completo..."
+      : "Your full name...";
+    document.getElementById("downloadCertBtn").textContent = isPt
+      ? "Baixar Certificado (PNG)"
+      : "Download Certificate (PNG)";
+
+    document.getElementById("certificateModal").classList.remove("hidden");
+    this.audio.playQuindarTone(true);
+    this.renderCertificateCanvas();
+  }
+
+  closeCertificateModal() {
+    document.getElementById("certificateModal").classList.add("hidden");
+  }
+
+  renderCertificateCanvas() {
+    const canvas = document.getElementById("certificateCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width;
+    const h = canvas.height;
+    const isPt = this.lang === "pt";
+    const rawName = (document.getElementById("certNameInput").value || "").trim();
+    const explorerName = rawName || (isPt ? "Pequeno Explorador Lunar" : "Young Lunar Explorer");
+
+    // Deep space background
+    const bgGrad = ctx.createRadialGradient(w * 0.5, h * 0.35, 80, w * 0.5, h * 0.5, w * 0.72);
+    bgGrad.addColorStop(0, "#0f1c38");
+    bgGrad.addColorStop(0.55, "#060b18");
+    bgGrad.addColorStop(1, "#02040a");
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Subtle stars
+    ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+    for (let i = 0; i < 90; i++) {
+      const sx = ((i * 197 + 43) % w);
+      const sy = ((i * 313 + 71) % h);
+      const sr = (i % 3 === 0) ? 1.6 : 0.9;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Outer & inner frames
+    ctx.strokeStyle = "rgba(251, 191, 36, 0.55)";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(36, 36, w - 72, h - 72);
+
+    ctx.strokeStyle = "rgba(96, 165, 250, 0.35)";
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(52, 52, w - 104, h - 104);
+
+    // Orbital arc motif at top
+    ctx.strokeStyle = "rgba(96, 165, 250, 0.55)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(w / 2, 130, 34, Math.PI * 1.15, Math.PI * 1.85);
+    ctx.stroke();
+    ctx.fillStyle = "#93c5fd";
+    ctx.beginPath();
+    ctx.arc(w / 2 + 26, 106, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Kicker
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#60a5fa";
+    ctx.font = "600 20px monospace";
+    ctx.fillText(
+      isPt ? "MUSEU DO SILÊNCIO LUNAR  •  NASA SPACE APPS" : "SILENT LUNAR MUSEUM  •  NASA SPACE APPS",
+      w / 2,
+      178
+    );
+
+    // Main title
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "italic 58px Georgia, serif";
+    ctx.fillText(
+      isPt ? "Certificado de Explorador Lunar" : "Lunar Explorer Certificate",
+      w / 2,
+      268
+    );
+
+    // Subtitle
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "24px sans-serif";
+    ctx.fillText(
+      isPt ? "Concedido com honra a" : "Proudly awarded to",
+      w / 2,
+      348
+    );
+
+    // Explorer Name
+    ctx.fillStyle = "#fbbf24";
+    ctx.font = "italic bold 64px Georgia, serif";
+    ctx.fillText(explorerName, w / 2, 438);
+
+    // Divider under name
+    ctx.strokeStyle = "rgba(251, 191, 36, 0.4)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.25, 466);
+    ctx.lineTo(w * 0.75, 466);
+    ctx.stroke();
+
+    // Completion body
+    ctx.fillStyle = "#dbe4f0";
+    ctx.font = "25px Georgia, serif";
+    const line1 = isPt
+      ? "por completar a expedição lunar e conhecer as histórias em primeira pessoa"
+      : "for completing the lunar expedition and discovering the first-person stories";
+    const line2 = isPt
+      ? "dos quatro monumentos históricos da NASA deixados na Lua:"
+      : "of the four historic NASA monuments left on the Moon:";
+    ctx.fillText(line1, w / 2, 540);
+    ctx.fillText(line2, w / 2, 580);
+
+    // Artifacts list
+    ctx.fillStyle = "#93c5fd";
+    ctx.font = "600 21px monospace";
+    ctx.fillText(
+      "LRRR (APOLLO 11)  •  PSE (APOLLO 11)  •  EAGLE (APOLLO 11)  •  LRV (APOLLO 15–17)",
+      w / 2,
+      650
+    );
+
+    // Date & Signature footer
+    const today = new Date().toLocaleDateString(isPt ? "pt-BR" : "en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "20px monospace";
+    ctx.fillText(
+      (isPt ? "EMITIDO EM " : "ISSUED ON ") + today.toUpperCase(),
+      w / 2,
+      785
+    );
+
+    ctx.fillStyle = "#e2e8f0";
+    ctx.font = "italic 24px Georgia, serif";
+    ctx.fillText(
+      isPt ? "Abandonados, mas nunca esquecidos." : "Abandoned, but never forgotten.",
+      w / 2,
+      860
+    );
+  }
+
+  downloadCertificate() {
+    this.renderCertificateCanvas();
+    const canvas = document.getElementById("certificateCanvas");
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.download =
+      this.lang === "pt"
+        ? "certificado-explorador-lunar.png"
+        : "lunar-explorer-certificate.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    this.audio.playPing(960, 0.12);
   }
 
   updateAmbientUI() {
@@ -560,6 +822,21 @@ class EchoesOfTheMoonApp {
     document.getElementById("topAgeTeen").textContent = isPt ? "Adolescente" : "Teen";
     document.getElementById("topAgeAdult").textContent = isPt ? "Adulto" : "Adult";
     this.updateAmbientUI();
+
+    const badgeBtn = document.getElementById("missionProgressBadge");
+    const badgeText = document.getElementById("missionProgressBadgeText");
+    if (badgeBtn && badgeText) {
+      const visitedCount = this.visitedStations.size;
+      const unlocked = visitedCount >= STATION_ORDER.length;
+      badgeBtn.classList.toggle("is-unlocked", unlocked);
+      badgeText.textContent = unlocked
+        ? isPt
+          ? "★ Certificado Liberado"
+          : "★ Certificate Unlocked"
+        : isPt
+          ? `Histórias: ${visitedCount}/${STATION_ORDER.length}`
+          : `Stories: ${visitedCount}/${STATION_ORDER.length}`;
+    }
 
     document.querySelectorAll("[data-lang-btn]").forEach((b) => {
       b.classList.toggle("active", b.getAttribute("data-lang-btn") === this.lang);

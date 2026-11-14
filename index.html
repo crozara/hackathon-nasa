@@ -155,6 +155,10 @@
           <button class="pill-btn active" data-age-btn="adult" id="topAgeAdult">Adulto</button>
         </div>
 
+        <button class="glass-icon-btn mission-progress-btn" id="missionProgressBadge" title="Progresso da Expedição">
+          <span id="missionProgressBadgeText">Histórias: 0/4</span>
+        </button>
+
         <button class="glass-icon-btn" id="ambientSoundBtn" title="Som Ambiente Espacial">
           <span id="ambientSoundText">Som OFF</span>
         </button>
@@ -319,6 +323,75 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MISSION WELCOME LETTER MODAL (SHOWN WHEN ENTERING 3D EXPLORER)
+       ======================================================================== -->
+  <div class="mission-letter-backdrop hidden" id="missionLetterModal">
+    <div class="mission-letter-card">
+      <div class="letter-inner-content">
+        <div class="letter-ornament-top">
+          <span class="ornament-line"></span>
+          <span class="letter-stamp" id="letterStamp">DIÁRIO DE BORDO • MISSÃO APOLLO</span>
+          <span class="ornament-line"></span>
+        </div>
+
+        <div class="letter-star-divider" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="letter-seal">✦</span>
+          <span class="ornament-line"></span>
+        </div>
+
+        <h2 class="letter-title" id="letterTitle">Preparando a sua viagem à Lua, pequeno explorador!</h2>
+        <div class="letter-body" id="letterBody"></div>
+
+        <div class="letter-star-divider" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="letter-seal">✦</span>
+          <span class="ornament-line"></span>
+        </div>
+
+        <div class="letter-signature-block">
+          <span class="letter-signature" id="letterSignature">Curadoria do Museu do Silêncio Lunar</span>
+        </div>
+
+        <div class="letter-progress-bar">
+          <div class="letter-progress-fill" id="letterProgressFill"></div>
+        </div>
+
+        <div class="letter-cta-wrap">
+          <button class="btn-letter-start" id="startExpeditionBtn">Iniciar Exploração →</button>
+        </div>
+      </div>
+
+      <div class="letter-moon-horizon" aria-hidden="true">
+        <img src="assets/images/hero-moon.jpg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       LUNAR EXPLORER CERTIFICATE REWARD MODAL (UNLOCKED AT 4/4 STORIES)
+       ======================================================================== -->
+  <div class="certificate-backdrop hidden" id="certificateModal">
+    <div class="certificate-modal-card">
+      <button class="btn-close-modal cert-close-btn" id="closeCertificateBtn">✕</button>
+      <span class="sci-kicker" id="certKicker">MISSÃO CONCLUÍDA • 4/4 HISTÓRIAS</span>
+      <h2 class="cert-modal-title" id="certModalTitle">Parabéns, Explorador Lunar!</h2>
+      <p class="cert-modal-sub" id="certModalSub">
+        Você ouviu a voz de todos os monumentos da Apollo. Digite seu nome abaixo para personalizar e baixar seu certificado oficial.
+      </p>
+
+      <div class="cert-input-row">
+        <input type="text" id="certNameInput" class="cert-name-input" maxlength="42" placeholder="Seu nome completo..." />
+        <button class="btn-glow-blue" id="downloadCertBtn">Baixar Certificado (PNG)</button>
+      </div>
+
+      <div class="cert-preview-wrap">
+        <canvas id="certificateCanvas" width="1400" height="990"></canvas>
       </div>
     </div>
   </div>
