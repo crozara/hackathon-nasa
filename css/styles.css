@@ -2369,6 +2369,23 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
   color: #ffffff;
 }
 
+.btn-icon-only {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.btn-icon-only svg {
+  display: block;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-icon-only:hover svg {
+  transform: rotate(45deg);
+}
+
 /* Split Hero Section */
 .editorial-hero {
   position: relative;

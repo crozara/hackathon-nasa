@@ -25,7 +25,7 @@
 
       <!-- Language Selection -->
       <div class="onboarding-section">
-        <span class="onboarding-label" id="onboardingLangLabel">SELECT LANGUAGE / SELECIONE O IDIOMA</span>
+        <span class="onboarding-label" id="onboardingLangLabel">SELECT LANGUAGE</span>
         <div class="onboarding-lang-group">
           <button type="button" class="onboarding-lang-btn active" data-lang-btn="en" id="onbLangEn">
             <strong>EN</strong>
@@ -40,26 +40,26 @@
 
       <!-- Age Profile Selection -->
       <div class="onboarding-section">
-        <span class="onboarding-label" id="onboardingAgeLabel">EXPERIENCE PROFILE / PERFIL DE IDADE</span>
+        <span class="onboarding-label" id="onboardingAgeLabel">EXPERIENCE PROFILE</span>
         <div class="onboarding-age-grid">
           <button type="button" class="onboarding-age-btn" data-age-btn="child" id="onbAgeChild">
-            <strong id="onbAgeChildTitle">Criança</strong>
-            <small id="onbAgeChildSub">Child • Playful &amp; curious</small>
+            <strong id="onboardingChildTitle">Child</strong>
+            <small id="onboardingChildDesc">Playful &amp; curious</small>
           </button>
           <button type="button" class="onboarding-age-btn" data-age-btn="teen" id="onbAgeTeen">
-            <strong id="onbAgeTeenTitle">Adolescente</strong>
-            <small id="onbAgeTeenSub">Teen • Dynamic mission science</small>
+            <strong id="onboardingTeenTitle">Teen</strong>
+            <small id="onboardingTeenDesc">Dynamic mission science</small>
           </button>
           <button type="button" class="onboarding-age-btn active" data-age-btn="adult" id="onbAgeAdult">
-            <strong id="onbAgeAdultTitle">Adulto</strong>
-            <small id="onbAgeAdultSub">Adult • Historical &amp; technical depth</small>
+            <strong id="onboardingAdultTitle">Adult</strong>
+            <small id="onboardingAdultDesc">Historical &amp; technical depth</small>
           </button>
         </div>
       </div>
 
       <!-- Main Call to Action -->
       <button type="button" class="onboarding-enter-btn" id="enterMuseumBtn">
-        ENTER THE MUSEUM / ENTRAR NO MUSEU
+        <span id="onboardingCtaText">ENTER THE MUSEUM</span>
       </button>
     </div>
   </div>
@@ -97,6 +97,14 @@
         <!-- Glowing Electric Blue 3D CTA -->
         <button class="btn-glow-blue btn-nav-3d" id="open3DModeBtn">
           Explore in 3D
+        </button>
+
+        <!-- Reopen Profile & Language Modal Button -->
+        <button id="reopenSettingsBtn" class="btn-tech-outline btn-icon-only" aria-label="Settings" title="Profile &amp; Language">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
         </button>
 
         <!-- Language Switcher (Hidden in static navbar; configured in Onboarding) -->
