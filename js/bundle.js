@@ -1235,6 +1235,293 @@ const QUIZ_QUESTIONS = {
   ]
 };
 
+const ARTIFACT_INTERACTIONS = {
+  lrrr: {
+    badge: {
+      icon: "◈",
+      pt: { title: "Guardião da Luz" },
+      en: { title: "Keeper of Light" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "100 Prismas sem Bateria",
+          text: "Eu não tenho fios nem baterias! Meus 100 prismas de quartzo (corner-cubes) usam reflexão interna total para devolver qualquer laser exatamente para o observatório na Terra."
+        },
+        en: {
+          label: "100 Batteryless Prisms",
+          text: "I have no wires or batteries! My 100 fused-silica corner-cube prisms use total internal reflection to bounce any laser beam straight back to its observatory on Earth."
+        }
+      },
+      {
+        pt: {
+          label: "3,8 cm por Ano",
+          text: "Graças aos pulsos de luz que bato de volta desde 1969, os cientistas descobriram que a Lua se afasta da Terra cerca de 3,8 centímetros todos os anos."
+        },
+        en: {
+          label: "3.8 cm Every Year",
+          text: "Thanks to the laser pulses I've bounced back since 1969, scientists discovered the Moon is drifting away from Earth by about 3.8 centimeters every year."
+        }
+      },
+      {
+        pt: {
+          label: "Gnomon & Nivelamento",
+          text: "Neil Armstrong e Buzz Aldrin me nivelaram usando uma pequena bolha de vidro e me alinharam com a sombra do Sol em apenas alguns minutos em Mare Tranquillitatis."
+        },
+        en: {
+          label: "Leveling Bubble",
+          text: "Neil Armstrong and Buzz Aldrin leveled me using a tiny bubble vial and aligned me toward Earth in just a few minutes in Mare Tranquillitatis."
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "Você ainda funciona mesmo depois de 50 anos?",
+          a: "Sim! Como sou 100% óptico e não tenho eletrônicos para queimar, continuo respondendo aos lasers da Terra até hoje — sou o experimento mais longevo da Apollo."
+        },
+        en: {
+          q: "Do you still work after more than 50 years?",
+          a: "Yes! Because I'm 100% optical with no electronics to wear out, I still answer Earth's lasers today — making me Apollo's longest-running experiment."
+        }
+      },
+      {
+        pt: {
+          q: "Quantos fótons voltam para a Terra?",
+          a: "De trilhões de fótons disparados por um telescópio terrestre, o feixe se espalha por quilômetros na Lua — e apenas cerca de 1 único fóton retorna ao detector!"
+        },
+        en: {
+          q: "How many photons actually make it back?",
+          a: "Out of trillions of photons fired from Earth, the beam spreads across kilometers on the Moon — and only about 1 single photon returns to the telescope!"
+        }
+      },
+      {
+        pt: {
+          q: "A poeira lunar atrapalhou você?",
+          a: "Um pouco! Com as décadas, a poeira eletrostática e as variações térmicas reduziram meu brilho para cerca de 10% do original, mas meus prismas seguem firmes."
+        },
+        en: {
+          q: "Has lunar dust affected you?",
+          a: "A little! Over the decades, electrostatic dust and thermal swings dimmed my return signal to ~10% of its original brightness, yet my prisms still shine back."
+        }
+      }
+    ]
+  },
+  pse: {
+    badge: {
+      icon: "∿",
+      pt: { title: "Ouvinte da Lua" },
+      en: { title: "Moon Listener" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "Coração Nuclear (Pu-238)",
+          text: "Para não congelar na noite lunar de -170 °C que dura 14 dias terrestres, eu carregava dois aquecedores de Plutônio-238 que me mantinham a -54 °C."
+        },
+        en: {
+          label: "Nuclear Warmth (Pu-238)",
+          text: "To survive the 14-day lunar night at -170 °C, I carried two Plutonium-238 radioisotope heaters that kept my delicate sensors at -54 °C."
+        }
+      },
+      {
+        pt: {
+          label: "4 Sismômetros em 3 Eixos",
+          text: "Eu ouvia vibrações tão pequenas quanto o diâmetro de um átomo de hidrogênio — detectando tanto impactos de meteoros quanto terremotos lunares profundos."
+        },
+        en: {
+          label: "4 Three-Axis Seismometers",
+          text: "I could sense vibrations as tiny as a hydrogen atom's diameter — detecting both meteorite impacts and deep moonquakes."
+        }
+      },
+      {
+        pt: {
+          label: "Cobertor Térmico Dourado",
+          text: "Minha saia prateada e dourada de Mylar refletia o calor escaldante do dia lunar (+120 °C) para proteger meus circuitos."
+        },
+        en: {
+          label: "Thermal Mylar Blanket",
+          text: "My silver-and-gold Mylar skirt reflected the scorching +120 °C lunar day heat to shield my electronics."
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "A Lua tem terremotos de verdade?",
+          a: "Sim! Chamamos de 'lunamotos'. Alguns são causados pela gravidade da Terra puxando a Lua, e os mais fortes chegam a sacudir o solo por mais de 10 minutos!"
+        },
+        en: {
+          q: "Does the Moon really have earthquakes?",
+          a: "Yes! We call them 'moonquakes'. Some are triggered by Earth's tidal pull, and shallow moonquakes can ring the Moon like a bell for over 10 minutes!"
+        }
+      },
+      {
+        pt: {
+          q: "Como você aguentava o frio sem energia solar à noite?",
+          a: "Meus painéis solares recarregavam minhas baterias de dia, mas à noite era o calor natural do Plutônio-238 dentro do meu corpo que me impedia de congelar."
+        },
+        en: {
+          q: "How did you survive the night without sunlight?",
+          a: "My solar panels worked during the day, while at night the steady radioactive heat of Plutonium-238 kept my core from freezing solid."
+        }
+      },
+      {
+        pt: {
+          q: "O que aconteceu com você depois de 1969?",
+          a: "Minha estação irmã da Apollo 12, 14, 15 e 16 formou uma rede sísmica que funcionou até 1977, revelando que a Lua tem crosta, manto e um núcleo metálico!"
+        },
+        en: {
+          q: "What happened to you after 1969?",
+          a: "Together with sister stations from Apollo 12, 14, 15, and 16, we formed a lunar seismic network until 1977, revealing the Moon's crust, mantle, and metallic core!"
+        }
+      }
+    ]
+  },
+  eagle: {
+    badge: {
+      icon: "▲",
+      pt: { title: "Pioneiro da Paz" },
+      en: { title: "Peace Pioneer" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "A Placa na Escada",
+          text: "Na minha perna dianteira está a placa de aço inoxidável assinada pelos astronautas e pelo presidente: 'Viemos em paz por toda a humanidade'."
+        },
+        en: {
+          label: "The Ladder Plaque",
+          text: "Mounted on my front landing strut is the stainless-steel plaque reading: 'We came in peace for all mankind.'"
+        }
+      },
+      {
+        pt: {
+          label: "Plataforma de Lançamento",
+          text: "Quando o estágio superior do Eagle decolou em 21 de julho de 1969, eu servi literalmente de plataforma de lançamento — e fiquei para sempre na Base Tranquilidade."
+        },
+        en: {
+          label: "Lunar Launchpad",
+          text: "When Eagle's upper ascent stage blasted off on July 21, 1969, I served as its launchpad — and stayed behind forever at Tranquility Base."
+        }
+      },
+      {
+        pt: {
+          label: "Patas Esmagáveis de Alumínio",
+          text: "Minhas quatro patas tinham colmeias de alumínio que se comprimiam como amortecedores únicos para absorver o impacto do pouso sem quebrar."
+        },
+        en: {
+          label: "Crushable Honeycomb Legs",
+          text: "My four landing legs held crushable aluminum honeycomb cartridges designed to absorb the touchdown impact smoothly."
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "Por que você foi dividido em duas partes?",
+          a: "Levar tanques e pernas de pouso de volta para a órbita gastaria combustível demais. Deixar meu estágio de descida na Lua tornou o retorno possível!"
+        },
+        en: {
+          q: "Why did you split into two stages?",
+          a: "Carrying heavy landing legs and empty descent tanks back to orbit would waste precious fuel. Leaving my lower stage behind made the return trip possible!"
+        }
+      },
+      {
+        pt: {
+          q: "Quanto combustível restava no pouso?",
+          a: "Menos de 30 segundos! Neil Armstrong teve que pilotar manualmente para desviar de uma cratera cheia de pedregulhos antes de tocar o solo."
+        },
+        en: {
+          q: "How much fuel was left at touchdown?",
+          a: "Less than 30 seconds! Neil Armstrong had to fly manually over a boulder-strewn crater before setting me down safely."
+        }
+      },
+      {
+        pt: {
+          q: "Alguém já voltou para te visitar?",
+          a: "Ainda não a pé, mas a sonda LRO fotografa minha sombra da órbita, e futuras missões Artemis têm regras para proteger meu local histórico!"
+        },
+        en: {
+          q: "Has anyone come back to visit you?",
+          a: "Not on foot yet, though NASA's LRO photographs my shadow from orbit, and future Artemis missions have guidelines to protect my historic site!"
+        }
+      }
+    ]
+  },
+  lrv: {
+    badge: {
+      icon: "◎",
+      pt: { title: "Piloto Lunar" },
+      en: { title: "Lunar Driver" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "Rodas de Fio de Piano",
+          text: "Meus pneus não têm ar nem borracha! São feitos de malha de aço de corda de piano com tiras de titânio para não furar e flutuar sobre o pó lunar."
+        },
+        en: {
+          label: "Piano-Wire Wheels",
+          text: "My tires have no air or rubber! They're woven from music spring piano wire with titanium chevrons so they never go flat on lunar dust."
+        }
+      },
+      {
+        pt: {
+          label: "Manche em 'T' (Sem Volante)",
+          text: "Com luvas espaciais pressurizadas era difícil girar um volante comum — por isso os astronautas me dirigiam com um joystick em formato de 'T'!"
+        },
+        en: {
+          label: "T-Shaped Joystick",
+          text: "Pressurized spacesuit gloves made turning a round steering wheel awkward — so astronauts drove me with a T-shaped hand controller!"
+        }
+      },
+      {
+        pt: {
+          label: "Para-Lama de Fita Adesiva",
+          text: "Na Apollo 17, meu para-lama quebrou e levantou uma chuva de poeira. Os astronautas consertaram usando mapas lunares plastificados e fita adesiva!"
+        },
+        en: {
+          label: "Duct-Tape Fender Repair",
+          text: "On Apollo 17, my rear fender snapped off, kicking up rooster tails of dust. The crew fixed me with laminated lunar maps and duct tape!"
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "Como vocês não se perdiam sem GPS?",
+          a: "Eu tinha um giroscópio direcional e odômetros nas rodas! A cada metro, meu computador apontava uma seta exata de volta para o Módulo Lunar."
+        },
+        en: {
+          q: "How didn't you get lost without GPS?",
+          a: "I carried a directional gyroscope and wheel odometers! Every meter we drove, my computer pointed a bearing arrow straight back to the Lunar Module."
+        }
+      },
+      {
+        pt: {
+          q: "O que foi o 'Seatbelt Basalt'?",
+          a: "Na Apollo 15, David Scott e James Irwin fingiram pelo rádio que meu cinto havia travado só para parar escondidos e pegar uma pedra vulcânica especial!"
+        },
+        en: {
+          q: "What was the 'Seatbelt Basalt'?",
+          a: "On Apollo 15, David Scott and James Irwin pretended my seatbelt needed fixing just to sneak a quick stop and collect a special volcanic rock!"
+        }
+      },
+      {
+        pt: {
+          q: "Como você filmou a decolagem da Apollo 17?",
+          a: "Eles me estacionaram apontado para a nave, e Ed Fendell, lá de Houston, controlou minha câmera de TV por rádio para acompanhar o foguete subindo!"
+        },
+        en: {
+          q: "How did you film Apollo 17's liftoff?",
+          a: "They parked me facing the lander, and Ed Fendell in Houston remotely tilted my TV camera via radio to track the rocket rising into space!"
+        }
+      }
+    ]
+  }
+};
+
 
 // --- audio.js ---
 // ============================================================================
@@ -2762,6 +3049,7 @@ class LunarSurface3D {
     this.artifacts = artifacts;
     this.onStationChange = callbacks.onStationChange || null;
     this.onArtifactClick = callbacks.onArtifactClick || null;
+    this.onCuriosityClick = callbacks.onCuriosityClick || null;
 
     // All 4 stations share the central diorama pedestal (0, 0) for instant 60 FPS switching
     this.stations = [
@@ -2800,6 +3088,8 @@ class LunarSurface3D {
     this.clock = null;
     this.animatedObjects = {};
     this.clickableMeshes = [];
+    this.curiosityMeshes = [];
+    this.ageDifficulty = "adult";
 
     this.initThree();
   }
@@ -3233,6 +3523,116 @@ class LunarSurface3D {
     hitMesh.userData = { artifactId };
     group.add(hitMesh);
     this.clickableMeshes.push(hitMesh);
+
+    // 3 Interactive Curiosity Orbs (difficulty & placement adapt by ageProfile)
+    const offsetsByAge =
+      artifactId === "eagle"
+        ? {
+            child: [
+              [-2.25, 1.55, 1.45],
+              [2.25, 1.85, 1.2],
+              [0.2, 2.75, -2.0]
+            ],
+            teen: [
+              [-1.95, 0.72, 1.65],
+              [2.15, 2.35, -1.15],
+              [-0.45, 1.1, -2.25]
+            ],
+            adult: [
+              [-1.55, 0.42, 1.85],
+              [1.8, 2.65, -1.65],
+              [-0.65, 0.55, -2.15]
+            ]
+          }
+        : {
+            child: [
+              [-1.55, 1.35, 1.15],
+              [1.65, 1.5, 0.9],
+              [0.1, 2.05, -1.45]
+            ],
+            teen: [
+              [-1.45, 0.52, 1.3],
+              [1.75, 1.85, -0.95],
+              [-0.35, 0.78, -1.65]
+            ],
+            adult: [
+              [-1.2, 0.28, 1.45],
+              [1.55, 2.15, -1.25],
+              [-0.55, 0.35, -1.55]
+            ]
+          };
+
+    const initialOffsets = offsetsByAge[this.ageDifficulty] || offsetsByAge.adult;
+
+    // Shared "?" badge texture for this station's accent color
+    const qCanvas = document.createElement("canvas");
+    qCanvas.width = 128;
+    qCanvas.height = 128;
+    const qCtx = qCanvas.getContext("2d");
+    const hexStr = "#" + accentHex.toString(16).padStart(6, "0");
+
+    qCtx.clearRect(0, 0, 128, 128);
+    const rad = qCtx.createRadialGradient(64, 64, 10, 64, 64, 58);
+    rad.addColorStop(0, "rgba(15, 23, 42, 0.92)");
+    rad.addColorStop(0.68, "rgba(15, 23, 42, 0.82)");
+    rad.addColorStop(1, "rgba(15, 23, 42, 0)");
+    qCtx.fillStyle = rad;
+    qCtx.beginPath();
+    qCtx.arc(64, 64, 58, 0, Math.PI * 2);
+    qCtx.fill();
+
+    qCtx.strokeStyle = hexStr;
+    qCtx.lineWidth = 5;
+    qCtx.beginPath();
+    qCtx.arc(64, 64, 42, 0, Math.PI * 2);
+    qCtx.stroke();
+
+    qCtx.fillStyle = "#ffffff";
+    qCtx.font = "bold 62px Georgia, serif";
+    qCtx.textAlign = "center";
+    qCtx.textBaseline = "middle";
+    qCtx.fillText("?", 64, 68);
+
+    const qTex = new THREE.CanvasTexture(qCanvas);
+
+    initialOffsets.forEach((coords, orbIndex) => {
+      const orbGroup = new THREE.Group();
+      orbGroup.position.set(coords[0], coords[1], coords[2]);
+
+      const spriteMat = new THREE.SpriteMaterial({
+        map: qTex,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.95,
+        depthTest: true
+      });
+      const qSprite = new THREE.Sprite(spriteMat);
+      qSprite.scale.set(0.55, 0.55, 1);
+
+      const orbHit = new THREE.Mesh(
+        new THREE.SphereGeometry(0.42, 12, 12),
+        new THREE.MeshBasicMaterial({ visible: false })
+      );
+
+      orbGroup.add(qSprite);
+      orbGroup.add(orbHit);
+
+      orbHit.userData = {
+        artifactId,
+        orbIndex,
+        orbGroup,
+        baseY: coords[1],
+        offsetsByAge,
+        accentHex,
+        spriteMat,
+        qSprite,
+        discovered: false
+      };
+
+      group.add(orbGroup);
+      this.curiosityMeshes.push(orbHit);
+    });
+
     this.stationGroups[artifactId] = group;
     group.visible = artifactId === this.stations[this.currentStationIndex].id;
   }
@@ -3811,6 +4211,14 @@ class LunarSurface3D {
         this.raycaster.setFromCamera(this.mouse, this.camera);
 
         const activeId = this.stations[this.currentStationIndex].id;
+        const activeOrbs = this.curiosityMeshes.filter((m) => m.userData.artifactId === activeId);
+        const orbHits = this.raycaster.intersectObjects(activeOrbs, false);
+        if (orbHits.length > 0 && this.onCuriosityClick) {
+          const { orbIndex } = orbHits[0].object.userData;
+          this.onCuriosityClick(activeId, orbIndex);
+          return;
+        }
+
         const activeHit = this.clickableMeshes.filter((m) => m.userData.artifactId === activeId);
         const hits = this.raycaster.intersectObjects(activeHit, false);
         if (hits.length > 0 && this.onArtifactClick) {
@@ -3951,7 +4359,61 @@ class LunarSurface3D {
         -0.25 - Math.abs(Math.sin(elapsed * 0.55)) * 0.45;
     }
 
+    // Animate 3D Curiosity Orbs (subtlety depends on ageDifficulty)
+    if (this.curiosityMeshes && this.curiosityMeshes.length > 0) {
+      const activeId = this.stations[this.currentStationIndex].id;
+      const amp =
+        this.ageDifficulty === "child" ? 0.1 : this.ageDifficulty === "teen" ? 0.045 : 0.015;
+      this.curiosityMeshes.forEach((m) => {
+        if (m.userData.artifactId !== activeId) return;
+        const { orbGroup, orbIndex, baseY, discovered } = m.userData;
+        if (orbGroup) {
+          const effAmp = discovered ? 0.08 : amp;
+          orbGroup.position.y = baseY + Math.sin(elapsed * 2.1 + orbIndex * 1.7) * effAmp;
+          orbGroup.rotation.y = elapsed * (discovered ? 1.1 : 0.6);
+        }
+      });
+    }
+
     this.renderer.render(this.scene, this.camera);
+  }
+
+  setAgeDifficulty(ageProfile) {
+    this.ageDifficulty = ageProfile || "adult";
+    const scale =
+      this.ageDifficulty === "child" ? 1.25 : this.ageDifficulty === "teen" ? 0.78 : 0.56;
+    const spriteOp =
+      this.ageDifficulty === "child" ? 0.98 : this.ageDifficulty === "teen" ? 0.72 : 0.42;
+
+    this.curiosityMeshes.forEach((m) => {
+      const { orbGroup, orbIndex, offsetsByAge, spriteMat, discovered } = m.userData;
+      if (offsetsByAge && offsetsByAge[this.ageDifficulty]) {
+        const coords = offsetsByAge[this.ageDifficulty][orbIndex];
+        if (coords && orbGroup) {
+          orbGroup.position.set(coords[0], coords[1], coords[2]);
+          m.userData.baseY = coords[1];
+        }
+      }
+      if (!discovered && orbGroup) {
+        orbGroup.scale.set(scale, scale, scale);
+        if (spriteMat) spriteMat.opacity = spriteOp;
+      }
+    });
+  }
+
+  markCuriosityDiscovered(artifactId, orbIndex) {
+    this.curiosityMeshes.forEach((m) => {
+      if (m.userData.artifactId === artifactId && m.userData.orbIndex === orbIndex) {
+        m.userData.discovered = true;
+        if (m.userData.orbGroup) {
+          m.userData.orbGroup.scale.set(1.1, 1.1, 1.1);
+        }
+        if (m.userData.spriteMat) {
+          m.userData.spriteMat.color.setHex(0xfbbf24);
+          m.userData.spriteMat.opacity = 1.0;
+        }
+      }
+    });
   }
 }
 
@@ -3977,6 +4439,9 @@ class EchoesOfTheMoonApp {
     this.anatomyMode = "photo";
     this.activeHotspotIdx = 0;
     this.visitedStations = new Set();
+    this.discoveredCuriosities = new Map();
+    this.askedQuestions = new Map();
+    this.unlockedStamps = new Set();
     this.expandedInlineCards = new Set();
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
@@ -4009,14 +4474,20 @@ class EchoesOfTheMoonApp {
         if (this.isStoryOpen && artifactId) {
           this.visitedStations.add(artifactId);
         }
+        this.closeInteractionCard();
         this.audio.stopSpeech(false);
         this.audio.playQuindarTone(true);
         this.renderUI();
       },
       onArtifactClick: () => {
+        this.closeInteractionCard();
         this.openStoryView();
+      },
+      onCuriosityClick: (artifactId, orbIndex) => {
+        this.handleCuriosityOrbClick(artifactId, orbIndex);
       }
     });
+    this.surface3D.setAgeDifficulty(this.ageProfile);
   }
 
   enter3DMode(stationIdx = null) {
@@ -4145,7 +4616,16 @@ class EchoesOfTheMoonApp {
 
     // 6. Open & Close Story Reading Drawer
     document.getElementById("openStoryBtn").addEventListener("click", () => {
+      this.closeInteractionCard();
       this.openStoryView();
+    });
+
+    document.getElementById("openAskBtn").addEventListener("click", () => {
+      this.openAskEquipmentCard();
+    });
+
+    document.getElementById("closeIcardBtn").addEventListener("click", () => {
+      this.closeInteractionCard();
     });
 
     document.getElementById("closeStoryBtn").addEventListener("click", () => {
@@ -4341,6 +4821,166 @@ class EchoesOfTheMoonApp {
       this._hasShownCertReward = true;
       this.openCertificateModal();
     }
+  }
+
+  closeInteractionCard() {
+    const card = document.getElementById("interactionCard3D");
+    if (card) card.classList.add("hidden");
+  }
+
+  handleCuriosityOrbClick(artifactId, orbIndex) {
+    const data = ARTIFACT_INTERACTIONS[artifactId];
+    if (!data || !data.curiosities[orbIndex]) return;
+
+    if (!this.discoveredCuriosities.has(artifactId)) {
+      this.discoveredCuriosities.set(artifactId, new Set());
+    }
+    this.discoveredCuriosities.get(artifactId).add(orbIndex);
+
+    if (this.surface3D) {
+      this.surface3D.markCuriosityDiscovered(artifactId, orbIndex);
+    }
+    this.audio.playPing(980, 0.08);
+
+    const isPt = this.lang === "pt";
+    const cur = data.curiosities[orbIndex][this.lang];
+    const discoveredCount = this.discoveredCuriosities.get(artifactId).size;
+    const askedCount = (this.askedQuestions.get(artifactId) || new Set()).size;
+    const totalDone = Math.min(3, discoveredCount + askedCount);
+    const unlocked = this.unlockedStamps.has(artifactId);
+
+    document.getElementById("icardKicker").textContent = isPt
+      ? `CURIOSIDADE 3D • ORBE 0${orbIndex + 1}/03`
+      : `3D CURIOSITY • ORB 0${orbIndex + 1}/03`;
+
+    document.getElementById("icardBody").innerHTML = `
+      <h3 class="icard-title">${cur.label}</h3>
+      <p class="icard-text">${cur.text}</p>
+      <div class="icard-progress-note">
+        ${
+          unlocked
+            ? isPt
+              ? `★ Selinho "${data.badge.pt.title}" conquistado!`
+              : `★ Stamp "${data.badge.en.title}" unlocked!`
+            : isPt
+              ? `Descobertas aqui: ${totalDone}/3 para desbloquear o selinho`
+              : `Discoveries here: ${totalDone}/3 to unlock this station's stamp`
+        }
+      </div>
+    `;
+
+    document.getElementById("interactionCard3D").classList.remove("hidden");
+    this.checkStampUnlock(artifactId);
+    this.renderStampsBar();
+  }
+
+  openAskEquipmentCard(selectedQaIdx = null) {
+    const art = this.currentArtifact;
+    const artifactId = art.id;
+    const data = ARTIFACT_INTERACTIONS[artifactId];
+    if (!data) return;
+
+    const isPt = this.lang === "pt";
+    if (!this.askedQuestions.has(artifactId)) {
+      this.askedQuestions.set(artifactId, new Set());
+    }
+    if (selectedQaIdx !== null) {
+      this.askedQuestions.get(artifactId).add(selectedQaIdx);
+      this.audio.playPing(880, 0.07);
+      this.checkStampUnlock(artifactId);
+    }
+
+    const askedSet = this.askedQuestions.get(artifactId);
+    const activeIdx = selectedQaIdx !== null ? selectedQaIdx : 0;
+    const activeQa = data.qa[activeIdx][this.lang];
+
+    if (selectedQaIdx === null && askedSet.size === 0) {
+      askedSet.add(0);
+      this.checkStampUnlock(artifactId);
+    }
+
+    document.getElementById("icardKicker").textContent = isPt
+      ? `PERGUNTE AO EQUIPAMENTO • ${art.mission.toUpperCase()}`
+      : `ASK THE EQUIPMENT • ${art.mission.toUpperCase()}`;
+
+    const questionsHtml = data.qa
+      .map((item, idx) => {
+        const qText = item[this.lang].q;
+        const activeClass = idx === activeIdx ? "active" : "";
+        return `<button class="icard-qa-btn ${activeClass}" data-qa-idx="${idx}">${qText}</button>`;
+      })
+      .join("");
+
+    document.getElementById("icardBody").innerHTML = `
+      <div class="icard-qa-list">${questionsHtml}</div>
+      <div class="icard-answer-box">
+        <p>"${activeQa.a}"</p>
+        <button class="icard-speak-btn" id="icardSpeakAnswerBtn">
+          ${isPt ? "Ouvir Resposta" : "Hear Answer"}
+        </button>
+      </div>
+    `;
+
+    document.getElementById("icardBody").querySelectorAll("[data-qa-idx]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-qa-idx"), 10);
+        this.openAskEquipmentCard(idx);
+      });
+    });
+
+    document.getElementById("icardSpeakAnswerBtn").addEventListener("click", () => {
+      this.audio.speakStory([activeQa.a], this.lang, this.ageProfile, {});
+    });
+
+    document.getElementById("interactionCard3D").classList.remove("hidden");
+    this.renderStampsBar();
+  }
+
+  checkStampUnlock(artifactId) {
+    if (this.unlockedStamps.has(artifactId)) return;
+    const curCount = (this.discoveredCuriosities.get(artifactId) || new Set()).size;
+    const qaCount = (this.askedQuestions.get(artifactId) || new Set()).size;
+    if (curCount + qaCount >= 3) {
+      this.unlockedStamps.add(artifactId);
+      this.showStampToast(artifactId);
+      this.renderStampsBar();
+    }
+  }
+
+  showStampToast(artifactId) {
+    const data = ARTIFACT_INTERACTIONS[artifactId];
+    if (!data) return;
+    const isPt = this.lang === "pt";
+    document.getElementById("stampToastIcon").textContent = data.badge.icon;
+    document.getElementById("stampToastKicker").textContent = isPt
+      ? "SELINHO CONQUISTADO!"
+      : "STAMP UNLOCKED!";
+    document.getElementById("stampToastTitle").textContent = data.badge[this.lang].title;
+
+    const toast = document.getElementById("stampToast");
+    toast.classList.remove("hidden");
+    this.audio.playQuindarTone(true);
+    clearTimeout(this._stampToastTimer);
+    this._stampToastTimer = setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 3600);
+  }
+
+  renderStampsBar() {
+    const bar = document.getElementById("stampsCollectionBar");
+    if (!bar) return;
+    const isPt = this.lang === "pt";
+    bar.innerHTML = STATION_ORDER.map((id) => {
+      const data = ARTIFACT_INTERACTIONS[id];
+      const unlocked = this.unlockedStamps.has(id);
+      const label = unlocked ? data.badge[this.lang].title : isPt ? "Selinho Bloqueado" : "Locked Stamp";
+      return `
+        <span class="stamp-pill ${unlocked ? "unlocked" : ""}" title="${label}">
+          <span>${data.badge.icon}</span>
+          <span>${unlocked ? data.badge[this.lang].title : "???"}</span>
+        </span>
+      `;
+    }).join("");
   }
 
   openMissionLetter() {
@@ -4575,8 +5215,32 @@ class EchoesOfTheMoonApp {
     ctx.fillText(
       "LRRR (APOLLO 11)  •  PSE (APOLLO 11)  •  EAGLE (APOLLO 11)  •  LRV (APOLLO 15–17)",
       w / 2,
-      650
+      642
     );
+
+    // Collectible Stamps Row (4 Selinhos)
+    const stampStartX = w / 2 - 330;
+    const stampStep = 220;
+    STATION_ORDER.forEach((id, idx) => {
+      const stData = ARTIFACT_INTERACTIONS[id];
+      const earned = this.unlockedStamps.has(id);
+      const sx = stampStartX + idx * stampStep;
+      const sy = 716;
+
+      ctx.save();
+      ctx.strokeStyle = earned ? "rgba(251, 191, 36, 0.85)" : "rgba(148, 163, 184, 0.25)";
+      ctx.fillStyle = earned ? "rgba(251, 191, 36, 0.12)" : "rgba(255, 255, 255, 0.02)";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.roundRect(sx - 92, sy - 26, 184, 48, 24);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = earned ? "#fbbf24" : "rgba(148, 163, 184, 0.45)";
+      ctx.font = "600 15px monospace";
+      ctx.fillText(`${stData.badge.icon}  ${stData.badge[this.lang].title.toUpperCase()}`, sx, sy + 4);
+      ctx.restore();
+    });
 
     // Date & Signature footer
     const today = new Date().toLocaleDateString(isPt ? "pt-BR" : "en-US", {
@@ -4589,7 +5253,7 @@ class EchoesOfTheMoonApp {
     ctx.fillText(
       (isPt ? "EMITIDO EM " : "ISSUED ON ") + today.toUpperCase(),
       w / 2,
-      785
+      810
     );
 
     ctx.fillStyle = "#e2e8f0";
@@ -4597,7 +5261,7 @@ class EchoesOfTheMoonApp {
     ctx.fillText(
       isPt ? "Abandonados, mas nunca esquecidos." : "Abandoned, but never forgotten.",
       w / 2,
-      860
+      872
     );
   }
 
@@ -4929,12 +5593,31 @@ class EchoesOfTheMoonApp {
       : art.coordinates.siteEn;
     document.getElementById("walkArtifactTitle").textContent = loc.name;
     document.getElementById("walkArtifactPersona").textContent = `"${loc.personaTitle}"`;
+    if (this.surface3D) {
+      this.surface3D.setAgeDifficulty(this.ageProfile);
+    }
+    const askLabel = document.getElementById("openAskBtnLabel");
+    if (askLabel) {
+      askLabel.textContent = isPt ? "Pergunte ao Equipamento" : "Ask the Equipment";
+    }
+    this.renderStampsBar();
     document.getElementById("openStoryBtnLabel").textContent = isPt
       ? "Ouvir a Minha História"
       : "Hear My Story";
-    document.getElementById("walkHintText").textContent = isPt
-      ? "Arraste para olhar ao redor • Use os botões laterais para viajar até o próximo equipamento"
-      : "Drag to look around • Use the side buttons to travel to the next equipment";
+    const hintMap = {
+      pt: {
+        child: "Gire a Lua com o dedo ou mouse e clique nos 3 orbes brilhantes ao redor do equipamento!",
+        teen: "Gire 360° e dê zoom para encontrar os 3 pontos discretos escondidos ao redor do equipamento.",
+        adult: "Inspecione cada ângulo em 360° e dê zoom: há 3 sinais sutis camuflados na cena para descobrir."
+      },
+      en: {
+        child: "Drag to rotate 360° and click the 3 glowing orbs around the equipment!",
+        teen: "Rotate 360° and zoom in to find the 3 discreet points hidden around the equipment.",
+        adult: "Inspect all 360° angles and zoom in: 3 subtle signals are camouflaged around the scene."
+      }
+    };
+    document.getElementById("walkHintText").textContent =
+      hintMap[isPt ? "pt" : "en"][this.ageProfile] || hintMap[isPt ? "pt" : "en"].adult;
 
     // Station Progress Dots
     const dotsRow = document.getElementById("stationDotsRow");
@@ -4999,13 +5682,13 @@ class EchoesOfTheMoonApp {
     this.updateSpeechButtons(this.audio.isSpeaking, this.audio.isPaused);
 
     const paragraphs = loc.stories[this.ageProfile] || [];
-    const perPage = 1;
+    const perPage = this.is3DActive ? Math.max(1, paragraphs.length) : 1;
     const totalPages = Math.max(1, Math.ceil(paragraphs.length / perPage));
     if (this.storyPageIndex >= totalPages) this.storyPageIndex = totalPages - 1;
     if (this.storyPageIndex < 0) this.storyPageIndex = 0;
 
-    const startIdx = this.storyPageIndex * perPage;
-    const pageSlice = paragraphs.slice(startIdx, startIdx + perPage);
+    const startIdx = this.is3DActive ? 0 : this.storyPageIndex * perPage;
+    const pageSlice = this.is3DActive ? paragraphs : paragraphs.slice(startIdx, startIdx + perPage);
 
     const chapterBridges = {
       lrrr: {
@@ -5113,12 +5796,14 @@ class EchoesOfTheMoonApp {
       document.querySelectorAll(".story-p").forEach((el) => el.classList.remove("speaking-now"));
       return;
     }
-    const targetPage = idx;
-    if (targetPage !== this.storyPageIndex) {
-      const forward = targetPage > this.storyPageIndex;
-      this.storyPageIndex = targetPage;
-      this.audio.playPageTurnSound(forward);
-      this.renderStoryDrawer(forward ? "next" : "prev");
+    if (!this.is3DActive) {
+      const targetPage = idx;
+      if (targetPage !== this.storyPageIndex) {
+        const forward = targetPage > this.storyPageIndex;
+        this.storyPageIndex = targetPage;
+        this.audio.playPageTurnSound(forward);
+        this.renderStoryDrawer(forward ? "next" : "prev");
+      }
     }
     document.querySelectorAll(".story-p").forEach((el) => {
       const isMatch = el.id === `sp-${idx}`;

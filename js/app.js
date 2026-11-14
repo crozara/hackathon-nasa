@@ -4,7 +4,7 @@
 // -> Open Deep Science & NASA Specs on Demand
 // ============================================================================
 
-import { UI_TEXT, ARTIFACTS } from "./data.js";
+import { UI_TEXT, ARTIFACTS, ARTIFACT_INTERACTIONS } from "./data.js";
 import { LunarSurface3D } from "./lunarSurface3d.js";
 import { MuseumAudioEngine } from "./audio.js";
 import { getArtifactBlueprintSVG } from "./schematics.js";
@@ -24,6 +24,9 @@ class EchoesOfTheMoonApp {
     this.anatomyMode = "photo";
     this.activeHotspotIdx = 0;
     this.visitedStations = new Set();
+    this.discoveredCuriosities = new Map();
+    this.askedQuestions = new Map();
+    this.unlockedStamps = new Set();
     this.expandedInlineCards = new Set();
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
@@ -56,14 +59,20 @@ class EchoesOfTheMoonApp {
         if (this.isStoryOpen && artifactId) {
           this.visitedStations.add(artifactId);
         }
+        this.closeInteractionCard();
         this.audio.stopSpeech(false);
         this.audio.playQuindarTone(true);
         this.renderUI();
       },
       onArtifactClick: () => {
+        this.closeInteractionCard();
         this.openStoryView();
+      },
+      onCuriosityClick: (artifactId, orbIndex) => {
+        this.handleCuriosityOrbClick(artifactId, orbIndex);
       }
     });
+    this.surface3D.setAgeDifficulty(this.ageProfile);
   }
 
   enter3DMode(stationIdx = null) {
@@ -192,7 +201,16 @@ class EchoesOfTheMoonApp {
 
     // 6. Open & Close Story Reading Drawer
     document.getElementById("openStoryBtn").addEventListener("click", () => {
+      this.closeInteractionCard();
       this.openStoryView();
+    });
+
+    document.getElementById("openAskBtn").addEventListener("click", () => {
+      this.openAskEquipmentCard();
+    });
+
+    document.getElementById("closeIcardBtn").addEventListener("click", () => {
+      this.closeInteractionCard();
     });
 
     document.getElementById("closeStoryBtn").addEventListener("click", () => {
@@ -388,6 +406,166 @@ class EchoesOfTheMoonApp {
       this._hasShownCertReward = true;
       this.openCertificateModal();
     }
+  }
+
+  closeInteractionCard() {
+    const card = document.getElementById("interactionCard3D");
+    if (card) card.classList.add("hidden");
+  }
+
+  handleCuriosityOrbClick(artifactId, orbIndex) {
+    const data = ARTIFACT_INTERACTIONS[artifactId];
+    if (!data || !data.curiosities[orbIndex]) return;
+
+    if (!this.discoveredCuriosities.has(artifactId)) {
+      this.discoveredCuriosities.set(artifactId, new Set());
+    }
+    this.discoveredCuriosities.get(artifactId).add(orbIndex);
+
+    if (this.surface3D) {
+      this.surface3D.markCuriosityDiscovered(artifactId, orbIndex);
+    }
+    this.audio.playPing(980, 0.08);
+
+    const isPt = this.lang === "pt";
+    const cur = data.curiosities[orbIndex][this.lang];
+    const discoveredCount = this.discoveredCuriosities.get(artifactId).size;
+    const askedCount = (this.askedQuestions.get(artifactId) || new Set()).size;
+    const totalDone = Math.min(3, discoveredCount + askedCount);
+    const unlocked = this.unlockedStamps.has(artifactId);
+
+    document.getElementById("icardKicker").textContent = isPt
+      ? `CURIOSIDADE 3D • ORBE 0${orbIndex + 1}/03`
+      : `3D CURIOSITY • ORB 0${orbIndex + 1}/03`;
+
+    document.getElementById("icardBody").innerHTML = `
+      <h3 class="icard-title">${cur.label}</h3>
+      <p class="icard-text">${cur.text}</p>
+      <div class="icard-progress-note">
+        ${
+          unlocked
+            ? isPt
+              ? `★ Selinho "${data.badge.pt.title}" conquistado!`
+              : `★ Stamp "${data.badge.en.title}" unlocked!`
+            : isPt
+              ? `Descobertas aqui: ${totalDone}/3 para desbloquear o selinho`
+              : `Discoveries here: ${totalDone}/3 to unlock this station's stamp`
+        }
+      </div>
+    `;
+
+    document.getElementById("interactionCard3D").classList.remove("hidden");
+    this.checkStampUnlock(artifactId);
+    this.renderStampsBar();
+  }
+
+  openAskEquipmentCard(selectedQaIdx = null) {
+    const art = this.currentArtifact;
+    const artifactId = art.id;
+    const data = ARTIFACT_INTERACTIONS[artifactId];
+    if (!data) return;
+
+    const isPt = this.lang === "pt";
+    if (!this.askedQuestions.has(artifactId)) {
+      this.askedQuestions.set(artifactId, new Set());
+    }
+    if (selectedQaIdx !== null) {
+      this.askedQuestions.get(artifactId).add(selectedQaIdx);
+      this.audio.playPing(880, 0.07);
+      this.checkStampUnlock(artifactId);
+    }
+
+    const askedSet = this.askedQuestions.get(artifactId);
+    const activeIdx = selectedQaIdx !== null ? selectedQaIdx : 0;
+    const activeQa = data.qa[activeIdx][this.lang];
+
+    if (selectedQaIdx === null && askedSet.size === 0) {
+      askedSet.add(0);
+      this.checkStampUnlock(artifactId);
+    }
+
+    document.getElementById("icardKicker").textContent = isPt
+      ? `PERGUNTE AO EQUIPAMENTO • ${art.mission.toUpperCase()}`
+      : `ASK THE EQUIPMENT • ${art.mission.toUpperCase()}`;
+
+    const questionsHtml = data.qa
+      .map((item, idx) => {
+        const qText = item[this.lang].q;
+        const activeClass = idx === activeIdx ? "active" : "";
+        return `<button class="icard-qa-btn ${activeClass}" data-qa-idx="${idx}">${qText}</button>`;
+      })
+      .join("");
+
+    document.getElementById("icardBody").innerHTML = `
+      <div class="icard-qa-list">${questionsHtml}</div>
+      <div class="icard-answer-box">
+        <p>"${activeQa.a}"</p>
+        <button class="icard-speak-btn" id="icardSpeakAnswerBtn">
+          ${isPt ? "Ouvir Resposta" : "Hear Answer"}
+        </button>
+      </div>
+    `;
+
+    document.getElementById("icardBody").querySelectorAll("[data-qa-idx]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-qa-idx"), 10);
+        this.openAskEquipmentCard(idx);
+      });
+    });
+
+    document.getElementById("icardSpeakAnswerBtn").addEventListener("click", () => {
+      this.audio.speakStory([activeQa.a], this.lang, this.ageProfile, {});
+    });
+
+    document.getElementById("interactionCard3D").classList.remove("hidden");
+    this.renderStampsBar();
+  }
+
+  checkStampUnlock(artifactId) {
+    if (this.unlockedStamps.has(artifactId)) return;
+    const curCount = (this.discoveredCuriosities.get(artifactId) || new Set()).size;
+    const qaCount = (this.askedQuestions.get(artifactId) || new Set()).size;
+    if (curCount + qaCount >= 3) {
+      this.unlockedStamps.add(artifactId);
+      this.showStampToast(artifactId);
+      this.renderStampsBar();
+    }
+  }
+
+  showStampToast(artifactId) {
+    const data = ARTIFACT_INTERACTIONS[artifactId];
+    if (!data) return;
+    const isPt = this.lang === "pt";
+    document.getElementById("stampToastIcon").textContent = data.badge.icon;
+    document.getElementById("stampToastKicker").textContent = isPt
+      ? "SELINHO CONQUISTADO!"
+      : "STAMP UNLOCKED!";
+    document.getElementById("stampToastTitle").textContent = data.badge[this.lang].title;
+
+    const toast = document.getElementById("stampToast");
+    toast.classList.remove("hidden");
+    this.audio.playQuindarTone(true);
+    clearTimeout(this._stampToastTimer);
+    this._stampToastTimer = setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 3600);
+  }
+
+  renderStampsBar() {
+    const bar = document.getElementById("stampsCollectionBar");
+    if (!bar) return;
+    const isPt = this.lang === "pt";
+    bar.innerHTML = STATION_ORDER.map((id) => {
+      const data = ARTIFACT_INTERACTIONS[id];
+      const unlocked = this.unlockedStamps.has(id);
+      const label = unlocked ? data.badge[this.lang].title : isPt ? "Selinho Bloqueado" : "Locked Stamp";
+      return `
+        <span class="stamp-pill ${unlocked ? "unlocked" : ""}" title="${label}">
+          <span>${data.badge.icon}</span>
+          <span>${unlocked ? data.badge[this.lang].title : "???"}</span>
+        </span>
+      `;
+    }).join("");
   }
 
   openMissionLetter() {
@@ -622,8 +800,32 @@ class EchoesOfTheMoonApp {
     ctx.fillText(
       "LRRR (APOLLO 11)  •  PSE (APOLLO 11)  •  EAGLE (APOLLO 11)  •  LRV (APOLLO 15–17)",
       w / 2,
-      650
+      642
     );
+
+    // Collectible Stamps Row (4 Selinhos)
+    const stampStartX = w / 2 - 330;
+    const stampStep = 220;
+    STATION_ORDER.forEach((id, idx) => {
+      const stData = ARTIFACT_INTERACTIONS[id];
+      const earned = this.unlockedStamps.has(id);
+      const sx = stampStartX + idx * stampStep;
+      const sy = 716;
+
+      ctx.save();
+      ctx.strokeStyle = earned ? "rgba(251, 191, 36, 0.85)" : "rgba(148, 163, 184, 0.25)";
+      ctx.fillStyle = earned ? "rgba(251, 191, 36, 0.12)" : "rgba(255, 255, 255, 0.02)";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.roundRect(sx - 92, sy - 26, 184, 48, 24);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = earned ? "#fbbf24" : "rgba(148, 163, 184, 0.45)";
+      ctx.font = "600 15px monospace";
+      ctx.fillText(`${stData.badge.icon}  ${stData.badge[this.lang].title.toUpperCase()}`, sx, sy + 4);
+      ctx.restore();
+    });
 
     // Date & Signature footer
     const today = new Date().toLocaleDateString(isPt ? "pt-BR" : "en-US", {
@@ -636,7 +838,7 @@ class EchoesOfTheMoonApp {
     ctx.fillText(
       (isPt ? "EMITIDO EM " : "ISSUED ON ") + today.toUpperCase(),
       w / 2,
-      785
+      810
     );
 
     ctx.fillStyle = "#e2e8f0";
@@ -644,7 +846,7 @@ class EchoesOfTheMoonApp {
     ctx.fillText(
       isPt ? "Abandonados, mas nunca esquecidos." : "Abandoned, but never forgotten.",
       w / 2,
-      860
+      872
     );
   }
 
@@ -976,12 +1178,31 @@ class EchoesOfTheMoonApp {
       : art.coordinates.siteEn;
     document.getElementById("walkArtifactTitle").textContent = loc.name;
     document.getElementById("walkArtifactPersona").textContent = `"${loc.personaTitle}"`;
+    if (this.surface3D) {
+      this.surface3D.setAgeDifficulty(this.ageProfile);
+    }
+    const askLabel = document.getElementById("openAskBtnLabel");
+    if (askLabel) {
+      askLabel.textContent = isPt ? "Pergunte ao Equipamento" : "Ask the Equipment";
+    }
+    this.renderStampsBar();
     document.getElementById("openStoryBtnLabel").textContent = isPt
       ? "Ouvir a Minha História"
       : "Hear My Story";
-    document.getElementById("walkHintText").textContent = isPt
-      ? "Arraste para olhar ao redor • Use os botões laterais para viajar até o próximo equipamento"
-      : "Drag to look around • Use the side buttons to travel to the next equipment";
+    const hintMap = {
+      pt: {
+        child: "Gire a Lua com o dedo ou mouse e clique nos 3 orbes brilhantes ao redor do equipamento!",
+        teen: "Gire 360° e dê zoom para encontrar os 3 pontos discretos escondidos ao redor do equipamento.",
+        adult: "Inspecione cada ângulo em 360° e dê zoom: há 3 sinais sutis camuflados na cena para descobrir."
+      },
+      en: {
+        child: "Drag to rotate 360° and click the 3 glowing orbs around the equipment!",
+        teen: "Rotate 360° and zoom in to find the 3 discreet points hidden around the equipment.",
+        adult: "Inspect all 360° angles and zoom in: 3 subtle signals are camouflaged around the scene."
+      }
+    };
+    document.getElementById("walkHintText").textContent =
+      hintMap[isPt ? "pt" : "en"][this.ageProfile] || hintMap[isPt ? "pt" : "en"].adult;
 
     // Station Progress Dots
     const dotsRow = document.getElementById("stationDotsRow");
@@ -1046,13 +1267,13 @@ class EchoesOfTheMoonApp {
     this.updateSpeechButtons(this.audio.isSpeaking, this.audio.isPaused);
 
     const paragraphs = loc.stories[this.ageProfile] || [];
-    const perPage = 1;
+    const perPage = this.is3DActive ? Math.max(1, paragraphs.length) : 1;
     const totalPages = Math.max(1, Math.ceil(paragraphs.length / perPage));
     if (this.storyPageIndex >= totalPages) this.storyPageIndex = totalPages - 1;
     if (this.storyPageIndex < 0) this.storyPageIndex = 0;
 
-    const startIdx = this.storyPageIndex * perPage;
-    const pageSlice = paragraphs.slice(startIdx, startIdx + perPage);
+    const startIdx = this.is3DActive ? 0 : this.storyPageIndex * perPage;
+    const pageSlice = this.is3DActive ? paragraphs : paragraphs.slice(startIdx, startIdx + perPage);
 
     const chapterBridges = {
       lrrr: {
@@ -1160,12 +1381,14 @@ class EchoesOfTheMoonApp {
       document.querySelectorAll(".story-p").forEach((el) => el.classList.remove("speaking-now"));
       return;
     }
-    const targetPage = idx;
-    if (targetPage !== this.storyPageIndex) {
-      const forward = targetPage > this.storyPageIndex;
-      this.storyPageIndex = targetPage;
-      this.audio.playPageTurnSound(forward);
-      this.renderStoryDrawer(forward ? "next" : "prev");
+    if (!this.is3DActive) {
+      const targetPage = idx;
+      if (targetPage !== this.storyPageIndex) {
+        const forward = targetPage > this.storyPageIndex;
+        this.storyPageIndex = targetPage;
+        this.audio.playPageTurnSound(forward);
+        this.renderStoryDrawer(forward ? "next" : "prev");
+      }
     }
     document.querySelectorAll(".story-p").forEach((el) => {
       const isMatch = el.id === `sp-${idx}`;

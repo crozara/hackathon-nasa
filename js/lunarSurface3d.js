@@ -13,6 +13,7 @@ export class LunarSurface3D {
     this.artifacts = artifacts;
     this.onStationChange = callbacks.onStationChange || null;
     this.onArtifactClick = callbacks.onArtifactClick || null;
+    this.onCuriosityClick = callbacks.onCuriosityClick || null;
 
     // All 4 stations share the central diorama pedestal (0, 0) for instant 60 FPS switching
     this.stations = [
@@ -51,6 +52,8 @@ export class LunarSurface3D {
     this.clock = null;
     this.animatedObjects = {};
     this.clickableMeshes = [];
+    this.curiosityMeshes = [];
+    this.ageDifficulty = "adult";
 
     this.initThree();
   }
@@ -484,6 +487,116 @@ export class LunarSurface3D {
     hitMesh.userData = { artifactId };
     group.add(hitMesh);
     this.clickableMeshes.push(hitMesh);
+
+    // 3 Interactive Curiosity Orbs (difficulty & placement adapt by ageProfile)
+    const offsetsByAge =
+      artifactId === "eagle"
+        ? {
+            child: [
+              [-2.25, 1.55, 1.45],
+              [2.25, 1.85, 1.2],
+              [0.2, 2.75, -2.0]
+            ],
+            teen: [
+              [-1.95, 0.72, 1.65],
+              [2.15, 2.35, -1.15],
+              [-0.45, 1.1, -2.25]
+            ],
+            adult: [
+              [-1.55, 0.42, 1.85],
+              [1.8, 2.65, -1.65],
+              [-0.65, 0.55, -2.15]
+            ]
+          }
+        : {
+            child: [
+              [-1.55, 1.35, 1.15],
+              [1.65, 1.5, 0.9],
+              [0.1, 2.05, -1.45]
+            ],
+            teen: [
+              [-1.45, 0.52, 1.3],
+              [1.75, 1.85, -0.95],
+              [-0.35, 0.78, -1.65]
+            ],
+            adult: [
+              [-1.2, 0.28, 1.45],
+              [1.55, 2.15, -1.25],
+              [-0.55, 0.35, -1.55]
+            ]
+          };
+
+    const initialOffsets = offsetsByAge[this.ageDifficulty] || offsetsByAge.adult;
+
+    // Shared "?" badge texture for this station's accent color
+    const qCanvas = document.createElement("canvas");
+    qCanvas.width = 128;
+    qCanvas.height = 128;
+    const qCtx = qCanvas.getContext("2d");
+    const hexStr = "#" + accentHex.toString(16).padStart(6, "0");
+
+    qCtx.clearRect(0, 0, 128, 128);
+    const rad = qCtx.createRadialGradient(64, 64, 10, 64, 64, 58);
+    rad.addColorStop(0, "rgba(15, 23, 42, 0.92)");
+    rad.addColorStop(0.68, "rgba(15, 23, 42, 0.82)");
+    rad.addColorStop(1, "rgba(15, 23, 42, 0)");
+    qCtx.fillStyle = rad;
+    qCtx.beginPath();
+    qCtx.arc(64, 64, 58, 0, Math.PI * 2);
+    qCtx.fill();
+
+    qCtx.strokeStyle = hexStr;
+    qCtx.lineWidth = 5;
+    qCtx.beginPath();
+    qCtx.arc(64, 64, 42, 0, Math.PI * 2);
+    qCtx.stroke();
+
+    qCtx.fillStyle = "#ffffff";
+    qCtx.font = "bold 62px Georgia, serif";
+    qCtx.textAlign = "center";
+    qCtx.textBaseline = "middle";
+    qCtx.fillText("?", 64, 68);
+
+    const qTex = new THREE.CanvasTexture(qCanvas);
+
+    initialOffsets.forEach((coords, orbIndex) => {
+      const orbGroup = new THREE.Group();
+      orbGroup.position.set(coords[0], coords[1], coords[2]);
+
+      const spriteMat = new THREE.SpriteMaterial({
+        map: qTex,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.95,
+        depthTest: true
+      });
+      const qSprite = new THREE.Sprite(spriteMat);
+      qSprite.scale.set(0.55, 0.55, 1);
+
+      const orbHit = new THREE.Mesh(
+        new THREE.SphereGeometry(0.42, 12, 12),
+        new THREE.MeshBasicMaterial({ visible: false })
+      );
+
+      orbGroup.add(qSprite);
+      orbGroup.add(orbHit);
+
+      orbHit.userData = {
+        artifactId,
+        orbIndex,
+        orbGroup,
+        baseY: coords[1],
+        offsetsByAge,
+        accentHex,
+        spriteMat,
+        qSprite,
+        discovered: false
+      };
+
+      group.add(orbGroup);
+      this.curiosityMeshes.push(orbHit);
+    });
+
     this.stationGroups[artifactId] = group;
     group.visible = artifactId === this.stations[this.currentStationIndex].id;
   }
@@ -1062,6 +1175,14 @@ export class LunarSurface3D {
         this.raycaster.setFromCamera(this.mouse, this.camera);
 
         const activeId = this.stations[this.currentStationIndex].id;
+        const activeOrbs = this.curiosityMeshes.filter((m) => m.userData.artifactId === activeId);
+        const orbHits = this.raycaster.intersectObjects(activeOrbs, false);
+        if (orbHits.length > 0 && this.onCuriosityClick) {
+          const { orbIndex } = orbHits[0].object.userData;
+          this.onCuriosityClick(activeId, orbIndex);
+          return;
+        }
+
         const activeHit = this.clickableMeshes.filter((m) => m.userData.artifactId === activeId);
         const hits = this.raycaster.intersectObjects(activeHit, false);
         if (hits.length > 0 && this.onArtifactClick) {
@@ -1202,6 +1323,60 @@ export class LunarSurface3D {
         -0.25 - Math.abs(Math.sin(elapsed * 0.55)) * 0.45;
     }
 
+    // Animate 3D Curiosity Orbs (subtlety depends on ageDifficulty)
+    if (this.curiosityMeshes && this.curiosityMeshes.length > 0) {
+      const activeId = this.stations[this.currentStationIndex].id;
+      const amp =
+        this.ageDifficulty === "child" ? 0.1 : this.ageDifficulty === "teen" ? 0.045 : 0.015;
+      this.curiosityMeshes.forEach((m) => {
+        if (m.userData.artifactId !== activeId) return;
+        const { orbGroup, orbIndex, baseY, discovered } = m.userData;
+        if (orbGroup) {
+          const effAmp = discovered ? 0.08 : amp;
+          orbGroup.position.y = baseY + Math.sin(elapsed * 2.1 + orbIndex * 1.7) * effAmp;
+          orbGroup.rotation.y = elapsed * (discovered ? 1.1 : 0.6);
+        }
+      });
+    }
+
     this.renderer.render(this.scene, this.camera);
+  }
+
+  setAgeDifficulty(ageProfile) {
+    this.ageDifficulty = ageProfile || "adult";
+    const scale =
+      this.ageDifficulty === "child" ? 1.25 : this.ageDifficulty === "teen" ? 0.78 : 0.56;
+    const spriteOp =
+      this.ageDifficulty === "child" ? 0.98 : this.ageDifficulty === "teen" ? 0.72 : 0.42;
+
+    this.curiosityMeshes.forEach((m) => {
+      const { orbGroup, orbIndex, offsetsByAge, spriteMat, discovered } = m.userData;
+      if (offsetsByAge && offsetsByAge[this.ageDifficulty]) {
+        const coords = offsetsByAge[this.ageDifficulty][orbIndex];
+        if (coords && orbGroup) {
+          orbGroup.position.set(coords[0], coords[1], coords[2]);
+          m.userData.baseY = coords[1];
+        }
+      }
+      if (!discovered && orbGroup) {
+        orbGroup.scale.set(scale, scale, scale);
+        if (spriteMat) spriteMat.opacity = spriteOp;
+      }
+    });
+  }
+
+  markCuriosityDiscovered(artifactId, orbIndex) {
+    this.curiosityMeshes.forEach((m) => {
+      if (m.userData.artifactId === artifactId && m.userData.orbIndex === orbIndex) {
+        m.userData.discovered = true;
+        if (m.userData.orbGroup) {
+          m.userData.orbGroup.scale.set(1.1, 1.1, 1.1);
+        }
+        if (m.userData.spriteMat) {
+          m.userData.spriteMat.color.setHex(0xfbbf24);
+          m.userData.spriteMat.opacity = 1.0;
+        }
+      }
+    });
   }
 }

@@ -1223,3 +1223,290 @@ export const QUIZ_QUESTIONS = {
     }
   ]
 };
+
+export const ARTIFACT_INTERACTIONS = {
+  lrrr: {
+    badge: {
+      icon: "◈",
+      pt: { title: "Guardião da Luz" },
+      en: { title: "Keeper of Light" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "100 Prismas sem Bateria",
+          text: "Eu não tenho fios nem baterias! Meus 100 prismas de quartzo (corner-cubes) usam reflexão interna total para devolver qualquer laser exatamente para o observatório na Terra."
+        },
+        en: {
+          label: "100 Batteryless Prisms",
+          text: "I have no wires or batteries! My 100 fused-silica corner-cube prisms use total internal reflection to bounce any laser beam straight back to its observatory on Earth."
+        }
+      },
+      {
+        pt: {
+          label: "3,8 cm por Ano",
+          text: "Graças aos pulsos de luz que bato de volta desde 1969, os cientistas descobriram que a Lua se afasta da Terra cerca de 3,8 centímetros todos os anos."
+        },
+        en: {
+          label: "3.8 cm Every Year",
+          text: "Thanks to the laser pulses I've bounced back since 1969, scientists discovered the Moon is drifting away from Earth by about 3.8 centimeters every year."
+        }
+      },
+      {
+        pt: {
+          label: "Gnomon & Nivelamento",
+          text: "Neil Armstrong e Buzz Aldrin me nivelaram usando uma pequena bolha de vidro e me alinharam com a sombra do Sol em apenas alguns minutos em Mare Tranquillitatis."
+        },
+        en: {
+          label: "Leveling Bubble",
+          text: "Neil Armstrong and Buzz Aldrin leveled me using a tiny bubble vial and aligned me toward Earth in just a few minutes in Mare Tranquillitatis."
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "Você ainda funciona mesmo depois de 50 anos?",
+          a: "Sim! Como sou 100% óptico e não tenho eletrônicos para queimar, continuo respondendo aos lasers da Terra até hoje — sou o experimento mais longevo da Apollo."
+        },
+        en: {
+          q: "Do you still work after more than 50 years?",
+          a: "Yes! Because I'm 100% optical with no electronics to wear out, I still answer Earth's lasers today — making me Apollo's longest-running experiment."
+        }
+      },
+      {
+        pt: {
+          q: "Quantos fótons voltam para a Terra?",
+          a: "De trilhões de fótons disparados por um telescópio terrestre, o feixe se espalha por quilômetros na Lua — e apenas cerca de 1 único fóton retorna ao detector!"
+        },
+        en: {
+          q: "How many photons actually make it back?",
+          a: "Out of trillions of photons fired from Earth, the beam spreads across kilometers on the Moon — and only about 1 single photon returns to the telescope!"
+        }
+      },
+      {
+        pt: {
+          q: "A poeira lunar atrapalhou você?",
+          a: "Um pouco! Com as décadas, a poeira eletrostática e as variações térmicas reduziram meu brilho para cerca de 10% do original, mas meus prismas seguem firmes."
+        },
+        en: {
+          q: "Has lunar dust affected you?",
+          a: "A little! Over the decades, electrostatic dust and thermal swings dimmed my return signal to ~10% of its original brightness, yet my prisms still shine back."
+        }
+      }
+    ]
+  },
+  pse: {
+    badge: {
+      icon: "∿",
+      pt: { title: "Ouvinte da Lua" },
+      en: { title: "Moon Listener" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "Coração Nuclear (Pu-238)",
+          text: "Para não congelar na noite lunar de -170 °C que dura 14 dias terrestres, eu carregava dois aquecedores de Plutônio-238 que me mantinham a -54 °C."
+        },
+        en: {
+          label: "Nuclear Warmth (Pu-238)",
+          text: "To survive the 14-day lunar night at -170 °C, I carried two Plutonium-238 radioisotope heaters that kept my delicate sensors at -54 °C."
+        }
+      },
+      {
+        pt: {
+          label: "4 Sismômetros em 3 Eixos",
+          text: "Eu ouvia vibrações tão pequenas quanto o diâmetro de um átomo de hidrogênio — detectando tanto impactos de meteoros quanto terremotos lunares profundos."
+        },
+        en: {
+          label: "4 Three-Axis Seismometers",
+          text: "I could sense vibrations as tiny as a hydrogen atom's diameter — detecting both meteorite impacts and deep moonquakes."
+        }
+      },
+      {
+        pt: {
+          label: "Cobertor Térmico Dourado",
+          text: "Minha saia prateada e dourada de Mylar refletia o calor escaldante do dia lunar (+120 °C) para proteger meus circuitos."
+        },
+        en: {
+          label: "Thermal Mylar Blanket",
+          text: "My silver-and-gold Mylar skirt reflected the scorching +120 °C lunar day heat to shield my electronics."
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "A Lua tem terremotos de verdade?",
+          a: "Sim! Chamamos de 'lunamotos'. Alguns são causados pela gravidade da Terra puxando a Lua, e os mais fortes chegam a sacudir o solo por mais de 10 minutos!"
+        },
+        en: {
+          q: "Does the Moon really have earthquakes?",
+          a: "Yes! We call them 'moonquakes'. Some are triggered by Earth's tidal pull, and shallow moonquakes can ring the Moon like a bell for over 10 minutes!"
+        }
+      },
+      {
+        pt: {
+          q: "Como você aguentava o frio sem energia solar à noite?",
+          a: "Meus painéis solares recarregavam minhas baterias de dia, mas à noite era o calor natural do Plutônio-238 dentro do meu corpo que me impedia de congelar."
+        },
+        en: {
+          q: "How did you survive the night without sunlight?",
+          a: "My solar panels worked during the day, while at night the steady radioactive heat of Plutonium-238 kept my core from freezing solid."
+        }
+      },
+      {
+        pt: {
+          q: "O que aconteceu com você depois de 1969?",
+          a: "Minha estação irmã da Apollo 12, 14, 15 e 16 formou uma rede sísmica que funcionou até 1977, revelando que a Lua tem crosta, manto e um núcleo metálico!"
+        },
+        en: {
+          q: "What happened to you after 1969?",
+          a: "Together with sister stations from Apollo 12, 14, 15, and 16, we formed a lunar seismic network until 1977, revealing the Moon's crust, mantle, and metallic core!"
+        }
+      }
+    ]
+  },
+  eagle: {
+    badge: {
+      icon: "▲",
+      pt: { title: "Pioneiro da Paz" },
+      en: { title: "Peace Pioneer" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "A Placa na Escada",
+          text: "Na minha perna dianteira está a placa de aço inoxidável assinada pelos astronautas e pelo presidente: 'Viemos em paz por toda a humanidade'."
+        },
+        en: {
+          label: "The Ladder Plaque",
+          text: "Mounted on my front landing strut is the stainless-steel plaque reading: 'We came in peace for all mankind.'"
+        }
+      },
+      {
+        pt: {
+          label: "Plataforma de Lançamento",
+          text: "Quando o estágio superior do Eagle decolou em 21 de julho de 1969, eu servi literalmente de plataforma de lançamento — e fiquei para sempre na Base Tranquilidade."
+        },
+        en: {
+          label: "Lunar Launchpad",
+          text: "When Eagle's upper ascent stage blasted off on July 21, 1969, I served as its launchpad — and stayed behind forever at Tranquility Base."
+        }
+      },
+      {
+        pt: {
+          label: "Patas Esmagáveis de Alumínio",
+          text: "Minhas quatro patas tinham colmeias de alumínio que se comprimiam como amortecedores únicos para absorver o impacto do pouso sem quebrar."
+        },
+        en: {
+          label: "Crushable Honeycomb Legs",
+          text: "My four landing legs held crushable aluminum honeycomb cartridges designed to absorb the touchdown impact smoothly."
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "Por que você foi dividido em duas partes?",
+          a: "Levar tanques e pernas de pouso de volta para a órbita gastaria combustível demais. Deixar meu estágio de descida na Lua tornou o retorno possível!"
+        },
+        en: {
+          q: "Why did you split into two stages?",
+          a: "Carrying heavy landing legs and empty descent tanks back to orbit would waste precious fuel. Leaving my lower stage behind made the return trip possible!"
+        }
+      },
+      {
+        pt: {
+          q: "Quanto combustível restava no pouso?",
+          a: "Menos de 30 segundos! Neil Armstrong teve que pilotar manualmente para desviar de uma cratera cheia de pedregulhos antes de tocar o solo."
+        },
+        en: {
+          q: "How much fuel was left at touchdown?",
+          a: "Less than 30 seconds! Neil Armstrong had to fly manually over a boulder-strewn crater before setting me down safely."
+        }
+      },
+      {
+        pt: {
+          q: "Alguém já voltou para te visitar?",
+          a: "Ainda não a pé, mas a sonda LRO fotografa minha sombra da órbita, e futuras missões Artemis têm regras para proteger meu local histórico!"
+        },
+        en: {
+          q: "Has anyone come back to visit you?",
+          a: "Not on foot yet, though NASA's LRO photographs my shadow from orbit, and future Artemis missions have guidelines to protect my historic site!"
+        }
+      }
+    ]
+  },
+  lrv: {
+    badge: {
+      icon: "◎",
+      pt: { title: "Piloto Lunar" },
+      en: { title: "Lunar Driver" }
+    },
+    curiosities: [
+      {
+        pt: {
+          label: "Rodas de Fio de Piano",
+          text: "Meus pneus não têm ar nem borracha! São feitos de malha de aço de corda de piano com tiras de titânio para não furar e flutuar sobre o pó lunar."
+        },
+        en: {
+          label: "Piano-Wire Wheels",
+          text: "My tires have no air or rubber! They're woven from music spring piano wire with titanium chevrons so they never go flat on lunar dust."
+        }
+      },
+      {
+        pt: {
+          label: "Manche em 'T' (Sem Volante)",
+          text: "Com luvas espaciais pressurizadas era difícil girar um volante comum — por isso os astronautas me dirigiam com um joystick em formato de 'T'!"
+        },
+        en: {
+          label: "T-Shaped Joystick",
+          text: "Pressurized spacesuit gloves made turning a round steering wheel awkward — so astronauts drove me with a T-shaped hand controller!"
+        }
+      },
+      {
+        pt: {
+          label: "Para-Lama de Fita Adesiva",
+          text: "Na Apollo 17, meu para-lama quebrou e levantou uma chuva de poeira. Os astronautas consertaram usando mapas lunares plastificados e fita adesiva!"
+        },
+        en: {
+          label: "Duct-Tape Fender Repair",
+          text: "On Apollo 17, my rear fender snapped off, kicking up rooster tails of dust. The crew fixed me with laminated lunar maps and duct tape!"
+        }
+      }
+    ],
+    qa: [
+      {
+        pt: {
+          q: "Como vocês não se perdiam sem GPS?",
+          a: "Eu tinha um giroscópio direcional e odômetros nas rodas! A cada metro, meu computador apontava uma seta exata de volta para o Módulo Lunar."
+        },
+        en: {
+          q: "How didn't you get lost without GPS?",
+          a: "I carried a directional gyroscope and wheel odometers! Every meter we drove, my computer pointed a bearing arrow straight back to the Lunar Module."
+        }
+      },
+      {
+        pt: {
+          q: "O que foi o 'Seatbelt Basalt'?",
+          a: "Na Apollo 15, David Scott e James Irwin fingiram pelo rádio que meu cinto havia travado só para parar escondidos e pegar uma pedra vulcânica especial!"
+        },
+        en: {
+          q: "What was the 'Seatbelt Basalt'?",
+          a: "On Apollo 15, David Scott and James Irwin pretended my seatbelt needed fixing just to sneak a quick stop and collect a special volcanic rock!"
+        }
+      },
+      {
+        pt: {
+          q: "Como você filmou a decolagem da Apollo 17?",
+          a: "Eles me estacionaram apontado para a nave, e Ed Fendell, lá de Houston, controlou minha câmera de TV por rádio para acompanhar o foguete subindo!"
+        },
+        en: {
+          q: "How did you film Apollo 17's liftoff?",
+          a: "They parked me facing the lander, and Ed Fendell in Houston remotely tilted my TV camera via radio to track the rocket rising into space!"
+        }
+      }
+    ]
+  }
+};

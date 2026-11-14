@@ -196,17 +196,39 @@
         </div>
 
         <div class="walk-actions">
+          <button class="btn-ask-3d" id="openAskBtn">
+            <span id="openAskBtnLabel">Pergunte ao Equipamento</span>
+          </button>
           <button class="btn-open-story" id="openStoryBtn">
             <span id="openStoryBtnLabel">Ouvir a Minha História</span>
           </button>
         </div>
       </div>
 
+      <div class="stamps-collection-bar" id="stampsCollectionBar"></div>
       <div class="station-dots-row" id="stationDotsRow"></div>
       <p class="walk-hint-text" id="walkHintText">
-        Arraste para girar 360° • Scroll para zoom • Clique no equipamento para ouvir sua história
+        Arraste para girar 360° • Scroll para zoom • Clique nos orbes luminosos para curiosidades ou no equipamento para ouvir sua história
       </p>
     </section>
+
+    <!-- Floating 3D Curiosity & "Ask the Equipment" Interactive Card -->
+    <div class="interaction-card-3d hidden" id="interactionCard3D">
+      <div class="icard-header">
+        <span class="icard-kicker" id="icardKicker">CURIOSIDADE 3D</span>
+        <button class="btn-close-modal icard-close" id="closeIcardBtn">✕</button>
+      </div>
+      <div id="icardBody"></div>
+    </div>
+
+    <!-- Stamp Unlocked Toast -->
+    <div class="stamp-toast hidden" id="stampToast">
+      <span class="stamp-toast-icon" id="stampToastIcon">◈</span>
+      <div>
+        <small id="stampToastKicker">SELINHO CONQUISTADO!</small>
+        <strong id="stampToastTitle">Guardião da Luz</strong>
+      </div>
+    </div>
   </div>
 
   <!-- ========================================================================
