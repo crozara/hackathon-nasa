@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,29 +11,83 @@
 <body>
 
   <!-- ========================================================================
+       FULL-SCREEN ONBOARDING MODAL (LANGUAGE & AGE PROFILE SELECTION)
+       ======================================================================== -->
+  <div id="onboardingModal" class="onboarding-overlay">
+    <div class="onboarding-card">
+      <div class="onboarding-header">
+        <span class="onboarding-kicker" id="onboardingKicker">NASA SPACE APPS CHALLENGE • APOLLO ARCHIVE</span>
+        <h1 class="onboarding-title" id="onboardingTitle">Echoes of the Moon</h1>
+        <p class="onboarding-subtitle" id="onboardingSubtitle">
+          The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.
+        </p>
+      </div>
+
+      <!-- Language Selection -->
+      <div class="onboarding-section">
+        <span class="onboarding-label" id="onboardingLangLabel">SELECT LANGUAGE</span>
+        <div class="onboarding-lang-group">
+          <button type="button" class="onboarding-lang-btn active" data-lang-btn="en" id="onbLangEn">
+            <strong>EN</strong>
+            <span>English</span>
+          </button>
+          <button type="button" class="onboarding-lang-btn" data-lang-btn="pt" id="onbLangPt">
+            <strong>PT</strong>
+            <span>Português</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Age Profile Selection -->
+      <div class="onboarding-section">
+        <span class="onboarding-label" id="onboardingAgeLabel">EXPERIENCE PROFILE</span>
+        <div class="onboarding-age-grid">
+          <button type="button" class="onboarding-age-btn" data-age-btn="child" id="onbAgeChild">
+            <strong id="onboardingChildTitle">Child</strong>
+            <small id="onboardingChildDesc">Playful &amp; curious</small>
+          </button>
+          <button type="button" class="onboarding-age-btn" data-age-btn="teen" id="onbAgeTeen">
+            <strong id="onboardingTeenTitle">Teen</strong>
+            <small id="onboardingTeenDesc">Dynamic mission science</small>
+          </button>
+          <button type="button" class="onboarding-age-btn active" data-age-btn="adult" id="onbAgeAdult">
+            <strong id="onboardingAdultTitle">Adult</strong>
+            <small id="onboardingAdultDesc">Historical &amp; technical depth</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Call to Action -->
+      <button type="button" class="onboarding-enter-btn" id="enterMuseumBtn">
+        <span id="onboardingCtaText">ENTER THE MUSEUM</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        STATIC EDITORIAL SPACE-TECH SITE (DEFAULT VIEW — ZERO GPU OVERHEAD)
        ======================================================================== -->
   <div id="staticMuseumSite" class="static-museum-site">
     <!-- Minimalist Observatory-Style Navbar -->
     <nav class="editorial-navbar">
       <a href="#heroTop" class="editorial-brand">
-        <svg class="brand-arc-svg" viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
+        <svg class="brand-arc-svg" viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
           <path d="M5 20C9 10 20 6 28 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
           <circle cx="24" cy="10" r="2.2" fill="#93c5fd"/>
         </svg>
         <div class="brand-text-stack">
-          <strong id="navBrandTitle">Ecos da Lua</strong>
+          <strong id="navBrandTitle">Echoes of the Moon</strong>
           <span id="navBrandSub">NASA Space Apps</span>
         </div>
       </a>
 
       <div class="editorial-nav-links">
-        <a href="#storiesSection" id="navLinkStories">Histórias</a>
-        <a href="#artemisSection" id="navLinkArtemis">Legado Artemis</a>
+        <a href="#storiesSection" id="navLinkStories">Stories</a>
+        <a href="#artemisSection" id="navLinkArtemis">Artemis Legacy</a>
       </div>
 
       <div class="editorial-nav-actions">
-        <!-- Age Tone Selector (No Emojis) -->
+        <!-- Age Tone Selector (Hidden in static navbar; configured in Onboarding & Storybook) -->
         <div class="glass-pill-group editorial-age-group">
           <button class="pill-btn" data-age-btn="child" id="navAgeChild">Criança</button>
           <button class="pill-btn" data-age-btn="teen" id="navAgeTeen">Adolescente</button>
@@ -42,13 +96,21 @@
 
         <!-- Glowing Electric Blue 3D CTA -->
         <button class="btn-glow-blue btn-nav-3d" id="open3DModeBtn">
-          Explorar em 3D
+          Explore in 3D
         </button>
 
-        <!-- Language Switcher -->
+        <!-- Reopen Profile & Language Modal Button -->
+        <button id="reopenSettingsBtn" class="btn-tech-outline btn-icon-only" aria-label="Settings" title="Profile &amp; Language">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
+        <!-- Language Switcher (Hidden in static navbar; configured in Onboarding) -->
         <div class="lang-text-toggle">
-          <button class="lang-link active" data-lang-btn="pt">PT</button>
-          <button class="lang-link" data-lang-btn="en">EN</button>
+          <button class="lang-link" data-lang-btn="pt">PT</button>
+          <button class="lang-link active" data-lang-btn="en">EN</button>
         </div>
       </div>
     </nav>
@@ -145,8 +207,8 @@
 
       <div class="topbar-controls">
         <div class="glass-pill-group">
-          <button class="pill-btn active" data-lang-btn="pt">PT</button>
-          <button class="pill-btn" data-lang-btn="en">EN</button>
+          <button class="pill-btn" data-lang-btn="pt">PT</button>
+          <button class="pill-btn active" data-lang-btn="en">EN</button>
         </div>
 
         <div class="glass-pill-group">

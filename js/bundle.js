@@ -18,30 +18,30 @@ const UI_TEXT = {
   pt: {
     museumTitle: "MUSEU DO SILÊNCIO LUNAR",
     museumSubtitle: "Abandoned, But Not Forgotten — Ecos da Lua",
-    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE // STORYTELLING & CIÊNCIA LUNAR",
-    onboardingWelcome: "Bem-vindo ao Museu a Céu Aberto da Lua",
+    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • ARQUIVO APOLLO",
+    onboardingWelcome: "Ecos da Lua",
     onboardingLead:
-      "Desde a década de 1960, a humanidade deixou instrumentos extraordinários na superfície lunar. Eles não são lixo espacial: são guardiões da ciência e monumentos históricos. Sintonize a frequência de cada equipamento e ouça a história contada pela própria máquina.",
-    selectLanguageLabel: "1. Escolha o Idioma da Expedição",
-    selectAgeLabel: "2. Escolha o Seu Perfil de Explorador (Adapta a História e a Ciência)",
+      "O Museu do Silêncio Lunar — Histórias em primeira pessoa das máquinas históricas deixadas na Lua.",
+    selectLanguageLabel: "SELECIONE O IDIOMA",
+    selectAgeLabel: "PERFIL DE IDADE",
     ageProfiles: {
       child: {
         name: "Criança",
         sub: "7–11 anos • Jovem Astronauta",
-        desc: "Narrativa lúdica, curiosa e mágica, com explicações simples e cheias de imaginação."
+        desc: "Lúdico e curioso"
       },
       teen: {
         name: "Adolescente",
         sub: "12–17 anos • Cadete Espacial",
-        desc: "Aventura dinâmica, desafios extremos de engenharia, segredos dos astronautas e física em ação."
+        desc: "Ciência dinâmica da missão"
       },
       adult: {
         name: "Adulto",
         sub: "18+ anos • Curador Científico",
-        desc: "Crônica poética em 1ª pessoa unida ao rigor físico, dados técnicos oficiais e referências da NASA."
+        desc: "Profundidade histórica e técnica"
       }
     },
-    startExpeditionBtn: "Sintonizar Frequências Lunares",
+    startExpeditionBtn: "ENTRAR NO MUSEU",
     configureProfileBtn: "Perfil & Idioma",
     audioAmbientOn: "Som Espacial: ON",
     audioAmbientOff: "Som Espacial: OFF",
@@ -104,30 +104,30 @@ const UI_TEXT = {
   en: {
     museumTitle: "THE SILENT LUNAR MUSEUM",
     museumSubtitle: "Abandoned, But Not Forgotten — Echoes of the Moon",
-    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE // LUNAR STORYTELLING & SCIENCE",
-    onboardingWelcome: "Welcome to the Open-Air Museum of the Moon",
+    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • APOLLO ARCHIVE",
+    onboardingWelcome: "Echoes of the Moon",
     onboardingLead:
-      "Since the 1960s, humanity has left extraordinary machines on the lunar surface. They are not space junk: they are guardians of science and historical monuments. Tune into each artifact's frequency and hear its story told in its own voice.",
-    selectLanguageLabel: "1. Choose Your Expedition Language",
-    selectAgeLabel: "2. Choose Your Explorer Profile (Adapts Story Tone & Science Depth)",
+      "The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.",
+    selectLanguageLabel: "SELECT LANGUAGE",
+    selectAgeLabel: "EXPERIENCE PROFILE",
     ageProfiles: {
       child: {
         name: "Child",
         sub: "Ages 7–11 • Junior Astronaut",
-        desc: "Playful, curious, and magical storytelling with simple metaphors and vivid imagination."
+        desc: "Playful & curious"
       },
       teen: {
         name: "Teen",
         sub: "Ages 12–17 • Space Cadet",
-        desc: "Dynamic adventure, extreme engineering challenges, astronaut secrets, and physics in action."
+        desc: "Dynamic mission science"
       },
       adult: {
         name: "Adult",
         sub: "Ages 18+ • Science Curator",
-        desc: "Poetic first-person literary chronicle paired with rigorous physics, technical specs, and NASA papers."
+        desc: "Historical & technical depth"
       }
     },
-    startExpeditionBtn: "Tune Into Lunar Frequencies",
+    startExpeditionBtn: "ENTER THE MUSEUM",
     configureProfileBtn: "Profile & Language",
     audioAmbientOn: "Space Audio: ON",
     audioAmbientOff: "Space Audio: OFF",
@@ -4469,8 +4469,9 @@ const STATION_ORDER = ["lrrr", "pse", "eagle", "lrv"];
 
 class EchoesOfTheMoonApp {
   constructor() {
-    this.lang = "pt";
-    this.ageProfile = "adult"; // 'child' | 'teen' | 'adult'
+    this.lang = localStorage.getItem("nasa_lang") || "en";
+    this.ageProfile = localStorage.getItem("nasa_age") || "adult"; // 'child' | 'teen' | 'adult'
+    this.hasOnboarded = localStorage.getItem("nasa_onboarded") === "true";
     this.stationIndex = 0;
     this.storyPageIndex = 0;
     this.is3DActive = false;
@@ -4495,12 +4496,59 @@ class EchoesOfTheMoonApp {
   }
 
   init() {
+    const onboardingModal = document.getElementById("onboardingModal");
+    if (this.hasOnboarded && onboardingModal) {
+      onboardingModal.classList.add("hidden");
+    }
+
     const labMount = document.getElementById("scienceLabMount");
     this.labController = new ScienceLabController(labMount, this.audio);
 
     this.bindEvents();
+    this.updateOnboardingLanguageUI();
     this.renderUI();
     this.setupScrollReveal();
+  }
+
+  updateOnboardingLanguageUI() {
+    const t = UI_TEXT[this.lang] || UI_TEXT.en;
+
+    const setElText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el && text !== undefined) el.textContent = text;
+    };
+
+    // Kicker, Title & Subtitle
+    setElText("onboardingKicker", t.nasaChallengeBadge);
+    setElText("onboardingTitle", t.onboardingWelcome);
+    setElText("onboardingSubtitle", t.onboardingLead || t.museumSubtitle);
+
+    // Section Labels
+    setElText("onboardingLangLabel", t.selectLanguageLabel);
+    setElText("onboardingAgeLabel", t.selectAgeLabel);
+
+    // Age Profiles (Title & Description)
+    if (t.ageProfiles) {
+      setElText("onboardingChildTitle", t.ageProfiles.child.name);
+      setElText("onboardingChildDesc", t.ageProfiles.child.desc);
+
+      setElText("onboardingTeenTitle", t.ageProfiles.teen.name);
+      setElText("onboardingTeenDesc", t.ageProfiles.teen.desc);
+
+      setElText("onboardingAdultTitle", t.ageProfiles.adult.name);
+      setElText("onboardingAdultDesc", t.ageProfiles.adult.desc);
+    }
+
+    // Final Call to Action
+    setElText("onboardingCtaText", t.startExpeditionBtn);
+
+    // Sync active state on language & age buttons inside onboarding modal
+    document.querySelectorAll("#onboardingModal [data-lang-btn]").forEach((btn) => {
+      btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === this.lang);
+    });
+    document.querySelectorAll("#onboardingModal [data-age-btn]").forEach((btn) => {
+      btn.classList.toggle("active", btn.getAttribute("data-age-btn") === this.ageProfile);
+    });
   }
 
   ensure3DInitialized() {
@@ -4596,25 +4644,68 @@ class EchoesOfTheMoonApp {
   }
 
   bindEvents() {
-    // 1. Language Switchers
+    // 1. Language Switchers (including Onboarding Modal)
     document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         this.lang = btn.getAttribute("data-lang-btn");
-        this.audio.stopSpeech(false);
-        this.audio.playPing(780, 0.08);
+        localStorage.setItem("nasa_lang", this.lang);
+        if (this.audio) {
+          this.audio.stopSpeech(false);
+          if (typeof this.audio.playPing === "function") {
+            this.audio.playPing(780, 0.08);
+          }
+        }
+        this.updateOnboardingLanguageUI();
         this.renderUI();
       });
     });
 
-    // 2. Age Profile Switchers
+    // 2. Age Profile Switchers (including Onboarding Modal & Storybook)
     document.querySelectorAll("[data-age-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         this.ageProfile = btn.getAttribute("data-age-btn");
-        this.audio.stopSpeech(false);
-        this.audio.playPing(920, 0.08);
+        localStorage.setItem("nasa_age", this.ageProfile);
+        if (this.audio) {
+          this.audio.stopSpeech(false);
+          if (typeof this.audio.playPing === "function") {
+            this.audio.playPing(920, 0.08);
+          }
+        }
+        this.updateOnboardingLanguageUI();
         this.renderUI();
       });
     });
+
+    // 2b. Onboarding Enter Button ("ENTER THE MUSEUM")
+    const enterMuseumBtn = document.getElementById("enterMuseumBtn");
+    const onboardingModal = document.getElementById("onboardingModal");
+    if (enterMuseumBtn && onboardingModal) {
+      enterMuseumBtn.addEventListener("click", () => {
+        this.hasOnboarded = true;
+        localStorage.setItem("nasa_onboarded", "true");
+        localStorage.setItem("nasa_lang", this.lang);
+        localStorage.setItem("nasa_age", this.ageProfile);
+        onboardingModal.classList.add("hidden");
+        if (this.audio && typeof this.audio.playPing === "function") {
+          this.audio.playPing(880, 0.1);
+        }
+        this.renderUI();
+      });
+    }
+
+    // 2c. Reopen Settings Button in Navbar
+    const reopenSettingsBtn = document.getElementById("reopenSettingsBtn");
+    if (reopenSettingsBtn && onboardingModal) {
+      reopenSettingsBtn.addEventListener("click", () => {
+        this.lang = localStorage.getItem("nasa_lang") || this.lang;
+        this.ageProfile = localStorage.getItem("nasa_age") || this.ageProfile;
+        this.updateOnboardingLanguageUI();
+        onboardingModal.classList.remove("hidden");
+        if (this.audio && typeof this.audio.playPing === "function") {
+          this.audio.playPing(820, 0.08);
+        }
+      });
+    }
 
     // 3. On-Demand 3D Mode Triggers
     ["open3DModeBtn", "heroOpen3DBtn", "artemisOpen3DBtn"].forEach((id) => {
@@ -5351,6 +5442,12 @@ class EchoesOfTheMoonApp {
     document.getElementById("navAgeTeen").textContent = isPt ? "Adolescente" : "Teen";
     document.getElementById("navAgeAdult").textContent = isPt ? "Adulto" : "Adult";
     document.getElementById("open3DModeBtn").textContent = isPt ? "Explorar em 3D" : "Explore in 3D";
+    const reopenSettingsBtn = document.getElementById("reopenSettingsBtn");
+    if (reopenSettingsBtn) {
+      const settingsLabel = isPt ? "Perfil e Idioma" : "Profile & Language";
+      reopenSettingsBtn.setAttribute("title", settingsLabel);
+      reopenSettingsBtn.setAttribute("aria-label", settingsLabel);
+    }
 
     document.getElementById("heroTeleTop").textContent = isPt
       ? "384.400 KM  •  1/6 GRAVIDADE"

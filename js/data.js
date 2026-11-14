@@ -8,30 +8,30 @@ export const UI_TEXT = {
   pt: {
     museumTitle: "MUSEU DO SILÊNCIO LUNAR",
     museumSubtitle: "Abandoned, But Not Forgotten — Ecos da Lua",
-    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE // STORYTELLING & CIÊNCIA LUNAR",
-    onboardingWelcome: "Bem-vindo ao Museu a Céu Aberto da Lua",
+    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • ARQUIVO APOLLO",
+    onboardingWelcome: "Ecos da Lua",
     onboardingLead:
-      "Desde a década de 1960, a humanidade deixou instrumentos extraordinários na superfície lunar. Eles não são lixo espacial: são guardiões da ciência e monumentos históricos. Sintonize a frequência de cada equipamento e ouça a história contada pela própria máquina.",
-    selectLanguageLabel: "1. Escolha o Idioma da Expedição",
-    selectAgeLabel: "2. Escolha o Seu Perfil de Explorador (Adapta a História e a Ciência)",
+      "O Museu do Silêncio Lunar — Histórias em primeira pessoa das máquinas históricas deixadas na Lua.",
+    selectLanguageLabel: "SELECIONE O IDIOMA",
+    selectAgeLabel: "PERFIL DE IDADE",
     ageProfiles: {
       child: {
         name: "Criança",
         sub: "7–11 anos • Jovem Astronauta",
-        desc: "Narrativa lúdica, curiosa e mágica, com explicações simples e cheias de imaginação."
+        desc: "Lúdico e curioso"
       },
       teen: {
         name: "Adolescente",
         sub: "12–17 anos • Cadete Espacial",
-        desc: "Aventura dinâmica, desafios extremos de engenharia, segredos dos astronautas e física em ação."
+        desc: "Ciência dinâmica da missão"
       },
       adult: {
         name: "Adulto",
         sub: "18+ anos • Curador Científico",
-        desc: "Crônica poética em 1ª pessoa unida ao rigor físico, dados técnicos oficiais e referências da NASA."
+        desc: "Profundidade histórica e técnica"
       }
     },
-    startExpeditionBtn: "Sintonizar Frequências Lunares",
+    startExpeditionBtn: "ENTRAR NO MUSEU",
     configureProfileBtn: "Perfil & Idioma",
     audioAmbientOn: "Som Espacial: ON",
     audioAmbientOff: "Som Espacial: OFF",
@@ -94,30 +94,30 @@ export const UI_TEXT = {
   en: {
     museumTitle: "THE SILENT LUNAR MUSEUM",
     museumSubtitle: "Abandoned, But Not Forgotten — Echoes of the Moon",
-    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE // LUNAR STORYTELLING & SCIENCE",
-    onboardingWelcome: "Welcome to the Open-Air Museum of the Moon",
+    nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • APOLLO ARCHIVE",
+    onboardingWelcome: "Echoes of the Moon",
     onboardingLead:
-      "Since the 1960s, humanity has left extraordinary machines on the lunar surface. They are not space junk: they are guardians of science and historical monuments. Tune into each artifact's frequency and hear its story told in its own voice.",
-    selectLanguageLabel: "1. Choose Your Expedition Language",
-    selectAgeLabel: "2. Choose Your Explorer Profile (Adapts Story Tone & Science Depth)",
+      "The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.",
+    selectLanguageLabel: "SELECT LANGUAGE",
+    selectAgeLabel: "EXPERIENCE PROFILE",
     ageProfiles: {
       child: {
         name: "Child",
         sub: "Ages 7–11 • Junior Astronaut",
-        desc: "Playful, curious, and magical storytelling with simple metaphors and vivid imagination."
+        desc: "Playful & curious"
       },
       teen: {
         name: "Teen",
         sub: "Ages 12–17 • Space Cadet",
-        desc: "Dynamic adventure, extreme engineering challenges, astronaut secrets, and physics in action."
+        desc: "Dynamic mission science"
       },
       adult: {
         name: "Adult",
         sub: "Ages 18+ • Science Curator",
-        desc: "Poetic first-person literary chronicle paired with rigorous physics, technical specs, and NASA papers."
+        desc: "Historical & technical depth"
       }
     },
-    startExpeditionBtn: "Tune Into Lunar Frequencies",
+    startExpeditionBtn: "ENTER THE MUSEUM",
     configureProfileBtn: "Profile & Language",
     audioAmbientOn: "Space Audio: ON",
     audioAmbientOff: "Space Audio: OFF",
