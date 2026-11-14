@@ -294,13 +294,13 @@
   </div>
 
   <!-- ========================================================================
-       SHARED TELEMETRY TRANSMISSION TERMINAL (STATIC SITE & 3D MODE)
+       SHARED OPEN-BOOK STORY READER (WORKS FROM STATIC SITE & 3D MODE)
        ======================================================================== -->
   <aside class="story-reading-drawer hidden" id="storyDrawer">
     <div class="story-drawer-inner">
       <div class="drawer-top-nav">
         <button class="btn-back-walk" id="closeStoryBtn">
-          ✕ <span id="backToWalkText">FECHAR TRANSMISSÃO</span>
+          ← <span id="backToWalkText">Fechar Livro</span>
         </button>
         <span class="status-tag" id="storyStatusTag">ATIVO HOJE</span>
       </div>
@@ -308,7 +308,7 @@
       <div class="story-audio-bar">
         <button class="btn-narrate-primary" id="narratePlayBtn">
           <span class="mini-wave" id="miniWave"></span>
-          <span id="narratePlayText">OUVIR TRANSMISSÃO</span>
+          <span id="narratePlayText">Ouvir Minha História</span>
         </button>
         <button class="btn-narrate-sec hidden" id="narrateStopBtn">Parar</button>
         <button class="btn-narrate-sec" id="narrateSpeedBtn">1.0x</button>
@@ -341,26 +341,22 @@
           <div class="story-paragraphs-flow" id="storyParagraphsFlow"></div>
 
           <div class="book-page-nav">
-            <button class="book-page-btn" id="bookPrevPageBtn" aria-label="Página Anterior" title="Página Anterior">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-            </button>
-            <span class="book-page-indicator" id="bookPageIndicator">SINAL 1 / 2</span>
-            <button class="book-page-btn" id="bookNextPageBtn" aria-label="Próxima Página" title="Próxima Página">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-            </button>
+            <button class="book-page-btn" id="bookPrevPageBtn">← Anterior</button>
+            <span class="book-page-indicator" id="bookPageIndicator">Página 1 de 2</span>
+            <button class="book-page-btn" id="bookNextPageBtn">Próxima →</button>
           </div>
         </div>
       </div>
 
       <div class="story-footer-actions">
-        <button class="book-page-btn" id="storyPrevArtifactBtn" aria-label="Capítulo Anterior" title="Capítulo Anterior">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        <button class="book-page-btn" id="storyPrevArtifactBtn">
+          ← <span id="storyPrevArtifactText">Equipamento Anterior</span>
         </button>
         <button class="btn-deep-science" id="openScienceModalBtn">
           <span id="openScienceBtnText">Ver Ciência, Fotografia &amp; Ficha Técnica</span>
         </button>
-        <button class="btn-next-artifact" id="storyNextArtifactBtn" aria-label="Próximo Capítulo" title="Próximo Capítulo">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        <button class="btn-next-artifact" id="storyNextArtifactBtn">
+          <span id="storyNextArtifactText">Próximo Equipamento</span> →
         </button>
       </div>
     </div>
