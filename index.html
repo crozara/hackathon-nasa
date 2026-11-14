@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echoes of the Moon — NASA Space Apps Challenge</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Three.js WebGL Engine (instantiated on demand when user enters 3D mode) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- ========================================================================
+       STATIC EDITORIAL SPACE-TECH SITE (DEFAULT VIEW — ZERO GPU OVERHEAD)
+       ======================================================================== -->
+  <div id="staticMuseumSite" class="static-museum-site">
+    <!-- Minimalist Observatory-Style Navbar -->
+    <nav class="editorial-navbar">
+      <a href="#heroTop" class="editorial-brand">
+        <svg class="brand-arc-svg" viewBox="0 0 32 32" width="28" height="28" fill="none" aria-hidden="true">
+          <path d="M5 20C9 10 20 6 28 11" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="10" r="2.2" fill="#93c5fd"/>
+        </svg>
+        <div class="brand-text-stack">
+          <strong id="navBrandTitle">Ecos da Lua</strong>
+          <span id="navBrandSub">NASA Space Apps</span>
+        </div>
+      </a>
+
+      <div class="editorial-nav-links">
+        <a href="#storiesSection" id="navLinkStories">Histórias</a>
+        <a href="#artemisSection" id="navLinkArtemis">Legado Artemis</a>
+      </div>
+
+      <div class="editorial-nav-actions">
+        <!-- Age Tone Selector (No Emojis) -->
+        <div class="glass-pill-group editorial-age-group">
+          <button class="pill-btn" data-age-btn="child" id="navAgeChild">Criança</button>
+          <button class="pill-btn" data-age-btn="teen" id="navAgeTeen">Adolescente</button>
+          <button class="pill-btn active" data-age-btn="adult" id="navAgeAdult">Adulto</button>
+        </div>
+
+        <!-- Glowing Electric Blue 3D CTA -->
+        <button class="btn-glow-blue btn-nav-3d" id="open3DModeBtn">
+          Explorar em 3D
+        </button>
+
+        <!-- Language Switcher -->
+        <div class="lang-text-toggle">
+          <button class="lang-link active" data-lang-btn="pt">PT</button>
+          <button class="lang-link" data-lang-btn="en">EN</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section (Inspired by Observatory Minimalism) -->
+    <section id="heroTop" class="editorial-hero">
+      <div class="hero-content-col">
+        <div class="hero-telemetry-row">
+          <svg class="crescent-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="telemetry-lines">
+            <span id="heroTeleTop">384.400 KM  •  1/6 GRAVIDADE</span>
+            <span id="heroTeleBottom">Apollo 11–17  |  1969 — Hoje  |  Mare Tranquillitatis</span>
+          </div>
+        </div>
+
+        <h1 class="hero-display-title" id="heroTitle">
+          Descubra os Segredos<br />Deixados na Lua
+        </h1>
+
+        <p class="hero-lead-text" id="heroLead">
+          Desde 1969, máquinas silenciosas permaneceram na superfície lunar. Ouça suas histórias contadas em primeira pessoa e entenda a ciência que continua viva até hoje.
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="#storiesSection" class="btn-glow-blue" id="heroStartBtn">
+            Ler &amp; Ouvir Histórias
+          </a>
+          <button class="btn-tech-outline" id="heroOpen3DBtn">
+            Abrir Visualização 3D →
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-moon-col" aria-hidden="true">
+        <img src="assets/images/hero-moon.jpg" alt="Lua em alto contraste" class="hero-moon-img" />
+      </div>
+    </section>
+
+    <!-- Act I: Emotional Storytelling Prologue & Curiosity Hooks -->
+    <section id="prologueChapter" class="editorial-prologue-section reveal-on-scroll">
+      <div class="prologue-inner">
+        <span class="tech-kicker" id="prologueKicker">ATO I • O SILÊNCIO APÓS A PARTIDA</span>
+        <h2 class="prologue-title" id="prologueTitle">
+          O mundo celebrou quem voltou. Mas quem ficou lá em cima?
+        </h2>
+        <p class="prologue-lead" id="prologueLead">
+          Quando os astronautas da Apollo decolaram de volta para a Terra, deixaram para trás engenhocas que enfrentaram noites de -170 °C, poeira elétrica e solidão absoluta. Cada uma delas tem uma história — e uma descoberta científica que mudou o que sabemos sobre o universo.
+        </p>
+
+        <div class="curiosity-hooks-grid" id="curiosityHooksGrid">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <div class="discovery-progress-pill" id="discoveryProgressPill">
+          <span class="progress-beacon"></span>
+          <span id="discoveryProgressText">Descobertas na expedição: 0 de 4</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Light Editorial Storytelling Chapters -->
+    <section id="storiesSection" class="editorial-stories-section">
+      <div class="section-header-block reveal-on-scroll">
+        <span class="tech-kicker" id="storiesKicker">ARQUIVO DE VOZES LUNARES • 04 MONUMENTOS</span>
+        <h2 id="storiesHeading">Abandonados, mas nunca esquecidos.</h2>
+        <p id="storiesSubheading">
+          Escolha a faixa etária no topo da página para adaptar o tom de cada narrativa — de curioso e lúdico a científico e poético.
+        </p>
+      </div>
+
+      <div id="editorialChaptersList" class="story-showcase-shell reveal-on-scroll">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- Artemis Future / Epilogue Section -->
+    <section id="artemisSection" class="editorial-artemis-section reveal-on-scroll">
+      <div class="artemis-glass-card">
+        <span class="tech-kicker" id="artemisKicker">DO PASSADO APOLLO AO FUTURO ARTEMIS</span>
+        <h2 id="artemisHeading">O legado que guia o retorno à Lua.</h2>
+        <p id="artemisBody">
+          Cada espelho, sismômetro, módulo de descida e jipe lunar deixou pistas essenciais para o Programa Artemis. Hoje, esses locais são protegidos como patrimônio histórico da exploração espacial.
+        </p>
+        <div class="artemis-cta-row">
+          <button class="btn-glow-blue" id="artemisOpen3DBtn">
+            Explorar Equipamentos em 3D →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="editorial-footer">
+      <span id="footerText">Ecos da Lua • NASA Space Apps Challenge — Storytelling</span>
+    </footer>
+  </div>
+
+  <!-- ========================================================================
+       ON-DEMAND 3D LUNAR VIEWER (ONLY SHOWN WHEN USER CLICKS "EXPLORAR EM 3D")
+       ======================================================================== -->
+  <div id="mode3DWrapper" class="mode-3d-wrapper hidden">
+    <div id="lunar3DViewport" class="lunar-3d-viewport"></div>
+
+    <!-- Minimalist Floating 3D Topbar -->
+    <header class="minimal-topbar">
+      <div class="topbar-left-group">
+        <button class="glass-icon-btn btn-exit-3d" id="exit3DBtn">
+          ← <span id="exit3DLabel">Voltar ao Site</span>
+        </button>
+        <div class="topbar-brand" id="returnToWalkBrand">
+          <span class="brand-dot"></span>
+          <div>
+            <strong id="museumTitleText">MUSEU DO SILÊNCIO LUNAR</strong>
+            <span id="museumSubtitleText">Modo de Inspeção 3D</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-controls">
+        <div class="glass-pill-group">
+          <button class="pill-btn active" data-lang-btn="pt">PT</button>
+          <button class="pill-btn" data-lang-btn="en">EN</button>
+        </div>
+
+        <div class="glass-pill-group">
+          <button class="pill-btn" data-age-btn="child" id="topAgeChild">Criança</button>
+          <button class="pill-btn" data-age-btn="teen" id="topAgeTeen">Adolescente</button>
+          <button class="pill-btn active" data-age-btn="adult" id="topAgeAdult">Adulto</button>
+        </div>
+
+        <button class="glass-icon-btn" id="ambientSoundBtn" title="Som Ambiente Espacial">
+          <span id="ambientSoundText">Som OFF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Lateral Travel Controls -->
+    <button class="side-travel-btn side-travel-prev" id="prevStationBtn">
+      <span class="travel-arrow">←</span>
+      <div class="travel-meta">
+        <small id="prevTravelKicker">Viajar para anterior</small>
+        <strong id="prevTravelTitle">Sismômetro Passivo</strong>
+      </div>
+    </button>
+
+    <button class="side-travel-btn side-travel-next" id="nextStationBtn">
+      <div class="travel-meta">
+        <small id="nextTravelKicker">Viajar para o próximo</small>
+        <strong id="nextTravelTitle">Sismômetro Passivo (PSE)</strong>
+      </div>
+      <span class="travel-arrow">→</span>
+    </button>
+
+    <!-- Minimalist Bottom Dock -->
+    <section class="walk-hud-dock" id="walkHudDock">
+      <div class="walk-capsule">
+        <div class="walk-station-info">
+          <div class="station-step-meta">
+            <span class="step-index" id="walkStepBadge">ESTAÇÃO 01 / 04</span>
+            <span class="step-dot">•</span>
+            <span class="step-coords" id="walkCoordsText">Mare Tranquillitatis</span>
+          </div>
+          <h2 id="walkArtifactTitle">Retrorefletor Lunar da Apollo 11</h2>
+          <p id="walkArtifactPersona">"O Espelho Imortal que Conversa com a Luz"</p>
+        </div>
+
+        <div class="walk-actions">
+          <button class="btn-open-story" id="openStoryBtn">
+            <span id="openStoryBtnLabel">Ouvir a Minha História</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="station-dots-row" id="stationDotsRow"></div>
+      <p class="walk-hint-text" id="walkHintText">
+        Arraste para girar 360° • Scroll para zoom • Clique no equipamento para ouvir sua história
+      </p>
+    </section>
+  </div>
+
+  <!-- ========================================================================
+       SHARED STORY READING DRAWER (WORKS FROM STATIC SITE & 3D MODE)
+       ======================================================================== -->
+  <aside class="story-reading-drawer hidden" id="storyDrawer">
+    <div class="story-drawer-inner">
+      <div class="drawer-top-nav">
+        <button class="btn-back-walk" id="closeStoryBtn">
+          ← <span id="backToWalkText">Fechar História</span>
+        </button>
+        <span class="status-tag" id="storyStatusTag">ATIVO HOJE</span>
+      </div>
+
+      <div class="story-header-block">
+        <span class="story-code-meta" id="storyCodeMeta">APOLLO 11 • 20 JUL 1969</span>
+        <h1 id="storyMainTitle">Retrorefletor Lunar da Apollo 11</h1>
+        <p class="story-persona-sub" id="storyPersonaSub">"O Espelho Imortal que Conversa com a Luz"</p>
+      </div>
+
+      <div class="story-audio-bar">
+        <button class="btn-narrate-primary" id="narratePlayBtn">
+          <span class="mini-wave" id="miniWave"></span>
+          <span id="narratePlayText">Ouvir Minha História</span>
+        </button>
+        <button class="btn-narrate-sec hidden" id="narrateStopBtn">Parar</button>
+        <button class="btn-narrate-sec" id="narrateSpeedBtn">1.0x</button>
+
+        <div class="drawer-age-chips">
+          <button class="age-chip" data-age-btn="child"><span class="age-chip-child">Criança</span></button>
+          <button class="age-chip" data-age-btn="teen"><span class="age-chip-teen">Adolescente</span></button>
+          <button class="age-chip active" data-age-btn="adult"><span class="age-chip-adult">Adulto</span></button>
+        </div>
+      </div>
+
+      <div class="story-paragraphs-flow" id="storyParagraphsFlow"></div>
+
+      <blockquote class="story-quote-highlight" id="storyQuoteHighlight"></blockquote>
+
+      <div class="story-footer-actions">
+        <button class="btn-deep-science" id="openScienceModalBtn">
+          <span id="openScienceBtnText">Ver Ciência, Fotografia &amp; Ficha Técnica</span>
+        </button>
+        <button class="btn-next-artifact" id="storyNextArtifactBtn">
+          <span id="storyNextArtifactText">Próximo Equipamento</span> →
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       SHARED ON-DEMAND SCIENCE, PHOTO & NASA SPECS MODAL
+       ======================================================================== -->
+  <div class="science-modal-backdrop hidden" id="scienceModal">
+    <div class="science-modal-card">
+      <div class="science-modal-header">
+        <div>
+          <span class="sci-kicker" id="scienceModalKicker">ARQUIVO CIENTÍFICO NASA</span>
+          <h2 id="scienceModalTitle">Retrorefletor Lunar (LRRR)</h2>
+        </div>
+        <button class="btn-close-modal" id="closeScienceModalBtn">✕</button>
+      </div>
+
+      <div class="science-subtabs">
+        <button class="sci-tab-btn active" data-scitab="anatomy">
+          <span id="sciTabAnatomy">Fotografia &amp; Peças Interativas</span>
+        </button>
+        <button class="sci-tab-btn" data-scitab="lab">
+          <span id="sciTabLab">Simulador Científico</span>
+        </button>
+        <button class="sci-tab-btn" data-scitab="specs">
+          <span id="sciTabSpecs">Ficha Técnica &amp; Fontes NASA</span>
+        </button>
+      </div>
+
+      <div class="science-modal-body">
+        <div class="sci-pane active" id="sciPane-anatomy">
+          <div class="anatomy-bar">
+            <p id="hotspotHintText">Clique nos pontos numerados sobre o equipamento para descobrir como cada peça funciona:</p>
+            <div class="view-toggle-group">
+              <button class="view-btn active" id="modePhotoBtn">Fotografia Lunar</button>
+              <button class="view-btn" id="modeBlueprintBtn">Blueprint Técnico</button>
+            </div>
+          </div>
+          <div id="anatomyViewportContainer"></div>
+          <div class="hotspot-info-box" id="hotspotInfoBox"></div>
+        </div>
+
+        <div class="sci-pane" id="sciPane-lab">
+          <div id="scienceLabMount"></div>
+        </div>
+
+        <div class="sci-pane" id="sciPane-specs">
+          <div class="specs-grid-layout">
+            <div>
+              <h4 id="techTableHeading">Especificações Técnicas Oficiais</h4>
+              <table class="clean-specs-table">
+                <tbody id="cleanSpecsBody"></tbody>
+              </table>
+            </div>
+            <div class="specs-side-cards">
+              <div class="info-block">
+                <h4 id="contextHeading">Contexto da Missão</h4>
+                <p id="contextBodyText"></p>
+              </div>
+              <div class="info-block">
+                <h4 id="stateHeading">Estado Atual e Preservação</h4>
+                <p id="stateBodyText"></p>
+              </div>
+              <div class="info-block">
+                <h4 id="refsHeading">Fontes e Artigos Oficiais da NASA</h4>
+                <ul class="clean-refs-list" id="cleanRefsList"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/bundle.js"></script>
+</body>
+</html>
