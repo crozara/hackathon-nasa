@@ -128,7 +128,7 @@ async def generate_all():
             for age, paragraphs in ages.items():
                 for idx, text in enumerate(paragraphs):
                     out_file = OUT_DIR / f"{aid}-{lang}-{age}-p{idx}.mp3"
-                    if out_file.exists():
+                    if out_file.exists() and out_file.stat().st_size > 0:
                         continue
                     tasks.append((text, voice, pitch, rate, out_file))
 
@@ -137,7 +137,7 @@ async def generate_all():
             voice, pitch, rate = VOICES[aid][lang]
             for idx, text in enumerate(answers):
                 out_file = OUT_DIR / f"{aid}-{lang}-qa{idx}.mp3"
-                if out_file.exists():
+                if out_file.exists() and out_file.stat().st_size > 0:
                     continue
                 tasks.append((text, voice, pitch, rate, out_file))
 

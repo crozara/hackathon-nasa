@@ -2226,6 +2226,100 @@ class MuseumAudioEngine {
     this.artifactAudioEl = null;
     this.isArtifactSpeaking = false;
     this._artifactToken = 0;
+
+    // Reusable per-channel <audio> elements so mobile browsers (iOS Safari / Android Chrome)
+    // keep autoplay unlock across multi-paragraph narration and sequential clips.
+    this._storyAudioPoolEl = this._createChannelAudio();
+    this._vegaAudioPoolEl = this._createChannelAudio();
+    this._artifactAudioPoolEl = this._createChannelAudio();
+    this._audioUnlocked = false;
+    this._speechSynthOwner = null;
+    this._installUnlockListeners();
+  }
+
+  _createChannelAudio() {
+    if (typeof Audio === "undefined") return null;
+    const el = new Audio();
+    el.preload = "auto";
+    el.setAttribute("playsinline", "");
+    return el;
+  }
+
+  _installUnlockListeners() {
+    if (typeof window === "undefined") return;
+    const unlock = () => {
+      this.unlockAudio();
+      if (this._audioUnlocked) {
+        ["pointerdown", "touchstart", "keydown"].forEach((evt) => {
+          window.removeEventListener(evt, unlock, true);
+        });
+      }
+    };
+    ["pointerdown", "touchstart", "keydown"].forEach((evt) => {
+      window.addEventListener(evt, unlock, { capture: true, passive: true });
+    });
+  }
+
+  unlockAudio() {
+    try {
+      this.initContext();
+    } catch (_) {}
+    if (this._audioUnlocked) return;
+
+    // Minimal 1-sample silent WAV for blessing reusable <audio> elements on iOS/mobile Safari
+    const silentWav =
+      "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+    const pools = [this._storyAudioPoolEl, this._vegaAudioPoolEl, this._artifactAudioPoolEl];
+    let allSettled = true;
+    pools.forEach((el) => {
+      if (!el || el.dataset.unlocked === "1") return;
+      if (el.getAttribute("src") && el.dataset.unlocking !== "1") return;
+      allSettled = false;
+      el.dataset.unlocking = "1";
+      el.muted = true;
+      el.src = silentWav;
+      try {
+        const p = el.play();
+        if (p && typeof p.then === "function") {
+          p.then(() => {
+            el.dataset.unlocked = "1";
+            if (el.dataset.unlocking !== "1") return;
+            delete el.dataset.unlocking;
+            el.pause();
+            el.currentTime = 0;
+            el.muted = false;
+            el.removeAttribute("src");
+          }).catch(() => {
+            if (el.dataset.unlocking !== "1") return;
+            delete el.dataset.unlocking;
+            el.muted = false;
+            el.removeAttribute("src");
+          });
+        } else {
+          el.dataset.unlocked = "1";
+          delete el.dataset.unlocking;
+          el.muted = false;
+          el.removeAttribute("src");
+        }
+      } catch (_) {
+        delete el.dataset.unlocking;
+        el.muted = false;
+        el.removeAttribute("src");
+      }
+    });
+    if (allSettled || !pools.some(Boolean)) {
+      this._audioUnlocked = true;
+    }
+  }
+
+  _detachAudioHandlers(el) {
+    if (!el) return;
+    el.onloadedmetadata = null;
+    el.onseeked = null;
+    el.ontimeupdate = null;
+    el.onplaying = null;
+    el.onended = null;
+    el.onerror = null;
   }
 
   estimateParagraphDuration(text, rate = this.speechRate) {
@@ -2243,6 +2337,7 @@ class MuseumAudioEngine {
     this.speechRate = rate;
     if (this.currentAudioEl) {
       try {
+        this.currentAudioEl.defaultPlaybackRate = rate;
         this.currentAudioEl.playbackRate = rate;
       } catch (_) {}
     }
@@ -2539,6 +2634,7 @@ class MuseumAudioEngine {
         finishNarration();
         return;
       }
+      this._speechSynthOwner = "story";
       this._paragraphStartOffset = 0;
       this._pausedElapsedInPara = 0;
       this._paragraphStartedAt = performance.now();
@@ -2601,21 +2697,29 @@ class MuseumAudioEngine {
       if (artifactId) {
         const paraIdx = index;
         const audioUrl = `assets/audio/${artifactId}-${lang}-${ageProfile}-p${paraIdx}.mp3`;
-        const audioEl = new Audio(audioUrl);
+        const audioEl = this._storyAudioPoolEl || this._createChannelAudio();
+        this._detachAudioHandlers(audioEl);
+        delete audioEl.dataset.unlocking;
+        audioEl.muted = false;
+        audioEl.defaultPlaybackRate = this.speechRate;
         audioEl.playbackRate = this.speechRate;
+        audioEl.src = audioUrl;
+        audioEl.load();
         this.currentAudioEl = audioEl;
 
         let fellBack = false;
         const fallback = () => {
           if (token !== this._playbackToken || fellBack || !this.isSpeaking) return;
           fellBack = true;
+          this._detachAudioHandlers(audioEl);
           this.currentAudioEl = null;
           this._audioOffsetSynced = true;
           speakWithWebSpeech(paraIdx);
         };
 
-        audioEl.addEventListener("loadedmetadata", () => {
+        audioEl.onloadedmetadata = () => {
           if (token !== this._playbackToken || fellBack) return;
+          audioEl.playbackRate = this.speechRate;
           if (Number.isFinite(audioEl.duration) && audioEl.duration > 0) {
             this._paragraphDurations[paraIdx] = audioEl.duration;
             if (initialOffset > 0 && initialOffset < audioEl.duration) {
@@ -2629,21 +2733,27 @@ class MuseumAudioEngine {
             }
             this.emitProgress();
           }
-        });
+        };
 
-        audioEl.addEventListener("seeked", () => {
+        audioEl.onplaying = () => {
+          if (token !== this._playbackToken || fellBack) return;
+          audioEl.playbackRate = this.speechRate;
+        };
+
+        audioEl.onseeked = () => {
           if (token !== this._playbackToken || fellBack) return;
           this._audioOffsetSynced = true;
           this.emitProgress();
-        });
+        };
 
-        audioEl.addEventListener("timeupdate", () => {
+        audioEl.ontimeupdate = () => {
           if (token !== this._playbackToken || fellBack) return;
           this.emitProgress();
-        });
+        };
 
         audioEl.onended = () => {
           if (token !== this._playbackToken || fellBack) return;
+          this._detachAudioHandlers(audioEl);
           if (this.isSpeaking) {
             this.currentAudioEl = null;
             index++;
@@ -2651,7 +2761,10 @@ class MuseumAudioEngine {
           }
         };
         audioEl.onerror = fallback;
-        audioEl.play().catch(fallback);
+        const playPromise = audioEl.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(fallback);
+        }
         return;
       }
 
@@ -2662,6 +2775,7 @@ class MuseumAudioEngine {
   }
 
   speakStory(paragraphs, lang = "pt", ageProfile = "adult", callbacks = {}, artifactId = null) {
+    this.unlockAudio();
     this.stopSpeech(false);
     this.playQuindarTone(true);
 
@@ -2684,6 +2798,7 @@ class MuseumAudioEngine {
     this._playbackToken++;
     this._clearProgressTimer();
     if (this.currentAudioEl) {
+      this._detachAudioHandlers(this.currentAudioEl);
       try {
         this.currentAudioEl.pause();
         this.currentAudioEl.currentTime = 0;
@@ -2739,6 +2854,7 @@ class MuseumAudioEngine {
 
   togglePauseSpeech() {
     if (!this.isSpeaking) return false;
+    this.unlockAudio();
     if (this.currentAudioEl) {
       if (this.isPaused) {
         this.currentAudioEl.play().catch(() => {});
@@ -2776,6 +2892,7 @@ class MuseumAudioEngine {
     this._playbackToken++;
     this._clearProgressTimer();
     if (this.currentAudioEl) {
+      this._detachAudioHandlers(this.currentAudioEl);
       try {
         this.currentAudioEl.pause();
         this.currentAudioEl.currentTime = 0;
@@ -2785,6 +2902,7 @@ class MuseumAudioEngine {
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
+    this._speechSynthOwner = null;
     if (this.isSpeaking && playTone) {
       this.playQuindarTone(false);
     }
@@ -2827,14 +2945,16 @@ class MuseumAudioEngine {
     this[tokenKey]++;
     this[speakingKey] = false;
     if (this[audioKey]) {
+      this._detachAudioHandlers(this[audioKey]);
       try {
         this[audioKey].pause();
         this[audioKey].currentTime = 0;
       } catch (_) {}
       this[audioKey] = null;
     }
-    if ("speechSynthesis" in window) {
+    if ("speechSynthesis" in window && (!this.isSpeaking || this._speechSynthOwner === channel)) {
       window.speechSynthesis.cancel();
+      if (this._speechSynthOwner === channel) this._speechSynthOwner = null;
     }
     if (wasSpeaking && playTone) {
       this.playQuindarTone(false);
@@ -2855,8 +2975,10 @@ class MuseumAudioEngine {
   }) {
     const tokenKey = channel === "vega" ? "_vegaToken" : "_artifactToken";
     const audioKey = channel === "vega" ? "vegaAudioEl" : "artifactAudioEl";
+    const poolKey = channel === "vega" ? "_vegaAudioPoolEl" : "_artifactAudioPoolEl";
     const speakingKey = channel === "vega" ? "isVegaSpeaking" : "isArtifactSpeaking";
 
+    this.unlockAudio();
     this._stopShortClip(channel, false);
     if (muted) {
       if (callbacks.onEnd) callbacks.onEnd();
@@ -2868,7 +2990,9 @@ class MuseumAudioEngine {
       if (token !== this[tokenKey]) return;
       const wasSpeaking = Boolean(this[speakingKey]);
       this[speakingKey] = false;
+      if (this[audioKey]) this._detachAudioHandlers(this[audioKey]);
       this[audioKey] = null;
+      if (this._speechSynthOwner === channel) this._speechSynthOwner = null;
       if (wasSpeaking && playToneOnEnd) {
         this.playQuindarTone(false);
       }
@@ -2882,6 +3006,7 @@ class MuseumAudioEngine {
       }
       try {
         window.speechSynthesis.cancel();
+        this._speechSynthOwner = channel;
         const utt = new SpeechSynthesisUtterance(fallbackText);
         utt.lang = lang === "pt" ? "pt-BR" : "en-US";
         const preferred = this._pickSpeechVoice(lang);
@@ -2910,20 +3035,36 @@ class MuseumAudioEngine {
     const fallbackOnce = () => {
       if (fellBack || token !== this[tokenKey]) return;
       fellBack = true;
+      if (this[audioKey]) this._detachAudioHandlers(this[audioKey]);
+      this[audioKey] = null;
       useSpeechFallback();
     };
 
-    const audioEl = new Audio(audioUrl);
+    const audioEl = this[poolKey] || this._createChannelAudio();
+    this._detachAudioHandlers(audioEl);
+    delete audioEl.dataset.unlocking;
+    audioEl.muted = false;
+    audioEl.defaultPlaybackRate = playbackRate;
     audioEl.playbackRate = playbackRate;
+    audioEl.src = audioUrl;
+    audioEl.load();
     this[audioKey] = audioEl;
-    audioEl.addEventListener("playing", () => {
+    audioEl.onloadedmetadata = () => {
       if (token !== this[tokenKey] || fellBack) return;
+      audioEl.playbackRate = playbackRate;
+    };
+    audioEl.onplaying = () => {
+      if (token !== this[tokenKey] || fellBack) return;
+      audioEl.playbackRate = playbackRate;
       this[speakingKey] = true;
       if (callbacks.onStart) callbacks.onStart();
-    });
+    };
     audioEl.onended = finish;
     audioEl.onerror = fallbackOnce;
-    audioEl.play().catch(fallbackOnce);
+    const playPromise = audioEl.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(fallbackOnce);
+    }
   }
 
   playVegaClip(audioUrl, fallbackText = "", lang = "pt", callbacks = {}) {
@@ -5668,6 +5809,7 @@ class LunarSurface3D {
     });
   }
 }
+
 
 /* ===== js/app.js ===== */
 // ============================================================================
