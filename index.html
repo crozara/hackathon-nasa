@@ -302,64 +302,138 @@
   <aside class="story-reading-drawer hidden" id="storyDrawer">
     <div class="story-drawer-inner">
       <div class="drawer-top-nav">
-        <button class="btn-back-walk" id="closeStoryBtn">
-          ← <span id="backToWalkText">Fechar Livro</span>
-        </button>
-        <span class="status-tag" id="storyStatusTag">ATIVO HOJE</span>
-      </div>
-
-      <div class="story-audio-bar">
-        <button class="btn-narrate-primary" id="narratePlayBtn">
-          <span class="mini-wave" id="miniWave"></span>
-          <span id="narratePlayText">Ouvir Minha História</span>
-        </button>
-        <button class="btn-narrate-sec hidden" id="narrateStopBtn">Parar</button>
-        <button class="btn-narrate-sec" id="narrateSpeedBtn">1.0x</button>
-
-        <div class="drawer-age-chips">
-          <button class="age-chip" data-age-btn="child"><span class="age-chip-child">Criança</span></button>
-          <button class="age-chip" data-age-btn="teen"><span class="age-chip-teen">Adolescente</span></button>
-          <button class="age-chip active" data-age-btn="adult"><span class="age-chip-adult">Adulto</span></button>
+        <div class="drawer-top-left">
+          <button class="btn-back-walk" id="closeStoryBtn">
+            ← <span id="backToWalkText">Fechar Livro</span>
+          </button>
+          <div class="drawer-age-chips">
+            <button class="age-chip" data-age-btn="child"><span class="age-chip-child">Criança</span></button>
+            <button class="age-chip" data-age-btn="teen"><span class="age-chip-teen">Adolescente</span></button>
+            <button class="age-chip active" data-age-btn="adult"><span class="age-chip-adult">Adulto</span></button>
+          </div>
+        </div>
+        <div class="drawer-top-right">
+          <span class="status-tag" id="storyStatusTag">ATIVO HOJE</span>
+          <button
+            class="btn-immersive-toggle"
+            id="immersiveModeBtn"
+            type="button"
+            aria-pressed="false"
+            title="Modo imersivo de leitura"
+          >
+            <span class="immersive-glyph" aria-hidden="true">◐</span>
+            <span id="immersiveModeText">Modo imersivo</span>
+          </button>
         </div>
       </div>
 
-      <div class="book-spread-grid">
-        <div class="book-page book-page-left">
-          <div class="story-header-block">
-            <span class="story-code-meta" id="storyCodeMeta">APOLLO 11 • 20 JUL 1969</span>
-            <h1 id="storyMainTitle">Retrorefletor Lunar da Apollo 11</h1>
-            <p class="story-persona-sub" id="storyPersonaSub">"O Espelho Imortal que Conversa com a Luz"</p>
+      <div class="physical-book-shell">
+        <div class="book-spine-notch book-spine-notch-top" aria-hidden="true"></div>
+        <div class="book-spine-notch book-spine-notch-bottom" aria-hidden="true"></div>
+
+        <div class="book-spread-grid">
+          <div class="book-page book-page-left">
+            <div class="story-header-block">
+              <span class="story-code-meta" id="storyCodeMeta">APOLLO 11 • 20 JUL 1969</span>
+              <h1 id="storyMainTitle">Retrorefletor Lunar da Apollo 11</h1>
+              <p class="story-persona-sub" id="storyPersonaSub">"O Espelho Imortal que Conversa com a Luz"</p>
+            </div>
+
+            <figure class="book-media-figure">
+              <div class="book-media-frame">
+                <img id="bookArtifactImage" src="assets/images/lrrr.jpg" alt="" />
+              </div>
+              <figcaption class="book-media-caption" id="bookMediaCaption">
+                <strong id="bookCaptionTitle">LRRR — Apollo 11, 20 Jul 1969</strong>
+                <span id="bookCaptionSub">Instrumento óptico passivo instalado no Mar da Tranquilidade.</span>
+              </figcaption>
+            </figure>
+
+            <blockquote class="story-quote-highlight" id="storyQuoteHighlight"></blockquote>
           </div>
 
-          <div class="book-media-frame">
-            <img id="bookArtifactImage" src="assets/images/lrrr.jpg" alt="" />
+          <div class="book-spine-crease" aria-hidden="true"></div>
+
+          <div class="book-page book-page-right" id="bookRightPage">
+            <div class="story-audio-bar" id="storyAudioBar">
+              <div class="audio-capsule-icon" id="audioCapsuleIcon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+                  <rect x="3" y="13" width="4" height="7" rx="1.8" />
+                  <rect x="17" y="13" width="4" height="7" rx="1.8" />
+                </svg>
+              </div>
+
+              <div class="audio-capsule-center">
+                <div class="audio-capsule-top">
+                  <div class="audio-status-readout">
+                    <span class="narrate-live-dot" id="narrateLiveDot" aria-hidden="true"></span>
+                    <span class="mini-wave" id="miniWave" aria-hidden="true">
+                      <span></span><span></span><span></span><span></span><span></span>
+                    </span>
+                    <span id="narratePlayText">Ouvir o Objeto Narrar</span>
+                  </div>
+                  <div class="audio-player-controls">
+                    <button class="btn-narrate-sec hidden" id="narrateStopBtn" type="button">Parar</button>
+                    <button class="btn-narrate-sec" id="narrateSpeedBtn" type="button">1.0x</button>
+                  </div>
+                </div>
+
+                <div class="audio-timeline-group">
+                  <div
+                    class="audio-progress-track"
+                    id="audioProgressTrack"
+                    role="slider"
+                    aria-label="Progresso da narração"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    tabindex="0"
+                  >
+                    <div class="audio-progress-fill" id="audioProgressFill"></div>
+                    <div class="audio-progress-thumb" id="audioProgressThumb"></div>
+                  </div>
+                  <span class="audio-time-display" id="audioTimeDisplay">00:00 / 00:00</span>
+                </div>
+              </div>
+
+              <button
+                class="btn-narrate-primary"
+                id="narratePlayBtn"
+                type="button"
+                aria-label="Ouvir ou pausar narração"
+              >
+                <span class="narrate-play-icon" id="narratePlayIcon" aria-hidden="true">▶</span>
+              </button>
+            </div>
+
+            <div class="book-page-reading-shell">
+              <div class="story-paragraphs-flow" id="storyParagraphsFlow"></div>
+              <aside class="book-margin-markers" id="bookMarginMarkers" aria-hidden="true"></aside>
+            </div>
           </div>
-
-          <blockquote class="story-quote-highlight" id="storyQuoteHighlight"></blockquote>
-        </div>
-
-        <div class="book-spine-crease" aria-hidden="true"></div>
-
-        <div class="book-page book-page-right" id="bookRightPage">
-          <div class="story-paragraphs-flow" id="storyParagraphsFlow"></div>
 
           <div class="book-page-nav">
-            <button class="book-page-btn" id="bookPrevPageBtn">← Anterior</button>
-            <span class="book-page-indicator" id="bookPageIndicator">Página 1 de 2</span>
-            <button class="book-page-btn" id="bookNextPageBtn">Próxima →</button>
+            <button class="book-page-btn" id="bookPrevPageBtn">← Página Anterior</button>
+            <div class="book-page-indicator-wrap">
+              <span class="book-page-rule" aria-hidden="true"></span>
+              <span class="book-page-indicator" id="bookPageIndicator">Página 1 de 4</span>
+              <span class="book-page-rule" aria-hidden="true"></span>
+            </div>
+            <button class="book-page-btn" id="bookNextPageBtn">Próxima Página →</button>
           </div>
         </div>
       </div>
 
       <div class="story-footer-actions">
-        <button class="book-page-btn" id="storyPrevArtifactBtn">
-          ← <span id="storyPrevArtifactText">Equipamento Anterior</span>
+        <button class="book-footer-sec-btn" id="storyPrevArtifactBtn">
+          ← <span id="storyPrevArtifactText">Capítulo Anterior</span>
         </button>
         <button class="btn-deep-science" id="openScienceModalBtn">
           <span id="openScienceBtnText">Ver Ciência, Fotografia &amp; Ficha Técnica</span>
         </button>
         <button class="btn-next-artifact" id="storyNextArtifactBtn">
-          <span id="storyNextArtifactText">Próximo Equipamento</span> →
+          <span id="storyNextArtifactText">Próximo Capítulo</span> →
         </button>
       </div>
     </div>
