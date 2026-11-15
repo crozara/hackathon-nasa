@@ -418,6 +418,32 @@
   </div>
 
   <!-- ========================================================================
+       3D MISSION LOADING OVERLAY (0% -> 100% BEFORE ENTERING LUNAR SURFACE)
+       ======================================================================== -->
+  <div class="mission-loading-overlay hidden" id="missionLoadingOverlay" aria-live="polite">
+    <div class="mission-loading-bg">
+      <img src="assets/images/mission-loading.png" alt="Astronaut preparing for lunar mission" />
+      <div class="mission-loading-vignette"></div>
+    </div>
+
+    <div class="mission-loading-hud">
+      <span class="mission-load-kicker" id="missionLoadKicker">TELEMETRIA APOLLO • TRANSFERÊNCIA LUNAR</span>
+      <h2 class="mission-load-title" id="missionLoadTitle">Iniciando Missão 3D</h2>
+      <p class="mission-load-status" id="missionLoadStatus">Calibrando coordenadas lunares...</p>
+
+      <div class="mission-load-meter">
+        <div class="mission-load-meter-top">
+          <span class="mission-load-label" id="missionLoadLabel">SINCRONIZAÇÃO DE SISTEMAS</span>
+          <span class="mission-load-percent" id="missionLoadPercent">0%</span>
+        </div>
+        <div class="mission-load-track">
+          <div class="mission-load-fill" id="missionLoadFill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        MISSION WELCOME LETTER MODAL (SHOWN WHEN ENTERING 3D EXPLORER)
        ======================================================================== -->
   <div class="mission-letter-backdrop hidden" id="missionLetterModal">

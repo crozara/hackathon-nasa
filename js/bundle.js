@@ -4604,35 +4604,152 @@ class EchoesOfTheMoonApp {
   }
 
   enter3DMode(stationIdx = null) {
+    if (this._isLoading3D) return;
     if (stationIdx !== null) {
       this.stationIndex = stationIdx;
     }
+    this._isLoading3D = true;
     this.is3DActive = true;
     this.isStoryOpen = false;
     this.audio.stopSpeech(false);
-    document.body.classList.add("in-3d-mode");
-    document.getElementById("staticMuseumSite").classList.add("hidden");
-    document.getElementById("storyDrawer").classList.add("hidden");
-    document.getElementById("scienceModal").classList.add("hidden");
-    document.getElementById("walkHudDock").classList.remove("hidden");
-    document.getElementById("mode3DWrapper").classList.remove("hidden");
 
-    this.ensure3DInitialized();
-    this.surface3D.onResize();
-    this.surface3D.setInspectMode(false);
-    this.surface3D.snapToStation(this.stationIndex, false);
-    this.surface3D.descendToSurface();
-    this.audio.playQuindarTone(true);
-    this.renderUI();
-    if (!this._hasSeenMissionLetter) {
-      this.openMissionLetter();
+    const isPt = this.lang === "pt";
+    const overlay = document.getElementById("missionLoadingOverlay");
+    const kickerEl = document.getElementById("missionLoadKicker");
+    const titleEl = document.getElementById("missionLoadTitle");
+    const statusEl = document.getElementById("missionLoadStatus");
+    const labelEl = document.getElementById("missionLoadLabel");
+    const percentEl = document.getElementById("missionLoadPercent");
+    const fillEl = document.getElementById("missionLoadFill");
+
+    const stages = isPt
+      ? [
+          { at: 0, text: "Calibrando coordenadas lunares..." },
+          { at: 28, text: "Mapeando terreno de Mare Tranquillitatis..." },
+          { at: 58, text: "Posicionando equipamentos históricos da Apollo..." },
+          { at: 84, text: "Sincronizando sensores e telemetria 3D..." },
+          { at: 100, text: "Missão pronta! Pousando na superfície lunar..." }
+        ]
+      : [
+          { at: 0, text: "Calibrating lunar coordinates..." },
+          { at: 28, text: "Mapping Mare Tranquillitatis terrain..." },
+          { at: 58, text: "Positioning historic Apollo artifacts..." },
+          { at: 84, text: "Syncing 3D optics & mission telemetry..." },
+          { at: 100, text: "Mission ready! Touching down on the Moon..." }
+        ];
+
+    if (overlay && kickerEl && titleEl && statusEl && labelEl && percentEl && fillEl) {
+      kickerEl.textContent = isPt
+        ? "TELEMETRIA APOLLO • TRANSFERÊNCIA LUNAR"
+        : "APOLLO TELEMETRY • LUNAR TRANSFER";
+      titleEl.textContent = isPt ? "Preparando Missão 3D" : "Preparing 3D Mission";
+      labelEl.textContent = isPt ? "CARREGAMENTO DA MISSÃO" : "MISSION LOADING";
+      statusEl.textContent = stages[0].text;
+      percentEl.textContent = "0%";
+      fillEl.style.width = "0%";
+      overlay.classList.remove("hidden", "is-fading");
     }
+
+    const activate3DScene = () => {
+      document.body.classList.add("in-3d-mode");
+      document.getElementById("staticMuseumSite").classList.add("hidden");
+      document.getElementById("storyDrawer").classList.add("hidden");
+      document.getElementById("scienceModal").classList.add("hidden");
+      document.getElementById("walkHudDock").classList.remove("hidden");
+      document.getElementById("mode3DWrapper").classList.remove("hidden");
+
+      this.ensure3DInitialized();
+      this.surface3D.onResize();
+      this.surface3D.setInspectMode(false);
+      this.surface3D.snapToStation(this.stationIndex, false);
+      this.renderUI();
+    };
+
+    const finishLoading = () => {
+      this._isLoading3D = false;
+      if (this.surface3D && this.is3DActive) {
+        this.surface3D.descendToSurface();
+      }
+      this.audio.playQuindarTone(true);
+      if (overlay) {
+        overlay.classList.add("is-fading");
+        setTimeout(() => {
+          overlay.classList.add("hidden");
+          overlay.classList.remove("is-fading");
+          if (this.is3DActive && !this._hasSeenMissionLetter) {
+            this.openMissionLetter();
+          }
+        }, 380);
+      } else if (!this._hasSeenMissionLetter) {
+        this.openMissionLetter();
+      }
+    };
+
+    if (!overlay) {
+      activate3DScene();
+      finishLoading();
+      return;
+    }
+
+    // Initialize WebGL right after first frame so loading overlay paints immediately
+    let sceneReady = false;
+    const durationMs = 3750;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      if (!this.is3DActive) {
+        this._isLoading3D = false;
+        overlay.classList.add("hidden");
+        return;
+      }
+
+      if (!sceneReady && now - startTime >= 60) {
+        sceneReady = true;
+        activate3DScene();
+      }
+
+      const elapsed = now - startTime;
+      const raw = Math.min(1, elapsed / durationMs);
+      // Ease out slightly while keeping smooth progression to 100%
+      const eased = 1 - Math.pow(1 - raw, 2.1);
+      const pct = Math.min(100, Math.round(eased * 100));
+
+      percentEl.textContent = `${pct}%`;
+      fillEl.style.width = `${pct}%`;
+
+      let currentStage = stages[0];
+      for (const s of stages) {
+        if (pct >= s.at) currentStage = s;
+      }
+      statusEl.textContent = currentStage.text;
+
+      if (raw < 1) {
+        requestAnimationFrame(step);
+      } else {
+        if (!sceneReady) {
+          sceneReady = true;
+          activate3DScene();
+        }
+        percentEl.textContent = "100%";
+        fillEl.style.width = "100%";
+        statusEl.textContent = stages[stages.length - 1].text;
+        setTimeout(finishLoading, 240);
+      }
+    };
+
+    requestAnimationFrame(step);
   }
 
   exit3DMode() {
+    this._isLoading3D = false;
     this.is3DActive = false;
     this.isStoryOpen = false;
     this.audio.stopSpeech(false);
+    const loadOverlay = document.getElementById("missionLoadingOverlay");
+    if (loadOverlay) {
+      loadOverlay.classList.add("hidden");
+      loadOverlay.classList.remove("is-fading");
+    }
     document.body.classList.remove("in-3d-mode");
     document.getElementById("mode3DWrapper").classList.add("hidden");
     document.getElementById("storyDrawer").classList.add("hidden");
