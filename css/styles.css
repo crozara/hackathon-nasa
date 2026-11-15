@@ -125,7 +125,7 @@ button {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1.5px solid var(--pin-color, #10b981);
+  border: 1.5px solid var(--pin-color, #38bdf8);
   animation: beaconSonar 2.2s infinite ease-out;
   pointer-events: none;
 }
@@ -146,7 +146,7 @@ button {
   height: 38px;
   border-radius: 50%;
   background: rgba(6, 10, 18, 0.9);
-  border: 2px solid var(--pin-color, #10b981);
+  border: 2px solid var(--pin-color, #38bdf8);
   color: #ffffff;
   font-family: var(--font-mono);
   font-size: 0.76rem;
@@ -159,7 +159,7 @@ button {
 }
 
 .valley-beacon-pin:hover .beacon-dot {
-  background: var(--pin-color, #10b981);
+  background: var(--pin-color, #38bdf8);
   color: #030712;
 }
 
@@ -177,14 +177,14 @@ button {
 }
 
 .valley-beacon-pin:hover .beacon-card {
-  border-color: var(--pin-color, #10b981);
+  border-color: var(--pin-color, #38bdf8);
 }
 
 .beacon-dist {
   font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
-  color: var(--pin-color, #10b981);
+  color: var(--pin-color, #38bdf8);
 }
 
 .beacon-card strong {
@@ -495,7 +495,7 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: min(760px, 92vw);
+  width: min(880px, 94vw);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -504,13 +504,20 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 16px 20px;
-  border-radius: 24px;
-  background: rgba(8, 12, 22, 0.78);
+  gap: 20px;
+  padding: 15px 20px;
+  border-radius: 22px;
+  background: rgba(8, 12, 22, 0.82);
   backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+}
+
+.walk-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .nav-arrow-btn {
@@ -554,27 +561,41 @@ button {
   color: var(--accent);
   text-transform: uppercase;
   margin-bottom: 4px;
+  min-width: 0;
+}
+
+#walkStepBadge {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .step-coords {
   color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 #walkArtifactTitle {
   font-family: var(--font-display);
-  font-size: 1.22rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-white);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.25;
 }
 
 #walkArtifactPersona {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: var(--text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn-open-story {
@@ -586,7 +607,7 @@ button {
   font-size: 0.88rem;
   font-weight: 700;
   white-space: nowrap;
-  box-shadow: 0 0 28px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.35);
   transition: all 0.2s ease;
 }
 
@@ -610,8 +631,8 @@ button {
 }
 
 .station-dot.visited {
-  background: rgba(16, 185, 129, 0.72);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.45);
+  background: rgba(56, 189, 248, 0.72);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.45);
 }
 
 .station-dot.active {
@@ -3660,6 +3681,7 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
   position: fixed;
   top: 86px;
   left: 28px;
+  right: auto;
   z-index: 32;
   width: min(410px, 90vw);
   max-height: calc(100vh - 230px);

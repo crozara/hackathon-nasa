@@ -198,7 +198,7 @@ export const ARTIFACTS = [
       sitePt: "Mare Tranquillitatis (Mar da Tranquilidade)",
       siteEn: "Mare Tranquillitatis (Sea of Tranquility)"
     },
-    accentColor: "#10B981", // Emerald green laser
+    accentColor: "#38BDF8", // Electric blue observatory accent
     secondaryColor: "#34D399",
     imagePath: "assets/images/lrrr-moon.png",
     labType: "laser",
@@ -1170,6 +1170,18 @@ export const QUIZ_QUESTIONS = {
       correct: 1,
       explanation:
         "Emocionante! Depois que Jack Schmitt disse 'Ignition', Ed Fendell operou a câmera do LRV direto da Terra (compensando o atraso do sinal) para acompanhar a nave subindo para casa!"
+    },
+    {
+      q: "O que permaneceu na superfície da Lua na Base da Tranquilidade após a decolagem do Módulo Lunar Eagle (Apollo 11)?",
+      options: [
+        "O estágio de descida octogonal com a escada de 9 degraus e a placa 'We came in peace for all mankind'",
+        "Apenas a bandeira e as pegadas dos astronautas",
+        "O foguete Saturno V inteiro intacto",
+        "Somente o módulo de comando Columbia"
+      ],
+      correct: 0,
+      explanation:
+        "Isso mesmo! O estágio de descida do Eagle serviu como plataforma de lançamento para o estágio de subida e continua lá até hoje como monumento histórico."
     }
   ],
   en: [
@@ -1220,6 +1232,18 @@ export const QUIZ_QUESTIONS = {
       correct: 1,
       explanation:
         "Unforgettable! When Jack Schmitt called 'Ignition', Ed Fendell operated the LRV camera from Houston (timing the Earth–Moon radio delay) to watch the Challenger ascent stage rise toward the stars."
+    },
+    {
+      q: "What remained on the Moon at Tranquility Base after the Apollo 11 Eagle Lunar Module lifted off?",
+      options: [
+        "The octagonal descent stage with its 9-rung ladder and the 'We came in peace for all mankind' plaque",
+        "Only the flag and the astronauts' footprints",
+        "The entire Saturn V rocket intact",
+        "Only the Columbia Command Module"
+      ],
+      correct: 0,
+      explanation:
+        "Exactly! Eagle's descent stage acted as the launch pad for the ascent stage and still stands at Tranquility Base today as a historic monument."
     }
   ]
 };

@@ -606,7 +606,7 @@ export class LunarSurface3D {
     const group = new THREE.Group();
     group.position.set(st.pos.x, 0, st.pos.z);
 
-    this.addStationPerimeter(group, 0x10b981, "lrrr");
+    this.addStationPerimeter(group, 0x38bdf8, "lrrr");
 
     const alumMat = new THREE.MeshStandardMaterial({
       color: 0xd8dee9,
@@ -619,10 +619,10 @@ export class LunarSurface3D {
       roughness: 0.5
     });
     const silicaMat = new THREE.MeshStandardMaterial({
-      color: 0x6ee7b7,
+      color: 0x93c5fd,
       metalness: 0.92,
       roughness: 0.08,
-      emissive: 0x10b981,
+      emissive: 0x38bdf8,
       emissiveIntensity: 0.45
     });
 
@@ -677,7 +677,7 @@ export class LunarSurface3D {
     beamGeo.translate(0, beamLen / 2, 0);
     beamGeo.rotateX(Math.PI / 2);
     const beamMat = new THREE.MeshBasicMaterial({
-      color: 0x10b981,
+      color: 0x38bdf8,
       transparent: true,
       opacity: 0.42,
       fog: false
@@ -1166,9 +1166,10 @@ export class LunarSurface3D {
     });
 
     window.addEventListener("pointerup", (e) => {
+      const wasPointerDown = this.isPointerDown;
       const wasDrag = this.pointerMoved;
       this.isPointerDown = false;
-      if (!wasDrag) {
+      if (wasPointerDown && !wasDrag && e.target === dom) {
         const rect = dom.getBoundingClientRect();
         this.mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         this.mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;

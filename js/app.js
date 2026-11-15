@@ -301,7 +301,8 @@ class EchoesOfTheMoonApp {
       this.openStoryView();
     });
 
-    document.getElementById("openAskBtn").addEventListener("click", () => {
+    document.getElementById("openAskBtn").addEventListener("click", (e) => {
+      e.stopPropagation();
       this.openAskEquipmentCard();
     });
 
@@ -565,6 +566,9 @@ class EchoesOfTheMoonApp {
   }
 
   openAskEquipmentCard(selectedQaIdx = null) {
+    if (this.isStoryOpen) {
+      this.closeStoryView();
+    }
     const art = this.currentArtifact;
     const artifactId = art.id;
     const data = ARTIFACT_INTERACTIONS[artifactId];
@@ -594,6 +598,7 @@ class EchoesOfTheMoonApp {
       : `ASK THE EQUIPMENT • ${art.mission.toUpperCase()}`;
 
     const questionsHtml = data.qa
+      .slice(0, 3)
       .map((item, idx) => {
         const qText = item[this.lang].q;
         const activeClass = idx === activeIdx ? "active" : "";

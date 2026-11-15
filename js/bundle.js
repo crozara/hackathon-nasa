@@ -208,7 +208,7 @@ const ARTIFACTS = [
       sitePt: "Mare Tranquillitatis (Mar da Tranquilidade)",
       siteEn: "Mare Tranquillitatis (Sea of Tranquility)"
     },
-    accentColor: "#10B981", // Emerald green laser
+    accentColor: "#38BDF8", // Electric blue observatory accent
     secondaryColor: "#34D399",
     imagePath: "assets/images/lrrr-moon.png",
     labType: "laser",
@@ -1180,6 +1180,18 @@ const QUIZ_QUESTIONS = {
       correct: 1,
       explanation:
         "Emocionante! Depois que Jack Schmitt disse 'Ignition', Ed Fendell operou a câmera do LRV direto da Terra (compensando o atraso do sinal) para acompanhar a nave subindo para casa!"
+    },
+    {
+      q: "O que permaneceu na superfície da Lua na Base da Tranquilidade após a decolagem do Módulo Lunar Eagle (Apollo 11)?",
+      options: [
+        "O estágio de descida octogonal com a escada de 9 degraus e a placa 'We came in peace for all mankind'",
+        "Apenas a bandeira e as pegadas dos astronautas",
+        "O foguete Saturno V inteiro intacto",
+        "Somente o módulo de comando Columbia"
+      ],
+      correct: 0,
+      explanation:
+        "Isso mesmo! O estágio de descida do Eagle serviu como plataforma de lançamento para o estágio de subida e continua lá até hoje como monumento histórico."
     }
   ],
   en: [
@@ -1230,6 +1242,18 @@ const QUIZ_QUESTIONS = {
       correct: 1,
       explanation:
         "Unforgettable! When Jack Schmitt called 'Ignition', Ed Fendell operated the LRV camera from Houston (timing the Earth–Moon radio delay) to watch the Challenger ascent stage rise toward the stars."
+    },
+    {
+      q: "What remained on the Moon at Tranquility Base after the Apollo 11 Eagle Lunar Module lifted off?",
+      options: [
+        "The octagonal descent stage with its 9-rung ladder and the 'We came in peace for all mankind' plaque",
+        "Only the flag and the astronauts' footprints",
+        "The entire Saturn V rocket intact",
+        "Only the Columbia Command Module"
+      ],
+      correct: 0,
+      explanation:
+        "Exactly! Eagle's descent stage acted as the launch pad for the ascent stage and still stands at Tranquility Base today as a historic monument."
     }
   ]
 };
@@ -3682,7 +3706,7 @@ class LunarSurface3D {
     const group = new THREE.Group();
     group.position.set(st.pos.x, 0, st.pos.z);
 
-    this.addStationPerimeter(group, 0x10b981, "lrrr");
+    this.addStationPerimeter(group, 0x38bdf8, "lrrr");
 
     const alumMat = new THREE.MeshStandardMaterial({
       color: 0xd8dee9,
@@ -3695,10 +3719,10 @@ class LunarSurface3D {
       roughness: 0.5
     });
     const silicaMat = new THREE.MeshStandardMaterial({
-      color: 0x6ee7b7,
+      color: 0x93c5fd,
       metalness: 0.92,
       roughness: 0.08,
-      emissive: 0x10b981,
+      emissive: 0x38bdf8,
       emissiveIntensity: 0.45
     });
 
@@ -3753,7 +3777,7 @@ class LunarSurface3D {
     beamGeo.translate(0, beamLen / 2, 0);
     beamGeo.rotateX(Math.PI / 2);
     const beamMat = new THREE.MeshBasicMaterial({
-      color: 0x10b981,
+      color: 0x38bdf8,
       transparent: true,
       opacity: 0.42,
       fog: false
@@ -4242,9 +4266,10 @@ class LunarSurface3D {
     });
 
     window.addEventListener("pointerup", (e) => {
+      const wasPointerDown = this.isPointerDown;
       const wasDrag = this.pointerMoved;
       this.isPointerDown = false;
-      if (!wasDrag) {
+      if (wasPointerDown && !wasDrag && e.target === dom) {
         const rect = dom.getBoundingClientRect();
         this.mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         this.mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -4756,7 +4781,8 @@ class EchoesOfTheMoonApp {
       this.openStoryView();
     });
 
-    document.getElementById("openAskBtn").addEventListener("click", () => {
+    document.getElementById("openAskBtn").addEventListener("click", (e) => {
+      e.stopPropagation();
       this.openAskEquipmentCard();
     });
 
@@ -5020,6 +5046,9 @@ class EchoesOfTheMoonApp {
   }
 
   openAskEquipmentCard(selectedQaIdx = null) {
+    if (this.isStoryOpen) {
+      this.closeStoryView();
+    }
     const art = this.currentArtifact;
     const artifactId = art.id;
     const data = ARTIFACT_INTERACTIONS[artifactId];
@@ -5049,6 +5078,7 @@ class EchoesOfTheMoonApp {
       : `ASK THE EQUIPMENT • ${art.mission.toUpperCase()}`;
 
     const questionsHtml = data.qa
+      .slice(0, 3)
       .map((item, idx) => {
         const qText = item[this.lang].q;
         const activeClass = idx === activeIdx ? "active" : "";
