@@ -2089,6 +2089,35 @@ const VEGA_JOURNEY = {
         "Parabéns pela expedição! Assinei oficialmente a entrega do seu Certificado Lunar. Personalize com seu nome abaixo e baixe em alta resolução!",
       adult:
         "Meus parabéns pela conclusão do roteiro! Tenho a honra de assinar e entregar o seu Certificado Oficial do Museum of Lost Space Technology."
+    },
+    invite3D: {
+      chip: "AVISO DE MISSÃO • EXPLORAÇÃO 3D",
+      cardBadge: "PRÓXIMO PASSO RECOMENDADO • 3D",
+      cardTitle: "Superfície Lunar 3D — Mare Tranquillitatis & Vale Taurus-Littrow",
+      cardHighlights: [
+        "Caminhe entre os 4 equipamentos em 3D",
+        "Descubra 12 orbes secretos de curiosidades",
+        "Converse com cada máquina ao vivo"
+      ],
+      enter3DBtn: "Acessar Viagem 3D →",
+      certInsteadBtn: "Ir para o Quiz e Certificado →",
+      profiles: {
+        child: {
+          title: "Espere, pequeno explorador! Venha ver a Lua em 3D antes do Quiz!",
+          message:
+            "Você completou todas as histórias aqui no site — incrível! Mas antes do nosso Quiz Final e do seu certificado, ainda tem MUITO para descobrir na Viagem 3D pela Lua: caminhe perto dos equipamentos, abra orbes brilhantes secretos e converse com cada máquina! Vamos embarcar no 3D agora ou prefere ir direto para o quiz e certificado?"
+        },
+        teen: {
+          title: "Antes do Quiz e Certificado: explore a Viagem Lunar 3D!",
+          message:
+            "Você concluiu os 4 capítulos pelo site, mas a missão não acaba por aqui! Antes do Quiz Final e da sua credencial, vale muito acessar a Viagem 3D: caminhe pela superfície lunar, inspecione os modelos em escala e desbloqueie orbes secretos de engenharia. Quer explorar o 3D agora ou seguir direto para o quiz e certificado?"
+        },
+        adult: {
+          title: "Antes do Quiz Final: conheça a Expedição Lunar 3D!",
+          message:
+            "Você concluiu os capítulos editoriais no site, porém há toda uma etapa interativa antes do encerramento: na Viagem 3D você percorre o solo lunar entre os quatro marcos Apollo, inspeciona detalhes nos orbes técnicos e conversa com as máquinas. Deseja acessar a viagem 3D agora ou prefere seguir para o quiz e certificado?"
+        }
+      }
     }
   },
   en: {
@@ -2183,6 +2212,35 @@ const VEGA_JOURNEY = {
         "Congratulations on completing the expedition! I've proudly signed your Official Lunar Certificate. Customize your name and download it in high resolution!",
       adult:
         "Warmest congratulations on completing the expedition! It is my honor to sign and present your Official Museum of Lost Space Technology Certificate."
+    },
+    invite3D: {
+      chip: "MISSION NOTICE • 3D EXPEDITION",
+      cardBadge: "RECOMMENDED NEXT STEP • 3D",
+      cardTitle: "3D Lunar Surface — Tranquility Base to Taurus-Littrow",
+      cardHighlights: [
+        "Walk around all 4 Apollo landmarks in 3D",
+        "Uncover 12 glowing curiosity orbs",
+        "Ask live questions to each machine"
+      ],
+      enter3DBtn: "Launch 3D Voyage →",
+      certInsteadBtn: "Skip to Quiz & Certificate →",
+      profiles: {
+        child: {
+          title: "Wait, little explorer! Visit the 3D Moon before the Quiz!",
+          message:
+            "You finished all the stories here, awesome job — but before our Final Quiz and your certificate, there's a whole 3D Moon waiting! Walk right beside the space machines, pop glowing curiosity orbs, and ask them questions! Ready to launch into 3D now, or go straight to the quiz and certificate?"
+        },
+        teen: {
+          title: "Before the Quiz & Certificate: launch the 3D Lunar Voyage!",
+          message:
+            "You finished the four chapters on this page, yet the mission isn't over here! Before taking the Final Quiz for your credential, explore the 3D lunar surface, inspect each lander and rover up close, and unlock hidden engineering orbs. Want to enter 3D mode now or jump to the quiz and certificate?"
+        },
+        adult: {
+          title: "Before the Final Quiz: explore the 3D Lunar Surface!",
+          message:
+            "You've completed the archival chapters on this page, yet an entire interactive expedition awaits before the final review: in our 3D Lunar Voyage you traverse Apollo terrain across all four landmarks, inspect technical orbs, and query each artifact directly. Would you like to launch 3D mode now or proceed to the quiz and certificate?"
+        }
+      }
     }
   }
 };
@@ -5844,6 +5902,7 @@ class EchoesOfTheMoonApp {
     this.expandedInlineCards = new Set();
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
+    this._hasVisited3D = false;
     this._hasShownCertReward = false;
     this._vegaShownComms = new Set();
     this._vegaCommsTimer = null;
@@ -5965,6 +6024,7 @@ class EchoesOfTheMoonApp {
     if (stationIdx !== null) {
       this.stationIndex = stationIdx;
     }
+    this._hasVisited3D = true;
     this._isLoading3D = true;
     this.is3DActive = true;
     this.isStoryOpen = false;
@@ -6333,6 +6393,13 @@ class EchoesOfTheMoonApp {
         this.enter3DMode(this.stationIndex);
       });
     });
+
+    const artemisQuizBtn = document.getElementById("artemisQuizBtn");
+    if (artemisQuizBtn) {
+      artemisQuizBtn.addEventListener("click", () => {
+        this.openAstronautQuizModal(false, true);
+      });
+    }
 
     document.getElementById("exit3DBtn").addEventListener("click", () => {
       this.exit3DMode();
@@ -7316,13 +7383,15 @@ class EchoesOfTheMoonApp {
   // ==========================================================================
   // FRIENDLY ASTRONAUT FINAL QUIZ (COMANDANTE VEGA)
   // ==========================================================================
-  openAstronautQuizModal(forceRestart = false) {
+  openAstronautQuizModal(forceRestart = false, skip3DInvite = false) {
     this.hideVega3DComms();
     this.stopVegaChannel();
     this.audio.stopSpeech(false);
-    if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed) {
+    const shouldShow3DInviteFirst =
+      !skip3DInvite && !forceRestart && !this._hasVisited3D && !this.quizState.completed;
+    if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed || shouldShow3DInviteFirst) {
       this.quizState = {
-        phase: "welcome",
+        phase: shouldShow3DInviteFirst ? "invite3d" : "welcome",
         questionIdx: 0,
         score: 0,
         answeredIdx: null,
@@ -7412,11 +7481,16 @@ class EchoesOfTheMoonApp {
     const titleEl = document.getElementById("quizGreetingTitle");
     const textEl = document.getElementById("quizSpeechText");
     const optionsEl = document.getElementById("quizOptionsList");
+    const invite3dCardEl = document.getElementById("quizInvite3DCard");
     const actionsEl = document.getElementById("quizActionsRow");
 
     roleEl.textContent = quiz.guideRole;
     nameEl.textContent = quiz.guideName;
     this.updateVegaVoiceControlsUI();
+    if (invite3dCardEl) {
+      invite3dCardEl.classList.add("hidden");
+      invite3dCardEl.innerHTML = "";
+    }
 
     dotsEl.innerHTML = quiz.questions
       .map((_, i) => {
@@ -7461,6 +7535,55 @@ class EchoesOfTheMoonApp {
       document.getElementById("quizSkipBtn").addEventListener("click", () => {
         this.closeAstronautQuizModal();
         this.openCertificateModal();
+      });
+      return;
+    }
+
+    if (this.quizState.phase === "invite3d") {
+      const vegaLoc = VEGA_JOURNEY[langKey];
+      const inv = vegaLoc.invite3D;
+      const profileInv = inv.profiles[age] || inv.profiles.adult;
+
+      ringEl.classList.add("is-greeting");
+      badgeEl.textContent = "🛰";
+      chipEl.textContent = inv.chip;
+      feedbackEl.classList.add("hidden");
+      titleEl.textContent = profileInv.title;
+      textEl.textContent = profileInv.message;
+      optionsEl.classList.add("hidden");
+      optionsEl.innerHTML = "";
+
+      if (invite3dCardEl) {
+        invite3dCardEl.classList.remove("hidden");
+        invite3dCardEl.innerHTML = `
+          <div class="quiz-invite3d-head">
+            <span class="quiz-invite3d-badge">${inv.cardBadge}</span>
+            <strong>${inv.cardTitle}</strong>
+          </div>
+          <ul class="quiz-invite3d-list">
+            ${inv.cardHighlights.map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        `;
+      }
+
+      this.speakVegaClip(
+        `assets/audio/vega-${langKey}-${age}-invite3d.mp3`,
+        `${profileInv.title} ${profileInv.message}`
+      );
+
+      actionsEl.innerHTML = `
+        <button class="btn-quiz-secondary" id="quizProceedToQuizBtn" type="button">${inv.certInsteadBtn}</button>
+        <button class="btn-quiz-primary" id="quizLaunch3DBtn" type="button">${inv.enter3DBtn}</button>
+      `;
+      document.getElementById("quizLaunch3DBtn").addEventListener("click", () => {
+        this.audio.playPing(740, 0.09);
+        this.closeAstronautQuizModal();
+        this.enter3DMode(0);
+      });
+      document.getElementById("quizProceedToQuizBtn").addEventListener("click", () => {
+        this.audio.playPing(620, 0.08);
+        this.quizState.phase = "welcome";
+        this.renderAstronautQuiz();
       });
       return;
     }
@@ -8114,6 +8237,43 @@ class EchoesOfTheMoonApp {
       ? "Explorar Equipamentos em 3D →"
       : "Explore Equipment in 3D →";
     document.getElementById("exit3DLabel").textContent = isPt ? "Voltar ao Site" : "Back to Site";
+
+    const artemisBanner = document.getElementById("artemisVegaBanner");
+    const artemisTitle = document.getElementById("artemisVegaTitle");
+    const artemisText = document.getElementById("artemisVegaText");
+    const artemisQuizBtn = document.getElementById("artemisQuizBtn");
+    const allStoriesRead = this.visitedStations.size >= STATION_ORDER.length;
+    if (artemisBanner && artemisTitle && artemisText && artemisQuizBtn) {
+      if (allStoriesRead) {
+        artemisBanner.classList.remove("hidden");
+        artemisQuizBtn.classList.remove("hidden");
+        artemisQuizBtn.textContent = this.quizState.completed
+          ? isPt
+            ? "✦ Ver Quiz / Emitir Certificado"
+            : "✦ Quiz / Get Certificate"
+          : isPt
+          ? "✦ Fazer Quiz com Comandante Vega"
+          : "✦ Take Commander Vega's Quiz";
+        if (!this._hasVisited3D) {
+          artemisTitle.textContent = isPt
+            ? "Comandante Vega: 4/4 histórias concluídas — mas a missão continua!"
+            : "Commander Vega: 4/4 stories complete — the mission continues!";
+          artemisText.textContent = isPt
+            ? "Participe do Quiz Final da expedição e acesse a Viagem 3D pela superfície da Lua para explorar os orbes secretos e conversar com cada máquina!"
+            : "Take the expedition wrap-up Quiz and launch the 3D Lunar Voyage to explore secret curiosity orbs and talk with each spacecraft!";
+        } else {
+          artemisTitle.textContent = isPt
+            ? "Comandante Vega: expedição completa!"
+            : "Commander Vega: expedition complete!";
+          artemisText.textContent = isPt
+            ? "Você já explorou as histórias e a superfície 3D. Pode fazer ou revisar o Quiz e emitir seu certificado oficial quando quiser."
+            : "You explored both the stories and the 3D lunar surface. Feel free to revisit the Quiz or issue your official certificate anytime.";
+        }
+      } else {
+        artemisBanner.classList.add("hidden");
+        artemisQuizBtn.classList.add("hidden");
+      }
+    }
 
     const listEl = document.getElementById("editorialChaptersList");
     const activeIdx = this.stationIndex;

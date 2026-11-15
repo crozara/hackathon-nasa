@@ -128,6 +128,9 @@ def collect_clips(quiz_data: dict, journey_data: dict):
 
             clips.append((f"vega-{lang}-{age}-cert.mp3", lang, j_lang["certificateDelivery"][age]))
 
+            inv = j_lang["invite3D"]["profiles"][age]
+            clips.append((f"vega-{lang}-{age}-invite3d.mp3", lang, f"{inv['title']} {inv['message']}"))
+
         for key, text in j_lang["comms3D"].items():
             clips.append((f"vega-{lang}-comms-{key}.mp3", lang, text))
 

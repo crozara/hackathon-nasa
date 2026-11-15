@@ -2081,6 +2081,35 @@ export const VEGA_JOURNEY = {
         "Parabéns pela expedição! Assinei oficialmente a entrega do seu Certificado Lunar. Personalize com seu nome abaixo e baixe em alta resolução!",
       adult:
         "Meus parabéns pela conclusão do roteiro! Tenho a honra de assinar e entregar o seu Certificado Oficial do Museum of Lost Space Technology."
+    },
+    invite3D: {
+      chip: "AVISO DE MISSÃO • EXPLORAÇÃO 3D",
+      cardBadge: "PRÓXIMO PASSO RECOMENDADO • 3D",
+      cardTitle: "Superfície Lunar 3D — Mare Tranquillitatis & Vale Taurus-Littrow",
+      cardHighlights: [
+        "Caminhe entre os 4 equipamentos em 3D",
+        "Descubra 12 orbes secretos de curiosidades",
+        "Converse com cada máquina ao vivo"
+      ],
+      enter3DBtn: "Acessar Viagem 3D →",
+      certInsteadBtn: "Ir para o Quiz e Certificado →",
+      profiles: {
+        child: {
+          title: "Espere, pequeno explorador! Venha ver a Lua em 3D antes do Quiz!",
+          message:
+            "Você completou todas as histórias aqui no site — incrível! Mas antes do nosso Quiz Final e do seu certificado, ainda tem MUITO para descobrir na Viagem 3D pela Lua: caminhe perto dos equipamentos, abra orbes brilhantes secretos e converse com cada máquina! Vamos embarcar no 3D agora ou prefere ir direto para o quiz e certificado?"
+        },
+        teen: {
+          title: "Antes do Quiz e Certificado: explore a Viagem Lunar 3D!",
+          message:
+            "Você concluiu os 4 capítulos pelo site, mas a missão não acaba por aqui! Antes do Quiz Final e da sua credencial, vale muito acessar a Viagem 3D: caminhe pela superfície lunar, inspecione os modelos em escala e desbloqueie orbes secretos de engenharia. Quer explorar o 3D agora ou seguir direto para o quiz e certificado?"
+        },
+        adult: {
+          title: "Antes do Quiz Final: conheça a Expedição Lunar 3D!",
+          message:
+            "Você concluiu os capítulos editoriais no site, porém há toda uma etapa interativa antes do encerramento: na Viagem 3D você percorre o solo lunar entre os quatro marcos Apollo, inspeciona detalhes nos orbes técnicos e conversa com as máquinas. Deseja acessar a viagem 3D agora ou prefere seguir para o quiz e certificado?"
+        }
+      }
     }
   },
   en: {
@@ -2175,6 +2204,35 @@ export const VEGA_JOURNEY = {
         "Congratulations on completing the expedition! I've proudly signed your Official Lunar Certificate. Customize your name and download it in high resolution!",
       adult:
         "Warmest congratulations on completing the expedition! It is my honor to sign and present your Official Museum of Lost Space Technology Certificate."
+    },
+    invite3D: {
+      chip: "MISSION NOTICE • 3D EXPEDITION",
+      cardBadge: "RECOMMENDED NEXT STEP • 3D",
+      cardTitle: "3D Lunar Surface — Tranquility Base to Taurus-Littrow",
+      cardHighlights: [
+        "Walk around all 4 Apollo landmarks in 3D",
+        "Uncover 12 glowing curiosity orbs",
+        "Ask live questions to each machine"
+      ],
+      enter3DBtn: "Launch 3D Voyage →",
+      certInsteadBtn: "Skip to Quiz & Certificate →",
+      profiles: {
+        child: {
+          title: "Wait, little explorer! Visit the 3D Moon before the Quiz!",
+          message:
+            "You finished all the stories here, awesome job — but before our Final Quiz and your certificate, there's a whole 3D Moon waiting! Walk right beside the space machines, pop glowing curiosity orbs, and ask them questions! Ready to launch into 3D now, or go straight to the quiz and certificate?"
+        },
+        teen: {
+          title: "Before the Quiz & Certificate: launch the 3D Lunar Voyage!",
+          message:
+            "You finished the four chapters on this page, yet the mission isn't over here! Before taking the Final Quiz for your credential, explore the 3D lunar surface, inspect each lander and rover up close, and unlock hidden engineering orbs. Want to enter 3D mode now or jump to the quiz and certificate?"
+        },
+        adult: {
+          title: "Before the Final Quiz: explore the 3D Lunar Surface!",
+          message:
+            "You've completed the archival chapters on this page, yet an entire interactive expedition awaits before the final review: in our 3D Lunar Voyage you traverse Apollo terrain across all four landmarks, inspect technical orbs, and query each artifact directly. Would you like to launch 3D mode now or proceed to the quiz and certificate?"
+        }
+      }
     }
   }
 };

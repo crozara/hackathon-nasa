@@ -32,6 +32,7 @@ class EchoesOfTheMoonApp {
     this.expandedInlineCards = new Set();
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
+    this._hasVisited3D = false;
     this._hasShownCertReward = false;
     this._vegaShownComms = new Set();
     this._vegaCommsTimer = null;
@@ -153,6 +154,7 @@ class EchoesOfTheMoonApp {
     if (stationIdx !== null) {
       this.stationIndex = stationIdx;
     }
+    this._hasVisited3D = true;
     this._isLoading3D = true;
     this.is3DActive = true;
     this.isStoryOpen = false;
@@ -521,6 +523,13 @@ class EchoesOfTheMoonApp {
         this.enter3DMode(this.stationIndex);
       });
     });
+
+    const artemisQuizBtn = document.getElementById("artemisQuizBtn");
+    if (artemisQuizBtn) {
+      artemisQuizBtn.addEventListener("click", () => {
+        this.openAstronautQuizModal(false, true);
+      });
+    }
 
     document.getElementById("exit3DBtn").addEventListener("click", () => {
       this.exit3DMode();
@@ -1504,13 +1513,15 @@ class EchoesOfTheMoonApp {
   // ==========================================================================
   // FRIENDLY ASTRONAUT FINAL QUIZ (COMANDANTE VEGA)
   // ==========================================================================
-  openAstronautQuizModal(forceRestart = false) {
+  openAstronautQuizModal(forceRestart = false, skip3DInvite = false) {
     this.hideVega3DComms();
     this.stopVegaChannel();
     this.audio.stopSpeech(false);
-    if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed) {
+    const shouldShow3DInviteFirst =
+      !skip3DInvite && !forceRestart && !this._hasVisited3D && !this.quizState.completed;
+    if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed || shouldShow3DInviteFirst) {
       this.quizState = {
-        phase: "welcome",
+        phase: shouldShow3DInviteFirst ? "invite3d" : "welcome",
         questionIdx: 0,
         score: 0,
         answeredIdx: null,
@@ -1600,11 +1611,16 @@ class EchoesOfTheMoonApp {
     const titleEl = document.getElementById("quizGreetingTitle");
     const textEl = document.getElementById("quizSpeechText");
     const optionsEl = document.getElementById("quizOptionsList");
+    const invite3dCardEl = document.getElementById("quizInvite3DCard");
     const actionsEl = document.getElementById("quizActionsRow");
 
     roleEl.textContent = quiz.guideRole;
     nameEl.textContent = quiz.guideName;
     this.updateVegaVoiceControlsUI();
+    if (invite3dCardEl) {
+      invite3dCardEl.classList.add("hidden");
+      invite3dCardEl.innerHTML = "";
+    }
 
     dotsEl.innerHTML = quiz.questions
       .map((_, i) => {
@@ -1649,6 +1665,55 @@ class EchoesOfTheMoonApp {
       document.getElementById("quizSkipBtn").addEventListener("click", () => {
         this.closeAstronautQuizModal();
         this.openCertificateModal();
+      });
+      return;
+    }
+
+    if (this.quizState.phase === "invite3d") {
+      const vegaLoc = VEGA_JOURNEY[langKey];
+      const inv = vegaLoc.invite3D;
+      const profileInv = inv.profiles[age] || inv.profiles.adult;
+
+      ringEl.classList.add("is-greeting");
+      badgeEl.textContent = "🛰";
+      chipEl.textContent = inv.chip;
+      feedbackEl.classList.add("hidden");
+      titleEl.textContent = profileInv.title;
+      textEl.textContent = profileInv.message;
+      optionsEl.classList.add("hidden");
+      optionsEl.innerHTML = "";
+
+      if (invite3dCardEl) {
+        invite3dCardEl.classList.remove("hidden");
+        invite3dCardEl.innerHTML = `
+          <div class="quiz-invite3d-head">
+            <span class="quiz-invite3d-badge">${inv.cardBadge}</span>
+            <strong>${inv.cardTitle}</strong>
+          </div>
+          <ul class="quiz-invite3d-list">
+            ${inv.cardHighlights.map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        `;
+      }
+
+      this.speakVegaClip(
+        `assets/audio/vega-${langKey}-${age}-invite3d.mp3`,
+        `${profileInv.title} ${profileInv.message}`
+      );
+
+      actionsEl.innerHTML = `
+        <button class="btn-quiz-secondary" id="quizProceedToQuizBtn" type="button">${inv.certInsteadBtn}</button>
+        <button class="btn-quiz-primary" id="quizLaunch3DBtn" type="button">${inv.enter3DBtn}</button>
+      `;
+      document.getElementById("quizLaunch3DBtn").addEventListener("click", () => {
+        this.audio.playPing(740, 0.09);
+        this.closeAstronautQuizModal();
+        this.enter3DMode(0);
+      });
+      document.getElementById("quizProceedToQuizBtn").addEventListener("click", () => {
+        this.audio.playPing(620, 0.08);
+        this.quizState.phase = "welcome";
+        this.renderAstronautQuiz();
       });
       return;
     }
@@ -2302,6 +2367,43 @@ class EchoesOfTheMoonApp {
       ? "Explorar Equipamentos em 3D →"
       : "Explore Equipment in 3D →";
     document.getElementById("exit3DLabel").textContent = isPt ? "Voltar ao Site" : "Back to Site";
+
+    const artemisBanner = document.getElementById("artemisVegaBanner");
+    const artemisTitle = document.getElementById("artemisVegaTitle");
+    const artemisText = document.getElementById("artemisVegaText");
+    const artemisQuizBtn = document.getElementById("artemisQuizBtn");
+    const allStoriesRead = this.visitedStations.size >= STATION_ORDER.length;
+    if (artemisBanner && artemisTitle && artemisText && artemisQuizBtn) {
+      if (allStoriesRead) {
+        artemisBanner.classList.remove("hidden");
+        artemisQuizBtn.classList.remove("hidden");
+        artemisQuizBtn.textContent = this.quizState.completed
+          ? isPt
+            ? "✦ Ver Quiz / Emitir Certificado"
+            : "✦ Quiz / Get Certificate"
+          : isPt
+          ? "✦ Fazer Quiz com Comandante Vega"
+          : "✦ Take Commander Vega's Quiz";
+        if (!this._hasVisited3D) {
+          artemisTitle.textContent = isPt
+            ? "Comandante Vega: 4/4 histórias concluídas — mas a missão continua!"
+            : "Commander Vega: 4/4 stories complete — the mission continues!";
+          artemisText.textContent = isPt
+            ? "Participe do Quiz Final da expedição e acesse a Viagem 3D pela superfície da Lua para explorar os orbes secretos e conversar com cada máquina!"
+            : "Take the expedition wrap-up Quiz and launch the 3D Lunar Voyage to explore secret curiosity orbs and talk with each spacecraft!";
+        } else {
+          artemisTitle.textContent = isPt
+            ? "Comandante Vega: expedição completa!"
+            : "Commander Vega: expedition complete!";
+          artemisText.textContent = isPt
+            ? "Você já explorou as histórias e a superfície 3D. Pode fazer ou revisar o Quiz e emitir seu certificado oficial quando quiser."
+            : "You explored both the stories and the 3D lunar surface. Feel free to revisit the Quiz or issue your official certificate anytime.";
+        }
+      } else {
+        artemisBanner.classList.add("hidden");
+        artemisQuizBtn.classList.add("hidden");
+      }
+    }
 
     const listEl = document.getElementById("editorialChaptersList");
     const activeIdx = this.stationIndex;
