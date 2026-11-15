@@ -81,38 +81,48 @@
         </div>
       </a>
 
-      <div class="editorial-nav-links">
-        <a href="#storiesSection" id="navLinkStories">Stories</a>
-        <a href="#artemisSection" id="navLinkArtemis">Artemis Legacy</a>
-      </div>
-
-      <div class="editorial-nav-actions">
-        <!-- Age Tone Selector (Hidden in static navbar; configured in Onboarding & Storybook) -->
-        <div class="glass-pill-group editorial-age-group">
-          <button class="pill-btn" data-age-btn="child" id="navAgeChild">Criança</button>
-          <button class="pill-btn" data-age-btn="teen" id="navAgeTeen">Adolescente</button>
-          <button class="pill-btn active" data-age-btn="adult" id="navAgeAdult">Adulto</button>
+      <div class="editorial-nav-drawer" id="editorialNavDrawer">
+        <div class="editorial-nav-links">
+          <a href="#storiesSection" id="navLinkStories">Stories</a>
+          <a href="#artemisSection" id="navLinkArtemis">Artemis Legacy</a>
         </div>
 
-        <!-- Glowing Electric Blue 3D CTA -->
-        <button class="btn-glow-blue btn-nav-3d" id="open3DModeBtn">
-          Explore in 3D
-        </button>
+        <div class="editorial-nav-actions">
+          <!-- Age Tone Selector (Hidden in static navbar; configured in Onboarding & Storybook) -->
+          <div class="glass-pill-group editorial-age-group">
+            <button class="pill-btn" data-age-btn="child" id="navAgeChild">Criança</button>
+            <button class="pill-btn" data-age-btn="teen" id="navAgeTeen">Adolescente</button>
+            <button class="pill-btn active" data-age-btn="adult" id="navAgeAdult">Adulto</button>
+          </div>
 
-        <!-- Reopen Profile & Language Modal Button -->
-        <button id="reopenSettingsBtn" class="btn-tech-outline btn-icon-only" aria-label="Settings" title="Profile &amp; Language">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
-        </button>
+          <!-- Glowing Electric Blue 3D CTA -->
+          <button class="btn-glow-blue btn-nav-3d" id="open3DModeBtn">
+            Explore in 3D
+          </button>
 
-        <!-- Language Switcher (Hidden in static navbar; configured in Onboarding) -->
-        <div class="lang-text-toggle">
-          <button class="lang-link" data-lang-btn="pt">PT</button>
-          <button class="lang-link active" data-lang-btn="en">EN</button>
+          <!-- Reopen Profile & Language Modal Button -->
+          <button id="reopenSettingsBtn" class="btn-tech-outline btn-icon-only" aria-label="Settings" title="Profile &amp; Language">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+
+          <!-- Language Switcher (Hidden in static navbar; configured in Onboarding) -->
+          <div class="lang-text-toggle">
+            <button class="lang-link" data-lang-btn="pt">PT</button>
+            <button class="lang-link active" data-lang-btn="en">EN</button>
+          </div>
         </div>
       </div>
+
+      <button type="button" class="mobile-nav-toggle" id="mobileNavToggleBtn" aria-label="Menu" aria-expanded="false" aria-controls="editorialNavDrawer">
+        <svg class="hamburger-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <line class="line-top" x1="4" y1="6.5" x2="20" y2="6.5"></line>
+          <line class="line-mid" x1="4" y1="12" x2="20" y2="12"></line>
+          <line class="line-bot" x1="4" y1="17.5" x2="20" y2="17.5"></line>
+        </svg>
+      </button>
     </nav>
 
     <!-- Hero Section (Inspired by Observatory Minimalism) -->
@@ -144,6 +154,14 @@
             Abrir Visualização 3D →
           </button>
         </div>
+
+        <a href="#storiesSection" class="hero-scroll-indicator" id="heroScrollIndicator">
+          <span class="scroll-mouse-pill" aria-hidden="true">
+            <span class="scroll-mouse-wheel"></span>
+          </span>
+          <span id="heroScrollText">Role para explorar</span>
+          <span class="scroll-line-tail" aria-hidden="true"></span>
+        </a>
       </div>
 
       <div class="hero-moon-col" aria-hidden="true">

@@ -5292,8 +5292,8 @@ class LunarSurface3D {
     }
 
     this.targetOrbitPhi = 1.22;
-    this.targetOrbitRadius = inspectMode ? st.radius * 0.85 : st.radius;
-    this.targetLook = { x: inspectMode ? 1.15 : 0, y: st.targetY, z: 0 };
+    this.targetOrbitRadius = this._getResponsiveRadius(inspectMode ? st.radius * 0.85 : st.radius);
+    this.targetLook = { x: inspectMode ? this._getInspectOffsetX() : 0, y: st.targetY, z: 0 };
 
     this.updateVisibleStation();
 
@@ -5302,11 +5302,27 @@ class LunarSurface3D {
     }
   }
 
+  _getResponsiveRadius(baseRadius) {
+    const w = (this.container && this.container.clientWidth) || window.innerWidth || 1280;
+    const h = (this.container && this.container.clientHeight) || window.innerHeight || 800;
+    const aspect = w / Math.max(1, h);
+    if (aspect < 1) {
+      const portraitScale = Math.min(1.42, Math.max(1.0, 0.92 / Math.max(0.45, aspect)));
+      return baseRadius * portraitScale;
+    }
+    return baseRadius;
+  }
+
+  _getInspectOffsetX() {
+    const w = (this.container && this.container.clientWidth) || window.innerWidth || 1280;
+    return w <= 960 ? 0 : 1.15;
+  }
+
   setInspectMode(inspectMode) {
     this.isInspectMode = inspectMode;
     const st = this.stations[this.currentStationIndex];
-    this.targetOrbitRadius = inspectMode ? st.radius * 0.85 : st.radius;
-    this.targetLook = { x: inspectMode ? 1.15 : 0, y: st.targetY, z: 0 };
+    this.targetOrbitRadius = this._getResponsiveRadius(inspectMode ? st.radius * 0.85 : st.radius);
+    this.targetLook = { x: inspectMode ? this._getInspectOffsetX() : 0, y: st.targetY, z: 0 };
   }
 
   bindEvents() {
@@ -5373,6 +5389,47 @@ class LunarSurface3D {
       { passive: false }
     );
 
+    let lastPinchDist = null;
+    dom.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches && e.touches.length === 2) {
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          lastPinchDist = Math.hypot(dx, dy);
+        }
+      },
+      { passive: true }
+    );
+    dom.addEventListener(
+      "touchmove",
+      (e) => {
+        if (e.touches && e.touches.length === 2 && lastPinchDist !== null) {
+          e.preventDefault();
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          const dist = Math.hypot(dx, dy);
+          const delta = lastPinchDist - dist;
+          lastPinchDist = dist;
+          const st = this.stations[this.currentStationIndex];
+          const minR = st.radius * 0.55;
+          const maxR = st.radius * 2.6;
+          this.targetOrbitRadius = Math.max(
+            minR,
+            Math.min(maxR, this.targetOrbitRadius + delta * 0.015)
+          );
+        }
+      },
+      { passive: false }
+    );
+    dom.addEventListener(
+      "touchend",
+      () => {
+        lastPinchDist = null;
+      },
+      { passive: true }
+    );
+
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") {
         this.goToStation(this.currentStationIndex + 1, this.isInspectMode);
@@ -5389,6 +5446,13 @@ class LunarSurface3D {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(w, h);
+    if (!this.isDescending && this.stations && this.stations[this.currentStationIndex]) {
+      const st = this.stations[this.currentStationIndex];
+      this.targetOrbitRadius = this._getResponsiveRadius(
+        this.isInspectMode ? st.radius * 0.85 : st.radius
+      );
+      this.targetLook.x = this.isInspectMode ? this._getInspectOffsetX() : 0;
+    }
   }
 
   animate() {
@@ -5418,7 +5482,7 @@ class LunarSurface3D {
           this.orbitRadius = 11.5;
           this.updateVisibleStation();
         }
-        this.targetOrbitRadius = st.radius;
+        this.targetOrbitRadius = this._getResponsiveRadius(st.radius);
         this.targetOrbitPhi = 1.22;
         this.targetLook = { x: 0, y: st.targetY, z: 0 };
       }
@@ -6537,8 +6601,42 @@ class EchoesOfTheMoonApp {
       });
     }
 
+    // 10. Mobile & Tablet Navigation Drawer Toggle
+    const mobileNavToggleBtn = document.getElementById("mobileNavToggleBtn");
+    const editorialNavbar = document.querySelector(".editorial-navbar");
+    const editorialNavDrawer = document.getElementById("editorialNavDrawer");
+    const closeMobileMenu = () => {
+      if (editorialNavbar && editorialNavbar.classList.contains("is-menu-open")) {
+        editorialNavbar.classList.remove("is-menu-open");
+        if (mobileNavToggleBtn) {
+          mobileNavToggleBtn.setAttribute("aria-expanded", "false");
+        }
+      }
+    };
+    if (mobileNavToggleBtn && editorialNavbar) {
+      mobileNavToggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = editorialNavbar.classList.toggle("is-menu-open");
+        mobileNavToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        this.audio.playPing(isOpen ? 820 : 640, 0.05);
+      });
+    }
+    if (editorialNavDrawer) {
+      editorialNavDrawer.querySelectorAll("a, button").forEach((el) => {
+        el.addEventListener("click", () => {
+          closeMobileMenu();
+        });
+      });
+    }
+    document.addEventListener("click", (e) => {
+      if (editorialNavbar && !editorialNavbar.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
+        closeMobileMenu();
         const quizModal = document.getElementById("astronautQuizModal");
         if (quizModal && !quizModal.classList.contains("hidden")) {
           this.closeAstronautQuizModal();
@@ -7725,6 +7823,14 @@ class EchoesOfTheMoonApp {
     document.getElementById("heroOpen3DBtn").textContent = isPt
       ? "Abrir Visualização 3D →"
       : "Open 3D View →";
+    const heroScrollTextEl = document.getElementById("heroScrollText");
+    if (heroScrollTextEl) {
+      heroScrollTextEl.textContent = isPt ? "Role para explorar" : "Scroll to explore";
+    }
+    const mobileMenuBtn = document.getElementById("mobileNavToggleBtn");
+    if (mobileMenuBtn) {
+      mobileMenuBtn.setAttribute("aria-label", isPt ? "Menu de navegação" : "Navigation menu");
+    }
 
     document.getElementById("storiesKicker").textContent = isPt
       ? "04 MONUMENTOS LUNARES"
