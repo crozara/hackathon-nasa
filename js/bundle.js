@@ -1552,23 +1552,23 @@ const MISSION_QUIZ = {
     guideRole: "GUIA ESPACIAL • MUSEUM OF LOST SPACE TECHNOLOGY",
     greeting: {
       child: {
-        title: "Olá, pequeno explorador! Obrigado por viajar comigo pela Lua!",
+        title: "Demais! Você conheceu toda a Lua comigo!",
         message:
-          "Eu sou a Comandante Vega! Que alegria ver você conhecendo as 4 máquinas históricas da Apollo. Antes de pegar o seu Certificado Oficial, que tal responder 4 perguntinhas divertidas comigo? Se errar alguma, não tem problema nenhum — eu te explico tudinho de novo!",
+          "Que alegria ver você descobrindo as 4 máquinas históricas da Apollo. Antes de pegar o seu Certificado Oficial, que tal responder 4 perguntinhas divertidas comigo? Se errar alguma, não tem problema nenhum — eu te explico tudinho de novo!",
         startBtn: "Vamos lá! Começar Quiz →",
         skipBtn: "Ir direto para o Certificado"
       },
       teen: {
         title: "Missão cumprida! Obrigado por explorar o acervo lunar conosco!",
         message:
-          "Oi, eu sou a Comandante Vega! Você acabou de ouvir os bastidores dos 4 equipamentos da era Apollo. Antes de emitir sua credencial, topa um mini-quiz de 4 perguntas? Não vale nota: se errar, sem estresse — eu reviso o segredo da engenharia na hora com você!",
+          "Você acabou de ouvir os bastidores dos 4 equipamentos da era Apollo. Antes de emitir sua credencial, topa um mini-quiz de 4 perguntas? Não vale nota: se errar, sem estresse — eu reviso o segredo da engenharia na hora com você!",
         startBtn: "Iniciar Mini-Quiz (4/4) →",
         skipBtn: "Ir direto para o Certificado"
       },
       adult: {
         title: "Expedição concluída! Muito obrigado por visitar o nosso acervo lunar.",
         message:
-          "Saudações! Eu sou a Comandante Vega, guia de missão do Museum of Lost Space Technology. Obrigado por percorrer as memórias dos quatro marcos históricos da Apollo. Antes de gerar o seu Certificado Oficial, convido você para uma breve revisão de 4 perguntas — se errar alguma, não há problema algum: recapitulamos o conceito juntos!",
+          "Obrigado por percorrer as memórias dos quatro marcos históricos da Apollo conosco. Antes de gerar o seu Certificado Oficial, convido você para uma breve revisão de 4 perguntas — se errar alguma, não há problema algum: recapitulamos o conceito juntos!",
         startBtn: "Iniciar Revisão Final →",
         skipBtn: "Ir direto para o Certificado"
       }
@@ -1777,23 +1777,23 @@ const MISSION_QUIZ = {
     guideRole: "MISSION GUIDE • MUSEUM OF LOST SPACE TECHNOLOGY",
     greeting: {
       child: {
-        title: "Hi, little explorer! Thank you for traveling across the Moon with me!",
+        title: "Awesome job! You explored the whole Moon with me!",
         message:
-          "I'm Commander Vega! It was awesome watching you discover all 4 historic Apollo machines. Before unlocking your Official Certificate, want to play a quick 4-question space quiz with me? If you miss one, no worries at all — I'll happily explain it again!",
+          "It was amazing watching you discover all 4 historic Apollo machines. Before unlocking your Official Certificate, want to play a quick 4-question space quiz together? If you miss one, no worries at all — I'll happily explain it again!",
         startBtn: "Let's Play! Start Quiz →",
         skipBtn: "Go straight to Certificate"
       },
       teen: {
         title: "Mission complete! Thanks for exploring the lunar archive with us!",
         message:
-          "Hey there, I'm Commander Vega! You just uncovered the stories behind four real Apollo artifacts. Before generating your credential, ready for a fast 4-question check-in? Zero pressure: if you miss any question, no worries — we'll break down the engineering together right away!",
+          "You just uncovered the stories behind four real Apollo artifacts. Before generating your credential, ready for a fast 4-question check-in? Zero pressure: if you miss any question, no worries — we'll break down the engineering together right away!",
         startBtn: "Start Mini-Quiz (4/4) →",
         skipBtn: "Skip to Certificate"
       },
       adult: {
         title: "Expedition complete! Thank you for exploring our lunar archive.",
         message:
-          "Greetings! I'm Commander Vega, mission guide at the Museum of Lost Space Technology. Thank you for experiencing the stories of all four historic Apollo landmarks. Before issuing your Official Certificate, I invite you to a brief 4-question review — if any detail trips you up, no problem at all: we'll recap it together!",
+          "Thank you for experiencing the stories of all four historic Apollo landmarks with us. Before issuing your Official Certificate, I invite you to a brief 4-question review — if any detail trips you up, no problem at all: we'll recap it together!",
         startBtn: "Start Final Review →",
         skipBtn: "Skip to Certificate"
       }
@@ -1996,6 +1996,197 @@ const MISSION_QUIZ = {
     certBtn: "Generate Official Certificate →",
     retryBtn: "Retake Quiz",
     closeLabel: "Close"
+  }
+};
+
+const VEGA_JOURNEY = {
+  pt: {
+    guideName: "Comandante Vega",
+    guideBadge: "COMANDANTE VEGA • GUIA ESPACIAL",
+    siteRoleChip: "COMANDANTE VEGA • NOTA DO CAPÍTULO",
+    bridgeChip: "TRANSIÇÃO ENTRE CAPÍTULOS • COMANDANTE VEGA",
+    listenBtn: "Ouvir Comandante Vega",
+    stopBtn: "Parar Áudio",
+    commsChip: "RÁDIO DE BORDO • COMANDANTE VEGA",
+    commsHearBtn: "Ouvir",
+    siteChapters: {
+      lrrr: {
+        child:
+          "Oi, pequeno explorador! Eu sou a Comandante Vega e vou viajar com você pela Lua! Nossa primeira parada é um espelho mágico da Apollo 11 que ainda conversa com lasers da Terra!",
+        teen:
+          "Olá! Eu sou a Comandante Vega, sua guia nesta expedição lunar. No Capítulo 01, começamos pelo LRRR da Apollo 11 — o experimento óptico sem bateria que segue ativo desde 1969!",
+        adult:
+          "Saudações! Eu sou a Comandante Vega, curadora-guia do Museum of Lost Space Technology. Iniciamos o roteiro pelo LRRR da Apollo 11, o conjunto óptico passivo que permanece em operação científica há mais de meio século."
+      },
+      pse: {
+        child:
+          "Saindo dos espelhos brilhantes, agora vamos encostar o ouvido no chão da Lua! Este equipamento usava um cobertor dourado para escutar tremores sem congelar.",
+        teen:
+          "Depois de medir distâncias com luz laser, descemos ao solo lunar no Capítulo 02: protegido por revestimento dourado e Plutônio-238, o PSE provou que a Lua tem lunamotos reais.",
+        adult:
+          "Da ótica passiva à geofísica de superfície: avançamos no Capítulo 02 ao Experimento Sísmico Passivo (PSE), que enfrentou amplitudes térmicas de 300 °C para mapear a crosta e o núcleo lunar."
+      },
+      eagle: {
+        child:
+          "Já medimos a luz e os tremores — agora olhe para a nave que levou os primeiros astronautas à Lua e virou trampolim na volta para casa!",
+        teen:
+          "Deixando os sensores sísmicos para trás, seguimos no Capítulo 03 para o estágio de descida do Eagle, que pousou na Base Tranquilidade com menos de 30 segundos de combustível reserva.",
+        adult:
+          "Conectando os experimentos científicos à engenharia de pouso: no Capítulo 03 analisamos o estágio de descida do módulo lunar Eagle (LM-5), que atuou como plataforma de lançamento e hoje é patrimônio histórico."
+      },
+      lrv: {
+        child:
+          "Depois de ver onde o Eagle pousou, hora de acelerar pela poeira espacial em um carro dobrável com rodas de arame que não furam nunca!",
+        teen:
+          "Se a Apollo 11 explorou a pé ao redor do Eagle, o Capítulo 04 mostra como o jipe LRV multiplicou o alcance das missões finais, rodando 90,5 km dobrado como origami no foguete.",
+        adult:
+          "Fechando o arco iniciado na Apollo 11, chegamos no Capítulo 04 ao jipe lunar LRV: veículo elétrico de 210 kg que ampliou drasticamente o raio geológico das últimas missões do programa Apollo."
+      }
+    },
+    chapterBridges: {
+      lrrr: "Voltando ao início da jornada: o LRRR da Apollo 11 prova que a ciência mais simples — só espelhos de quartzo — atravessa décadas.",
+      pse: "Deixamos o espelho laser para trás e seguimos para o Sismômetro PSE, que escutou o coração sísmico da Lua.",
+      eagle: "Agora vamos dos instrumentos científicos direto para a nave Eagle que garantiu o primeiro pouso e a decolagem de retorno.",
+      lrv: "Depois de visitar a base do Eagle, hora de rodar quilômetros pelas crateras a bordo do jipe elétrico LRV!"
+    },
+    missionLetter: {
+      child: {
+        title: "Preparando nossa viagem à superfície da Lua!",
+        paragraphs: [
+          "Em poucos segundos vamos caminhar juntos pelo solo silencioso onde quatro máquinas incríveis da NASA descansam desde 1969.",
+          "Os modelos 3D que você vai ver são representações ilustrativas feitas especialmente para dar vida à nossa aventura.",
+          "Explore todos os equipamentos e ouça as 4 histórias — no final, trago um mini-quiz divertido e o seu Certificado Oficial!"
+        ],
+        signature: "Comandante Vega • Guia Espacial da Expedição"
+      },
+      teen: {
+        title: "Preparando a descida para os sítios Apollo!",
+        paragraphs: [
+          "Você está prestes a percorrer o terreno silencioso entre quatro marcos históricos das missões Apollo na Lua.",
+          "Os modelos 3D exibidos aqui são representações ilustrativas baseadas em fotografias e plantas reais da NASA.",
+          "Descubra todas as 4 histórias e curiosidades pelo caminho para desbloquear nosso mini-quiz final e sua credencial!"
+        ],
+        signature: "Comandante Vega • Guia Espacial da Expedição"
+      },
+      adult: {
+        title: "Diário de Bordo aberto para a expedição 3D.",
+        paragraphs: [
+          "Em instantes iniciaremos o percurso pelo solo lunar preservado desde a era Apollo, visitando quatro monumentos históricos.",
+          "Os modelos 3D a seguir são representações ilustrativas fundamentadas nos registros técnicos oficiais da NASA.",
+          "Percorra todas as 4 histórias para concluir o roteiro, participar de uma breve revisão final e emitir seu Certificado Oficial."
+        ],
+        signature: "Comandante Vega • Curadoria & Guia de Missão"
+      }
+    },
+    comms3D: {
+      lrrr: "Chegamos ao Retrorefletor (LRRR)! Clique no espelho para ouvir a história de 1969.",
+      pse: "Este é o Sismômetro PSE: toque nos orbes ao redor para ver como ele aguentava -170 °C.",
+      eagle: "Chegamos à Base Tranquilidade! Repare na escada e na placa histórica do módulo Eagle.",
+      lrv: "Última estação: o jipe lunar LRV! Clique nos orbes para inspecionar suas rodas de corda de piano.",
+      halfway: "Excelente ritmo! Já passamos da metade — faltam só mais duas histórias para o nosso quiz final!"
+    },
+    certificateDelivery: {
+      child:
+        "Missão super cumprida! Preparei e assinei o seu Certificado Oficial de Explorador Lunar. Escreva seu nome abaixo e guarde essa lembrança espacial!",
+      teen:
+        "Parabéns pela expedição! Assinei oficialmente a entrega do seu Certificado Lunar. Personalize com seu nome abaixo e baixe em alta resolução!",
+      adult:
+        "Meus parabéns pela conclusão do roteiro! Tenho a honra de assinar e entregar o seu Certificado Oficial do Museum of Lost Space Technology."
+    }
+  },
+  en: {
+    guideName: "Commander Vega",
+    guideBadge: "COMMANDER VEGA • SPACE GUIDE",
+    siteRoleChip: "COMMANDER VEGA • CHAPTER NOTE",
+    bridgeChip: "CHAPTER BRIDGE • COMMANDER VEGA",
+    listenBtn: "Hear Commander Vega",
+    stopBtn: "Stop Audio",
+    commsChip: "MISSION RADIO • COMMANDER VEGA",
+    commsHearBtn: "Hear",
+    siteChapters: {
+      lrrr: {
+        child:
+          "Hi, little explorer! I'm Commander Vega and I'll be your Moon guide! Our very first stop is a magic Apollo 11 mirror that still talks to laser beams from Earth!",
+        teen:
+          "Hi! I'm Commander Vega, your expedition guide. In Chapter 01, we kick off with Apollo 11's LRRR — a batteryless optical array still operating since 1969!",
+        adult:
+          "Greetings! I'm Commander Vega, guide curator at the Museum of Lost Space Technology. We begin with Apollo 11's LRRR, the passive optical instrument still active over half a century later."
+      },
+      pse: {
+        child:
+          "Stepping away from our shiny mirrors, let's press an ear to the lunar soil! This clever instrument wore a gold blanket to hear Moon rumbles without freezing.",
+        teen:
+          "After measuring Earth–Moon distance with lasers, Chapter 02 takes us underground: wrapped in gold Mylar and Plutonium-238, the PSE proved the Moon truly quakes.",
+        adult:
+          "From passive optics to surface geophysics: Chapter 02 moves to the Passive Seismic Experiment (PSE), built to survive 300 °C swings and map the Moon's crust and core."
+      },
+      eagle: {
+        child:
+          "We've bounced light and heard Moon shakes — now look up at the lander that carried the very first Moonwalkers and launched them safely home!",
+        teen:
+          "Leaving the seismic sensors behind, Chapter 03 takes us to Eagle's Descent Stage — touching down at Tranquility Base with under 30 seconds of hover fuel left.",
+        adult:
+          "Bridging surface instruments to landing architecture: Chapter 03 examines Eagle's (LM-5) Descent Stage, which doubled as an ascent launchpad and stands protected today."
+      },
+      lrv: {
+        child:
+          "Right after Eagle's historic landing pad, hop over to a fold-out space buggy with piano-wire wheels that never go flat on Moon dust!",
+        teen:
+          "If Apollo 11 explored Tranquility Base on foot, Chapter 04 shows how the LRV rover multiplied later missions' range — unfolding like origami to drive 90.5 km.",
+        adult:
+          "Completing the arc from Apollo 11's landing, Chapter 04 explores the 210 kg LRV electric rover that dramatically expanded the geological reach of Apollo J-series missions."
+      }
+    },
+    chapterBridges: {
+      lrrr: "Back to where it began: Apollo 11's LRRR shows how pure fused-silica optics can outlast entire spacecraft electronics.",
+      pse: "Leaving the laser array behind, we head straight to the PSE seismometer that listened to the Moon's interior.",
+      eagle: "Moving from scientific payloads to the Lunar Module Eagle itself — the spacecraft that enabled humanity's first touchdown.",
+      lrv: "Stepping beyond Eagle's landing site, let's roll across craters aboard Apollo's fold-out Lunar Roving Vehicle!"
+    },
+    missionLetter: {
+      child: {
+        title: "Preparing our trip to the Moon's surface!",
+        paragraphs: [
+          "In just a moment we'll walk together across the silent soil where four real NASA machines have rested since 1969.",
+          "The 3D models ahead are illustrative recreations crafted specially to bring our adventure to life.",
+          "Visit all 4 monuments to hear their stories — then I'll meet you at the end with a fun mini-quiz and your Official Certificate!"
+        ],
+        signature: "Commander Vega • Expedition Space Guide"
+      },
+      teen: {
+        title: "Preparing descent to the Apollo landing sites!",
+        paragraphs: [
+          "You're about to explore the silent terrain across four historic Apollo landmarks left on the Moon.",
+          "The 3D spacecraft and instruments ahead are illustrative models grounded in real NASA archives.",
+          "Discover all 4 stories and orbital curiosities along the way to unlock our wrap-up quiz and explorer credential!"
+        ],
+        signature: "Commander Vega • Expedition Space Guide"
+      },
+      adult: {
+        title: "Mission Logbook opened for the 3D expedition.",
+        paragraphs: [
+          "In moments we will survey the silent lunar terrain preserved since Apollo across four historic landmarks.",
+          "The 3D scenes ahead are illustrative reconstructions grounded in official NASA historical and engineering records.",
+          "Explore all 4 monuments to complete the expedition, join a brief final review, and receive your signed Official Certificate."
+        ],
+        signature: "Commander Vega • Curatorial Mission Guide"
+      }
+    },
+    comms3D: {
+      lrrr: "Arriving at the LRRR mirror! Click the instrument to hear its 1969 story.",
+      pse: "Now at the PSE seismometer — tap the glowing orbs to see how it survived -170 °C nights.",
+      eagle: "Welcome to Tranquility Base! Spot the ladder and stainless plaque on Eagle's descent stage.",
+      lrv: "Final stop: the Lunar Rover! Tap the orbs around it to inspect its piano-wire tires.",
+      halfway: "Great pace! You're halfway through — just two more stories until our final quiz!"
+    },
+    certificateDelivery: {
+      child:
+        "Mission super complete! I've signed your Official Lunar Explorer Certificate right beside you. Type your name to save a keepsake of our Moon trip!",
+      teen:
+        "Congratulations on completing the expedition! I've proudly signed your Official Lunar Certificate. Customize your name and download it in high resolution!",
+      adult:
+        "Warmest congratulations on completing the expedition! It is my honor to sign and present your Official Museum of Lost Space Technology Certificate."
+    }
   }
 };
 
@@ -5391,6 +5582,12 @@ class EchoesOfTheMoonApp {
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
     this._hasShownCertReward = false;
+    this._vegaShownComms = new Set();
+    this._vegaCommsTimer = null;
+    this._activeVegaChannel = null;
+    this._currentCommsKey = null;
+    this._storyBridgeTimer = null;
+    this._currentBridgeId = null;
     this.quizState = {
       phase: "welcome",
       questionIdx: 0,
@@ -5483,6 +5680,11 @@ class EchoesOfTheMoonApp {
         this.audio.stopSpeech(false);
         this.audio.playQuindarTone(true);
         this.renderUI();
+        if (!inspectMode && artifactId) {
+          this.showVega3DComms(artifactId);
+        } else {
+          this.hideVega3DComms();
+        }
       },
       onArtifactClick: () => {
         this.closeInteractionCard();
@@ -5503,6 +5705,7 @@ class EchoesOfTheMoonApp {
     this._isLoading3D = true;
     this.is3DActive = true;
     this.isStoryOpen = false;
+    this.stopVegaChannel();
     this.audio.stopSpeech(false);
 
     const isPt = this.lang === "pt";
@@ -5570,10 +5773,14 @@ class EchoesOfTheMoonApp {
           overlay.classList.remove("is-fading");
           if (this.is3DActive && !this._hasSeenMissionLetter) {
             this.openMissionLetter();
+          } else if (this.is3DActive) {
+            this.showVega3DComms(this.currentArtifact.id);
           }
         }, 380);
       } else if (!this._hasSeenMissionLetter) {
         this.openMissionLetter();
+      } else {
+        this.showVega3DComms(this.currentArtifact.id);
       }
     };
 
@@ -5637,6 +5844,8 @@ class EchoesOfTheMoonApp {
     this.is3DActive = false;
     this.isStoryOpen = false;
     this.isImmersiveReading = false;
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     this.audio.stopSpeech(false);
     const loadOverlay = document.getElementById("missionLoadingOverlay");
     if (loadOverlay) {
@@ -5959,6 +6168,7 @@ class EchoesOfTheMoonApp {
 
     const switchStoryChapter = (delta) => {
       const targetIdx = (this.stationIndex + delta + STATION_ORDER.length) % STATION_ORDER.length;
+      const targetId = STATION_ORDER[targetIdx];
       this.audio.stopSpeech(false);
       this.storyPageIndex = 0;
       this.audio.playPageTurnSound(delta > 0);
@@ -5969,6 +6179,7 @@ class EchoesOfTheMoonApp {
         this.visitedStations.add(this.currentArtifact.id);
         this.renderUI();
       }
+      this.showStoryBridge(targetId);
     };
 
     document.getElementById("storyPrevArtifactBtn").addEventListener("click", () => switchStoryChapter(-1));
@@ -6093,6 +6304,72 @@ class EchoesOfTheMoonApp {
       this.closeMissionLetter();
     });
 
+    const letterVegaBtn = document.getElementById("letterVegaVoiceBtn");
+    if (letterVegaBtn) {
+      letterVegaBtn.addEventListener("click", () => {
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const age = this.ageProfile || "adult";
+        const letter = VEGA_JOURNEY[langKey].missionLetter[age] || VEGA_JOURNEY[langKey].missionLetter.adult;
+        const spoken = `${letter.title} ${letter.paragraphs.join(" ")}`;
+        const idle = this.lang === "pt" ? "Ouvir Vega" : "Hear Vega";
+        this.playVegaChannelClip(
+          "letter",
+          `assets/audio/vega-${langKey}-${age}-letter.mp3`,
+          spoken,
+          "#letterVegaAvatarRing",
+          "#letterVegaVoiceBtn",
+          idle
+        );
+      });
+    }
+
+    const vegaCommsHearBtn = document.getElementById("vegaCommsHearBtn");
+    if (vegaCommsHearBtn) {
+      vegaCommsHearBtn.addEventListener("click", () => {
+        if (!this._currentCommsKey) return;
+        clearTimeout(this._vegaCommsTimer);
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const text = VEGA_JOURNEY[langKey].comms3D[this._currentCommsKey] || "";
+        const idle = VEGA_JOURNEY[langKey].commsHearBtn;
+        this.playVegaChannelClip(
+          "comms",
+          `assets/audio/vega-${langKey}-comms-${this._currentCommsKey}.mp3`,
+          text,
+          "#vegaCommsAvatarRing",
+          "#vegaCommsHearBtn",
+          idle,
+          () => {
+            this._vegaCommsTimer = setTimeout(() => this.hideVega3DComms(), 2500);
+          }
+        );
+      });
+    }
+
+    const vegaCommsCloseBtn = document.getElementById("vegaCommsCloseBtn");
+    if (vegaCommsCloseBtn) {
+      vegaCommsCloseBtn.addEventListener("click", () => {
+        this.hideVega3DComms();
+      });
+    }
+
+    const certVegaBtn = document.getElementById("certVegaVoiceBtn");
+    if (certVegaBtn) {
+      certVegaBtn.addEventListener("click", () => {
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const age = this.ageProfile || "adult";
+        const text = VEGA_JOURNEY[langKey].certificateDelivery[age];
+        const idle = this.lang === "pt" ? "Ouvir Vega" : "Hear Vega";
+        this.playVegaChannelClip(
+          "cert",
+          `assets/audio/vega-${langKey}-${age}-cert.mp3`,
+          text,
+          "#certVegaAvatarRing",
+          "#certVegaVoiceBtn",
+          idle
+        );
+      });
+    }
+
     document.getElementById("missionProgressBadge").addEventListener("click", () => {
       if (this.visitedStations.size >= STATION_ORDER.length) {
         if (this.quizState.completed) {
@@ -6153,8 +6430,37 @@ class EchoesOfTheMoonApp {
       this.closeCertificateModal();
     });
 
+    const storyBridgeHearBtn = document.getElementById("storyBridgeHearBtn");
+    if (storyBridgeHearBtn) {
+      storyBridgeHearBtn.addEventListener("click", () => {
+        if (!this._currentBridgeId) return;
+        clearTimeout(this._storyBridgeTimer);
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const vegaLoc = VEGA_JOURNEY[langKey];
+        const text = vegaLoc.chapterBridges[this._currentBridgeId] || "";
+        this.playVegaChannelClip(
+          "bridge",
+          `assets/audio/vega-${langKey}-bridge-${this._currentBridgeId}.mp3`,
+          text,
+          "#storyBridgeAvatarRing",
+          "#storyBridgeHearBtn",
+          vegaLoc.commsHearBtn,
+          () => {
+            this._storyBridgeTimer = setTimeout(() => this.hideStoryBridge(), 2600);
+          }
+        );
+      });
+    }
+
+    const storyBridgeCloseBtn = document.getElementById("storyBridgeCloseBtn");
+    if (storyBridgeCloseBtn) {
+      storyBridgeCloseBtn.addEventListener("click", () => {
+        this.hideStoryBridge();
+      });
+    }
+
     document.getElementById("certificateModal").addEventListener("click", (e) => {
-      if (e.target.id === "certificateModal") {
+      if (e.target.id === "certificateModal" || e.target.classList.contains("certificate-stage-layout")) {
         this.closeCertificateModal();
       }
     });
@@ -6230,6 +6536,9 @@ class EchoesOfTheMoonApp {
   }
 
   openStoryView() {
+    this.hideVega3DComms();
+    this.hideStoryBridge();
+    this.stopVegaChannel();
     this.isStoryOpen = true;
     this.storyPageIndex = 0;
     this.visitedStations.add(this.currentArtifact.id);
@@ -6245,6 +6554,7 @@ class EchoesOfTheMoonApp {
 
   closeStoryView() {
     this.closeBookImageLightbox();
+    this.hideStoryBridge();
     this.isStoryOpen = false;
     this.isImmersiveReading = false;
     this.updateImmersiveUI();
@@ -6259,6 +6569,8 @@ class EchoesOfTheMoonApp {
     if (this.visitedStations.size >= STATION_ORDER.length && !this._hasShownCertReward) {
       this._hasShownCertReward = true;
       this.openAstronautQuizModal();
+    } else if (this.is3DActive && this.visitedStations.size === 2 && !this._vegaShownComms.has("halfway")) {
+      this.showVega3DComms("halfway");
     }
   }
 
@@ -6269,6 +6581,7 @@ class EchoesOfTheMoonApp {
   }
 
   handleCuriosityOrbClick(artifactId, orbIndex) {
+    this.hideVega3DComms();
     const data = ARTIFACT_INTERACTIONS[artifactId];
     if (!data || !data.curiosities[orbIndex]) return;
 
@@ -6318,6 +6631,8 @@ class EchoesOfTheMoonApp {
     if (this.isStoryOpen) {
       this.closeStoryView();
     }
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     this.audio.stopArtifactClip(false);
     const art = this.currentArtifact;
     const artifactId = art.id;
@@ -6450,31 +6765,181 @@ class EchoesOfTheMoonApp {
     }).join("");
   }
 
+  stopVegaChannel() {
+    if (this._activeVegaChannel) {
+      const { avatarSelector, btnSelector, idleLabel } = this._activeVegaChannel;
+      const ring = avatarSelector ? document.querySelector(avatarSelector) : null;
+      const btn = btnSelector ? document.querySelector(btnSelector) : null;
+      if (ring) ring.classList.remove("is-speaking");
+      if (btn) {
+        btn.classList.remove("is-playing");
+        if (idleLabel) btn.textContent = idleLabel;
+      }
+      this._activeVegaChannel = null;
+    }
+    this.audio.stopVegaClip();
+  }
+
+  playVegaChannelClip(surface, audioUrl, spokenText, avatarSelector, btnSelector, idleLabel, onComplete = null) {
+    const isSameActive =
+      this._activeVegaChannel &&
+      this._activeVegaChannel.surface === surface &&
+      this._activeVegaChannel.audioUrl === audioUrl &&
+      this.audio.isVegaSpeaking;
+
+    this.stopVegaChannel();
+    if (isSameActive) return;
+
+    this.audio.stopSpeech(false);
+    this.audio.stopArtifactClip(false);
+
+    const stopText = this.lang === "pt" ? "Parar Áudio" : "Stop Audio";
+    this._activeVegaChannel = { surface, audioUrl, avatarSelector, btnSelector, idleLabel };
+
+    const setPlaying = (active) => {
+      const ring = avatarSelector ? document.querySelector(avatarSelector) : null;
+      const btn = btnSelector ? document.querySelector(btnSelector) : null;
+      if (ring) ring.classList.toggle("is-speaking", active);
+      if (btn) {
+        btn.classList.toggle("is-playing", active);
+        btn.textContent = active ? stopText : idleLabel;
+      }
+    };
+
+    const wasMuted = this.audio.vegaMuted;
+    if (wasMuted) this.audio.vegaMuted = false;
+
+    this.audio.playVegaClip(audioUrl, spokenText, this.lang, {
+      onStart: () => {
+        if (this._activeVegaChannel && this._activeVegaChannel.audioUrl === audioUrl) {
+          setPlaying(true);
+        }
+      },
+      onEnd: () => {
+        setPlaying(false);
+        if (this._activeVegaChannel && this._activeVegaChannel.audioUrl === audioUrl) {
+          this._activeVegaChannel = null;
+        }
+        if (onComplete) onComplete();
+      }
+    });
+  }
+
+  showVega3DComms(key) {
+    if (!this.is3DActive || this.isStoryOpen || this._isLoading3D) return;
+    if (key === "halfway" && this._vegaShownComms.has("halfway")) return;
+    const toast = document.getElementById("vegaCommsToast");
+    const chipEl = document.getElementById("vegaCommsChip");
+    const textEl = document.getElementById("vegaCommsText");
+    const hearBtn = document.getElementById("vegaCommsHearBtn");
+    if (!toast || !textEl) return;
+
+    const langKey = this.lang === "pt" ? "pt" : "en";
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const msg = vegaLoc.comms3D[key];
+    if (!msg) return;
+
+    if (key === "halfway") {
+      this._vegaShownComms.add("halfway");
+    }
+    this._currentCommsKey = key;
+    if (chipEl) chipEl.textContent = vegaLoc.commsChip;
+    textEl.textContent = msg;
+    if (hearBtn) {
+      hearBtn.classList.remove("is-playing");
+      hearBtn.textContent = vegaLoc.commsHearBtn;
+    }
+
+    toast.classList.add("hidden");
+    void toast.offsetWidth;
+    toast.classList.remove("hidden");
+    this.audio.playPing(760, 0.06);
+    clearTimeout(this._vegaCommsTimer);
+    this._vegaCommsTimer = setTimeout(() => {
+      this.hideVega3DComms();
+    }, 7500);
+  }
+
+  hideVega3DComms() {
+    clearTimeout(this._vegaCommsTimer);
+    if (this._activeVegaChannel && this._activeVegaChannel.surface === "comms") {
+      this.stopVegaChannel();
+    }
+    this._currentCommsKey = null;
+    const toast = document.getElementById("vegaCommsToast");
+    if (toast) toast.classList.add("hidden");
+  }
+
+  showStoryBridge(artifactId) {
+    const toast = document.getElementById("storyBridgeToast");
+    const chipEl = document.getElementById("storyBridgeChip");
+    const textEl = document.getElementById("storyBridgeText");
+    const hearBtn = document.getElementById("storyBridgeHearBtn");
+    if (!toast || !textEl || !this.isStoryOpen) return;
+
+    const langKey = this.lang === "pt" ? "pt" : "en";
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const text = vegaLoc.chapterBridges[artifactId];
+    if (!text) return;
+
+    this._currentBridgeId = artifactId;
+    if (chipEl) chipEl.textContent = vegaLoc.bridgeChip;
+    textEl.textContent = text;
+    if (hearBtn) {
+      hearBtn.classList.remove("is-playing");
+      hearBtn.textContent = vegaLoc.commsHearBtn;
+    }
+
+    toast.classList.add("hidden");
+    void toast.offsetWidth;
+    toast.classList.remove("hidden");
+    clearTimeout(this._storyBridgeTimer);
+    this._storyBridgeTimer = setTimeout(() => {
+      this.hideStoryBridge();
+    }, 8000);
+  }
+
+  hideStoryBridge() {
+    clearTimeout(this._storyBridgeTimer);
+    if (this._activeVegaChannel && this._activeVegaChannel.surface === "bridge") {
+      this.stopVegaChannel();
+    }
+    this._currentBridgeId = null;
+    const toast = document.getElementById("storyBridgeToast");
+    if (toast) toast.classList.add("hidden");
+  }
+
   openMissionLetter() {
     this._hasSeenMissionLetter = true;
+    this.hideVega3DComms();
     const isPt = this.lang === "pt";
+    const langKey = isPt ? "pt" : "en";
+    const age = this.ageProfile || "adult";
     const visited = this.visitedStations.size;
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const letter = vegaLoc.missionLetter[age] || vegaLoc.missionLetter.adult;
 
     document.getElementById("letterStamp").textContent = isPt
       ? "DIÁRIO DE BORDO • MISSÃO APOLLO"
       : "MISSION LOGBOOK • APOLLO";
-    document.getElementById("letterTitle").textContent = isPt
-      ? "Preparando a sua viagem à Lua, pequeno explorador!"
-      : "Preparing your journey to the Moon, young explorer!";
-    document.getElementById("letterBody").innerHTML = isPt
-      ? `
-        <p>Seja bem-vindo(a) à superfície lunar. Em poucos instantes você caminhará pelo mesmo solo silencioso onde máquinas históricas da NASA permanecem desde 1969.</p>
-        <p>Lembre-se: os modelos 3D que você verá são <strong>representações ilustrativas</strong> criadas para dar vida a essa expedição.</p>
-        <p>Aproveite a jornada, aproxime-se de cada equipamento e <strong>conheça todas as ${STATION_ORDER.length} histórias</strong> (${visited}/${STATION_ORDER.length} descobertas) para desbloquear seu <strong>Certificado Oficial de Explorador Lunar</strong>!</p>
-      `
-      : `
-        <p>Welcome to the lunar surface. In just a moment, you will walk across the same silent soil where historic NASA machines have rested since 1969.</p>
-        <p>Remember: the 3D models ahead are <strong>illustrative representations</strong> crafted to bring this expedition to life.</p>
-        <p>Enjoy the journey, visit each monument, and <strong>discover all ${STATION_ORDER.length} stories</strong> (${visited}/${STATION_ORDER.length} unlocked) to earn your <strong>Official Lunar Explorer Certificate</strong>!</p>
-      `;
-    document.getElementById("letterSignature").textContent = isPt
-      ? "— Curadoria • Museum of Lost Space Technology"
-      : "— Curators • Museum of Lost Space Technology";
+    const badgeEl = document.getElementById("letterVegaBadge");
+    if (badgeEl) badgeEl.textContent = vegaLoc.guideBadge;
+    const voiceBtnEl = document.getElementById("letterVegaVoiceBtn");
+    const idleBtnLabel = isPt ? "Ouvir Vega" : "Hear Vega";
+    if (voiceBtnEl) {
+      voiceBtnEl.textContent = idleBtnLabel;
+      voiceBtnEl.classList.remove("is-playing");
+    }
+
+    document.getElementById("letterTitle").textContent = letter.title;
+    document.getElementById("letterBody").innerHTML =
+      letter.paragraphs.map((p) => `<p>${p}</p>`).join("") +
+      `<p class="letter-progress-copy">${
+        isPt
+          ? `Progresso atual: <strong>${visited}/${STATION_ORDER.length} histórias</strong> descobertas.`
+          : `Current progress: <strong>${visited}/${STATION_ORDER.length} stories</strong> discovered.`
+      }</p>`;
+    document.getElementById("letterSignature").textContent = `— ${letter.signature}`;
     document.getElementById("startExpeditionBtn").textContent = isPt
       ? "Iniciar Viagem →"
       : "Begin Journey →";
@@ -6487,17 +6952,39 @@ class EchoesOfTheMoonApp {
         fill.style.width = "100%";
       });
     });
+
+    if (!this.audio.vegaMuted) {
+      const spoken = `${letter.title} ${letter.paragraphs.join(" ")}`;
+      this.playVegaChannelClip(
+        "letter",
+        `assets/audio/vega-${langKey}-${age}-letter.mp3`,
+        spoken,
+        "#letterVegaAvatarRing",
+        "#letterVegaVoiceBtn",
+        idleBtnLabel
+      );
+    }
   }
 
   closeMissionLetter() {
+    this.stopVegaChannel();
     document.getElementById("missionLetterModal").classList.add("hidden");
     this.audio.playPing(880, 0.08);
+    if (this.is3DActive) {
+      setTimeout(() => {
+        if (this.is3DActive && !this.isStoryOpen) {
+          this.showVega3DComms(this.currentArtifact.id);
+        }
+      }, 450);
+    }
   }
 
   // ==========================================================================
   // FRIENDLY ASTRONAUT FINAL QUIZ (COMANDANTE VEGA)
   // ==========================================================================
   openAstronautQuizModal(forceRestart = false) {
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     this.audio.stopSpeech(false);
     if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed) {
       this.quizState = {
@@ -6783,8 +7270,12 @@ class EchoesOfTheMoonApp {
   }
 
   openCertificateModal() {
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     const isPt = this.lang === "pt";
+    const langKey = isPt ? "pt" : "en";
     const age = this.ageProfile || "adult";
+    const vegaLoc = VEGA_JOURNEY[langKey];
 
     const copy = {
       pt: {
@@ -6860,12 +7351,36 @@ class EchoesOfTheMoonApp {
         : "✦ Quiz with Vega";
     }
 
+    const certVegaChip = document.getElementById("certVegaChip");
+    const certVegaSpeech = document.getElementById("certVegaSpeech");
+    const certVegaBtn = document.getElementById("certVegaVoiceBtn");
+    const deliveryText = vegaLoc.certificateDelivery[age] || vegaLoc.certificateDelivery.adult;
+    const certBtnIdle = isPt ? "Ouvir Vega" : "Hear Vega";
+    if (certVegaChip) certVegaChip.textContent = vegaLoc.guideBadge;
+    if (certVegaSpeech) certVegaSpeech.textContent = deliveryText;
+    if (certVegaBtn) {
+      certVegaBtn.textContent = certBtnIdle;
+      certVegaBtn.classList.remove("is-playing");
+    }
+
     document.getElementById("certificateModal").classList.remove("hidden");
     this.audio.playQuindarTone(true);
     this.renderCertificateCanvas();
+
+    if (!this.audio.vegaMuted) {
+      this.playVegaChannelClip(
+        "cert",
+        `assets/audio/vega-${langKey}-${age}-cert.mp3`,
+        deliveryText,
+        "#certVegaAvatarRing",
+        "#certVegaVoiceBtn",
+        certBtnIdle
+      );
+    }
   }
 
   closeCertificateModal() {
+    this.stopVegaChannel();
     document.getElementById("certificateModal").classList.add("hidden");
   }
 
@@ -7016,26 +7531,36 @@ class EchoesOfTheMoonApp {
       ctx.restore();
     });
 
-    // Date & Signature footer
+    // Commander Vega official signature + Date footer
+    ctx.fillStyle = "#bae6fd";
+    ctx.font = "600 20px Georgia, serif";
+    ctx.fillText(
+      isPt
+        ? "✦  Assinado: Comandante Vega — Guia Espacial & Curadoria Lunar  ✦"
+        : "✦  Signed: Commander Vega — Expedition Space Guide & Curator  ✦",
+      w / 2,
+      786
+    );
+
     const today = new Date().toLocaleDateString(isPt ? "pt-BR" : "en-US", {
       year: "numeric",
       month: "long",
       day: "numeric"
     });
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "20px monospace";
+    ctx.font = "19px monospace";
     ctx.fillText(
       (isPt ? "EMITIDO EM " : "ISSUED ON ") + today.toUpperCase(),
       w / 2,
-      810
+      826
     );
 
     ctx.fillStyle = "#e2e8f0";
-    ctx.font = "italic 24px Georgia, serif";
+    ctx.font = "italic 23px Georgia, serif";
     ctx.fillText(
       isPt ? "Abandonados, mas nunca esquecidos." : "Abandoned, but never forgotten.",
       w / 2,
-      872
+      874
     );
   }
 
@@ -7214,8 +7739,31 @@ class EchoesOfTheMoonApp {
       `;
     }).join("");
 
+    const langKey = isPt ? "pt" : "en";
+    const age = this.ageProfile || "adult";
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const vegaNote =
+      (vegaLoc.siteChapters[activeId] && vegaLoc.siteChapters[activeId][age]) || "";
+    const isPlayingThisChapter =
+      this._activeVegaChannel &&
+      this._activeVegaChannel.surface === "chapter" &&
+      this._activeVegaChannel.audioUrl.endsWith(`-chap-${activeId}.mp3`) &&
+      this.audio.isVegaSpeaking;
+
     listEl.innerHTML = `
       <div class="showcase-tabs-bar">${tabsHtml}</div>
+      <div class="chapter-vega-strip">
+        <div class="vega-mini-avatar-wrap ${isPlayingThisChapter ? "is-speaking" : ""}" id="chapterVegaAvatarRing">
+          <img src="assets/images/astronaut-guide.jpg" alt="${vegaLoc.guideName}" class="vega-mini-avatar" />
+        </div>
+        <div class="chapter-vega-copy">
+          <span class="chapter-vega-chip">${vegaLoc.siteRoleChip}</span>
+          <p class="chapter-vega-note">${vegaNote}</p>
+        </div>
+        <button class="vega-mini-voice-btn ${isPlayingThisChapter ? "is-playing" : ""}" id="chapterVegaPlayBtn" type="button">
+          ${isPlayingThisChapter ? vegaLoc.stopBtn : vegaLoc.listenBtn}
+        </button>
+      </div>
       <article id="chapter-card-${activeIdx}" class="editorial-chapter-card exhibit-open-stage showcase-stage" style="--card-accent: ${item.accentColor}">
         <div class="chapter-media-wrap">
           <img src="${item.imagePath}" alt="${itemLoc.name}" />
@@ -7241,8 +7789,23 @@ class EchoesOfTheMoonApp {
       </article>
     `;
 
+    const chapVegaBtn = document.getElementById("chapterVegaPlayBtn");
+    if (chapVegaBtn && vegaNote) {
+      chapVegaBtn.addEventListener("click", () => {
+        this.playVegaChannelClip(
+          "chapter",
+          `assets/audio/vega-${langKey}-${age}-chap-${activeId}.mp3`,
+          vegaNote,
+          "#chapterVegaAvatarRing",
+          "#chapterVegaPlayBtn",
+          vegaLoc.listenBtn
+        );
+      });
+    }
+
     listEl.querySelectorAll("[data-showcase-tab]").forEach((btn) => {
       btn.addEventListener("click", () => {
+        this.stopVegaChannel();
         this.stationIndex = parseInt(btn.getAttribute("data-showcase-tab"), 10);
         this.audio.playPing(840, 0.07);
         this.renderUI();

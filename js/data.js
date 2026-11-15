@@ -1541,23 +1541,23 @@ export const MISSION_QUIZ = {
     guideRole: "GUIA ESPACIAL • MUSEUM OF LOST SPACE TECHNOLOGY",
     greeting: {
       child: {
-        title: "Olá, pequeno explorador! Obrigado por viajar comigo pela Lua!",
+        title: "Demais! Você conheceu toda a Lua comigo!",
         message:
-          "Eu sou a Comandante Vega! Que alegria ver você conhecendo as 4 máquinas históricas da Apollo. Antes de pegar o seu Certificado Oficial, que tal responder 4 perguntinhas divertidas comigo? Se errar alguma, não tem problema nenhum — eu te explico tudinho de novo!",
+          "Que alegria ver você descobrindo as 4 máquinas históricas da Apollo. Antes de pegar o seu Certificado Oficial, que tal responder 4 perguntinhas divertidas comigo? Se errar alguma, não tem problema nenhum — eu te explico tudinho de novo!",
         startBtn: "Vamos lá! Começar Quiz →",
         skipBtn: "Ir direto para o Certificado"
       },
       teen: {
         title: "Missão cumprida! Obrigado por explorar o acervo lunar conosco!",
         message:
-          "Oi, eu sou a Comandante Vega! Você acabou de ouvir os bastidores dos 4 equipamentos da era Apollo. Antes de emitir sua credencial, topa um mini-quiz de 4 perguntas? Não vale nota: se errar, sem estresse — eu reviso o segredo da engenharia na hora com você!",
+          "Você acabou de ouvir os bastidores dos 4 equipamentos da era Apollo. Antes de emitir sua credencial, topa um mini-quiz de 4 perguntas? Não vale nota: se errar, sem estresse — eu reviso o segredo da engenharia na hora com você!",
         startBtn: "Iniciar Mini-Quiz (4/4) →",
         skipBtn: "Ir direto para o Certificado"
       },
       adult: {
         title: "Expedição concluída! Muito obrigado por visitar o nosso acervo lunar.",
         message:
-          "Saudações! Eu sou a Comandante Vega, guia de missão do Museum of Lost Space Technology. Obrigado por percorrer as memórias dos quatro marcos históricos da Apollo. Antes de gerar o seu Certificado Oficial, convido você para uma breve revisão de 4 perguntas — se errar alguma, não há problema algum: recapitulamos o conceito juntos!",
+          "Obrigado por percorrer as memórias dos quatro marcos históricos da Apollo conosco. Antes de gerar o seu Certificado Oficial, convido você para uma breve revisão de 4 perguntas — se errar alguma, não há problema algum: recapitulamos o conceito juntos!",
         startBtn: "Iniciar Revisão Final →",
         skipBtn: "Ir direto para o Certificado"
       }
@@ -1766,23 +1766,23 @@ export const MISSION_QUIZ = {
     guideRole: "MISSION GUIDE • MUSEUM OF LOST SPACE TECHNOLOGY",
     greeting: {
       child: {
-        title: "Hi, little explorer! Thank you for traveling across the Moon with me!",
+        title: "Awesome job! You explored the whole Moon with me!",
         message:
-          "I'm Commander Vega! It was awesome watching you discover all 4 historic Apollo machines. Before unlocking your Official Certificate, want to play a quick 4-question space quiz with me? If you miss one, no worries at all — I'll happily explain it again!",
+          "It was amazing watching you discover all 4 historic Apollo machines. Before unlocking your Official Certificate, want to play a quick 4-question space quiz together? If you miss one, no worries at all — I'll happily explain it again!",
         startBtn: "Let's Play! Start Quiz →",
         skipBtn: "Go straight to Certificate"
       },
       teen: {
         title: "Mission complete! Thanks for exploring the lunar archive with us!",
         message:
-          "Hey there, I'm Commander Vega! You just uncovered the stories behind four real Apollo artifacts. Before generating your credential, ready for a fast 4-question check-in? Zero pressure: if you miss any question, no worries — we'll break down the engineering together right away!",
+          "You just uncovered the stories behind four real Apollo artifacts. Before generating your credential, ready for a fast 4-question check-in? Zero pressure: if you miss any question, no worries — we'll break down the engineering together right away!",
         startBtn: "Start Mini-Quiz (4/4) →",
         skipBtn: "Skip to Certificate"
       },
       adult: {
         title: "Expedition complete! Thank you for exploring our lunar archive.",
         message:
-          "Greetings! I'm Commander Vega, mission guide at the Museum of Lost Space Technology. Thank you for experiencing the stories of all four historic Apollo landmarks. Before issuing your Official Certificate, I invite you to a brief 4-question review — if any detail trips you up, no problem at all: we'll recap it together!",
+          "Thank you for experiencing the stories of all four historic Apollo landmarks with us. Before issuing your Official Certificate, I invite you to a brief 4-question review — if any detail trips you up, no problem at all: we'll recap it together!",
         startBtn: "Start Final Review →",
         skipBtn: "Skip to Certificate"
       }
@@ -1985,5 +1985,196 @@ export const MISSION_QUIZ = {
     certBtn: "Generate Official Certificate →",
     retryBtn: "Retake Quiz",
     closeLabel: "Close"
+  }
+};
+
+export const VEGA_JOURNEY = {
+  pt: {
+    guideName: "Comandante Vega",
+    guideBadge: "COMANDANTE VEGA • GUIA ESPACIAL",
+    siteRoleChip: "COMANDANTE VEGA • NOTA DO CAPÍTULO",
+    bridgeChip: "TRANSIÇÃO ENTRE CAPÍTULOS • COMANDANTE VEGA",
+    listenBtn: "Ouvir Comandante Vega",
+    stopBtn: "Parar Áudio",
+    commsChip: "RÁDIO DE BORDO • COMANDANTE VEGA",
+    commsHearBtn: "Ouvir",
+    siteChapters: {
+      lrrr: {
+        child:
+          "Oi, pequeno explorador! Eu sou a Comandante Vega e vou viajar com você pela Lua! Nossa primeira parada é um espelho mágico da Apollo 11 que ainda conversa com lasers da Terra!",
+        teen:
+          "Olá! Eu sou a Comandante Vega, sua guia nesta expedição lunar. No Capítulo 01, começamos pelo LRRR da Apollo 11 — o experimento óptico sem bateria que segue ativo desde 1969!",
+        adult:
+          "Saudações! Eu sou a Comandante Vega, curadora-guia do Museum of Lost Space Technology. Iniciamos o roteiro pelo LRRR da Apollo 11, o conjunto óptico passivo que permanece em operação científica há mais de meio século."
+      },
+      pse: {
+        child:
+          "Saindo dos espelhos brilhantes, agora vamos encostar o ouvido no chão da Lua! Este equipamento usava um cobertor dourado para escutar tremores sem congelar.",
+        teen:
+          "Depois de medir distâncias com luz laser, descemos ao solo lunar no Capítulo 02: protegido por revestimento dourado e Plutônio-238, o PSE provou que a Lua tem lunamotos reais.",
+        adult:
+          "Da ótica passiva à geofísica de superfície: avançamos no Capítulo 02 ao Experimento Sísmico Passivo (PSE), que enfrentou amplitudes térmicas de 300 °C para mapear a crosta e o núcleo lunar."
+      },
+      eagle: {
+        child:
+          "Já medimos a luz e os tremores — agora olhe para a nave que levou os primeiros astronautas à Lua e virou trampolim na volta para casa!",
+        teen:
+          "Deixando os sensores sísmicos para trás, seguimos no Capítulo 03 para o estágio de descida do Eagle, que pousou na Base Tranquilidade com menos de 30 segundos de combustível reserva.",
+        adult:
+          "Conectando os experimentos científicos à engenharia de pouso: no Capítulo 03 analisamos o estágio de descida do módulo lunar Eagle (LM-5), que atuou como plataforma de lançamento e hoje é patrimônio histórico."
+      },
+      lrv: {
+        child:
+          "Depois de ver onde o Eagle pousou, hora de acelerar pela poeira espacial em um carro dobrável com rodas de arame que não furam nunca!",
+        teen:
+          "Se a Apollo 11 explorou a pé ao redor do Eagle, o Capítulo 04 mostra como o jipe LRV multiplicou o alcance das missões finais, rodando 90,5 km dobrado como origami no foguete.",
+        adult:
+          "Fechando o arco iniciado na Apollo 11, chegamos no Capítulo 04 ao jipe lunar LRV: veículo elétrico de 210 kg que ampliou drasticamente o raio geológico das últimas missões do programa Apollo."
+      }
+    },
+    chapterBridges: {
+      lrrr: "Voltando ao início da jornada: o LRRR da Apollo 11 prova que a ciência mais simples — só espelhos de quartzo — atravessa décadas.",
+      pse: "Deixamos o espelho laser para trás e seguimos para o Sismômetro PSE, que escutou o coração sísmico da Lua.",
+      eagle: "Agora vamos dos instrumentos científicos direto para a nave Eagle que garantiu o primeiro pouso e a decolagem de retorno.",
+      lrv: "Depois de visitar a base do Eagle, hora de rodar quilômetros pelas crateras a bordo do jipe elétrico LRV!"
+    },
+    missionLetter: {
+      child: {
+        title: "Preparando nossa viagem à superfície da Lua!",
+        paragraphs: [
+          "Em poucos segundos vamos caminhar juntos pelo solo silencioso onde quatro máquinas incríveis da NASA descansam desde 1969.",
+          "Os modelos 3D que você vai ver são representações ilustrativas feitas especialmente para dar vida à nossa aventura.",
+          "Explore todos os equipamentos e ouça as 4 histórias — no final, trago um mini-quiz divertido e o seu Certificado Oficial!"
+        ],
+        signature: "Comandante Vega • Guia Espacial da Expedição"
+      },
+      teen: {
+        title: "Preparando a descida para os sítios Apollo!",
+        paragraphs: [
+          "Você está prestes a percorrer o terreno silencioso entre quatro marcos históricos das missões Apollo na Lua.",
+          "Os modelos 3D exibidos aqui são representações ilustrativas baseadas em fotografias e plantas reais da NASA.",
+          "Descubra todas as 4 histórias e curiosidades pelo caminho para desbloquear nosso mini-quiz final e sua credencial!"
+        ],
+        signature: "Comandante Vega • Guia Espacial da Expedição"
+      },
+      adult: {
+        title: "Diário de Bordo aberto para a expedição 3D.",
+        paragraphs: [
+          "Em instantes iniciaremos o percurso pelo solo lunar preservado desde a era Apollo, visitando quatro monumentos históricos.",
+          "Os modelos 3D a seguir são representações ilustrativas fundamentadas nos registros técnicos oficiais da NASA.",
+          "Percorra todas as 4 histórias para concluir o roteiro, participar de uma breve revisão final e emitir seu Certificado Oficial."
+        ],
+        signature: "Comandante Vega • Curadoria & Guia de Missão"
+      }
+    },
+    comms3D: {
+      lrrr: "Chegamos ao Retrorefletor (LRRR)! Clique no espelho para ouvir a história de 1969.",
+      pse: "Este é o Sismômetro PSE: toque nos orbes ao redor para ver como ele aguentava -170 °C.",
+      eagle: "Chegamos à Base Tranquilidade! Repare na escada e na placa histórica do módulo Eagle.",
+      lrv: "Última estação: o jipe lunar LRV! Clique nos orbes para inspecionar suas rodas de corda de piano.",
+      halfway: "Excelente ritmo! Já passamos da metade — faltam só mais duas histórias para o nosso quiz final!"
+    },
+    certificateDelivery: {
+      child:
+        "Missão super cumprida! Preparei e assinei o seu Certificado Oficial de Explorador Lunar. Escreva seu nome abaixo e guarde essa lembrança espacial!",
+      teen:
+        "Parabéns pela expedição! Assinei oficialmente a entrega do seu Certificado Lunar. Personalize com seu nome abaixo e baixe em alta resolução!",
+      adult:
+        "Meus parabéns pela conclusão do roteiro! Tenho a honra de assinar e entregar o seu Certificado Oficial do Museum of Lost Space Technology."
+    }
+  },
+  en: {
+    guideName: "Commander Vega",
+    guideBadge: "COMMANDER VEGA • SPACE GUIDE",
+    siteRoleChip: "COMMANDER VEGA • CHAPTER NOTE",
+    bridgeChip: "CHAPTER BRIDGE • COMMANDER VEGA",
+    listenBtn: "Hear Commander Vega",
+    stopBtn: "Stop Audio",
+    commsChip: "MISSION RADIO • COMMANDER VEGA",
+    commsHearBtn: "Hear",
+    siteChapters: {
+      lrrr: {
+        child:
+          "Hi, little explorer! I'm Commander Vega and I'll be your Moon guide! Our very first stop is a magic Apollo 11 mirror that still talks to laser beams from Earth!",
+        teen:
+          "Hi! I'm Commander Vega, your expedition guide. In Chapter 01, we kick off with Apollo 11's LRRR — a batteryless optical array still operating since 1969!",
+        adult:
+          "Greetings! I'm Commander Vega, guide curator at the Museum of Lost Space Technology. We begin with Apollo 11's LRRR, the passive optical instrument still active over half a century later."
+      },
+      pse: {
+        child:
+          "Stepping away from our shiny mirrors, let's press an ear to the lunar soil! This clever instrument wore a gold blanket to hear Moon rumbles without freezing.",
+        teen:
+          "After measuring Earth–Moon distance with lasers, Chapter 02 takes us underground: wrapped in gold Mylar and Plutonium-238, the PSE proved the Moon truly quakes.",
+        adult:
+          "From passive optics to surface geophysics: Chapter 02 moves to the Passive Seismic Experiment (PSE), built to survive 300 °C swings and map the Moon's crust and core."
+      },
+      eagle: {
+        child:
+          "We've bounced light and heard Moon shakes — now look up at the lander that carried the very first Moonwalkers and launched them safely home!",
+        teen:
+          "Leaving the seismic sensors behind, Chapter 03 takes us to Eagle's Descent Stage — touching down at Tranquility Base with under 30 seconds of hover fuel left.",
+        adult:
+          "Bridging surface instruments to landing architecture: Chapter 03 examines Eagle's (LM-5) Descent Stage, which doubled as an ascent launchpad and stands protected today."
+      },
+      lrv: {
+        child:
+          "Right after Eagle's historic landing pad, hop over to a fold-out space buggy with piano-wire wheels that never go flat on Moon dust!",
+        teen:
+          "If Apollo 11 explored Tranquility Base on foot, Chapter 04 shows how the LRV rover multiplied later missions' range — unfolding like origami to drive 90.5 km.",
+        adult:
+          "Completing the arc from Apollo 11's landing, Chapter 04 explores the 210 kg LRV electric rover that dramatically expanded the geological reach of Apollo J-series missions."
+      }
+    },
+    chapterBridges: {
+      lrrr: "Back to where it began: Apollo 11's LRRR shows how pure fused-silica optics can outlast entire spacecraft electronics.",
+      pse: "Leaving the laser array behind, we head straight to the PSE seismometer that listened to the Moon's interior.",
+      eagle: "Moving from scientific payloads to the Lunar Module Eagle itself — the spacecraft that enabled humanity's first touchdown.",
+      lrv: "Stepping beyond Eagle's landing site, let's roll across craters aboard Apollo's fold-out Lunar Roving Vehicle!"
+    },
+    missionLetter: {
+      child: {
+        title: "Preparing our trip to the Moon's surface!",
+        paragraphs: [
+          "In just a moment we'll walk together across the silent soil where four real NASA machines have rested since 1969.",
+          "The 3D models ahead are illustrative recreations crafted specially to bring our adventure to life.",
+          "Visit all 4 monuments to hear their stories — then I'll meet you at the end with a fun mini-quiz and your Official Certificate!"
+        ],
+        signature: "Commander Vega • Expedition Space Guide"
+      },
+      teen: {
+        title: "Preparing descent to the Apollo landing sites!",
+        paragraphs: [
+          "You're about to explore the silent terrain across four historic Apollo landmarks left on the Moon.",
+          "The 3D spacecraft and instruments ahead are illustrative models grounded in real NASA archives.",
+          "Discover all 4 stories and orbital curiosities along the way to unlock our wrap-up quiz and explorer credential!"
+        ],
+        signature: "Commander Vega • Expedition Space Guide"
+      },
+      adult: {
+        title: "Mission Logbook opened for the 3D expedition.",
+        paragraphs: [
+          "In moments we will survey the silent lunar terrain preserved since Apollo across four historic landmarks.",
+          "The 3D scenes ahead are illustrative reconstructions grounded in official NASA historical and engineering records.",
+          "Explore all 4 monuments to complete the expedition, join a brief final review, and receive your signed Official Certificate."
+        ],
+        signature: "Commander Vega • Curatorial Mission Guide"
+      }
+    },
+    comms3D: {
+      lrrr: "Arriving at the LRRR mirror! Click the instrument to hear its 1969 story.",
+      pse: "Now at the PSE seismometer — tap the glowing orbs to see how it survived -170 °C nights.",
+      eagle: "Welcome to Tranquility Base! Spot the ladder and stainless plaque on Eagle's descent stage.",
+      lrv: "Final stop: the Lunar Rover! Tap the orbs around it to inspect its piano-wire tires.",
+      halfway: "Great pace! You're halfway through — just two more stories until our final quiz!"
+    },
+    certificateDelivery: {
+      child:
+        "Mission super complete! I've signed your Official Lunar Explorer Certificate right beside you. Type your name to save a keepsake of our Moon trip!",
+      teen:
+        "Congratulations on completing the expedition! I've proudly signed your Official Lunar Certificate. Customize your name and download it in high resolution!",
+      adult:
+        "Warmest congratulations on completing the expedition! It is my honor to sign and present your Official Museum of Lost Space Technology Certificate."
+    }
   }
 };

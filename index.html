@@ -294,6 +294,21 @@
         <strong id="stampToastTitle">Guardião da Luz</strong>
       </div>
     </div>
+
+    <!-- Discrete Commander Vega Radio Comms Capsule in 3D -->
+    <aside class="vega-comms-toast hidden" id="vegaCommsToast" aria-live="polite">
+      <div class="vega-mini-avatar-wrap" id="vegaCommsAvatarRing">
+        <img src="assets/images/astronaut-guide.jpg" alt="Comandante Vega" class="vega-mini-avatar" />
+      </div>
+      <div class="vega-comms-body">
+        <span class="vega-comms-chip" id="vegaCommsChip">RÁDIO DE BORDO • COMANDANTE VEGA</span>
+        <p class="vega-comms-text" id="vegaCommsText"></p>
+      </div>
+      <div class="vega-comms-actions">
+        <button class="vega-mini-voice-btn" id="vegaCommsHearBtn" type="button">Ouvir</button>
+        <button class="vega-comms-close" id="vegaCommsCloseBtn" type="button" aria-label="Fechar">✕</button>
+      </div>
+    </aside>
   </div>
 
   <!-- ========================================================================
@@ -325,6 +340,18 @@
             <span id="immersiveModeText">Modo imersivo</span>
           </button>
         </div>
+      </div>
+
+      <div class="story-bridge-toast hidden" id="storyBridgeToast" aria-live="polite">
+        <div class="vega-mini-avatar-wrap" id="storyBridgeAvatarRing">
+          <img src="assets/images/astronaut-guide.jpg" alt="Comandante Vega" class="vega-mini-avatar" />
+        </div>
+        <div class="story-bridge-copy">
+          <span class="story-bridge-chip" id="storyBridgeChip">TRANSIÇÃO ENTRE CAPÍTULOS • COMANDANTE VEGA</span>
+          <p class="story-bridge-text" id="storyBridgeText"></p>
+        </div>
+        <button class="vega-mini-voice-btn" id="storyBridgeHearBtn" type="button">Ouvir</button>
+        <button class="vega-comms-close" id="storyBridgeCloseBtn" type="button" aria-label="Fechar">✕</button>
       </div>
 
       <div class="physical-book-shell">
@@ -584,6 +611,14 @@
           <span class="ornament-line"></span>
         </div>
 
+        <div class="letter-vega-header">
+          <div class="vega-mini-avatar-wrap" id="letterVegaAvatarRing">
+            <img src="assets/images/astronaut-guide.jpg" alt="Comandante Vega" class="vega-mini-avatar" />
+          </div>
+          <span class="letter-vega-badge" id="letterVegaBadge">COMANDANTE VEGA • GUIA ESPACIAL</span>
+          <button class="vega-mini-voice-btn" id="letterVegaVoiceBtn" type="button">Ouvir Vega</button>
+        </div>
+
         <h2 class="letter-title" id="letterTitle">Preparando a sua viagem à Lua, pequeno explorador!</h2>
         <div class="letter-body" id="letterBody"></div>
 
@@ -671,23 +706,34 @@
        LUNAR EXPLORER CERTIFICATE REWARD MODAL (UNLOCKED AT 4/4 STORIES)
        ======================================================================== -->
   <div class="certificate-backdrop hidden" id="certificateModal">
-    <div class="certificate-modal-card">
-      <button class="btn-close-modal cert-close-btn" id="closeCertificateBtn">✕</button>
-      <span class="sci-kicker" id="certKicker">MISSÃO CONCLUÍDA • 4/4 HISTÓRIAS</span>
-      <h2 class="cert-modal-title" id="certModalTitle">Parabéns, Explorador Lunar!</h2>
-      <p class="cert-modal-sub" id="certModalSub">
-        Você ouviu a voz de todos os monumentos da Apollo. Digite seu nome abaixo para personalizar e baixar seu certificado oficial.
-      </p>
+    <div class="certificate-stage-layout">
+      <div class="certificate-modal-card">
+        <button class="btn-close-modal cert-close-btn" id="closeCertificateBtn">✕</button>
+        <span class="sci-kicker" id="certKicker">MISSÃO CONCLUÍDA • 4/4 HISTÓRIAS</span>
+        <h2 class="cert-modal-title" id="certModalTitle">Parabéns, Explorador Lunar!</h2>
+        <p class="cert-modal-sub" id="certModalSub">
+          Você ouviu a voz de todos os monumentos da Apollo. Digite seu nome abaixo para personalizar e baixar seu certificado oficial.
+        </p>
 
-      <div class="cert-input-row">
-        <input type="text" id="certNameInput" class="cert-name-input" maxlength="42" placeholder="Seu nome completo..." />
-        <button class="btn-glow-blue" id="downloadCertBtn">Baixar Certificado (PNG)</button>
-        <button class="btn-quiz-replay-sec" id="openQuizFromCertBtn" type="button">✦ Refazer Quiz</button>
+        <div class="cert-input-row">
+          <input type="text" id="certNameInput" class="cert-name-input" maxlength="42" placeholder="Seu nome completo..." />
+          <button class="btn-glow-blue" id="downloadCertBtn">Baixar Certificado (PNG)</button>
+          <button class="btn-quiz-replay-sec" id="openQuizFromCertBtn" type="button">✦ Refazer Quiz</button>
+        </div>
+
+        <div class="cert-preview-wrap">
+          <canvas id="certificateCanvas" width="1400" height="990"></canvas>
+        </div>
       </div>
 
-      <div class="cert-preview-wrap">
-        <canvas id="certificateCanvas" width="1400" height="990"></canvas>
-      </div>
+      <aside class="cert-vega-aside" id="certVegaBanner">
+        <div class="cert-vega-aside-avatar" id="certVegaAvatarRing">
+          <img src="assets/images/astronaut-guide.jpg" alt="Comandante Vega" />
+        </div>
+        <span class="cert-vega-chip" id="certVegaChip">COMANDANTE VEGA • GUIA ESPACIAL</span>
+        <p class="cert-vega-speech" id="certVegaSpeech"></p>
+        <button class="vega-mini-voice-btn" id="certVegaVoiceBtn" type="button">Ouvir Vega</button>
+      </aside>
     </div>
   </div>
 

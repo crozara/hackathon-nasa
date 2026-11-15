@@ -4,7 +4,7 @@
 // -> Open Deep Science & NASA Specs on Demand
 // ============================================================================
 
-import { UI_TEXT, ARTIFACTS, ARTIFACT_INTERACTIONS, MISSION_QUIZ } from "./data.js";
+import { UI_TEXT, ARTIFACTS, ARTIFACT_INTERACTIONS, MISSION_QUIZ, VEGA_JOURNEY } from "./data.js";
 import { LunarSurface3D } from "./lunarSurface3d.js";
 import { MuseumAudioEngine } from "./audio.js";
 import { getArtifactBlueprintSVG } from "./schematics.js";
@@ -33,6 +33,12 @@ class EchoesOfTheMoonApp {
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
     this._hasShownCertReward = false;
+    this._vegaShownComms = new Set();
+    this._vegaCommsTimer = null;
+    this._activeVegaChannel = null;
+    this._currentCommsKey = null;
+    this._storyBridgeTimer = null;
+    this._currentBridgeId = null;
     this.quizState = {
       phase: "welcome",
       questionIdx: 0,
@@ -125,6 +131,11 @@ class EchoesOfTheMoonApp {
         this.audio.stopSpeech(false);
         this.audio.playQuindarTone(true);
         this.renderUI();
+        if (!inspectMode && artifactId) {
+          this.showVega3DComms(artifactId);
+        } else {
+          this.hideVega3DComms();
+        }
       },
       onArtifactClick: () => {
         this.closeInteractionCard();
@@ -145,6 +156,7 @@ class EchoesOfTheMoonApp {
     this._isLoading3D = true;
     this.is3DActive = true;
     this.isStoryOpen = false;
+    this.stopVegaChannel();
     this.audio.stopSpeech(false);
 
     const isPt = this.lang === "pt";
@@ -212,10 +224,14 @@ class EchoesOfTheMoonApp {
           overlay.classList.remove("is-fading");
           if (this.is3DActive && !this._hasSeenMissionLetter) {
             this.openMissionLetter();
+          } else if (this.is3DActive) {
+            this.showVega3DComms(this.currentArtifact.id);
           }
         }, 380);
       } else if (!this._hasSeenMissionLetter) {
         this.openMissionLetter();
+      } else {
+        this.showVega3DComms(this.currentArtifact.id);
       }
     };
 
@@ -279,6 +295,8 @@ class EchoesOfTheMoonApp {
     this.is3DActive = false;
     this.isStoryOpen = false;
     this.isImmersiveReading = false;
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     this.audio.stopSpeech(false);
     const loadOverlay = document.getElementById("missionLoadingOverlay");
     if (loadOverlay) {
@@ -601,6 +619,7 @@ class EchoesOfTheMoonApp {
 
     const switchStoryChapter = (delta) => {
       const targetIdx = (this.stationIndex + delta + STATION_ORDER.length) % STATION_ORDER.length;
+      const targetId = STATION_ORDER[targetIdx];
       this.audio.stopSpeech(false);
       this.storyPageIndex = 0;
       this.audio.playPageTurnSound(delta > 0);
@@ -611,6 +630,7 @@ class EchoesOfTheMoonApp {
         this.visitedStations.add(this.currentArtifact.id);
         this.renderUI();
       }
+      this.showStoryBridge(targetId);
     };
 
     document.getElementById("storyPrevArtifactBtn").addEventListener("click", () => switchStoryChapter(-1));
@@ -735,6 +755,72 @@ class EchoesOfTheMoonApp {
       this.closeMissionLetter();
     });
 
+    const letterVegaBtn = document.getElementById("letterVegaVoiceBtn");
+    if (letterVegaBtn) {
+      letterVegaBtn.addEventListener("click", () => {
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const age = this.ageProfile || "adult";
+        const letter = VEGA_JOURNEY[langKey].missionLetter[age] || VEGA_JOURNEY[langKey].missionLetter.adult;
+        const spoken = `${letter.title} ${letter.paragraphs.join(" ")}`;
+        const idle = this.lang === "pt" ? "Ouvir Vega" : "Hear Vega";
+        this.playVegaChannelClip(
+          "letter",
+          `assets/audio/vega-${langKey}-${age}-letter.mp3`,
+          spoken,
+          "#letterVegaAvatarRing",
+          "#letterVegaVoiceBtn",
+          idle
+        );
+      });
+    }
+
+    const vegaCommsHearBtn = document.getElementById("vegaCommsHearBtn");
+    if (vegaCommsHearBtn) {
+      vegaCommsHearBtn.addEventListener("click", () => {
+        if (!this._currentCommsKey) return;
+        clearTimeout(this._vegaCommsTimer);
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const text = VEGA_JOURNEY[langKey].comms3D[this._currentCommsKey] || "";
+        const idle = VEGA_JOURNEY[langKey].commsHearBtn;
+        this.playVegaChannelClip(
+          "comms",
+          `assets/audio/vega-${langKey}-comms-${this._currentCommsKey}.mp3`,
+          text,
+          "#vegaCommsAvatarRing",
+          "#vegaCommsHearBtn",
+          idle,
+          () => {
+            this._vegaCommsTimer = setTimeout(() => this.hideVega3DComms(), 2500);
+          }
+        );
+      });
+    }
+
+    const vegaCommsCloseBtn = document.getElementById("vegaCommsCloseBtn");
+    if (vegaCommsCloseBtn) {
+      vegaCommsCloseBtn.addEventListener("click", () => {
+        this.hideVega3DComms();
+      });
+    }
+
+    const certVegaBtn = document.getElementById("certVegaVoiceBtn");
+    if (certVegaBtn) {
+      certVegaBtn.addEventListener("click", () => {
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const age = this.ageProfile || "adult";
+        const text = VEGA_JOURNEY[langKey].certificateDelivery[age];
+        const idle = this.lang === "pt" ? "Ouvir Vega" : "Hear Vega";
+        this.playVegaChannelClip(
+          "cert",
+          `assets/audio/vega-${langKey}-${age}-cert.mp3`,
+          text,
+          "#certVegaAvatarRing",
+          "#certVegaVoiceBtn",
+          idle
+        );
+      });
+    }
+
     document.getElementById("missionProgressBadge").addEventListener("click", () => {
       if (this.visitedStations.size >= STATION_ORDER.length) {
         if (this.quizState.completed) {
@@ -795,8 +881,37 @@ class EchoesOfTheMoonApp {
       this.closeCertificateModal();
     });
 
+    const storyBridgeHearBtn = document.getElementById("storyBridgeHearBtn");
+    if (storyBridgeHearBtn) {
+      storyBridgeHearBtn.addEventListener("click", () => {
+        if (!this._currentBridgeId) return;
+        clearTimeout(this._storyBridgeTimer);
+        const langKey = this.lang === "pt" ? "pt" : "en";
+        const vegaLoc = VEGA_JOURNEY[langKey];
+        const text = vegaLoc.chapterBridges[this._currentBridgeId] || "";
+        this.playVegaChannelClip(
+          "bridge",
+          `assets/audio/vega-${langKey}-bridge-${this._currentBridgeId}.mp3`,
+          text,
+          "#storyBridgeAvatarRing",
+          "#storyBridgeHearBtn",
+          vegaLoc.commsHearBtn,
+          () => {
+            this._storyBridgeTimer = setTimeout(() => this.hideStoryBridge(), 2600);
+          }
+        );
+      });
+    }
+
+    const storyBridgeCloseBtn = document.getElementById("storyBridgeCloseBtn");
+    if (storyBridgeCloseBtn) {
+      storyBridgeCloseBtn.addEventListener("click", () => {
+        this.hideStoryBridge();
+      });
+    }
+
     document.getElementById("certificateModal").addEventListener("click", (e) => {
-      if (e.target.id === "certificateModal") {
+      if (e.target.id === "certificateModal" || e.target.classList.contains("certificate-stage-layout")) {
         this.closeCertificateModal();
       }
     });
@@ -872,6 +987,9 @@ class EchoesOfTheMoonApp {
   }
 
   openStoryView() {
+    this.hideVega3DComms();
+    this.hideStoryBridge();
+    this.stopVegaChannel();
     this.isStoryOpen = true;
     this.storyPageIndex = 0;
     this.visitedStations.add(this.currentArtifact.id);
@@ -887,6 +1005,7 @@ class EchoesOfTheMoonApp {
 
   closeStoryView() {
     this.closeBookImageLightbox();
+    this.hideStoryBridge();
     this.isStoryOpen = false;
     this.isImmersiveReading = false;
     this.updateImmersiveUI();
@@ -901,6 +1020,8 @@ class EchoesOfTheMoonApp {
     if (this.visitedStations.size >= STATION_ORDER.length && !this._hasShownCertReward) {
       this._hasShownCertReward = true;
       this.openAstronautQuizModal();
+    } else if (this.is3DActive && this.visitedStations.size === 2 && !this._vegaShownComms.has("halfway")) {
+      this.showVega3DComms("halfway");
     }
   }
 
@@ -911,6 +1032,7 @@ class EchoesOfTheMoonApp {
   }
 
   handleCuriosityOrbClick(artifactId, orbIndex) {
+    this.hideVega3DComms();
     const data = ARTIFACT_INTERACTIONS[artifactId];
     if (!data || !data.curiosities[orbIndex]) return;
 
@@ -960,6 +1082,8 @@ class EchoesOfTheMoonApp {
     if (this.isStoryOpen) {
       this.closeStoryView();
     }
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     this.audio.stopArtifactClip(false);
     const art = this.currentArtifact;
     const artifactId = art.id;
@@ -1092,31 +1216,181 @@ class EchoesOfTheMoonApp {
     }).join("");
   }
 
+  stopVegaChannel() {
+    if (this._activeVegaChannel) {
+      const { avatarSelector, btnSelector, idleLabel } = this._activeVegaChannel;
+      const ring = avatarSelector ? document.querySelector(avatarSelector) : null;
+      const btn = btnSelector ? document.querySelector(btnSelector) : null;
+      if (ring) ring.classList.remove("is-speaking");
+      if (btn) {
+        btn.classList.remove("is-playing");
+        if (idleLabel) btn.textContent = idleLabel;
+      }
+      this._activeVegaChannel = null;
+    }
+    this.audio.stopVegaClip();
+  }
+
+  playVegaChannelClip(surface, audioUrl, spokenText, avatarSelector, btnSelector, idleLabel, onComplete = null) {
+    const isSameActive =
+      this._activeVegaChannel &&
+      this._activeVegaChannel.surface === surface &&
+      this._activeVegaChannel.audioUrl === audioUrl &&
+      this.audio.isVegaSpeaking;
+
+    this.stopVegaChannel();
+    if (isSameActive) return;
+
+    this.audio.stopSpeech(false);
+    this.audio.stopArtifactClip(false);
+
+    const stopText = this.lang === "pt" ? "Parar Áudio" : "Stop Audio";
+    this._activeVegaChannel = { surface, audioUrl, avatarSelector, btnSelector, idleLabel };
+
+    const setPlaying = (active) => {
+      const ring = avatarSelector ? document.querySelector(avatarSelector) : null;
+      const btn = btnSelector ? document.querySelector(btnSelector) : null;
+      if (ring) ring.classList.toggle("is-speaking", active);
+      if (btn) {
+        btn.classList.toggle("is-playing", active);
+        btn.textContent = active ? stopText : idleLabel;
+      }
+    };
+
+    const wasMuted = this.audio.vegaMuted;
+    if (wasMuted) this.audio.vegaMuted = false;
+
+    this.audio.playVegaClip(audioUrl, spokenText, this.lang, {
+      onStart: () => {
+        if (this._activeVegaChannel && this._activeVegaChannel.audioUrl === audioUrl) {
+          setPlaying(true);
+        }
+      },
+      onEnd: () => {
+        setPlaying(false);
+        if (this._activeVegaChannel && this._activeVegaChannel.audioUrl === audioUrl) {
+          this._activeVegaChannel = null;
+        }
+        if (onComplete) onComplete();
+      }
+    });
+  }
+
+  showVega3DComms(key) {
+    if (!this.is3DActive || this.isStoryOpen || this._isLoading3D) return;
+    if (key === "halfway" && this._vegaShownComms.has("halfway")) return;
+    const toast = document.getElementById("vegaCommsToast");
+    const chipEl = document.getElementById("vegaCommsChip");
+    const textEl = document.getElementById("vegaCommsText");
+    const hearBtn = document.getElementById("vegaCommsHearBtn");
+    if (!toast || !textEl) return;
+
+    const langKey = this.lang === "pt" ? "pt" : "en";
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const msg = vegaLoc.comms3D[key];
+    if (!msg) return;
+
+    if (key === "halfway") {
+      this._vegaShownComms.add("halfway");
+    }
+    this._currentCommsKey = key;
+    if (chipEl) chipEl.textContent = vegaLoc.commsChip;
+    textEl.textContent = msg;
+    if (hearBtn) {
+      hearBtn.classList.remove("is-playing");
+      hearBtn.textContent = vegaLoc.commsHearBtn;
+    }
+
+    toast.classList.add("hidden");
+    void toast.offsetWidth;
+    toast.classList.remove("hidden");
+    this.audio.playPing(760, 0.06);
+    clearTimeout(this._vegaCommsTimer);
+    this._vegaCommsTimer = setTimeout(() => {
+      this.hideVega3DComms();
+    }, 7500);
+  }
+
+  hideVega3DComms() {
+    clearTimeout(this._vegaCommsTimer);
+    if (this._activeVegaChannel && this._activeVegaChannel.surface === "comms") {
+      this.stopVegaChannel();
+    }
+    this._currentCommsKey = null;
+    const toast = document.getElementById("vegaCommsToast");
+    if (toast) toast.classList.add("hidden");
+  }
+
+  showStoryBridge(artifactId) {
+    const toast = document.getElementById("storyBridgeToast");
+    const chipEl = document.getElementById("storyBridgeChip");
+    const textEl = document.getElementById("storyBridgeText");
+    const hearBtn = document.getElementById("storyBridgeHearBtn");
+    if (!toast || !textEl || !this.isStoryOpen) return;
+
+    const langKey = this.lang === "pt" ? "pt" : "en";
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const text = vegaLoc.chapterBridges[artifactId];
+    if (!text) return;
+
+    this._currentBridgeId = artifactId;
+    if (chipEl) chipEl.textContent = vegaLoc.bridgeChip;
+    textEl.textContent = text;
+    if (hearBtn) {
+      hearBtn.classList.remove("is-playing");
+      hearBtn.textContent = vegaLoc.commsHearBtn;
+    }
+
+    toast.classList.add("hidden");
+    void toast.offsetWidth;
+    toast.classList.remove("hidden");
+    clearTimeout(this._storyBridgeTimer);
+    this._storyBridgeTimer = setTimeout(() => {
+      this.hideStoryBridge();
+    }, 8000);
+  }
+
+  hideStoryBridge() {
+    clearTimeout(this._storyBridgeTimer);
+    if (this._activeVegaChannel && this._activeVegaChannel.surface === "bridge") {
+      this.stopVegaChannel();
+    }
+    this._currentBridgeId = null;
+    const toast = document.getElementById("storyBridgeToast");
+    if (toast) toast.classList.add("hidden");
+  }
+
   openMissionLetter() {
     this._hasSeenMissionLetter = true;
+    this.hideVega3DComms();
     const isPt = this.lang === "pt";
+    const langKey = isPt ? "pt" : "en";
+    const age = this.ageProfile || "adult";
     const visited = this.visitedStations.size;
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const letter = vegaLoc.missionLetter[age] || vegaLoc.missionLetter.adult;
 
     document.getElementById("letterStamp").textContent = isPt
       ? "DIÁRIO DE BORDO • MISSÃO APOLLO"
       : "MISSION LOGBOOK • APOLLO";
-    document.getElementById("letterTitle").textContent = isPt
-      ? "Preparando a sua viagem à Lua, pequeno explorador!"
-      : "Preparing your journey to the Moon, young explorer!";
-    document.getElementById("letterBody").innerHTML = isPt
-      ? `
-        <p>Seja bem-vindo(a) à superfície lunar. Em poucos instantes você caminhará pelo mesmo solo silencioso onde máquinas históricas da NASA permanecem desde 1969.</p>
-        <p>Lembre-se: os modelos 3D que você verá são <strong>representações ilustrativas</strong> criadas para dar vida a essa expedição.</p>
-        <p>Aproveite a jornada, aproxime-se de cada equipamento e <strong>conheça todas as ${STATION_ORDER.length} histórias</strong> (${visited}/${STATION_ORDER.length} descobertas) para desbloquear seu <strong>Certificado Oficial de Explorador Lunar</strong>!</p>
-      `
-      : `
-        <p>Welcome to the lunar surface. In just a moment, you will walk across the same silent soil where historic NASA machines have rested since 1969.</p>
-        <p>Remember: the 3D models ahead are <strong>illustrative representations</strong> crafted to bring this expedition to life.</p>
-        <p>Enjoy the journey, visit each monument, and <strong>discover all ${STATION_ORDER.length} stories</strong> (${visited}/${STATION_ORDER.length} unlocked) to earn your <strong>Official Lunar Explorer Certificate</strong>!</p>
-      `;
-    document.getElementById("letterSignature").textContent = isPt
-      ? "— Curadoria • Museum of Lost Space Technology"
-      : "— Curators • Museum of Lost Space Technology";
+    const badgeEl = document.getElementById("letterVegaBadge");
+    if (badgeEl) badgeEl.textContent = vegaLoc.guideBadge;
+    const voiceBtnEl = document.getElementById("letterVegaVoiceBtn");
+    const idleBtnLabel = isPt ? "Ouvir Vega" : "Hear Vega";
+    if (voiceBtnEl) {
+      voiceBtnEl.textContent = idleBtnLabel;
+      voiceBtnEl.classList.remove("is-playing");
+    }
+
+    document.getElementById("letterTitle").textContent = letter.title;
+    document.getElementById("letterBody").innerHTML =
+      letter.paragraphs.map((p) => `<p>${p}</p>`).join("") +
+      `<p class="letter-progress-copy">${
+        isPt
+          ? `Progresso atual: <strong>${visited}/${STATION_ORDER.length} histórias</strong> descobertas.`
+          : `Current progress: <strong>${visited}/${STATION_ORDER.length} stories</strong> discovered.`
+      }</p>`;
+    document.getElementById("letterSignature").textContent = `— ${letter.signature}`;
     document.getElementById("startExpeditionBtn").textContent = isPt
       ? "Iniciar Viagem →"
       : "Begin Journey →";
@@ -1129,17 +1403,39 @@ class EchoesOfTheMoonApp {
         fill.style.width = "100%";
       });
     });
+
+    if (!this.audio.vegaMuted) {
+      const spoken = `${letter.title} ${letter.paragraphs.join(" ")}`;
+      this.playVegaChannelClip(
+        "letter",
+        `assets/audio/vega-${langKey}-${age}-letter.mp3`,
+        spoken,
+        "#letterVegaAvatarRing",
+        "#letterVegaVoiceBtn",
+        idleBtnLabel
+      );
+    }
   }
 
   closeMissionLetter() {
+    this.stopVegaChannel();
     document.getElementById("missionLetterModal").classList.add("hidden");
     this.audio.playPing(880, 0.08);
+    if (this.is3DActive) {
+      setTimeout(() => {
+        if (this.is3DActive && !this.isStoryOpen) {
+          this.showVega3DComms(this.currentArtifact.id);
+        }
+      }, 450);
+    }
   }
 
   // ==========================================================================
   // FRIENDLY ASTRONAUT FINAL QUIZ (COMANDANTE VEGA)
   // ==========================================================================
   openAstronautQuizModal(forceRestart = false) {
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     this.audio.stopSpeech(false);
     if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed) {
       this.quizState = {
@@ -1425,8 +1721,12 @@ class EchoesOfTheMoonApp {
   }
 
   openCertificateModal() {
+    this.hideVega3DComms();
+    this.stopVegaChannel();
     const isPt = this.lang === "pt";
+    const langKey = isPt ? "pt" : "en";
     const age = this.ageProfile || "adult";
+    const vegaLoc = VEGA_JOURNEY[langKey];
 
     const copy = {
       pt: {
@@ -1502,12 +1802,36 @@ class EchoesOfTheMoonApp {
         : "✦ Quiz with Vega";
     }
 
+    const certVegaChip = document.getElementById("certVegaChip");
+    const certVegaSpeech = document.getElementById("certVegaSpeech");
+    const certVegaBtn = document.getElementById("certVegaVoiceBtn");
+    const deliveryText = vegaLoc.certificateDelivery[age] || vegaLoc.certificateDelivery.adult;
+    const certBtnIdle = isPt ? "Ouvir Vega" : "Hear Vega";
+    if (certVegaChip) certVegaChip.textContent = vegaLoc.guideBadge;
+    if (certVegaSpeech) certVegaSpeech.textContent = deliveryText;
+    if (certVegaBtn) {
+      certVegaBtn.textContent = certBtnIdle;
+      certVegaBtn.classList.remove("is-playing");
+    }
+
     document.getElementById("certificateModal").classList.remove("hidden");
     this.audio.playQuindarTone(true);
     this.renderCertificateCanvas();
+
+    if (!this.audio.vegaMuted) {
+      this.playVegaChannelClip(
+        "cert",
+        `assets/audio/vega-${langKey}-${age}-cert.mp3`,
+        deliveryText,
+        "#certVegaAvatarRing",
+        "#certVegaVoiceBtn",
+        certBtnIdle
+      );
+    }
   }
 
   closeCertificateModal() {
+    this.stopVegaChannel();
     document.getElementById("certificateModal").classList.add("hidden");
   }
 
@@ -1658,26 +1982,36 @@ class EchoesOfTheMoonApp {
       ctx.restore();
     });
 
-    // Date & Signature footer
+    // Commander Vega official signature + Date footer
+    ctx.fillStyle = "#bae6fd";
+    ctx.font = "600 20px Georgia, serif";
+    ctx.fillText(
+      isPt
+        ? "✦  Assinado: Comandante Vega — Guia Espacial & Curadoria Lunar  ✦"
+        : "✦  Signed: Commander Vega — Expedition Space Guide & Curator  ✦",
+      w / 2,
+      786
+    );
+
     const today = new Date().toLocaleDateString(isPt ? "pt-BR" : "en-US", {
       year: "numeric",
       month: "long",
       day: "numeric"
     });
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "20px monospace";
+    ctx.font = "19px monospace";
     ctx.fillText(
       (isPt ? "EMITIDO EM " : "ISSUED ON ") + today.toUpperCase(),
       w / 2,
-      810
+      826
     );
 
     ctx.fillStyle = "#e2e8f0";
-    ctx.font = "italic 24px Georgia, serif";
+    ctx.font = "italic 23px Georgia, serif";
     ctx.fillText(
       isPt ? "Abandonados, mas nunca esquecidos." : "Abandoned, but never forgotten.",
       w / 2,
-      872
+      874
     );
   }
 
@@ -1856,8 +2190,31 @@ class EchoesOfTheMoonApp {
       `;
     }).join("");
 
+    const langKey = isPt ? "pt" : "en";
+    const age = this.ageProfile || "adult";
+    const vegaLoc = VEGA_JOURNEY[langKey];
+    const vegaNote =
+      (vegaLoc.siteChapters[activeId] && vegaLoc.siteChapters[activeId][age]) || "";
+    const isPlayingThisChapter =
+      this._activeVegaChannel &&
+      this._activeVegaChannel.surface === "chapter" &&
+      this._activeVegaChannel.audioUrl.endsWith(`-chap-${activeId}.mp3`) &&
+      this.audio.isVegaSpeaking;
+
     listEl.innerHTML = `
       <div class="showcase-tabs-bar">${tabsHtml}</div>
+      <div class="chapter-vega-strip">
+        <div class="vega-mini-avatar-wrap ${isPlayingThisChapter ? "is-speaking" : ""}" id="chapterVegaAvatarRing">
+          <img src="assets/images/astronaut-guide.jpg" alt="${vegaLoc.guideName}" class="vega-mini-avatar" />
+        </div>
+        <div class="chapter-vega-copy">
+          <span class="chapter-vega-chip">${vegaLoc.siteRoleChip}</span>
+          <p class="chapter-vega-note">${vegaNote}</p>
+        </div>
+        <button class="vega-mini-voice-btn ${isPlayingThisChapter ? "is-playing" : ""}" id="chapterVegaPlayBtn" type="button">
+          ${isPlayingThisChapter ? vegaLoc.stopBtn : vegaLoc.listenBtn}
+        </button>
+      </div>
       <article id="chapter-card-${activeIdx}" class="editorial-chapter-card exhibit-open-stage showcase-stage" style="--card-accent: ${item.accentColor}">
         <div class="chapter-media-wrap">
           <img src="${item.imagePath}" alt="${itemLoc.name}" />
@@ -1883,8 +2240,23 @@ class EchoesOfTheMoonApp {
       </article>
     `;
 
+    const chapVegaBtn = document.getElementById("chapterVegaPlayBtn");
+    if (chapVegaBtn && vegaNote) {
+      chapVegaBtn.addEventListener("click", () => {
+        this.playVegaChannelClip(
+          "chapter",
+          `assets/audio/vega-${langKey}-${age}-chap-${activeId}.mp3`,
+          vegaNote,
+          "#chapterVegaAvatarRing",
+          "#chapterVegaPlayBtn",
+          vegaLoc.listenBtn
+        );
+      });
+    }
+
     listEl.querySelectorAll("[data-showcase-tab]").forEach((btn) => {
       btn.addEventListener("click", () => {
+        this.stopVegaChannel();
         this.stationIndex = parseInt(btn.getAttribute("data-showcase-tab"), 10);
         this.audio.playPing(840, 0.07);
         this.renderUI();
