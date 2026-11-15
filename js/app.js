@@ -1419,11 +1419,15 @@ class EchoesOfTheMoonApp {
     document.getElementById("walkStepBadge").textContent = isPt
       ? `ESTAÇÃO ${stepNum}`
       : `STATION ${stepNum}`;
-    document.getElementById("walkCoordsText").textContent = isPt
-      ? art.coordinates.sitePt
-      : art.coordinates.siteEn;
+    const coordsEl = document.getElementById("walkCoordsText");
+    if (coordsEl) {
+      coordsEl.textContent = isPt ? art.coordinates.sitePt : art.coordinates.siteEn;
+    }
     document.getElementById("walkArtifactTitle").textContent = loc.name;
-    document.getElementById("walkArtifactPersona").textContent = `"${loc.personaTitle}"`;
+    const personaEl = document.getElementById("walkArtifactPersona");
+    if (personaEl) {
+      personaEl.textContent = `"${loc.personaTitle}"`;
+    }
     if (this.surface3D) {
       this.surface3D.setAgeDifficulty(this.ageProfile);
     }
