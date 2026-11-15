@@ -6296,12 +6296,10 @@ input:focus-visible {
   }
 
   /* 3D HUD on Tablet */
-  .museum-topbar {
-    padding: 12px 18px;
-  }
-
-  .museum-brand h1 {
-    font-size: 0.72rem;
+  .minimal-topbar {
+    top: 14px;
+    left: 16px;
+    right: 16px;
   }
 
   .side-travel-btn {
@@ -6516,7 +6514,7 @@ input:focus-visible {
     justify-content: flex-start;
     align-items: stretch;
     min-height: auto;
-    padding: 64px 20px 38px;
+    padding: 64px 18px 32px;
     gap: 0;
     background: radial-gradient(circle at 82% 22%, #0a1428 0%, #03060f 48%, #000000 84%);
   }
@@ -6524,9 +6522,9 @@ input:focus-visible {
   /* Moon in its own dedicated upper visual zone, anchored top-right */
   .hero-moon-col {
     order: 1;
-    width: calc(100% + 40px);
-    margin: 0 -20px;
-    min-height: clamp(220px, 60vw, 286px);
+    width: calc(100% + 36px);
+    margin: 0 -18px;
+    min-height: clamp(196px, 54vw, 264px);
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
@@ -6535,7 +6533,7 @@ input:focus-visible {
   }
 
   .hero-moon-img {
-    width: clamp(248px, 72vw, 326px);
+    width: clamp(228px, 68vw, 310px);
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: contain;
@@ -6548,7 +6546,7 @@ input:focus-visible {
     order: 2;
     max-width: 100%;
     width: 100%;
-    margin-top: 4px;
+    margin-top: 2px;
     padding-left: 0;
     position: relative;
     z-index: 3;
@@ -6560,8 +6558,8 @@ input:focus-visible {
     align-items: center;
     gap: 10px;
     max-width: 100%;
-    margin-bottom: 18px;
-    padding-bottom: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
@@ -6633,17 +6631,22 @@ input:focus-visible {
   }
 
   /* 3. Mission Stories, Timeline & Equipment Presentation */
+  .stories-astronaut-float,
+  .artemis-astronaut-ground {
+    opacity: 0.24;
+  }
+
   .editorial-stories-section {
-    padding: 56px 18px 52px;
+    padding: 48px 18px 44px;
   }
 
   .section-header-block {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     text-align: left;
   }
 
   .section-header-block h2 {
-    font-size: clamp(1.75rem, 7vw, 2.25rem);
+    font-size: clamp(1.7rem, 6.8vw, 2.2rem);
     line-height: 1.14;
     margin-bottom: 10px;
   }
@@ -6654,7 +6657,7 @@ input:focus-visible {
   }
 
   .story-showcase-shell {
-    gap: 16px;
+    gap: 14px;
   }
 
   .showcase-tabs-bar {
@@ -6663,47 +6666,50 @@ input:focus-visible {
   }
 
   .showcase-tab-btn {
-    min-height: 50px;
-    padding: 10px 12px;
+    min-height: 46px;
+    padding: 9px 10px;
     border-radius: 11px;
   }
 
   .showcase-tab-title {
-    font-size: clamp(0.76rem, 3.3vw, 0.86rem);
-    line-height: 1.25;
+    font-size: clamp(0.74rem, 3.2vw, 0.84rem);
+    line-height: 1.24;
   }
 
   /* Commander Vega Chapter Strip */
   .chapter-vega-strip {
     display: grid;
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 10px 12px;
-    padding: 14px;
-    margin-bottom: 8px;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 8px 10px;
+    padding: 12px 14px;
+    margin-bottom: 4px;
     align-items: start;
   }
 
   .chapter-vega-strip .vega-mini-avatar-wrap {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
   }
 
   .chapter-vega-chip {
-    font-size: 0.58rem;
+    font-size: 0.56rem;
     letter-spacing: 0.11em;
     line-height: 1.3;
     display: block;
   }
 
   .chapter-vega-note {
-    font-size: 0.84rem;
-    line-height: 1.48;
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 
   .chapter-vega-strip .vega-mini-voice-btn {
-    grid-column: 1 / -1;
-    width: 100%;
-    min-height: 40px;
+    grid-column: 2;
+    justify-self: start;
+    width: auto;
+    min-height: 34px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -7324,172 +7330,244 @@ input:focus-visible {
 
   /* 6. Closing Section (#artemisSection & .editorial-footer) */
   .editorial-artemis-section {
-    padding: 56px 18px 64px;
+    padding: 32px 16px 52px;
   }
 
-  .artemis-banner-inner h2 {
-    font-size: clamp(1.7rem, 6.8vw, 2.2rem);
-    margin-bottom: 14px;
+  .artemis-glass-card {
+    padding: 28px 18px;
+    border-radius: 20px;
   }
 
-  .artemis-banner-inner p {
-    font-size: 0.94rem;
-    line-height: 1.65;
-    margin-bottom: 24px;
+  .artemis-glass-card h2 {
+    font-size: clamp(1.55rem, 6.4vw, 2.05rem);
+    margin-bottom: 12px;
   }
 
-  .artemis-actions-row {
+  .artemis-glass-card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+
+  .artemis-cta-row {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
-    max-width: 360px;
+    max-width: 340px;
     margin: 0 auto;
   }
 
-  .artemis-actions-row .btn-glow-blue {
+  .artemis-cta-row .btn-glow-blue {
     width: 100%;
     min-height: 48px;
+    justify-content: center;
+    text-align: center;
   }
 
   .editorial-footer {
-    padding: 22px 18px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    font-size: 0.72rem;
+    padding: 20px 18px;
+    text-align: left;
+    font-size: 0.7rem;
   }
 
   /* 7. 3D Interactive Mode HUD (#mode3DWrapper) */
-  .museum-topbar {
-    padding: 10px 12px;
-    gap: 8px;
+  .minimal-topbar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    gap: 6px;
   }
 
   .topbar-left-group {
-    gap: 8px;
-  }
-
-  .museum-brand {
-    display: none;
+    gap: 6px;
+    min-width: 0;
   }
 
   .topbar-controls {
     gap: 6px;
+    flex-shrink: 0;
   }
 
-  #topAgeGroup {
-    display: none;
-  }
-
+  .minimal-topbar .glass-icon-btn,
+  .btn-exit-3d,
   .mission-progress-btn {
-    padding: 6px 10px;
+    padding: 7px 11px;
     font-size: 0.68rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
-  /* Reposition lateral station travel buttons to bottom corners above dock so they never collide */
-  .side-travel-btn {
-    top: auto;
-    bottom: 256px;
-    transform: none;
-    max-width: calc(50vw - 18px);
-    padding: 7px 10px;
+  .minimal-topbar .btn-icon-only {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+  }
+
+  .vega-comms-toast {
+    top: 52px;
+    left: 10px;
+    right: 10px;
+    max-width: none;
+    padding: 8px 10px;
     gap: 8px;
-    border-radius: 12px;
+    border-radius: 14px;
+  }
+
+  .vega-comms-toast .vega-mini-avatar-wrap {
+    width: 34px;
+    height: 34px;
+  }
+
+  .vega-comms-text {
+    font-size: 0.74rem;
+    line-height: 1.32;
+  }
+
+  /* Lateral station controls reduced to clean floating arrows on smartphones */
+  .side-travel-btn {
+    top: 40%;
+    bottom: auto;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    background: rgba(8, 12, 22, 0.56);
+    border: 1px solid rgba(147, 197, 253, 0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
   }
 
   .side-travel-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-50%) scale(1.06);
   }
 
   .side-travel-prev {
-    left: 12px;
+    left: 10px;
   }
 
   .side-travel-next {
-    right: 12px;
+    right: 10px;
   }
 
-  .travel-meta small,
-  .side-travel-kicker {
-    font-size: 0.56rem;
-    white-space: nowrap;
+  .side-travel-btn .travel-meta {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
     overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .travel-meta strong,
-  .side-travel-title {
-    font-size: 0.76rem;
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    border: 0;
   }
 
-  .travel-arrow,
-  .side-travel-arrow {
-    width: 26px;
-    height: 26px;
-    font-size: 0.85rem;
+  .side-travel-btn .travel-arrow {
+    width: auto;
+    height: auto;
+    border: none;
+    background: transparent;
+    font-size: 1.05rem;
+    line-height: 1;
+    color: #e2e8f0;
   }
 
   .walk-hud-dock {
-    bottom: 10px;
-    width: calc(100vw - 20px);
-    gap: 6px;
+    bottom: 8px;
+    width: calc(100vw - 16px);
+    gap: 5px;
   }
 
-  .walk-station-card {
-    padding: 12px 14px;
-    gap: 10px;
+  .walk-capsule {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 12px;
+    gap: 8px;
     border-radius: 16px;
   }
 
-  .walk-station-info h2 {
-    font-size: 1.05rem;
+  .walk-station-info {
+    width: 100%;
   }
 
-  .walk-persona-quote {
-    font-size: 0.78rem;
+  .station-step-meta {
+    margin-bottom: 2px;
+    font-size: 0.6rem;
+  }
+
+  #walkArtifactTitle,
+  .walk-station-info h2 {
+    font-size: 0.94rem;
+    line-height: 1.22;
   }
 
   .walk-actions {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 6px;
   }
 
   .btn-ask-3d,
-  .btn-hear-story {
+  .btn-open-story {
     width: 100%;
-    min-height: 42px;
-    padding: 8px 10px;
-    font-size: 0.74rem;
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 0.68rem;
+    line-height: 1.18;
+    white-space: normal;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
     text-align: center;
   }
 
   .stamps-collection-bar {
-    gap: 5px;
+    gap: 4px;
+    margin-top: 0;
   }
 
   .stamp-pill {
-    padding: 4px 8px;
-    font-size: 0.58rem;
+    padding: 3px 7px;
+    font-size: 0.56rem;
   }
 
-  .walk-hint {
-    font-size: 0.62rem;
+  .walk-hint-text {
+    font-size: 0.6rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
     text-align: center;
-    padding: 0 8px;
+    padding: 0 4px;
+    margin: 0;
   }
 
   .interaction-card-3d {
-    top: 64px;
-    left: 12px;
-    right: 12px;
+    top: auto;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
     width: auto;
-    max-height: calc(100vh - 260px);
-    padding: 16px;
+    max-height: min(68dvh, calc(100dvh - 82px));
+    padding: 14px 15px 16px;
+    z-index: 45;
+    border-radius: 18px;
+  }
+
+  #mode3DWrapper:has(#interactionCard3D:not(.hidden)) .walk-hud-dock,
+  #mode3DWrapper:has(#interactionCard3D:not(.hidden)) .side-travel-btn,
+  #mode3DWrapper:has(#interactionCard3D:not(.hidden)) .vega-comms-toast {
+    opacity: 0;
+    pointer-events: none;
   }
 
   /* 8. Modals (Onboarding, Mission Letter, Quiz, Certificate, Thank You) */
@@ -7696,7 +7774,14 @@ input:focus-visible {
   }
 
   .walk-actions {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .btn-ask-3d,
+  .btn-open-story {
+    font-size: 0.64rem;
+    padding: 5px 6px;
   }
 }
 
