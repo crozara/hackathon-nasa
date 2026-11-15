@@ -987,8 +987,42 @@ class EchoesOfTheMoonApp {
       });
     }
 
+    // 10. Mobile & Tablet Navigation Drawer Toggle
+    const mobileNavToggleBtn = document.getElementById("mobileNavToggleBtn");
+    const editorialNavbar = document.querySelector(".editorial-navbar");
+    const editorialNavDrawer = document.getElementById("editorialNavDrawer");
+    const closeMobileMenu = () => {
+      if (editorialNavbar && editorialNavbar.classList.contains("is-menu-open")) {
+        editorialNavbar.classList.remove("is-menu-open");
+        if (mobileNavToggleBtn) {
+          mobileNavToggleBtn.setAttribute("aria-expanded", "false");
+        }
+      }
+    };
+    if (mobileNavToggleBtn && editorialNavbar) {
+      mobileNavToggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = editorialNavbar.classList.toggle("is-menu-open");
+        mobileNavToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        this.audio.playPing(isOpen ? 820 : 640, 0.05);
+      });
+    }
+    if (editorialNavDrawer) {
+      editorialNavDrawer.querySelectorAll("a, button").forEach((el) => {
+        el.addEventListener("click", () => {
+          closeMobileMenu();
+        });
+      });
+    }
+    document.addEventListener("click", (e) => {
+      if (editorialNavbar && !editorialNavbar.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
+        closeMobileMenu();
         const quizModal = document.getElementById("astronautQuizModal");
         if (quizModal && !quizModal.classList.contains("hidden")) {
           this.closeAstronautQuizModal();
@@ -2175,6 +2209,14 @@ class EchoesOfTheMoonApp {
     document.getElementById("heroOpen3DBtn").textContent = isPt
       ? "Abrir Visualização 3D →"
       : "Open 3D View →";
+    const heroScrollTextEl = document.getElementById("heroScrollText");
+    if (heroScrollTextEl) {
+      heroScrollTextEl.textContent = isPt ? "Role para explorar" : "Scroll to explore";
+    }
+    const mobileMenuBtn = document.getElementById("mobileNavToggleBtn");
+    if (mobileMenuBtn) {
+      mobileMenuBtn.setAttribute("aria-label", isPt ? "Menu de navegação" : "Navigation menu");
+    }
 
     document.getElementById("storiesKicker").textContent = isPt
       ? "04 MONUMENTOS LUNARES"

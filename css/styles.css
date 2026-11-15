@@ -900,11 +900,12 @@ button {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 22px;
+  grid-template-columns: minmax(0, 1fr) 26px;
   gap: 14px;
   align-items: center;
   overflow-y: auto;
-  padding-right: 2px;
+  overflow-x: hidden;
+  padding-right: 6px;
 }
 
 .book-page-right .story-paragraphs-flow {
@@ -4131,34 +4132,17 @@ body:not(.in-3d-mode) .book-page-left .story-quote-highlight {
   background: rgba(59, 130, 246, 0.14);
 }
 
-@media (max-width: 960px) {
-  .editorial-nav-links,
-  .editorial-age-group {
-    display: none;
-  }
-  .editorial-hero {
-    grid-template-columns: 1fr;
-    padding-top: 108px;
-    text-align: left;
-  }
-  .hero-content-col {
-    justify-self: stretch;
-    padding-left: 0;
-  }
-  .hero-moon-col {
-    justify-content: center;
-  }
-  .hero-moon-img {
-    width: min(440px, 86vw);
-    transform: translateX(4%);
-  }
-  .editorial-chapter-card {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-  .editorial-chapter-card.is-reversed .chapter-media-wrap {
-    order: 0;
-  }
+/* Desktop defaults for responsive nav wrapper & scroll indicator */
+.editorial-nav-drawer {
+  display: contents;
+}
+
+.mobile-nav-toggle {
+  display: none;
+}
+
+.hero-scroll-indicator {
+  display: none;
 }
 
 
@@ -5933,4 +5917,1804 @@ body:not(.in-3d-mode) .book-page-left .story-quote-highlight {
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/* ============================================================================
+   15. RESPONSIVE DESIGN SYSTEM (TABLETS & SMARTPHONES — OBSERVATORY EDITION)
+   ============================================================================ */
+
+/* Base overflow protection & missing lab button group layout */
+html,
+body,
+.static-museum-site {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.lab-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lab-btn-group .btn-lab-action {
+  flex: 1 1 130px;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Scroll Indicator (Visible on Tablet & Smartphone as in reference image) */
+.hero-scroll-indicator {
+  align-items: center;
+  gap: 12px;
+  margin-top: 34px;
+  color: rgba(148, 163, 184, 0.78);
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.hero-scroll-indicator:hover {
+  color: #e2e8f0;
+}
+
+.scroll-mouse-pill {
+  width: 16px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1.4px solid rgba(148, 163, 184, 0.55);
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+
+.scroll-mouse-wheel {
+  width: 2px;
+  height: 5px;
+  border-radius: 999px;
+  background: #60a5fa;
+  animation: scrollWheelPulse 2s ease-in-out infinite;
+}
+
+.scroll-line-tail {
+  flex: 1 1 auto;
+  max-width: 140px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.24), transparent);
+}
+
+@keyframes scrollWheelPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 0.35;
+  }
+}
+
+/* Keyboard focus accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   TABLET & COMPACT LAPTOP BREAKPOINT (<= 1024px)
+   Matches the bottom-left tablet reference frame:
+   - Compact header with brand left & hamburger menu right
+   - Split Hero when width allows (768px - 1024px) with Moon on the right
+     and calibrated typography/spacing on the left
+   ============================================================================ */
+@media (max-width: 1024px) {
+  .editorial-navbar {
+    height: 76px;
+    padding: 0 clamp(20px, 4.5vw, 44px);
+    background: linear-gradient(180deg, rgba(2, 4, 10, 0.94) 0%, rgba(2, 4, 10, 0.72) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .brand-arc-svg {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+
+  .brand-text-stack strong {
+    font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+    letter-spacing: 0.02em;
+  }
+
+  .brand-text-stack span {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav-toggle:hover {
+    background: rgba(59, 130, 246, 0.14);
+    border-color: rgba(96, 165, 250, 0.45);
+    color: #93c5fd;
+  }
+
+  .mobile-nav-toggle .hamburger-svg line {
+    transition: transform 0.25s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  .editorial-navbar.is-menu-open .mobile-nav-toggle {
+    background: rgba(59, 130, 246, 0.18);
+    border-color: rgba(96, 165, 250, 0.55);
+    color: #93c5fd;
+  }
+
+  .editorial-navbar.is-menu-open .mobile-nav-toggle .line-top {
+    transform: translateY(5.5px) rotate(45deg);
+  }
+
+  .editorial-navbar.is-menu-open .mobile-nav-toggle .line-mid {
+    opacity: 0;
+  }
+
+  .editorial-navbar.is-menu-open .mobile-nav-toggle .line-bot {
+    transform: translateY(-5.5px) rotate(-45deg);
+  }
+
+  .editorial-nav-drawer {
+    display: none;
+    position: fixed;
+    top: 76px;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding: 20px clamp(20px, 5vw, 44px) 24px;
+    background: rgba(3, 7, 18, 0.96);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-bottom: 1px solid rgba(96, 165, 250, 0.24);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    animation: navDrawerSlideDown 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .editorial-navbar.is-menu-open .editorial-nav-drawer {
+    display: flex;
+  }
+
+  @keyframes navDrawerSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .editorial-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .editorial-nav-links a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    border: 1px solid transparent;
+  }
+
+  .editorial-nav-links a:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(96, 165, 250, 0.22);
+    color: #ffffff;
+  }
+
+  .editorial-nav-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .editorial-nav-actions .btn-nav-3d {
+    flex: 1 1 auto;
+    min-height: 44px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .editorial-nav-actions .btn-icon-only {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  /* Tablet Hero Composition (768px - 1024px):
+     Preserves Moon on the right and editorial text on the left */
+  .editorial-hero {
+    min-height: clamp(600px, 84vh, 780px);
+    grid-template-columns: minmax(330px, 1.08fr) minmax(260px, 0.92fr);
+    align-items: center;
+    padding: 96px 0 48px clamp(28px, 5vw, 56px);
+    gap: 12px;
+  }
+
+  .hero-content-col {
+    max-width: 500px;
+    justify-self: start;
+    padding-left: 0;
+  }
+
+  .hero-telemetry-row {
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .telemetry-lines span:first-child {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+
+  .telemetry-lines span:last-child {
+    font-size: 0.72rem;
+  }
+
+  .hero-display-title {
+    font-size: clamp(2.35rem, 4.3vw, 3.35rem);
+    line-height: 1.07;
+    margin-bottom: 18px;
+    text-wrap: balance;
+  }
+
+  .hero-lead-text {
+    max-width: 430px;
+    font-size: clamp(0.95rem, 1.45vw, 1.05rem);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .hero-cta-row {
+    gap: 12px;
+  }
+
+  .btn-glow-blue,
+  .btn-tech-outline {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-scroll-indicator {
+    display: inline-flex;
+    width: 100%;
+    max-width: 340px;
+    margin-top: 28px;
+  }
+
+  .hero-moon-col {
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-moon-img {
+    width: clamp(360px, 52vw, 540px);
+    max-width: none;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    transform: translateX(12%);
+  }
+
+  /* Stories & Equipment Presentation on Tablet */
+  .editorial-stories-section {
+    padding: 84px clamp(24px, 5vw, 52px) 76px;
+  }
+
+  .section-header-block {
+    margin-bottom: 44px;
+  }
+
+  .editorial-chapter-card.exhibit-open-stage,
+  .editorial-chapter-card {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 3.5vw, 40px);
+  }
+
+  /* Open-Book Story Drawer on Tablet (901px - 1024px) */
+  .story-drawer-inner {
+    width: min(960px, 95vw);
+    max-height: 92vh;
+  }
+
+  .book-spread-grid {
+    grid-template-columns: 0.92fr 1px 1.08fr;
+    min-height: clamp(440px, 60vh, 580px);
+  }
+
+  .book-page-left {
+    padding: 20px 22px;
+  }
+
+  .book-page-right {
+    padding: 20px 24px 18px;
+  }
+
+  .book-page-reading-shell,
+  body.in-3d-mode .book-page-reading-shell {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .book-page-right .story-paragraphs-flow {
+    margin: 0;
+  }
+
+  .story-p.is-chapter-start::first-letter,
+  body.in-3d-mode .story-p.is-chapter-start::first-letter {
+    font-size: 2.65rem;
+    line-height: 0.86;
+    padding: 4px 10px 2px 0;
+  }
+
+  /* 3D HUD on Tablet */
+  .museum-topbar {
+    padding: 12px 18px;
+  }
+
+  .museum-brand h1 {
+    font-size: 0.72rem;
+  }
+
+  .side-travel-btn {
+    padding: 12px 14px;
+    max-width: 200px;
+  }
+
+  .side-travel-prev {
+    left: 14px;
+  }
+
+  .side-travel-next {
+    right: 14px;
+  }
+}
+
+/* Intermediate Tablet adjustments (768px - 900px):
+   - 2x2 timeline tabs so station titles never truncate
+   - Equipment showcase card stacks cleanly into 1 column with balanced media ratio */
+@media (max-width: 900px) {
+  .showcase-tabs-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .showcase-tab-btn {
+    min-height: 52px;
+    justify-content: center;
+    padding: 12px 16px;
+    margin-bottom: 0;
+    border-radius: 12px;
+    background: rgba(10, 16, 30, 0.68);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid transparent;
+  }
+
+  .showcase-tab-btn.active {
+    background: rgba(20, 34, 64, 0.78);
+    border-color: rgba(96, 165, 250, 0.28);
+    border-left-color: var(--tab-accent, #60a5fa);
+  }
+
+  .editorial-chapter-card.exhibit-open-stage,
+  .editorial-chapter-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .editorial-chapter-card.exhibit-open-stage .chapter-media-wrap {
+    max-width: 680px;
+  }
+
+  /* Open-Book Reader on Portrait Tablet (768px - 900px):
+     Single scrollable book shell, proportional drop cap, unconstrained height */
+  .story-drawer-inner,
+  body.in-3d-mode .story-drawer-inner {
+    width: min(740px, 94vw);
+    max-height: 92vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 14px;
+    border-radius: 22px;
+    background: linear-gradient(175deg, rgba(9, 16, 32, 0.96) 0%, rgba(4, 8, 18, 0.98) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.34);
+  }
+
+  .physical-book-shell {
+    flex: none;
+    height: auto;
+    padding: 10px 12px 14px;
+  }
+
+  .book-spine-notch,
+  .book-spine-crease,
+  .book-spread-grid::after,
+  .book-page-left::before,
+  .book-page-right::before,
+  .book-margin-markers {
+    display: none;
+  }
+
+  .book-spread-grid,
+  body.in-3d-mode .book-spread-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    flex: none;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    background:
+      radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+      linear-gradient(180deg, #0b1322 0%, #070c16 100%);
+    background-size: 20px 20px, 100% 100%;
+  }
+
+  .book-page-left {
+    padding: 20px 24px 16px;
+    border-right: none;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.16);
+    justify-content: flex-start;
+    overflow: visible;
+  }
+
+  .book-media-frame {
+    min-height: 0;
+    max-height: 300px;
+  }
+
+  .book-page-right,
+  body.in-3d-mode .book-page-right {
+    flex: none;
+    padding: 18px 24px 16px;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .book-page-reading-shell,
+  body.in-3d-mode .book-page-reading-shell {
+    flex: none;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    overflow: visible;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 8px;
+  }
+
+  .book-page-right .story-paragraphs-flow,
+  body.in-3d-mode .book-page-right .story-paragraphs-flow {
+    max-width: 60ch;
+    margin: 0;
+    justify-content: flex-start;
+  }
+
+  .story-p.is-chapter-start::first-letter,
+  body.in-3d-mode .story-p.is-chapter-start::first-letter {
+    font-size: 2.35rem;
+    line-height: 0.88;
+    padding: 2px 4px 2px 0;
+    margin-right: 4px;
+  }
+
+  .book-page-nav {
+    padding: 12px 24px 14px;
+  }
+
+  /* Science Modal & 2D Map / Labs */
+  .science-modal-card {
+    padding: 20px;
+    max-height: 92vh;
+  }
+
+  .lab-telemetry-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+/* ============================================================================
+   SMARTPHONE BREAKPOINT (< 768px — 360px, 390px, 430px)
+   Matches the bottom-right smartphone reference frame:
+   - Compact header (logo left, menu right)
+   - Dedicated upper lunar zone with large high-contrast Moon anchored top-right
+   - Discrete technical info at the lower-left transition with subtle divider
+   - Elegant light title without artificial line-break collisions or orphan words
+   - Comfortable descriptive text width, full-width primary CTA, discrete scroll indicator
+   ============================================================================ */
+@media (max-width: 767px) {
+  /* 1. Compact Smartphone Header */
+  .editorial-navbar {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .editorial-brand {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .brand-arc-svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .brand-text-stack strong {
+    font-size: clamp(0.78rem, 3.6vw, 0.92rem);
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+  }
+
+  .brand-text-stack span {
+    font-size: 0.56rem;
+    letter-spacing: 0.13em;
+  }
+
+  .editorial-nav-drawer {
+    top: 64px;
+    padding: 16px 18px 20px;
+  }
+
+  .editorial-nav-actions {
+    flex-wrap: wrap;
+  }
+
+  /* 2. Reconstructed Smartphone Hero */
+  .editorial-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: auto;
+    padding: 64px 20px 38px;
+    gap: 0;
+    background: radial-gradient(circle at 82% 22%, #0a1428 0%, #03060f 48%, #000000 84%);
+  }
+
+  /* Moon in its own dedicated upper visual zone, anchored top-right */
+  .hero-moon-col {
+    order: 1;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    min-height: clamp(220px, 60vw, 286px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hero-moon-img {
+    width: clamp(248px, 72vw, 326px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    transform: translate(11%, -4%);
+    filter: contrast(1.08);
+  }
+
+  /* Content column below/partially overlapping the lower-left of the lunar zone */
+  .hero-content-col {
+    order: 2;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 4px;
+    padding-left: 0;
+    position: relative;
+    z-index: 3;
+  }
+
+  /* Discrete technical info with subtle bottom divider */
+  .hero-telemetry-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .crescent-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .telemetry-lines {
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .telemetry-lines span:first-child {
+    font-size: clamp(0.62rem, 2.7vw, 0.7rem);
+    letter-spacing: 0.13em;
+  }
+
+  .telemetry-lines span:last-child {
+    font-size: clamp(0.66rem, 2.85vw, 0.74rem);
+    color: rgba(148, 163, 184, 0.85);
+    line-height: 1.35;
+  }
+
+  /* Title scaled so both lines of PT/EN fit cleanly without orphan words at 360px-430px */
+  .hero-display-title {
+    font-size: clamp(1.82rem, 7.6vw, 2.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin-bottom: 14px;
+    text-wrap: balance;
+  }
+
+  .hero-lead-text {
+    max-width: 38ch;
+    font-size: clamp(0.92rem, 3.8vw, 1.02rem);
+    line-height: 1.62;
+    margin-bottom: 22px;
+    color: rgba(148, 163, 184, 0.92);
+  }
+
+  /* Primary & Secondary CTAs with comfortable width and 48px touch height */
+  .hero-cta-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .hero-cta-row .btn-glow-blue,
+  .hero-cta-row .btn-tech-outline {
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 20px;
+    font-size: 0.88rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-scroll-indicator {
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    margin-top: 22px;
+    font-size: 0.74rem;
+  }
+
+  /* 3. Mission Stories, Timeline & Equipment Presentation */
+  .editorial-stories-section {
+    padding: 56px 18px 52px;
+  }
+
+  .section-header-block {
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .section-header-block h2 {
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+    line-height: 1.14;
+    margin-bottom: 10px;
+  }
+
+  .section-header-block p {
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+
+  .story-showcase-shell {
+    gap: 16px;
+  }
+
+  .showcase-tabs-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .showcase-tab-btn {
+    min-height: 50px;
+    padding: 10px 12px;
+    border-radius: 11px;
+  }
+
+  .showcase-tab-title {
+    font-size: clamp(0.76rem, 3.3vw, 0.86rem);
+    line-height: 1.25;
+  }
+
+  /* Commander Vega Chapter Strip */
+  .chapter-vega-strip {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 10px 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+    align-items: start;
+  }
+
+  .chapter-vega-strip .vega-mini-avatar-wrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .chapter-vega-chip {
+    font-size: 0.58rem;
+    letter-spacing: 0.11em;
+    line-height: 1.3;
+    display: block;
+  }
+
+  .chapter-vega-note {
+    font-size: 0.84rem;
+    line-height: 1.48;
+  }
+
+  .chapter-vega-strip .vega-mini-voice-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Equipment Showcase Stage */
+  .editorial-chapter-card.exhibit-open-stage,
+  .editorial-chapter-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .editorial-chapter-card.exhibit-open-stage .chapter-media-wrap img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .editorial-chapter-card.exhibit-open-stage .chapter-body-col {
+    gap: 12px;
+  }
+
+  .chapter-meta-line {
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+  }
+
+  .editorial-chapter-card.exhibit-open-stage .chapter-body-col h3 {
+    font-size: clamp(1.5rem, 6.2vw, 1.95rem);
+    line-height: 1.15;
+  }
+
+  .showcase-excerpt {
+    -webkit-line-clamp: 5;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .chapter-actions-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding-top: 6px;
+  }
+
+  .btn-chapter-primary,
+  .btn-chapter-link {
+    width: 100%;
+    min-height: 46px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .btn-chapter-link {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 11px 18px;
+  }
+
+  /* 4. Open-Book Story Reader & Narration Controls (#storyDrawer)
+     Rebuilt vertical single-column reading mode on smartphones:
+     1) Chapter/Page ID  2) Photo + Caption  3) Narration Player
+     4) Title & Subtitle  5) Full readable text (no giant drop cap)  6) Pagination */
+  .story-reading-drawer,
+  body.in-3d-mode .story-reading-drawer {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    padding: 8px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(1, 3, 9, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .story-drawer-inner,
+  .story-reading-drawer.is-immersive .story-drawer-inner,
+  body.in-3d-mode .story-drawer-inner,
+  body.in-3d-mode .story-reading-drawer.is-immersive .story-drawer-inner {
+    width: 100%;
+    max-height: calc(100dvh - 16px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px;
+    gap: 10px;
+    border-radius: 20px;
+    background: linear-gradient(175deg, #081020 0%, #040812 100%);
+    border: 1px solid rgba(56, 189, 248, 0.34);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9);
+  }
+
+  .drawer-top-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .drawer-top-left {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .btn-back-walk,
+  body.in-3d-mode .btn-back-walk {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 0.74rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .drawer-age-chips {
+    width: 100%;
+    justify-content: space-between;
+    padding: 3px;
+  }
+
+  .drawer-age-chips .age-chip {
+    flex: 1 1 0;
+    min-height: 34px;
+    padding: 4px 6px;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  .drawer-top-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .status-tag,
+  body.in-3d-mode .status-tag {
+    padding: 5px 10px;
+    font-size: 0.62rem;
+  }
+
+  .btn-immersive-toggle,
+  body.in-3d-mode .btn-immersive-toggle {
+    width: auto;
+    height: auto;
+    min-height: 36px;
+    padding: 5px 11px;
+    font-size: 0.68rem;
+  }
+
+  body.in-3d-mode #immersiveModeText {
+    display: inline;
+  }
+
+  .physical-book-shell,
+  body.in-3d-mode .physical-book-shell {
+    flex: none;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .physical-book-shell::before,
+  .physical-book-shell::after,
+  .book-spine-notch,
+  .book-spine-crease,
+  .book-margin-markers,
+  .book-spread-grid::after,
+  .book-page-left::before,
+  .book-page-right::before,
+  .book-page-reading-shell::before {
+    display: none !important;
+  }
+
+  .book-spread-grid,
+  body.in-3d-mode .book-spread-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: none;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(56, 189, 248, 0.24);
+    background: linear-gradient(180deg, #0b1322 0%, #070c16 100%);
+    box-shadow: inset 0 1px 0 rgba(125, 211, 252, 0.14);
+    overflow: visible;
+    perspective: none;
+  }
+
+  .book-page-left,
+  .story-header-block,
+  .book-page-right,
+  body.in-3d-mode .book-page-left,
+  body.in-3d-mode .book-page-right {
+    display: contents;
+  }
+
+  .book-page-turn-next,
+  .book-page-turn-prev {
+    animation: none;
+  }
+
+  /* 1. Page / Chapter Identification */
+  .story-code-meta,
+  body.in-3d-mode #storyCodeMeta {
+    order: 1;
+    display: block;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.16);
+    font-size: 0.64rem;
+    line-height: 1.4;
+    letter-spacing: 0.11em;
+    color: #38bdf8;
+    overflow-wrap: break-word;
+  }
+
+  /* 2 & 3. Historical Image + Complementary Caption */
+  .book-media-figure {
+    order: 2;
+    gap: 8px;
+  }
+
+  .book-media-frame {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    max-height: none;
+    border-radius: 12px;
+  }
+
+  .book-zoom-btn {
+    width: 38px;
+    height: 38px;
+    left: 8px;
+    bottom: 8px;
+  }
+
+  .book-media-caption {
+    padding: 2px 2px 2px 10px;
+    border-left-width: 2px;
+  }
+
+  .book-media-caption strong {
+    font-size: 0.68rem;
+  }
+
+  .book-media-caption span {
+    font-size: 0.82rem;
+    line-height: 1.42;
+  }
+
+  /* 4. Full-featured Narration Player adapted to mobile width */
+  .story-audio-bar,
+  body.in-3d-mode .story-audio-bar {
+    order: 3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(5, 11, 22, 0.86);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+  }
+
+  .btn-narrate-primary {
+    order: -1;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+  }
+
+  .audio-capsule-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+
+  .audio-capsule-top {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .audio-status-readout {
+    font-size: 0.76rem;
+    flex: 1 1 auto;
+  }
+
+  .btn-narrate-sec {
+    min-height: 30px;
+    padding: 4px 10px;
+    font-size: 0.68rem;
+  }
+
+  .audio-timeline-group {
+    gap: 8px;
+  }
+
+  .audio-progress-track {
+    height: 24px;
+  }
+
+  .audio-time-display {
+    font-size: 0.66rem;
+  }
+
+  /* 5. Title & Narrative Opening */
+  #storyMainTitle,
+  body.in-3d-mode #storyMainTitle {
+    order: 4;
+    font-size: clamp(1.24rem, 5.4vw, 1.56rem);
+    line-height: 1.2;
+    margin: 2px 0 0;
+    overflow-wrap: break-word;
+  }
+
+  .story-persona-sub,
+  body.in-3d-mode .story-persona-sub {
+    order: 5;
+    font-size: clamp(0.88rem, 3.8vw, 0.98rem);
+    line-height: 1.42;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.14);
+  }
+
+  /* 6. Unclipped Single-Column Reading Flow (giant drop cap removed) */
+  .book-page-reading-shell,
+  body.in-3d-mode .book-page-reading-shell {
+    order: 6;
+    display: block;
+    flex: none;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    padding: 4px 0;
+  }
+
+  .book-page-right .story-paragraphs-flow,
+  body.in-3d-mode .book-page-right .story-paragraphs-flow {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .story-p,
+  body.in-3d-mode .story-p {
+    font-size: clamp(0.98rem, 4.1vw, 1.06rem);
+    line-height: 1.76;
+    color: #eef2f6;
+    padding: 0;
+    overflow-wrap: break-word;
+  }
+
+  .story-p.is-chapter-start::first-letter,
+  body.in-3d-mode .story-p.is-chapter-start::first-letter {
+    float: none !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: inherit !important;
+    text-shadow: none !important;
+  }
+
+  .story-p.speaking-now {
+    padding: 10px 12px;
+  }
+
+  .story-quote-highlight {
+    order: 7;
+  }
+
+  /* 7. Accessible Pagination Controls inside Book Bounds */
+  .book-page-nav,
+  body.in-3d-mode .book-page-nav {
+    order: 8;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 0 0;
+    margin-top: 2px;
+    border-top: 1px solid rgba(56, 189, 248, 0.16);
+  }
+
+  .book-page-indicator-wrap {
+    grid-column: 1 / -1;
+    order: -1;
+    gap: 10px;
+  }
+
+  .book-page-rule {
+    display: block;
+    max-width: none;
+  }
+
+  .book-page-indicator,
+  body.in-3d-mode .book-page-indicator {
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  .book-page-btn,
+  body.in-3d-mode .book-page-btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 10px;
+    font-size: clamp(0.68rem, 3vw, 0.75rem);
+    line-height: 1.25;
+    white-space: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Drawer Bottom Chapter & Tech Actions */
+  .story-footer-actions,
+  body.in-3d-mode .story-footer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    padding-top: 4px;
+    border-top: none;
+  }
+
+  #openScienceModalBtn {
+    grid-column: 1 / -1;
+    order: -1;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 0.76rem;
+    opacity: 1;
+  }
+
+  .book-footer-sec-btn,
+  .btn-next-artifact,
+  body.in-3d-mode .book-footer-sec-btn,
+  body.in-3d-mode .btn-next-artifact {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 10px;
+    font-size: clamp(0.68rem, 3vw, 0.78rem);
+    line-height: 1.25;
+    opacity: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* 5. Science Modal, 2D Lunar Map & Interactive Labs (#scienceModal) */
+  .science-modal-backdrop {
+    padding: 10px;
+  }
+
+  .science-modal-card,
+  .science-modal-sheet {
+    padding: 16px 14px 18px;
+    max-height: 94vh;
+    border-radius: 18px;
+  }
+
+  .science-modal-sheet {
+    padding: 0;
+  }
+
+  .science-modal-header,
+  .sci-modal-header {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sci-modal-header {
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+  }
+
+  .science-modal-header {
+    padding: 14px 16px;
+  }
+
+  .science-modal-header h2,
+  .sci-modal-title {
+    font-size: clamp(1.12rem, 4.8vw, 1.35rem);
+    line-height: 1.22;
+  }
+
+  .science-subtabs,
+  .sci-modal-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 10px 14px;
+    margin-bottom: 0;
+  }
+
+  .sci-modal-tabs {
+    padding: 0;
+    margin-bottom: 16px;
+  }
+
+  .sci-tab-btn {
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 0.74rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .science-modal-body {
+    padding: 14px 14px 18px;
+  }
+
+  .hotspot-pin {
+    width: 26px;
+    height: 26px;
+    font-size: 0.72rem;
+  }
+
+  .schematic-stage {
+    min-height: 220px;
+    padding: 10px;
+  }
+
+  .hotspot-Quick-list {
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .hs-pill-btn {
+    min-height: 36px;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+
+  .hotspot-detail-card {
+    padding: 16px 14px;
+  }
+
+  .hotspot-detail-card h4 {
+    font-size: 1.05rem;
+  }
+
+  .hotspot-detail-card p {
+    font-size: 0.88rem;
+  }
+
+  .specs-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .lab-stage-card {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+
+  .lab-canvas-wrap canvas {
+    height: 195px;
+  }
+
+  .lab-controls-row {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .lab-btn-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .lab-btn-group .btn-lab-action {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+
+  .lab-telemetry-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .lab-stat-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .lab-stat-box small {
+    margin-bottom: 0;
+  }
+
+  .lab-stat-box strong {
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  /* 6. Closing Section (#artemisSection & .editorial-footer) */
+  .editorial-artemis-section {
+    padding: 56px 18px 64px;
+  }
+
+  .artemis-banner-inner h2 {
+    font-size: clamp(1.7rem, 6.8vw, 2.2rem);
+    margin-bottom: 14px;
+  }
+
+  .artemis-banner-inner p {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .artemis-actions-row {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .artemis-actions-row .btn-glow-blue {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .editorial-footer {
+    padding: 22px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 0.72rem;
+  }
+
+  /* 7. 3D Interactive Mode HUD (#mode3DWrapper) */
+  .museum-topbar {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .topbar-left-group {
+    gap: 8px;
+  }
+
+  .museum-brand {
+    display: none;
+  }
+
+  .topbar-controls {
+    gap: 6px;
+  }
+
+  #topAgeGroup {
+    display: none;
+  }
+
+  .mission-progress-btn {
+    padding: 6px 10px;
+    font-size: 0.68rem;
+  }
+
+  /* Reposition lateral station travel buttons to bottom corners above dock so they never collide */
+  .side-travel-btn {
+    top: auto;
+    bottom: 256px;
+    transform: none;
+    max-width: calc(50vw - 18px);
+    padding: 7px 10px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+
+  .side-travel-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .side-travel-prev {
+    left: 12px;
+  }
+
+  .side-travel-next {
+    right: 12px;
+  }
+
+  .travel-meta small,
+  .side-travel-kicker {
+    font-size: 0.56rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .travel-meta strong,
+  .side-travel-title {
+    font-size: 0.76rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .travel-arrow,
+  .side-travel-arrow {
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+  }
+
+  .walk-hud-dock {
+    bottom: 10px;
+    width: calc(100vw - 20px);
+    gap: 6px;
+  }
+
+  .walk-station-card {
+    padding: 12px 14px;
+    gap: 10px;
+    border-radius: 16px;
+  }
+
+  .walk-station-info h2 {
+    font-size: 1.05rem;
+  }
+
+  .walk-persona-quote {
+    font-size: 0.78rem;
+  }
+
+  .walk-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .btn-ask-3d,
+  .btn-hear-story {
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 10px;
+    font-size: 0.74rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .stamps-collection-bar {
+    gap: 5px;
+  }
+
+  .stamp-pill {
+    padding: 4px 8px;
+    font-size: 0.58rem;
+  }
+
+  .walk-hint {
+    font-size: 0.62rem;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .interaction-card-3d {
+    top: 64px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: calc(100vh - 260px);
+    padding: 16px;
+  }
+
+  /* 8. Modals (Onboarding, Mission Letter, Quiz, Certificate, Thank You) */
+  .onboarding-backdrop,
+  .mission-letter-backdrop,
+  .certificate-backdrop,
+  .astronaut-quiz-backdrop,
+  .thankyou-backdrop {
+    padding: 12px;
+  }
+
+  .onboarding-card {
+    padding: 18px 16px 16px;
+    max-height: 94vh;
+    overflow-y: auto;
+  }
+
+  .letter-inner-content {
+    padding: 20px 18px 16px;
+  }
+
+  .letter-vega-header {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .letter-vega-header .vega-mini-voice-btn {
+    width: 100%;
+    min-height: 38px;
+    text-align: center;
+  }
+
+  .letter-body {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .btn-letter-start {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 18px;
+  }
+
+  .certificate-modal-card {
+    padding: 20px 16px;
+  }
+
+  .cert-input-row {
+    flex-direction: column;
+  }
+
+  .cert-name-input {
+    flex: none;
+    width: 100%;
+  }
+
+  .cert-input-row .btn-primary-action {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .thankyou-card {
+    padding: 24px 18px 22px;
+  }
+
+  .thankyou-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .thankyou-actions button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* ============================================================================
+   COMPACT SMARTPHONES (<= 430px — 430px, 390px, 360px, 320px)
+   ============================================================================ */
+@media (max-width: 430px) {
+  .audio-capsule-icon {
+    display: none;
+  }
+
+  .showcase-tab-title {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ============================================================================
+   ULTRA-COMPACT SMARTPHONES (<= 380px — e.g. 360px & 320px)
+   ============================================================================ */
+@media (max-width: 380px) {
+  .editorial-navbar {
+    padding: 0 12px;
+  }
+
+  .brand-text-stack strong {
+    font-size: clamp(0.68rem, 3.2vw, 0.74rem);
+  }
+
+  .editorial-hero {
+    padding: 64px 16px 32px;
+  }
+
+  .hero-moon-col {
+    width: calc(100% + 32px);
+    margin: 0 -16px;
+    min-height: 205px;
+  }
+
+  .hero-moon-img {
+    width: clamp(212px, 68vw, 244px);
+    transform: translate(10%, -3%);
+  }
+
+  .hero-display-title {
+    font-size: clamp(1.52rem, 7.2vw, 1.76rem);
+  }
+
+  .showcase-tabs-bar {
+    gap: 6px;
+  }
+
+  .showcase-tab-btn {
+    padding: 8px 10px;
+  }
+
+  .showcase-tab-title {
+    font-size: clamp(0.68rem, 3.2vw, 0.74rem);
+  }
+
+  /* Ultra-compact Book Reader (360px & 320px) */
+  .story-reading-drawer,
+  body.in-3d-mode .story-reading-drawer {
+    padding: 6px;
+  }
+
+  .story-drawer-inner,
+  .story-reading-drawer.is-immersive .story-drawer-inner,
+  body.in-3d-mode .story-drawer-inner,
+  body.in-3d-mode .story-reading-drawer.is-immersive .story-drawer-inner {
+    max-height: calc(100dvh - 12px);
+    padding: 10px;
+    gap: 8px;
+    border-radius: 16px;
+  }
+
+  .book-spread-grid,
+  body.in-3d-mode .book-spread-grid {
+    padding: 12px;
+    gap: 12px;
+    border-radius: 13px;
+  }
+
+  .drawer-age-chips .age-chip {
+    font-size: 0.68rem;
+    padding: 4px;
+  }
+
+  .story-audio-bar,
+  body.in-3d-mode .story-audio-bar {
+    padding: 9px 10px;
+    gap: 8px;
+  }
+
+  .btn-narrate-primary {
+    width: 38px;
+    height: 38px;
+  }
+
+  .audio-status-readout {
+    font-size: 0.72rem;
+  }
+
+  .audio-time-display {
+    font-size: 0.62rem;
+  }
+
+  #storyMainTitle,
+  body.in-3d-mode #storyMainTitle {
+    font-size: clamp(1.14rem, 5.2vw, 1.32rem);
+  }
+
+  .story-p,
+  body.in-3d-mode .story-p {
+    font-size: 0.96rem;
+    line-height: 1.72;
+  }
+
+  .book-page-btn,
+  body.in-3d-mode .book-page-btn {
+    padding: 8px 6px;
+    font-size: 0.66rem;
+  }
+
+  .book-footer-sec-btn,
+  .btn-next-artifact,
+  body.in-3d-mode .book-footer-sec-btn,
+  body.in-3d-mode .btn-next-artifact {
+    padding: 8px 6px;
+    font-size: 0.66rem;
+  }
+
+  .walk-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY: REDUCED MOTION PREFERENCE
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .stories-astronaut-float,
+  .scroll-mouse-wheel {
+    animation: none !important;
+  }
 }
