@@ -916,6 +916,43 @@ class EchoesOfTheMoonApp {
       }
     });
 
+    const closeThankYouBtn = document.getElementById("closeThankYouBtn");
+    if (closeThankYouBtn) {
+      closeThankYouBtn.addEventListener("click", () => {
+        this.closeThankYouModal();
+      });
+    }
+
+    const thankYouModal = document.getElementById("thankYouModal");
+    if (thankYouModal) {
+      thankYouModal.addEventListener("click", (e) => {
+        if (e.target.id === "thankYouModal") {
+          this.closeThankYouModal();
+        }
+      });
+    }
+
+    const thankYouBackSiteBtn = document.getElementById("thankYouBackSiteBtn");
+    if (thankYouBackSiteBtn) {
+      thankYouBackSiteBtn.addEventListener("click", () => {
+        this.closeThankYouModal();
+        if (this.is3DActive) {
+          this.exit3DMode();
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    const thankYouBack3DBtn = document.getElementById("thankYouBack3DBtn");
+    if (thankYouBack3DBtn) {
+      thankYouBack3DBtn.addEventListener("click", () => {
+        this.closeThankYouModal();
+        if (!this.is3DActive) {
+          this.enter3DMode();
+        }
+      });
+    }
+
     document.getElementById("certNameInput").addEventListener("input", () => {
       this.renderCertificateCanvas();
     });
@@ -2027,6 +2064,61 @@ class EchoesOfTheMoonApp {
     link.href = canvas.toDataURL("image/png");
     link.click();
     this.audio.playPing(960, 0.12);
+    setTimeout(() => {
+      this.closeCertificateModal();
+      this.openThankYouModal();
+    }, 360);
+  }
+
+  openThankYouModal() {
+    const isPt = this.lang === "pt";
+    const modal = document.getElementById("thankYouModal");
+    if (!modal) return;
+
+    const rawName = (document.getElementById("certNameInput")?.value || "").trim();
+    const explorerRef = rawName || (isPt ? "explorador lunar" : "lunar explorer");
+
+    const kickerEl = document.getElementById("thankYouKicker");
+    const titleEl = document.getElementById("thankYouTitle");
+    const msgEl = document.getElementById("thankYouMessage");
+    const ghTitleEl = document.getElementById("thankYouGithubTitle");
+    const backSiteBtn = document.getElementById("thankYouBackSiteBtn");
+    const back3DBtn = document.getElementById("thankYouBack3DBtn");
+
+    if (kickerEl) {
+      kickerEl.textContent = isPt
+        ? "CERTIFICADO BAIXADO • MISSÃO CONCLUÍDA"
+        : "CERTIFICATE DOWNLOADED • MISSION COMPLETE";
+    }
+    if (titleEl) {
+      titleEl.textContent = isPt
+        ? `Obrigado por viajar pela Lua conosco, ${explorerRef}!`
+        : `Thank you for traveling to the Moon with us, ${explorerRef}!`;
+    }
+    if (msgEl) {
+      msgEl.textContent = isPt
+        ? "Seu Certificado Oficial foi salvo no seu dispositivo. Esperamos que tenha gostado de descobrir as histórias da Apollo no Museum of Lost Space Technology!"
+        : "Your Official Certificate has been saved to your device. Thank you for exploring the Apollo stories at the Museum of Lost Space Technology!";
+    }
+    if (ghTitleEl) {
+      ghTitleEl.textContent = isPt
+        ? "Conheça e apoie o projeto no GitHub"
+        : "Explore the project on GitHub";
+    }
+    if (backSiteBtn) {
+      backSiteBtn.textContent = isPt ? "← Voltar ao Site" : "← Back to Site";
+    }
+    if (back3DBtn) {
+      back3DBtn.textContent = isPt ? "Voltar ao 3D →" : "Return to 3D →";
+    }
+
+    modal.classList.remove("hidden");
+    this.audio.playQuindarTone(true);
+  }
+
+  closeThankYouModal() {
+    const modal = document.getElementById("thankYouModal");
+    if (modal) modal.classList.add("hidden");
   }
 
   updateAmbientUI() {

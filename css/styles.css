@@ -5796,3 +5796,141 @@ body:not(.in-3d-mode) .book-page-left .story-quote-highlight {
     max-width: none;
   }
 }
+
+/* ==========================================================================
+   POST-DOWNLOAD THANK YOU MODAL + GITHUB LINK
+   ========================================================================== */
+.thankyou-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 125;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(2, 5, 14, 0.86);
+  backdrop-filter: blur(12px);
+  animation: fadeInModal 0.25s ease;
+}
+
+.thankyou-backdrop.hidden {
+  display: none;
+}
+
+.thankyou-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: 34px 32px 30px;
+  border-radius: 24px;
+  text-align: center;
+  background: linear-gradient(165deg, rgba(11, 22, 46, 0.97), rgba(5, 9, 20, 0.99));
+  border: 1px solid rgba(56, 189, 248, 0.42);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.88), 0 0 36px rgba(56, 189, 248, 0.16);
+}
+
+.thankyou-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.thankyou-avatar-wrap {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  padding: 3px;
+  background: radial-gradient(circle at 30% 25%, rgba(125, 211, 252, 0.85), rgba(37, 99, 235, 0.4));
+  border: 1px solid rgba(125, 211, 252, 0.65);
+  box-shadow: 0 10px 28px rgba(2, 6, 20, 0.7);
+}
+
+.thankyou-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 16%;
+  display: block;
+}
+
+.thankyou-kicker {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  margin-bottom: 8px;
+}
+
+.thankyou-title {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: clamp(1.38rem, 2.8vw, 1.85rem);
+  font-weight: 400;
+  font-style: italic;
+  color: #ffffff;
+}
+
+.thankyou-message {
+  margin: 0 0 20px;
+  font-size: 0.92rem;
+  line-height: 1.56;
+  color: #cbd5e1;
+}
+
+.thankyou-github-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+  border-radius: 15px;
+  text-align: left;
+  text-decoration: none;
+  background: rgba(15, 29, 58, 0.78);
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  color: #f8fafc;
+  transition: transform 0.18s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.thankyou-github-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.85);
+  background: rgba(23, 44, 86, 0.9);
+}
+
+.thankyou-gh-icon {
+  flex: 0 0 auto;
+  color: #93c5fd;
+}
+
+.thankyou-gh-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.thankyou-gh-meta strong {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.thankyou-gh-meta span {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #7dd3fc;
+  word-break: break-all;
+}
+
+.thankyou-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
