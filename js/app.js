@@ -905,6 +905,7 @@ class EchoesOfTheMoonApp {
   }
 
   closeInteractionCard() {
+    this.audio.stopArtifactClip(false);
     const card = document.getElementById("interactionCard3D");
     if (card) card.classList.add("hidden");
   }
@@ -959,6 +960,7 @@ class EchoesOfTheMoonApp {
     if (this.isStoryOpen) {
       this.closeStoryView();
     }
+    this.audio.stopArtifactClip(false);
     const art = this.currentArtifact;
     const artifactId = art.id;
     const data = ARTIFACT_INTERACTIONS[artifactId];
@@ -1013,9 +1015,31 @@ class EchoesOfTheMoonApp {
       });
     });
 
-    document.getElementById("icardSpeakAnswerBtn").addEventListener("click", () => {
-      this.audio.speakStory([activeQa.a], this.lang, this.ageProfile, {});
-    });
+    const speakAnswerBtn = document.getElementById("icardSpeakAnswerBtn");
+    const idleSpeakLabel = isPt ? "Ouvir Resposta" : "Hear Answer";
+    const activeSpeakLabel = isPt ? "Parar Áudio" : "Stop Audio";
+    if (speakAnswerBtn) {
+      speakAnswerBtn.textContent = idleSpeakLabel;
+      speakAnswerBtn.addEventListener("click", () => {
+        if (this.audio.isArtifactSpeaking) {
+          this.audio.stopArtifactClip(true);
+          speakAnswerBtn.classList.remove("is-playing");
+          speakAnswerBtn.textContent = idleSpeakLabel;
+          return;
+        }
+        const audioUrl = `assets/audio/${artifactId}-${this.lang}-qa${activeIdx}.mp3`;
+        this.audio.playArtifactClip(audioUrl, activeQa.a, this.lang, artifactId, {
+          onStart: () => {
+            speakAnswerBtn.classList.add("is-playing");
+            speakAnswerBtn.textContent = activeSpeakLabel;
+          },
+          onEnd: () => {
+            speakAnswerBtn.classList.remove("is-playing");
+            speakAnswerBtn.textContent = idleSpeakLabel;
+          }
+        });
+      });
+    }
 
     document.getElementById("interactionCard3D").classList.remove("hidden");
     this.renderStampsBar();

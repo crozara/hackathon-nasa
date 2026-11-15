@@ -4785,6 +4785,14 @@ body:not(.in-3d-mode) .book-page-left .story-quote-highlight {
   color: #030712;
   font-size: 0.74rem;
   font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.icard-speak-btn.is-playing {
+  background: #f59e0b;
+  color: #090d16;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
 }
 
 .stamp-toast {

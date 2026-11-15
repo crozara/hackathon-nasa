@@ -33,6 +33,9 @@ export class MuseumAudioEngine {
     this.vegaMuted = false;
     this.isVegaSpeaking = false;
     this._vegaToken = 0;
+    this.artifactAudioEl = null;
+    this.isArtifactSpeaking = false;
+    this._artifactToken = 0;
   }
 
   estimateParagraphDuration(text, rate = this.speechRate) {
@@ -606,25 +609,84 @@ export class MuseumAudioEngine {
     this.emitProgress();
     if (this.onSpeechEnd) this.onSpeechEnd();
     this.stopVegaClip();
+    this.stopArtifactClip(false);
   }
 
-  playVegaClip(audioUrl, fallbackText = "", lang = "pt", callbacks = {}) {
-    this.stopVegaClip();
-    if (this.vegaMuted) {
+  _pickSpeechVoice(lang = "pt") {
+    if (!("speechSynthesis" in window)) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    const targetPrefix = lang === "pt" ? "pt" : "en";
+    return (
+      voices.find(
+        (v) =>
+          v.lang.toLowerCase().startsWith(targetPrefix) &&
+          (v.name.includes("Natural") ||
+            v.name.includes("Google") ||
+            v.name.includes("Luciana") ||
+            v.name.includes("Daniel"))
+      ) || voices.find((v) => v.lang.toLowerCase().startsWith(targetPrefix))
+    );
+  }
+
+  _stopShortClip(channel, playTone = false) {
+    const tokenKey = channel === "vega" ? "_vegaToken" : "_artifactToken";
+    const audioKey = channel === "vega" ? "vegaAudioEl" : "artifactAudioEl";
+    const speakingKey = channel === "vega" ? "isVegaSpeaking" : "isArtifactSpeaking";
+
+    const wasSpeaking = Boolean(this[speakingKey]);
+    this[tokenKey]++;
+    this[speakingKey] = false;
+    if (this[audioKey]) {
+      try {
+        this[audioKey].pause();
+        this[audioKey].currentTime = 0;
+      } catch (_) {}
+      this[audioKey] = null;
+    }
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    if (wasSpeaking && playTone) {
+      this.playQuindarTone(false);
+    }
+  }
+
+  _playShortClip({
+    channel,
+    audioUrl,
+    fallbackText = "",
+    lang = "pt",
+    pitch = 1.0,
+    rate = 1.0,
+    playbackRate = 1.0,
+    muted = false,
+    playToneOnEnd = false,
+    callbacks = {}
+  }) {
+    const tokenKey = channel === "vega" ? "_vegaToken" : "_artifactToken";
+    const audioKey = channel === "vega" ? "vegaAudioEl" : "artifactAudioEl";
+    const speakingKey = channel === "vega" ? "isVegaSpeaking" : "isArtifactSpeaking";
+
+    this._stopShortClip(channel, false);
+    if (muted) {
       if (callbacks.onEnd) callbacks.onEnd();
       return;
     }
 
-    const token = ++this._vegaToken;
+    const token = ++this[tokenKey];
     const finish = () => {
-      if (token !== this._vegaToken) return;
-      this.isVegaSpeaking = false;
-      this.vegaAudioEl = null;
+      if (token !== this[tokenKey]) return;
+      const wasSpeaking = Boolean(this[speakingKey]);
+      this[speakingKey] = false;
+      this[audioKey] = null;
+      if (wasSpeaking && playToneOnEnd) {
+        this.playQuindarTone(false);
+      }
       if (callbacks.onEnd) callbacks.onEnd();
     };
 
     const useSpeechFallback = () => {
-      if (token !== this._vegaToken || this.vegaMuted || !fallbackText || !("speechSynthesis" in window)) {
+      if (token !== this[tokenKey] || muted || !fallbackText || !("speechSynthesis" in window)) {
         finish();
         return;
       }
@@ -632,11 +694,13 @@ export class MuseumAudioEngine {
         window.speechSynthesis.cancel();
         const utt = new SpeechSynthesisUtterance(fallbackText);
         utt.lang = lang === "pt" ? "pt-BR" : "en-US";
-        utt.pitch = 1.18;
-        utt.rate = 1.08;
+        const preferred = this._pickSpeechVoice(lang);
+        if (preferred) utt.voice = preferred;
+        utt.pitch = pitch;
+        utt.rate = rate;
         utt.onstart = () => {
-          if (token !== this._vegaToken) return;
-          this.isVegaSpeaking = true;
+          if (token !== this[tokenKey]) return;
+          this[speakingKey] = true;
           if (callbacks.onStart) callbacks.onStart();
         };
         utt.onend = finish;
@@ -654,16 +718,17 @@ export class MuseumAudioEngine {
 
     let fellBack = false;
     const fallbackOnce = () => {
-      if (fellBack || token !== this._vegaToken) return;
+      if (fellBack || token !== this[tokenKey]) return;
       fellBack = true;
       useSpeechFallback();
     };
 
     const audioEl = new Audio(audioUrl);
-    this.vegaAudioEl = audioEl;
+    audioEl.playbackRate = playbackRate;
+    this[audioKey] = audioEl;
     audioEl.addEventListener("playing", () => {
-      if (token !== this._vegaToken || fellBack) return;
-      this.isVegaSpeaking = true;
+      if (token !== this[tokenKey] || fellBack) return;
+      this[speakingKey] = true;
       if (callbacks.onStart) callbacks.onStart();
     });
     audioEl.onended = finish;
@@ -671,19 +736,48 @@ export class MuseumAudioEngine {
     audioEl.play().catch(fallbackOnce);
   }
 
+  playVegaClip(audioUrl, fallbackText = "", lang = "pt", callbacks = {}) {
+    this._playShortClip({
+      channel: "vega",
+      audioUrl,
+      fallbackText,
+      lang,
+      pitch: 1.18,
+      rate: 1.08,
+      muted: this.vegaMuted,
+      callbacks
+    });
+  }
+
   stopVegaClip() {
-    this._vegaToken++;
-    this.isVegaSpeaking = false;
-    if (this.vegaAudioEl) {
-      try {
-        this.vegaAudioEl.pause();
-        this.vegaAudioEl.currentTime = 0;
-      } catch (_) {}
-      this.vegaAudioEl = null;
-    }
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
+    this._stopShortClip("vega", false);
+  }
+
+  playArtifactClip(audioUrl, fallbackText = "", lang = "pt", artifactId = "lrrr", callbacks = {}) {
+    this.stopSpeech(false);
+    this.playQuindarTone(true);
+    const prosodyMap = {
+      lrrr: { pitch: 1.0, rate: 0.98 },
+      pse: { pitch: 1.12, rate: 1.0 },
+      eagle: { pitch: 0.85, rate: 0.92 },
+      lrv: { pitch: 1.15, rate: 1.04 }
+    };
+    const prosody = prosodyMap[artifactId] || prosodyMap.lrrr;
+    this._playShortClip({
+      channel: "artifact",
+      audioUrl,
+      fallbackText,
+      lang,
+      pitch: prosody.pitch,
+      rate: prosody.rate * Math.max(0.5, this.speechRate || 1.0),
+      playbackRate: Math.max(0.5, this.speechRate || 1.0),
+      playToneOnEnd: true,
+      callbacks
+    });
+  }
+
+  stopArtifactClip(playTone = false) {
+    this._stopShortClip("artifact", playTone);
   }
 
   /**

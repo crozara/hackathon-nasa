@@ -74,10 +74,52 @@ def extract_stories_from_data_js(text: str):
     return results
 
 
+def extract_qa_from_data_js(text: str):
+    """Extrai respostas Q&A de ARTIFACT_INTERACTIONS para pt e en de cada artefato."""
+    results = {}
+    inter_match = re.search(r'ARTIFACT_INTERACTIONS\s*=\s*\{', text)
+    if not inter_match:
+        return results
+    inter_chunk = text[inter_match.start():]
+    end_match = re.search(r'\n(?:export\s+)?const\s+MISSION_QUIZ\b', inter_chunk)
+    if end_match:
+        inter_chunk = inter_chunk[:end_match.start()]
+
+    artifact_ids = ["lrrr", "pse", "eagle", "lrv"]
+    positions = []
+    for aid in artifact_ids:
+        m = re.search(rf'\n\s*{aid}:\s*\{{', inter_chunk)
+        if m:
+            positions.append((m.start(), aid))
+    positions.sort()
+
+    for i, (start_pos, aid) in enumerate(positions):
+        end_pos = positions[i + 1][0] if i + 1 < len(positions) else len(inter_chunk)
+        chunk = inter_chunk[start_pos:end_pos]
+        qa_match = re.search(r'\bqa:\s*\[', chunk)
+        if not qa_match:
+            continue
+        qa_sub = chunk[qa_match.start():]
+        results[aid] = {"pt": [], "en": []}
+
+        for lang in ("pt", "en"):
+            answers = re.findall(
+                rf'\b{lang}:\s*\{{[^}}]*?\ba:\s*"((?:[^"\\]|\\.)*)"',
+                qa_sub,
+                re.DOTALL,
+            )
+            results[aid][lang] = [
+                a.replace('\\"', '"').replace("\\n", " ").strip() for a in answers
+            ]
+
+    return results
+
+
 async def generate_all():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     raw = DATA_JS.read_text(encoding="utf-8")
     stories = extract_stories_from_data_js(raw)
+    qa_answers = extract_qa_from_data_js(raw)
 
     tasks = []
     for aid, langs in stories.items():
@@ -89,6 +131,15 @@ async def generate_all():
                     if out_file.exists():
                         continue
                     tasks.append((text, voice, pitch, rate, out_file))
+
+    for aid, langs in qa_answers.items():
+        for lang, answers in langs.items():
+            voice, pitch, rate = VOICES[aid][lang]
+            for idx, text in enumerate(answers):
+                out_file = OUT_DIR / f"{aid}-{lang}-qa{idx}.mp3"
+                if out_file.exists():
+                    continue
+                tasks.append((text, voice, pitch, rate, out_file))
 
     print(f"Total de áudios a gerar: {len(tasks)}")
     for i, (text, voice, pitch, rate, out_file) in enumerate(tasks, 1):
