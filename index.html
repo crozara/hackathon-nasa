@@ -151,33 +151,54 @@
       </div>
     </section>
 
-    <!-- Editorial Storytelling Showcase -->
-    <section id="storiesSection" class="editorial-stories-section">
-      <div class="section-header-block reveal-on-scroll">
-        <span class="tech-kicker" id="storiesKicker">04 MONUMENTOS LUNARES</span>
-        <h2 id="storiesHeading">Abandonados, mas nunca esquecidos.</h2>
+    <!-- Continuous Deep-Space Environment Across Stories & Artemis Sections -->
+    <div class="cosmic-stories-artemis-band">
+      <div class="stories-cosmic-bg" aria-hidden="true">
+        <canvas id="storiesNebulaCanvas" class="stories-nebula-canvas"></canvas>
+        <svg class="stories-orbital-arc" viewBox="0 0 1440 900" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="orbitalArcGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.02" />
+              <stop offset="28%" stop-color="#38bdf8" stop-opacity="0.28" />
+              <stop offset="68%" stop-color="#60a5fa" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="#93c5fd" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <path d="M -60 520 Q 480 70 1340 60" fill="none" stroke="url(#orbitalArcGrad)" stroke-width="1.35" />
+        </svg>
+        <img src="assets/images/astronaut-float.png" alt="" class="stories-astronaut-float" />
+        <img src="assets/images/artemis-astronaut.png" alt="" class="artemis-astronaut-ground" />
+        <div class="stories-cosmic-vignette"></div>
       </div>
 
-      <div id="editorialChaptersList" class="story-showcase-shell reveal-on-scroll">
-        <!-- Populated dynamically by app.js -->
-      </div>
-    </section>
-
-    <!-- Artemis Future / Epilogue Section -->
-    <section id="artemisSection" class="editorial-artemis-section reveal-on-scroll">
-      <div class="artemis-glass-card">
-        <span class="tech-kicker" id="artemisKicker">DO PASSADO APOLLO AO FUTURO ARTEMIS</span>
-        <h2 id="artemisHeading">O legado que guia o retorno à Lua.</h2>
-        <p id="artemisBody">
-          Cada espelho, sismômetro, módulo de descida e jipe lunar deixou pistas essenciais para o Programa Artemis. Hoje, esses locais são protegidos como patrimônio histórico da exploração espacial.
-        </p>
-        <div class="artemis-cta-row">
-          <button class="btn-glow-blue" id="artemisOpen3DBtn">
-            Explorar Equipamentos em 3D →
-          </button>
+      <!-- Editorial Storytelling Showcase -->
+      <section id="storiesSection" class="editorial-stories-section">
+        <div class="section-header-block reveal-on-scroll">
+          <span class="tech-kicker" id="storiesKicker">04 MONUMENTOS LUNARES</span>
+          <h2 id="storiesHeading">Abandonados, mas nunca esquecidos.</h2>
         </div>
-      </div>
-    </section>
+
+        <div id="editorialChaptersList" class="story-showcase-shell reveal-on-scroll">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </section>
+
+      <!-- Artemis Future / Epilogue Section -->
+      <section id="artemisSection" class="editorial-artemis-section reveal-on-scroll">
+        <div class="artemis-glass-card">
+          <span class="tech-kicker" id="artemisKicker">DO PASSADO APOLLO AO FUTURO ARTEMIS</span>
+          <h2 id="artemisHeading">O legado que guia o retorno à Lua.</h2>
+          <p id="artemisBody">
+            Cada espelho, sismômetro, módulo de descida e jipe lunar deixou pistas essenciais para o Programa Artemis. Hoje, esses locais são protegidos como patrimônio histórico da exploração espacial.
+          </p>
+          <div class="artemis-cta-row">
+            <button class="btn-glow-blue" id="artemisOpen3DBtn">
+              Explorar Equipamentos em 3D →
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <footer class="editorial-footer">
       <span id="footerText">Museum of Lost Space Technology • NASA Space Apps Challenge — Storytelling</span>

@@ -4533,6 +4533,11 @@ class EchoesOfTheMoonApp {
     this.updateOnboardingLanguageUI();
     this.renderUI();
     this.setupScrollReveal();
+    this.renderStoriesBackdrop();
+    window.addEventListener("resize", () => {
+      clearTimeout(this._backdropResizeTimer);
+      this._backdropResizeTimer = setTimeout(() => this.renderStoriesBackdrop(), 160);
+    });
   }
 
   updateOnboardingLanguageUI() {
@@ -4755,6 +4760,7 @@ class EchoesOfTheMoonApp {
     document.getElementById("storyDrawer").classList.add("hidden");
     document.getElementById("staticMuseumSite").classList.remove("hidden");
     this.renderUI();
+    requestAnimationFrame(() => this.renderStoriesBackdrop());
   }
 
   setupScrollReveal() {
@@ -4774,6 +4780,116 @@ class EchoesOfTheMoonApp {
       { threshold: 0.12 }
     );
     document.querySelectorAll(".reveal-on-scroll").forEach((el) => this.revealObserver.observe(el));
+  }
+
+  renderStoriesBackdrop() {
+    const canvas = document.getElementById("storiesNebulaCanvas");
+    if (!canvas) return;
+    const container =
+      canvas.closest(".cosmic-stories-artemis-band") || canvas.closest("section");
+    const w = container ? container.clientWidth : window.innerWidth;
+    const h = container ? container.clientHeight : 1180;
+    if (!w || !h) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Deterministic PRNG for consistent cosmic starfield & nebula dust
+    let seed = 19690724;
+    const rand = () => {
+      seed = (seed * 1664525 + 1013904223) % 4294967296;
+      return seed / 4294967296;
+    };
+
+    ctx.fillStyle = "#010309";
+    ctx.fillRect(0, 0, w, h);
+
+    // Deep-blue cosmic nebula clouds spanning both Stories and Artemis sections
+    const clouds = [
+      { x: w * 0.08, y: h * 0.14, r: w * 0.34, c: "rgba(29, 78, 216, 0.22)" },
+      { x: w * 0.14, y: h * 0.24, r: w * 0.24, c: "rgba(56, 189, 248, 0.14)" },
+      { x: w * 0.42, y: h * 0.11, r: w * 0.28, c: "rgba(30, 58, 138, 0.16)" },
+      { x: w * 0.78, y: h * 0.22, r: w * 0.32, c: "rgba(37, 99, 235, 0.20)" },
+      { x: w * 0.88, y: h * 0.38, r: w * 0.30, c: "rgba(56, 189, 248, 0.13)" },
+      { x: w * 0.12, y: h * 0.56, r: w * 0.30, c: "rgba(30, 64, 175, 0.19)" },
+      { x: w * 0.52, y: h * 0.68, r: w * 0.34, c: "rgba(29, 78, 216, 0.15)" },
+      { x: w * 0.86, y: h * 0.80, r: w * 0.32, c: "rgba(37, 99, 235, 0.17)" }
+    ];
+    clouds.forEach((cl) => {
+      const grad = ctx.createRadialGradient(cl.x, cl.y, 0, cl.x, cl.y, cl.r);
+      grad.addColorStop(0, cl.c);
+      grad.addColorStop(0.55, cl.c.replace(/[\d.]+\)$/, "0.05)"));
+      grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+    });
+
+    // Wispy nebula puffs along diagonal cosmic dust bands
+    for (let i = 0; i < 85; i++) {
+      const onLeft = i % 2 === 0;
+      const px = onLeft
+        ? w * (0.0 + rand() * 0.34)
+        : w * (0.62 + rand() * 0.38);
+      const py = h * (0.05 + rand() * 0.88);
+      const pr = 26 + rand() * 88;
+      const alpha = 0.02 + rand() * 0.045;
+      const g = ctx.createRadialGradient(px, py, 0, px, py, pr);
+      g.addColorStop(0, `rgba(96, 165, 250, ${alpha.toFixed(3)})`);
+      g.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Pinpoint background stars across both sections
+    const starCount = Math.min(520, Math.max(240, Math.floor((w * h) / 3600)));
+    for (let i = 0; i < starCount; i++) {
+      const sx = rand() * w;
+      const sy = rand() * h;
+      const sr = 0.4 + rand() * 1.15;
+      const op = 0.25 + rand() * 0.7;
+      ctx.fillStyle = rand() > 0.78
+        ? `rgba(147, 197, 253, ${op.toFixed(2)})`
+        : `rgba(241, 245, 249, ${op.toFixed(2)})`;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Subtle bright 4-point star flares
+    const flareSpots = [
+      { x: w * 0.11, y: h * 0.09, s: 13 },
+      { x: w * 0.21, y: h * 0.30, s: 9 },
+      { x: w * 0.07, y: h * 0.42, s: 11 },
+      { x: w * 0.73, y: h * 0.07, s: 12 },
+      { x: w * 0.93, y: h * 0.12, s: 14 },
+      { x: w * 0.86, y: h * 0.46, s: 10 },
+      { x: w * 0.16, y: h * 0.64, s: 11 },
+      { x: w * 0.88, y: h * 0.78, s: 12 }
+    ];
+    flareSpots.forEach((f) => {
+      const glow = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.s * 1.6);
+      glow.addColorStop(0, "rgba(224, 242, 254, 0.85)");
+      glow.addColorStop(0.25, "rgba(96, 165, 250, 0.35)");
+      glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.s * 1.6, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(224, 242, 254, 0.65)";
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      ctx.moveTo(f.x - f.s, f.y);
+      ctx.lineTo(f.x + f.s, f.y);
+      ctx.moveTo(f.x, f.y - f.s);
+      ctx.lineTo(f.x, f.y + f.s);
+      ctx.stroke();
+    });
   }
 
   get currentArtifact() {

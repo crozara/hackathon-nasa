@@ -2632,14 +2632,102 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 }
 
 /* Editorial Storytelling Chapters */
-.editorial-stories-section {
+/* Continuous Deep-Space Environment (Stories + Artemis Intersection) */
+.cosmic-stories-artemis-band {
   position: relative;
-  padding: 96px clamp(20px, 6vw, 84px) 72px;
-  background: radial-gradient(circle at 50% 0%, rgba(15, 23, 42, 0.55), #000000 55%);
+  overflow: hidden;
+  background: #010309;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
+.editorial-stories-section {
+  position: relative;
+  z-index: 2;
+  padding: 96px clamp(20px, 6vw, 84px) 48px;
+  background: transparent;
+}
+
+.stories-cosmic-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.stories-nebula-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.stories-orbital-arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stories-astronaut-float {
+  position: absolute;
+  top: clamp(28px, 5vw, 68px);
+  right: clamp(2%, 5.5vw, 7%);
+  width: clamp(170px, 19vw, 275px);
+  height: auto;
+  mix-blend-mode: screen;
+  opacity: 0.92;
+  filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.18));
+  animation: storiesAstroDrift 10s ease-in-out infinite;
+  user-select: none;
+}
+
+.artemis-astronaut-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: clamp(230px, 27vw, 410px);
+  height: auto;
+  opacity: 0.96;
+  filter: drop-shadow(0 0 36px rgba(15, 23, 42, 0.75));
+  user-select: none;
+}
+
+@keyframes storiesAstroDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-6px, -12px, 0) rotate(-1.5deg);
+  }
+}
+
+.stories-cosmic-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.86) 0%, rgba(1, 3, 9, 0) 9%, rgba(1, 3, 9, 0) 90%, rgba(0, 0, 0, 0.94) 100%),
+    radial-gradient(circle at 50% 48%, rgba(2, 6, 18, 0.04) 42%, rgba(0, 0, 0, 0.56) 100%);
+}
+
+@media (max-width: 760px) {
+  .stories-astronaut-float {
+    width: 135px;
+    top: 18px;
+    right: -12px;
+    opacity: 0.55;
+  }
+  .artemis-astronaut-ground {
+    width: 185px;
+    opacity: 0.42;
+  }
+}
+
 .section-header-block {
+  position: relative;
+  z-index: 2;
   max-width: 680px;
   margin: 0 auto 64px;
   text-align: center;
@@ -2672,6 +2760,8 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 
 /* Interactive 1-by-1 Digital Museum Showcase */
 .story-showcase-shell {
+  position: relative;
+  z-index: 2;
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
@@ -3063,22 +3153,27 @@ body.in-3d-mode .book-page-right .story-paragraphs-flow {
 
 /* Artemis Epilogue Section */
 .editorial-artemis-section {
-  padding: 40px clamp(20px, 6vw, 84px) 96px;
-  background: #000000;
+  position: relative;
+  z-index: 2;
+  padding: 28px clamp(20px, 6vw, 84px) 104px;
+  background: transparent;
 }
 
 .artemis-glass-card {
   position: relative;
   overflow: hidden;
-  max-width: 920px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 54px clamp(24px, 5vw, 56px);
   border-radius: 28px;
   text-align: center;
   background:
-    linear-gradient(to bottom, rgba(3, 7, 18, 0.72), rgba(2, 4, 10, 0.92)),
+    linear-gradient(to bottom, rgba(4, 10, 24, 0.58), rgba(2, 5, 14, 0.84)),
     url("../assets/images/moon-panorama.png") center/cover no-repeat;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.72);
 }
 
 .artemis-glass-card h2 {
