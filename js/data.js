@@ -6,12 +6,12 @@
 
 export const UI_TEXT = {
   pt: {
-    museumTitle: "MUSEU DO SILÊNCIO LUNAR",
+    museumTitle: "MUSEUM OF LOST SPACE TECHNOLOGY",
     museumSubtitle: "Abandoned, But Not Forgotten — Museum of Lost Space Technology",
     nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • ARQUIVO APOLLO",
     onboardingWelcome: "Museum of Lost Space Technology",
     onboardingLead:
-      "O Museu do Silêncio Lunar — Histórias em primeira pessoa das máquinas históricas deixadas na Lua.",
+      "Histórias em primeira pessoa das máquinas históricas deixadas na Lua.",
     selectLanguageLabel: "SELECIONE O IDIOMA",
     selectAgeLabel: "PERFIL DE IDADE",
     ageProfiles: {
@@ -81,7 +81,7 @@ export const UI_TEXT = {
       subtitle: "Colecione os relatos dos exploradores silenciosos deixados na Lua e teste seus conhecimentos.",
       progressLabel: "Relíquias Sintonizadas",
       quizTitle: "Desafio do Curador Lunar",
-      certificateReady: "PARABÉNS! Você resgatou todas as memórias lunares e tornou-se Guardião do Museu Silencioso!",
+      certificateReady: "PARABÉNS! Você resgatou todas as memórias lunares e tornou-se Guardião do Museum of Lost Space Technology!",
       closeBtn: "Voltar ao Museu"
     },
     dockTitle: "ESTAÇÕES DE ESCUTA NA SUPERFÍCIE LUNAR",
@@ -92,12 +92,12 @@ export const UI_TEXT = {
     }
   },
   en: {
-    museumTitle: "THE SILENT LUNAR MUSEUM",
+    museumTitle: "MUSEUM OF LOST SPACE TECHNOLOGY",
     museumSubtitle: "Abandoned, But Not Forgotten — Museum of Lost Space Technology",
     nasaChallengeBadge: "NASA SPACE APPS CHALLENGE • APOLLO ARCHIVE",
     onboardingWelcome: "Museum of Lost Space Technology",
     onboardingLead:
-      "The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.",
+      "First-person stories of the historic machines left on the Moon.",
     selectLanguageLabel: "SELECT LANGUAGE",
     selectAgeLabel: "EXPERIENCE PROFILE",
     ageProfiles: {
@@ -167,7 +167,7 @@ export const UI_TEXT = {
       subtitle: "Collect the memories of the silent explorers left on the Moon and test your discoveries.",
       progressLabel: "Relics Tuned",
       quizTitle: "Lunar Curator Challenge",
-      certificateReady: "CONGRATULATIONS! You recovered all lunar memories and earned Guardian of the Silent Museum status!",
+      certificateReady: "CONGRATULATIONS! You recovered all lunar memories and earned Guardian of the Museum of Lost Space Technology status!",
       closeBtn: "Return to Museum"
     },
     dockTitle: "LISTENING STATIONS ON THE LUNAR SURFACE",

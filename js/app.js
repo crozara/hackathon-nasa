@@ -752,6 +752,60 @@ class EchoesOfTheMoonApp {
     document.getElementById("downloadCertBtn").addEventListener("click", () => {
       this.downloadCertificate();
     });
+
+    // 9. Book Photograph Zoom Lightbox (magnifying glass icon or direct image click)
+    const zoomBtn = document.getElementById("bookZoomImageBtn");
+    const bookImg = document.getElementById("bookArtifactImage");
+    if (zoomBtn) {
+      zoomBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.openBookImageLightbox();
+      });
+    }
+    if (bookImg) {
+      bookImg.addEventListener("click", () => this.openBookImageLightbox());
+    }
+
+    const lightbox = document.getElementById("bookImageLightbox");
+    const closeZoomBtn = document.getElementById("closeBookZoomBtn");
+    if (closeZoomBtn) {
+      closeZoomBtn.addEventListener("click", () => this.closeBookImageLightbox());
+    }
+    if (lightbox) {
+      lightbox.addEventListener("click", (e) => {
+        if (e.target.id === "bookImageLightbox") {
+          this.closeBookImageLightbox();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox && !lightbox.classList.contains("hidden")) {
+        this.closeBookImageLightbox();
+      }
+    });
+  }
+
+  openBookImageLightbox() {
+    const lightbox = document.getElementById("bookImageLightbox");
+    const zoomImg = document.getElementById("bookZoomImg");
+    const capTitle = document.getElementById("bookZoomCaptionTitle");
+    const capSub = document.getElementById("bookZoomCaptionSub");
+    if (!lightbox || !zoomImg) return;
+
+    const art = this.currentArtifact;
+    const loc = art[this.lang];
+    zoomImg.src = art.imagePath;
+    zoomImg.alt = loc.name;
+    if (capTitle) capTitle.textContent = `${art.id.toUpperCase()} — ${art.mission}, ${art.datePlaced}`;
+    if (capSub) capSub.textContent = loc.shortTag || "";
+    lightbox.classList.remove("hidden");
+    this.audio.playPing(920, 0.08);
+  }
+
+  closeBookImageLightbox() {
+    const lightbox = document.getElementById("bookImageLightbox");
+    if (lightbox) lightbox.classList.add("hidden");
   }
 
   openStoryView() {
@@ -769,6 +823,7 @@ class EchoesOfTheMoonApp {
   }
 
   closeStoryView() {
+    this.closeBookImageLightbox();
     this.isStoryOpen = false;
     this.isImmersiveReading = false;
     this.updateImmersiveUI();
@@ -973,11 +1028,11 @@ class EchoesOfTheMoonApp {
         <p>Enjoy the journey, visit each monument, and <strong>discover all ${STATION_ORDER.length} stories</strong> (${visited}/${STATION_ORDER.length} unlocked) to earn your <strong>Official Lunar Explorer Certificate</strong>!</p>
       `;
     document.getElementById("letterSignature").textContent = isPt
-      ? "— Curadoria do Museu do Silêncio Lunar"
-      : "— Curators of the Silent Lunar Museum";
+      ? "— Curadoria • Museum of Lost Space Technology"
+      : "— Curators • Museum of Lost Space Technology";
     document.getElementById("startExpeditionBtn").textContent = isPt
-      ? "Iniciar Exploração →"
-      : "Start Exploration →";
+      ? "Iniciar Viagem →"
+      : "Begin Journey →";
 
     const fill = document.getElementById("letterProgressFill");
     fill.style.width = "0%";
@@ -1646,16 +1701,18 @@ class EchoesOfTheMoonApp {
     const loc = art[this.lang];
     const t = this.t;
 
+    const chapterNum = `0${this.stationIndex + 1}`;
+    const chapterTotal = `0${STATION_ORDER.length}`;
     document.getElementById("backToWalkText").textContent = this.is3DActive
       ? isPt
-        ? "Voltar à Cena 3D"
-        : "Back to 3D View"
+        ? `Cena 3D · ${chapterNum}/${chapterTotal}`
+        : `3D View · ${chapterNum}/${chapterTotal}`
       : isPt
       ? "Fechar Livro"
       : "Close Book";
-    const chapterNum = `0${this.stationIndex + 1}`;
-    const chapterTotal = `0${STATION_ORDER.length}`;
-    document.getElementById("storyStatusTag").textContent = t.statusLabels[art.statusType];
+    document.getElementById("storyStatusTag").textContent = this.is3DActive
+      ? `◈ ${art.mission}`
+      : t.statusLabels[art.statusType];
     document.getElementById("storyCodeMeta").textContent = isPt
       ? `CAPÍTULO ${chapterNum}/${chapterTotal}  •  ${art.mission.toUpperCase()} — ${art.datePlaced.toUpperCase()}`
       : `CHAPTER ${chapterNum}/${chapterTotal}  •  ${art.mission.toUpperCase()} — ${art.datePlaced.toUpperCase()}`;
@@ -1689,27 +1746,15 @@ class EchoesOfTheMoonApp {
 
     const paragraphs = loc.stories[this.ageProfile] || [];
     const flow = document.getElementById("storyParagraphsFlow");
-    let totalPages = 1;
+    const bookPages = this.buildBookPages(paragraphs);
+    const totalPages = Math.max(1, bookPages.length);
+    if (this.storyPageIndex >= totalPages) this.storyPageIndex = totalPages - 1;
+    if (this.storyPageIndex < 0) this.storyPageIndex = 0;
 
-    if (this.is3DActive) {
-      totalPages = 1;
-      flow.innerHTML = paragraphs
-        .map(
-          (p, idx) =>
-            `<p class="story-p${idx === 0 ? " is-chapter-start" : ""}" data-para-idx="${idx}" id="sp-${idx}">${p}</p>`
-        )
-        .join("");
-    } else {
-      const bookPages = this.buildBookPages(paragraphs);
-      totalPages = Math.max(1, bookPages.length);
-      if (this.storyPageIndex >= totalPages) this.storyPageIndex = totalPages - 1;
-      if (this.storyPageIndex < 0) this.storyPageIndex = 0;
-
-      const currentPage = bookPages[this.storyPageIndex] || { text: "", paraIndex: 0, isFirstOfChapter: true };
-      const isSpeakingPara =
-        this.audio.isSpeaking && this.audio.currentParagraphIndex === currentPage.paraIndex;
-      flow.innerHTML = `<p class="story-p${currentPage.isFirstOfChapter ? " is-chapter-start" : ""}${isSpeakingPara ? " speaking-now" : ""}" data-para-idx="${currentPage.paraIndex}" id="sp-${currentPage.paraIndex}">${currentPage.text}</p>`;
-    }
+    const currentPage = bookPages[this.storyPageIndex] || { text: "", paraIndex: 0, isFirstOfChapter: true };
+    const isSpeakingPara =
+      this.audio.isSpeaking && this.audio.currentParagraphIndex === currentPage.paraIndex;
+    flow.innerHTML = `<p class="story-p${currentPage.isFirstOfChapter ? " is-chapter-start" : ""}${isSpeakingPara ? " speaking-now" : ""}" data-para-idx="${currentPage.paraIndex}" id="sp-${currentPage.paraIndex}">${currentPage.text}</p>`;
 
     const marginMarkers = document.getElementById("bookMarginMarkers");
     if (marginMarkers) {
@@ -1853,7 +1898,7 @@ class EchoesOfTheMoonApp {
 
   buildBookPages(paragraphs) {
     const pages = [];
-    const maxWordsPerPage = 52;
+    const maxWordsPerPage = this.is3DActive ? 84 : 52;
 
     (paragraphs || []).forEach((para, paraIdx) => {
       const sentences = String(para)
@@ -1906,7 +1951,7 @@ class EchoesOfTheMoonApp {
   }
 
   syncBookPageWithAudio(stats) {
-    if (!this.isStoryOpen || this.is3DActive || !stats || stats.paragraphIndex < 0) return;
+    if (!this.isStoryOpen || !stats || stats.paragraphIndex < 0) return;
     const paragraphs = this.currentArtifact?.[this.lang]?.stories?.[this.ageProfile] || [];
     const bookPages = this.buildBookPages(paragraphs);
     if (!bookPages.length) return;
@@ -1935,16 +1980,14 @@ class EchoesOfTheMoonApp {
       document.querySelectorAll(".story-p").forEach((el) => el.classList.remove("speaking-now"));
       return;
     }
-    if (!this.is3DActive) {
-      const paragraphs = this.currentArtifact[this.lang].stories[this.ageProfile] || [];
-      const bookPages = this.buildBookPages(paragraphs);
-      const targetPage = bookPages.findIndex((p) => p.paraIndex === idx);
-      if (targetPage >= 0 && targetPage !== this.storyPageIndex) {
-        const forward = targetPage > this.storyPageIndex;
-        this.storyPageIndex = targetPage;
-        this.audio.playPageTurnSound(forward);
-        this.renderStoryDrawer(forward ? "next" : "prev");
-      }
+    const paragraphs = this.currentArtifact[this.lang].stories[this.ageProfile] || [];
+    const bookPages = this.buildBookPages(paragraphs);
+    const targetPage = bookPages.findIndex((p) => p.paraIndex === idx);
+    if (targetPage >= 0 && targetPage !== this.storyPageIndex) {
+      const forward = targetPage > this.storyPageIndex;
+      this.storyPageIndex = targetPage;
+      this.audio.playPageTurnSound(forward);
+      this.renderStoryDrawer(forward ? "next" : "prev");
     }
     document.querySelectorAll(".story-p").forEach((el) => {
       const pIdx = Number(el.getAttribute("data-para-idx"));

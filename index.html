@@ -19,7 +19,7 @@
         <span class="onboarding-kicker" id="onboardingKicker">NASA SPACE APPS CHALLENGE • APOLLO ARCHIVE</span>
         <h1 class="onboarding-title" id="onboardingTitle">Museum of Lost Space Technology</h1>
         <p class="onboarding-subtitle" id="onboardingSubtitle">
-          The Silent Lunar Museum — First-person stories of the historic machines left on the Moon.
+          Museum of Lost Space Technology — First-person stories of the historic machines left on the Moon.
         </p>
       </div>
 
@@ -342,6 +342,19 @@
             <figure class="book-media-figure">
               <div class="book-media-frame">
                 <img id="bookArtifactImage" src="assets/images/lrrr.jpg" alt="" />
+                <button
+                  class="book-zoom-btn"
+                  id="bookZoomImageBtn"
+                  type="button"
+                  aria-label="Ampliar imagem"
+                  title="Ampliar imagem"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M20 20l-3.5-3.5" />
+                    <path d="M11 8v6M8 11h6" />
+                  </svg>
+                </button>
               </div>
               <figcaption class="book-media-caption" id="bookMediaCaption">
                 <strong id="bookCaptionTitle">LRRR — Apollo 11, 20 Jul 1969</strong>
@@ -438,6 +451,24 @@
       </div>
     </div>
   </aside>
+
+  <!-- Image Zoom Lightbox for Open-Book Photograph -->
+  <div class="book-zoom-lightbox hidden" id="bookImageLightbox" role="dialog" aria-modal="true" aria-labelledby="bookZoomCaptionTitle">
+    <div class="book-zoom-stage" id="bookZoomStage">
+      <div class="book-zoom-toolbar">
+        <button class="book-zoom-close-btn" id="closeBookZoomBtn" type="button" aria-label="Fechar ampliação">
+          ✕
+        </button>
+      </div>
+      <div class="book-zoom-viewport" id="bookZoomViewport">
+        <img id="bookZoomImg" src="" alt="" />
+      </div>
+      <div class="book-zoom-caption">
+        <strong id="bookZoomCaptionTitle"></strong>
+        <span id="bookZoomCaptionSub"></span>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================
        SHARED ON-DEMAND SCIENCE, PHOTO & NASA SPECS MODAL
@@ -563,7 +594,7 @@
         </div>
 
         <div class="letter-signature-block">
-          <span class="letter-signature" id="letterSignature">Curadoria do Museu do Silêncio Lunar</span>
+          <span class="letter-signature" id="letterSignature">Curadoria • Museum of Lost Space Technology</span>
         </div>
 
         <div class="letter-progress-bar">
@@ -571,7 +602,7 @@
         </div>
 
         <div class="letter-cta-wrap">
-          <button class="btn-letter-start" id="startExpeditionBtn">Iniciar Exploração →</button>
+          <button class="btn-letter-start" id="startExpeditionBtn">Iniciar Viagem →</button>
         </div>
       </div>
 
