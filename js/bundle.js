@@ -1546,6 +1546,459 @@ const ARTIFACT_INTERACTIONS = {
   }
 };
 
+const MISSION_QUIZ = {
+  pt: {
+    guideName: "Comandante Vega",
+    guideRole: "GUIA ESPACIAL • MUSEUM OF LOST SPACE TECHNOLOGY",
+    greeting: {
+      child: {
+        title: "Olá, pequeno explorador! Obrigado por viajar comigo pela Lua!",
+        message:
+          "Eu sou a Comandante Vega! Que alegria ver você conhecendo as 4 máquinas históricas da Apollo. Antes de pegar o seu Certificado Oficial, que tal responder 4 perguntinhas divertidas comigo? Se errar alguma, não tem problema nenhum — eu te explico tudinho de novo!",
+        startBtn: "Vamos lá! Começar Quiz →",
+        skipBtn: "Ir direto para o Certificado"
+      },
+      teen: {
+        title: "Missão cumprida! Obrigado por explorar o acervo lunar conosco!",
+        message:
+          "Oi, eu sou a Comandante Vega! Você acabou de ouvir os bastidores dos 4 equipamentos da era Apollo. Antes de emitir sua credencial, topa um mini-quiz de 4 perguntas? Não vale nota: se errar, sem estresse — eu reviso o segredo da engenharia na hora com você!",
+        startBtn: "Iniciar Mini-Quiz (4/4) →",
+        skipBtn: "Ir direto para o Certificado"
+      },
+      adult: {
+        title: "Expedição concluída! Muito obrigado por visitar o nosso acervo lunar.",
+        message:
+          "Saudações! Eu sou a Comandante Vega, guia de missão do Museum of Lost Space Technology. Obrigado por percorrer as memórias dos quatro marcos históricos da Apollo. Antes de gerar o seu Certificado Oficial, convido você para uma breve revisão de 4 perguntas — se errar alguma, não há problema algum: recapitulamos o conceito juntos!",
+        startBtn: "Iniciar Revisão Final →",
+        skipBtn: "Ir direto para o Certificado"
+      }
+    },
+    questions: [
+      {
+        artifactId: "lrrr",
+        child: {
+          question: "Como o Retrorefletor (LRRR) da Apollo 11 consegue devolver lasers para a Terra há mais de 50 anos sem usar nenhuma pilha?",
+          options: [
+            "Ele tem um mini painel solar escondido embaixo da poeira lunar.",
+            "Seus 100 prismas 'canto de cubo' refletem a luz três vezes direto para quem enviou.",
+            "Astronautas da Lua trocam as baterias dele todos os anos."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Isso mesmo! Os 100 espelhinhos de sílica fundida usam pura geometria óptica — batem a luz 3 vezes e devolvem o brilho direto para a Terra sem precisar de eletricidade!",
+          onWrong:
+            "Não tem problema nenhum errar! Na verdade, o grande truque do LRRR é não usar nenhuma bateria nem painel solar: ele possui 100 prismas em formato de 'canto de cubo' que rebatem a luz do laser 3 vezes lá dentro e mandam o feixe exatamente de volta para a Terra!"
+        },
+        teen: {
+          question: "Por que o LRRR usa 100 prismas 'corner cube' de sílica fundida em vez de um espelho plano comum?",
+          options: [
+            "Porque prismas corner cube devolvem o feixe exatamente paralelo à direção de origem, mesmo sem alinhamento perfeito.",
+            "Porque a sílica fundida amplifica a potência do laser usando energia térmica solar.",
+            "Porque espelhos comuns não refletem luz no vácuo espacial."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Na mosca! Graças às três faces ortogonais de cada corner cube, o pulso volta exatamente para o observatório na Terra — permitindo medir que a Lua se afasta 3,8 cm por ano!",
+          onWrong:
+            "Sem estresse, isso confunde mesmo! Um espelho plano comum exigiria inclinação perfeita para o laser voltar à Terra. Já os prismas corner cube têm 3 faces perpendiculares que forçam qualquer feixe a sofrer 3 reflexões internas e retornar exatamente na direção de origem — sem eletrônica nenhuma!"
+        },
+        adult: {
+          question: "O que as medições contínuas por laser no Retrorefletor Lunar (LRRR) ajudaram a comprovar com precisão milimétrica?",
+          options: [
+            "Que a Lua gira em torno da Terra em velocidade crescente a cada década.",
+            "Que a gravidade lunar é gerada exclusivamente pelo campo magnético da Terra.",
+            "O afastamento secular da Lua em ~3,8 cm/ano, pistas de um núcleo fluido e testes da Relatividade Geral."
+          ],
+          correctIndex: 2,
+          onCorrect:
+            "Excelente precisão! Cronometrando os ~2,56 segundos de ida e volta dos fótons pela equação d = (c × Δt) / 2, físicos comprovaram o afastamento de 3,8 cm/ano por forças de maré e testam Einstein até hoje.",
+          onWrong:
+            "Não tem problema! Ao cronometrar os ~2,56 s de viagem do pulso laser com d = (c × Δt) / 2, o LRRR revelou três marcos científicos: a Lua se afasta cerca de 3,8 cm por ano devido às marés terrestres, possui evidências de um núcleo fluido e impõe limites rigorosos à Relatividade Geral."
+        }
+      },
+      {
+        artifactId: "pse",
+        child: {
+          question: "O que o Sismômetro Passivo (PSE) descobriu ao colocar o 'ouvido' encostado no chão da Lua?",
+          options: [
+            "Que a Lua não é silenciosa por dentro e tem 'lunamotos' (tremores lunares)!",
+            "Que existem rios de água correndo logo abaixo das crateras.",
+            "Que os astronautas ainda falam por rádio lá debaixo."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Acertou em cheio! A Lua parecia um lugar totalmente parado, mas o sismômetro revelou milhares de 'lunamotos' e até o choque de meteoritos — mostrando que ela ainda pulsa por dentro!",
+          onWrong:
+            "Não tem problema! O segredo do Sismômetro (PSE) é justamente o som silencioso do solo: antes da Apollo muitos achavam que a Lua era uma rocha morta por dentro, mas o PSE detectou milhares de 'lunamotos' (tremores lunares) causados pela gravidade da Terra, impactos e mudanças de temperatura!"
+        },
+        teen: {
+          question: "Qual foi o achado surpreendente da rede de Sismômetros Passivos (PSE) instalados pelas missões Apollo?",
+          options: [
+            "A Lua possui atividade vulcânica ativa com erupções mensais na face oculta.",
+            "A Lua vibra como um sino por muito tempo devido ao solo seco e fraturado e registra 'moonquakes' profundos.",
+            "Os tremores lunares acontecem apenas quando foguetes pousam perto da estação."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Mandou bem! Como a crosta lunar é extremamente seca e fragmentada, um impacto ou lunamoto faz a Lua ressoar por dezenas de minutos — e os sensores mapearam crosta, manto e núcleo!",
+          onWrong:
+            "Tudo bem errar essa! O grande choque para os geólogos foi descobrir que a Lua tem seus próprios 'moonquakes' e, por ter rochas secas e sem água para amortecer a energia, um impacto faz o solo lunar vibrar como um sino por longos minutos!"
+        },
+        adult: {
+          question: "Além dos impactos de meteoroides e estágios S-IVB, qual tipo de tremor lunar o PSE revelou ocorrer periodicamente a ~700–1.100 km de profundidade?",
+          options: [
+            "Lunamotos profundos induzidos pelas forças de maré gravitacional da Terra sobre a Lua.",
+            "Subducção contínua de placas tectônicas semelhantes às da Terra.",
+            "Explosões geotérmicas provocadas por aquíferos subterrâneos."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Exato! As tensões de maré provocadas pela atração gravitacional da Terra flexionam o interior lunar regularmente, gerando lunamotos profundos recorrentes que permitiram radiografar o manto e o núcleo.",
+          onWrong:
+            "Não se preocupe! Diferente da Terra, a Lua não tem placas tectônicas nem água subterrânea: seus tremores profundos mais regulares são os 'lunamotos profundos' causados pelo estiramento das forças de maré gravitacional da Terra atuando no interior lunar!"
+        }
+      },
+      {
+        artifactId: "eagle",
+        child: {
+          question: "Por que a parte de baixo da nave Eagle (o estágio de descida dourado) ficou para sempre na Lua?",
+          options: [
+            "Porque as pernas ficaram presas numa rocha e não conseguiram soltar.",
+            "Porque ela serviu de plataforma de lançamento para a parte de cima voltar para casa bem levinha!",
+            "Porque os astronautas esqueceram a chave para ligá-la de novo."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Isso aí! Deixar as pernas pesadas e os tanques vazios lá no Mar da Tranquilidade deixou a cabine de subida super leve para decolar de volta ao encontro de Michael Collins!",
+          onWrong:
+            "Não tem problema nenhum! Na verdade foi tudo planejado com inteligência: carregar o módulo de pouso inteiro de volta gastaria combustível demais. Por isso, a parte dourada de baixo virou a base de lançamento na Lua, e só a cabine de cima decolou leve para voltar à Terra!"
+        },
+        teen: {
+          question: "Qual foi a função estratégica crítica do Estágio de Descida do LM-5 Eagle durante a decolagem da Apollo 11?",
+          options: [
+            "Permanecer na superfície atuando como plataforma de lançamento fixa e isolar o peso morto das pernas e tanques vazios.",
+            "Acompanhar o estágio de subida até a órbita lunar antes de ser ejetado.",
+            "Gerar oxigênio para o Módulo de Comando Columbia à distância."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Perfeito! Na física espacial, cada quilo extra custa muito propelente. Usar o próprio estágio de descida como base de lançamento permitiu ao pequeno motor de subida colocar Armstrong e Aldrin em órbita lunar!",
+          onWrong:
+            "Tranquilo, vamos relembrar! Na engenharia aeroespacial a equação do foguete exige massa mínima na volta: no momento da ignição de retorno, parafusos pirotécnicos e guilhotinas de cabos soltaram os dois estágios, transformando o estágio de descida em uma plataforma de lançamento fixa sobre a Lua!"
+        },
+        adult: {
+          question: "Na arquitetura de Encontro em Órbita Lunar (LOR) da Apollo 11, qual marca emblemática permanece visível no Estágio de Descida do Eagle em Mare Tranquillitatis?",
+          options: [
+            "O módulo inteiro intacto com o Módulo de Comando acoplado no topo.",
+            "As quatro pernas com mantas térmicas de Kapton e a placa comemorativa assinada na perna frontal — servindo de base estática após a partida do estágio de subida.",
+            "Um rover elétrico estacionado embaixo da escada da cabine."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Corretíssimo! Envolto em folhas douradas de Kapton, o estágio de descida guarda a famosa placa de aço inoxidável ('We came in peace for all mankind') e segue preservado exatamente onde pousou em julho de 1969.",
+          onWrong:
+            "Sem problema algum! O rover só estreou na Apollo 15, e o estágio de subida se separou para reencontrar o CSM Columbia em órbita. Quem permanece intacto em Mare Tranquillitatis é o estágio de descida dourado (Kapton) com suas quatro pernas e a placa comemorativa fixada na escada!"
+        }
+      },
+      {
+        artifactId: "lrv",
+        child: {
+          question: "Como os astronautas dirigiam o Jipe Lunar (LRV) usando luvas espaciais bem grossas e cheias de ar?",
+          options: [
+            "Com um volante gigante igual ao de um ônibus escolar.",
+            "Com um controle em formato de 'T' parecido com um joystick!",
+            "Apenas apertando botões com os pés."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Acertou! Como girar um volante redondo com luvas rígidas era difícil, os engenheiros criaram um joystick em formato de 'T' — empurrava para ir para frente e inclinava para virar!",
+          onWrong:
+            "Não tem problema! Pense em como é difícil dobrar os dedos com uma luva espacial pressurizada: por isso o jipe não tinha volante nem pedais — os astronautas controlavam tudo com um único manche em formato de 'T' bem no meio dos dois assentos!"
+        },
+        teen: {
+          question: "De que eram feitas as rodas do Lunar Roving Vehicle (LRV) para não furarem nem pesarem demais na Lua?",
+          options: [
+            "Borracha inflável comum reforçada com aço pesado.",
+            "Esteiras contínuas de borracha sólida iguais às de tanques militares.",
+            "Malha elástica tecida em arame de aço revestido com zinco e sapatas de titânio."
+          ],
+          correctIndex: 2,
+          onCorrect:
+            "Isso mesmo! A borracha comum endureceria e racharia no frio extremo do vácuo. A malha de arame com sapatas de titânio dava leveza, flexibilidade e tração na poeira lunar!",
+          onWrong:
+            "Sem problema! Pneus comuns com ar poderiam estourar no vácuo e a borracha ficaria quebradiça a -150 °C. Por isso o LRV usou rodas incríveis de malha flexível de aço galvanizado com faixas de titânio em espinha de peixe — pesando só ~5,4 kg cada!"
+        },
+        adult: {
+          question: "Que feito histórico único a câmera de TV montada no LRV da Apollo 17 realizou mesmo depois que os astronautas já estavam dentro do Módulo Lunar?",
+          options: [
+            "Transmitiu ao vivo a decolagem do estágio de subida, controlada remotamente por rádio direto de Houston (por Ed Fendell).",
+            "Enviou imagens da face oculta da Lua sem necessidade de satélites.",
+            "Autodirigiu o rover de volta para a Terra dentro de uma cápsula."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Histórico! Compensando o atraso de ~1,3 segundo do sinal Terra–Lua, Ed Fendell inclinou remotamente a câmera em Houston segundos antes da ignição, capturando o plano clássico do estágio de subida disparando para o espaço!",
+          onWrong:
+            "Não tem problema algum! Esse é um detalhe fascinante dos bastidores da Apollo 17: os astronautas estacionaram o LRV voltado para a nave e, de Houston, o controlador Ed Fendell comandou por rádio a inclinação da câmera (compensando o delay de rádio de ~2,6s ida e volta) para filmar ao vivo a decolagem lunar!"
+        }
+      }
+    ],
+    summary: {
+      perfect: {
+        rank: "Comandante de Telemetria (4/4)",
+        title: "Espetacular! Você gabaritou a missão!",
+        message:
+          "Você mostrou domínio completo das quatro relíquias lunares da Apollo — da óptica pura do LRRR à câmera remota da Apollo 17. Muito obrigado por explorar o Museum of Lost Space Technology comigo! Seu Certificado Oficial está pronto."
+      },
+      great: {
+        rank: "Especialista Lunar",
+        title: "Mandou muito bem na expedição!",
+        message:
+          "Excelente jornada! Você absorveu os grandes segredos da engenharia e da ciência lunar — e nos detalhes mais difíceis, revisamos juntos como verdadeiros cientistas da NASA. Obrigado pela companhia! Vamos emitir seu Certificado Oficial."
+      },
+      curious: {
+        rank: "Explorador Curioso",
+        title: "Missão concluída com espírito curioso!",
+        message:
+          "O mais importante na exploração espacial é fazer perguntas e descobrir algo novo a cada etapa — e você completou toda a jornada comigo! Obrigado por visitar o Museum of Lost Space Technology. Seu Certificado Oficial já está liberado!"
+      }
+    },
+    progressPrefix: "PERGUNTA",
+    correctChip: "✓ RESPOSTA CORRETA",
+    helpingChip: "↺ SEM PROBLEMAS • REVISÃO DA VEGA",
+    nextBtn: "Próxima Pergunta →",
+    finishBtn: "Concluir Desafio →",
+    certBtn: "Gerar Meu Certificado Oficial →",
+    retryBtn: "Refazer Quiz",
+    closeLabel: "Fechar"
+  },
+  en: {
+    guideName: "Commander Vega",
+    guideRole: "MISSION GUIDE • MUSEUM OF LOST SPACE TECHNOLOGY",
+    greeting: {
+      child: {
+        title: "Hi, little explorer! Thank you for traveling across the Moon with me!",
+        message:
+          "I'm Commander Vega! It was awesome watching you discover all 4 historic Apollo machines. Before unlocking your Official Certificate, want to play a quick 4-question space quiz with me? If you miss one, no worries at all — I'll happily explain it again!",
+        startBtn: "Let's Play! Start Quiz →",
+        skipBtn: "Go straight to Certificate"
+      },
+      teen: {
+        title: "Mission complete! Thanks for exploring the lunar archive with us!",
+        message:
+          "Hey there, I'm Commander Vega! You just uncovered the stories behind four real Apollo artifacts. Before generating your credential, ready for a fast 4-question check-in? Zero pressure: if you miss any question, no worries — we'll break down the engineering together right away!",
+        startBtn: "Start Mini-Quiz (4/4) →",
+        skipBtn: "Skip to Certificate"
+      },
+      adult: {
+        title: "Expedition complete! Thank you for exploring our lunar archive.",
+        message:
+          "Greetings! I'm Commander Vega, mission guide at the Museum of Lost Space Technology. Thank you for experiencing the stories of all four historic Apollo landmarks. Before issuing your Official Certificate, I invite you to a brief 4-question review — if any detail trips you up, no problem at all: we'll recap it together!",
+        startBtn: "Start Final Review →",
+        skipBtn: "Skip to Certificate"
+      }
+    },
+    questions: [
+      {
+        artifactId: "lrrr",
+        child: {
+          question: "How has Apollo 11's Retroreflector (LRRR) bounced lasers back to Earth for over 50 years with zero batteries?",
+          options: [
+            "It hides a tiny solar panel beneath the lunar dust.",
+            "Its 100 'corner-cube' prisms bounce light three times straight back to whoever sent it.",
+            "Moon astronauts swap out its batteries every year."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Bullseye! Those 100 fused-silica prisms use pure optical geometry — bouncing laser light 3 times straight back home with no electricity needed!",
+          onWrong:
+            "No problem at all! Here is the cool trick behind the LRRR: it has zero batteries or solar panels! Instead, it uses 100 special 'corner-cube' glass prisms that bounce incoming laser light off three inside walls and send it right back to Earth!"
+        },
+        teen: {
+          question: "Why does the LRRR use 100 fused-silica 'corner-cube' prisms instead of a regular flat mirror?",
+          options: [
+            "Corner-cube geometry returns a light beam parallel to its incoming path, even without perfect alignment.",
+            "Fused silica amplifies the laser using solar heat.",
+            "Flat mirrors cannot reflect light inside a vacuum."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Spot on! Three perpendicular internal walls send photons straight back to Earth observatories — proving the Moon drifts away by 3.8 cm every year!",
+          onWrong:
+            "No stress, that's a classic physics puzzle! A flat mirror would miss Earth completely if tilted even slightly. Corner-cube prisms have three perpendicular faces that bounce any incoming ray back along the exact same line it came from — totally passively!"
+        },
+        adult: {
+          question: "What fundamental discoveries have decades of Lunar Laser Ranging (LLR) measurements off the LRRR enabled?",
+          options: [
+            "Proving the Moon's orbit speeds up closer to Earth every decade.",
+            "Showing lunar gravity originates from Earth's magnetic field.",
+            "Measuring the Moon's ~3.8 cm/yr tidal recession, core structure clues, and precision tests of General Relativity."
+          ],
+          correctIndex: 2,
+          onCorrect:
+            "Precision engineering! Timing the ~2.56 s round trip via d = (c × Δt) / 2 lets physicists track Earth–Moon distance to millimeters and test Einstein daily.",
+          onWrong:
+            "No worries at all! By timing the ~2.56-second photon round-trip using d = (c × Δt) / 2, LLR revealed that tidal interactions push the Moon ~3.8 cm farther each year, uncovered hints of a fluid lunar core, and continuously tests General Relativity!"
+        }
+      },
+      {
+        artifactId: "pse",
+        child: {
+          question: "What did the Passive Seismic Experiment (PSE) discover by 'listening' to the Moon's ground?",
+          options: [
+            "That the Moon isn't completely still inside — it actually has 'moonquakes'!",
+            "That underground rivers flow beneath lunar craters.",
+            "That astronauts were chatting underground by radio."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "You got it! Many thought the Moon was totally silent inside, until the PSE picked up thousands of moonquakes and meteorite impacts!",
+          onWrong:
+            "No problem! Before Apollo, scientists wondered if the Moon was totally quiet inside. The PSE proved them wrong by picking up thousands of tiny 'moonquakes' caused by Earth's pull, meteorite hits, and huge temperature swings!"
+        },
+        teen: {
+          question: "What surprising seismic behavior did the Apollo Passive Seismic Experiment (PSE) network reveal about the Moon?",
+          options: [
+            "Monthly volcanic eruptions on the lunar far side.",
+            "Dry, fractured rock makes the Moon ring like a bell for minutes during impacts and deep moonquakes.",
+            "Quakes only occur when lunar rockets land nearby."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Right on target! Because lunar rock contains almost no liquid water to dampen seismic waves, energy echoes for a remarkably long time — letting scientists map the Moon's interior!",
+          onWrong:
+            "Totally fine! The big surprise for Apollo geologists was that the Moon produces deep moonquakes — and because its dry, fractured crust lacks water to absorb vibrations, impacts make the Moon ring like a bell for tens of minutes!"
+        },
+        adult: {
+          question: "Alongside meteoroid and spent S-IVB impacts, what recurring seismic source did the PSE detect at depths of ~700–1,100 km?",
+          options: [
+            "Deep moonquakes triggered periodically by Earth's gravitational tidal stresses.",
+            "Active subduction of Earth-like tectonic plates.",
+            "Subsurface hydrothermal steam pockets."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Exactly right! Earth's gravitational pull rhythmically flexes the lunar interior, generating repeating deep moonquakes that helped image the Moon's mantle and core.",
+          onWrong:
+            "No worries! Unlike Earth, the Moon lacks plate tectonics or liquid water pockets. Its most regular deep tremors are 'deep moonquakes' triggered at 700–1,100 km down by cyclic gravitational tidal stresses from Earth!"
+        }
+      },
+      {
+        artifactId: "eagle",
+        child: {
+          question: "Why did the lower golden half of Apollo 11's Eagle lander stay behind on the Moon forever?",
+          options: [
+            "Its landing legs got stuck in lunar mud.",
+            "It acted as a launch pad so the lighter top cabin could blast off home safely!",
+            "The astronauts forgot the ignition key for the lower half."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "That's right! Leaving the heavy landing gear and empty tanks on Mare Tranquillitatis made the upper ascent stage light enough to rejoin Columbia in orbit!",
+          onWrong:
+            "No problem at all! It was all part of a clever plan: carrying heavy landing legs back up would burn way too much fuel. So the golden bottom stage became a steady launch pad, letting only the lightweight top cabin rocket back into lunar orbit!"
+        },
+        teen: {
+          question: "What critical role did the LM-5 Eagle's Descent Stage serve at the exact moment of Apollo 11's liftoff?",
+          options: [
+            "Remaining anchored as a stationary launch pad, shedding landing legs and empty descent tanks.",
+            "Flying back to orbit before separating from the ascent cabin.",
+            "Generating oxygen remotely for the Command Module."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Nailed it! Shedding every unnecessary gram is vital in orbital mechanics — explosive bolts separated the stages so the Descent Stage doubled as Eagle's lunar launch pad.",
+          onWrong:
+            "No worries — let's recap! Under the tyranny of the rocket equation, every extra kilogram matters. At liftoff, pyrotechnic bolts severed the two halves, leaving the Descent Stage behind as a fixed launch pad while only the small Ascent Stage climbed back to orbit!"
+        },
+        adult: {
+          question: "In Apollo 11's Lunar Orbit Rendezvous (LOR) architecture, what iconic hardware remains intact on Mare Tranquillitatis today?",
+          options: [
+            "The complete spacecraft including the Command Module on top.",
+            "The Kapton-wrapped octagonal Descent Stage with its four footpads and commemorative plaque — serving as the static launch platform after ascent stage separation.",
+            "An electric Lunar Rover parked beside the ladder."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Precisely! Wrapped in gold Kapton foil, the Descent Stage still holds the stainless-steel plaque ('We came in peace for all mankind') where Armstrong and Aldrin touched down in July 1969.",
+          onWrong:
+            "No problem! The Rover debuted on Apollo 15, and the Ascent Stage lifted off to rendezvous with CSM Columbia. What rests on Mare Tranquillitatis is the gold Kapton-wrapped Descent Stage — four landing legs and its commemorative plaque intact!"
+        }
+      },
+      {
+        artifactId: "lrv",
+        child: {
+          question: "How did astronauts steer the Lunar Rover (LRV) while wearing thick, puffy spacesuit gloves?",
+          options: [
+            "With a giant school-bus steering wheel.",
+            "With a handy T-shaped joystick controller!",
+            "By pressing floor pedals with their boots."
+          ],
+          correctIndex: 1,
+          onCorrect:
+            "Bingo! Turning a round wheel in stiff pressurized gloves was hard, so NASA built a T-shaped hand controller — push forward to drive, tilt left or right to steer!",
+          onWrong:
+            "No problem! Puffy pressurized gloves make twisting a steering wheel exhausting — so engineers replaced both steering wheel and foot pedals with one simple T-shaped joystick between the seats!"
+        },
+        teen: {
+          question: "What were the Lunar Rover's wheels made of so they stayed light and wouldn't burst or freeze in the lunar vacuum?",
+          options: [
+            "Heavy steel-belted inflatable rubber tires.",
+            "Solid rubber tank treads.",
+            "Woven zinc-coated steel wire mesh with chevron titanium treads."
+          ],
+          correctIndex: 2,
+          onCorrect:
+            "Awesome! Regular rubber tires would turn brittle in extreme cold or risk puncturing — whereas each springy wire-mesh wheel weighed only ~5.4 kg!",
+          onWrong:
+            "All good! Rubber stiffens and cracks at -150 °C, and air-filled tires risk bursting in vacuum. That's why NASA designed flexible woven steel wire-mesh tires fitted with chevron titanium treads — super light and grippy in regolith!"
+        },
+        adult: {
+          question: "What unprecedented broadcast feat did the Apollo 17 LRV's TV camera accomplish after the crew boarded the Lunar Module?",
+          options: [
+            "Live coverage of the Ascent Stage liftoff, tilted remotely from Houston by radio (by Ed Fendell).",
+            "Direct far-side imaging without relay satellites.",
+            "Autonomously driving itself back inside an Earth-return capsule."
+          ],
+          correctIndex: 0,
+          onCorrect:
+            "Iconic moment! Compensating for the ~2.6-second two-way radio delay, Ed Fendell commanded the camera tilt from Houston right before ignition, tracking the Ascent Stage rocket skyward!",
+          onWrong:
+            "No problem! That's one of Apollo 17's coolest feats: before sealing the hatch, astronauts aimed the Rover's LCRU TV camera at the lander, and flight controller Ed Fendell in Houston tilted it remotely via radio (timing the ~1.3s one-way signal lag) to capture the live liftoff!"
+        }
+      }
+    ],
+    summary: {
+      perfect: {
+        rank: "Telemetry Commander (4/4)",
+        title: "Outstanding! You aced the mission review!",
+        message:
+          "You mastered all four Apollo landmarks — from LRRR's pure optical geometry to Apollo 17's remote liftoff broadcast. Thank you so much for exploring the Museum of Lost Space Technology with me! Your Official Certificate is ready."
+      },
+      great: {
+        rank: "Lunar Specialist",
+        title: "Fantastic expedition!",
+        message:
+          "Great run! You picked up the core science and engineering of the Apollo surface monuments — and for any tricky detail, we reviewed it together just like NASA Mission Control. Thank you for joining us! Let's issue your Official Certificate."
+      },
+      curious: {
+        rank: "Curious Explorer",
+        title: "Mission complete with explorer spirit!",
+        message:
+          "In space exploration, curiosity is what launches every discovery — and you explored every single story to the end! Thank you for visiting the Museum of Lost Space Technology. Your Official Certificate is now unlocked!"
+      }
+    },
+    progressPrefix: "QUESTION",
+    correctChip: "✓ CORRECT ANSWER",
+    helpingChip: "↺ NO WORRIES • VEGA'S RECAP",
+    nextBtn: "Next Question →",
+    finishBtn: "Finish Challenge →",
+    certBtn: "Generate Official Certificate →",
+    retryBtn: "Retake Quiz",
+    closeLabel: "Close"
+  }
+};
+
 // === js/audio.js ===
 // ============================================================================
 // THE SILENT MUSEUM: AUDIO ENGINE & NASA QUINDAR TELEMETRY + TTS NARRATOR
@@ -1578,6 +2031,10 @@ class MuseumAudioEngine {
     this._speechLang = "pt";
     this._speechAge = "adult";
     this._speechArtifactId = null;
+    this.vegaAudioEl = null;
+    this.vegaMuted = false;
+    this.isVegaSpeaking = false;
+    this._vegaToken = 0;
   }
 
   estimateParagraphDuration(text, rate = this.speechRate) {
@@ -2150,6 +2607,85 @@ class MuseumAudioEngine {
     if (this.onParagraphChange) this.onParagraphChange(-1);
     this.emitProgress();
     if (this.onSpeechEnd) this.onSpeechEnd();
+    this.stopVegaClip();
+  }
+
+  playVegaClip(audioUrl, fallbackText = "", lang = "pt", callbacks = {}) {
+    this.stopVegaClip();
+    if (this.vegaMuted) {
+      if (callbacks.onEnd) callbacks.onEnd();
+      return;
+    }
+
+    const token = ++this._vegaToken;
+    const finish = () => {
+      if (token !== this._vegaToken) return;
+      this.isVegaSpeaking = false;
+      this.vegaAudioEl = null;
+      if (callbacks.onEnd) callbacks.onEnd();
+    };
+
+    const useSpeechFallback = () => {
+      if (token !== this._vegaToken || this.vegaMuted || !fallbackText || !("speechSynthesis" in window)) {
+        finish();
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(fallbackText);
+        utt.lang = lang === "pt" ? "pt-BR" : "en-US";
+        utt.pitch = 1.18;
+        utt.rate = 1.08;
+        utt.onstart = () => {
+          if (token !== this._vegaToken) return;
+          this.isVegaSpeaking = true;
+          if (callbacks.onStart) callbacks.onStart();
+        };
+        utt.onend = finish;
+        utt.onerror = finish;
+        window.speechSynthesis.speak(utt);
+      } catch (_) {
+        finish();
+      }
+    };
+
+    if (!audioUrl) {
+      useSpeechFallback();
+      return;
+    }
+
+    let fellBack = false;
+    const fallbackOnce = () => {
+      if (fellBack || token !== this._vegaToken) return;
+      fellBack = true;
+      useSpeechFallback();
+    };
+
+    const audioEl = new Audio(audioUrl);
+    this.vegaAudioEl = audioEl;
+    audioEl.addEventListener("playing", () => {
+      if (token !== this._vegaToken || fellBack) return;
+      this.isVegaSpeaking = true;
+      if (callbacks.onStart) callbacks.onStart();
+    });
+    audioEl.onended = finish;
+    audioEl.onerror = fallbackOnce;
+    audioEl.play().catch(fallbackOnce);
+  }
+
+  stopVegaClip() {
+    this._vegaToken++;
+    this.isVegaSpeaking = false;
+    if (this.vegaAudioEl) {
+      try {
+        this.vegaAudioEl.pause();
+        this.vegaAudioEl.currentTime = 0;
+      } catch (_) {}
+      this.vegaAudioEl = null;
+    }
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
   }
 
   /**
@@ -4764,6 +5300,14 @@ class EchoesOfTheMoonApp {
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
     this._hasShownCertReward = false;
+    this.quizState = {
+      phase: "welcome",
+      questionIdx: 0,
+      score: 0,
+      answeredIdx: null,
+      completed: false,
+      rankTitle: null
+    };
 
     this.audio = new MuseumAudioEngine();
     this.surface3D = null;
@@ -5460,11 +6004,59 @@ class EchoesOfTheMoonApp {
 
     document.getElementById("missionProgressBadge").addEventListener("click", () => {
       if (this.visitedStations.size >= STATION_ORDER.length) {
-        this.openCertificateModal();
+        if (this.quizState.completed) {
+          this.openCertificateModal();
+        } else {
+          this.openAstronautQuizModal();
+        }
       } else {
         this.openMissionLetter();
       }
     });
+
+    document.getElementById("closeQuizBtn").addEventListener("click", () => {
+      this.closeAstronautQuizModal();
+    });
+
+    document.getElementById("astronautQuizModal").addEventListener("click", (e) => {
+      if (e.target.id === "astronautQuizModal") {
+        this.closeAstronautQuizModal();
+      }
+    });
+
+    const quizReplayBtn = document.getElementById("quizReplayVoiceBtn");
+    if (quizReplayBtn) {
+      quizReplayBtn.addEventListener("click", () => {
+        if (this.audio.vegaMuted) {
+          this.audio.vegaMuted = false;
+        }
+        if (this._lastVegaVoice) {
+          this.speakVegaClip(this._lastVegaVoice.audioUrl, this._lastVegaVoice.spokenText);
+        }
+      });
+    }
+
+    const quizVoiceToggleBtn = document.getElementById("quizVoiceToggleBtn");
+    if (quizVoiceToggleBtn) {
+      quizVoiceToggleBtn.addEventListener("click", () => {
+        this.audio.vegaMuted = !this.audio.vegaMuted;
+        if (this.audio.vegaMuted) {
+          this.audio.stopVegaClip();
+          this.updateVegaSpeakingUI(false);
+        } else if (this._lastVegaVoice) {
+          this.speakVegaClip(this._lastVegaVoice.audioUrl, this._lastVegaVoice.spokenText);
+        }
+        this.updateVegaVoiceControlsUI();
+      });
+    }
+
+    const openQuizFromCertBtn = document.getElementById("openQuizFromCertBtn");
+    if (openQuizFromCertBtn) {
+      openQuizFromCertBtn.addEventListener("click", () => {
+        this.closeCertificateModal();
+        this.openAstronautQuizModal(true);
+      });
+    }
 
     document.getElementById("closeCertificateBtn").addEventListener("click", () => {
       this.closeCertificateModal();
@@ -5511,8 +6103,15 @@ class EchoesOfTheMoonApp {
     }
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lightbox && !lightbox.classList.contains("hidden")) {
-        this.closeBookImageLightbox();
+      if (e.key === "Escape") {
+        const quizModal = document.getElementById("astronautQuizModal");
+        if (quizModal && !quizModal.classList.contains("hidden")) {
+          this.closeAstronautQuizModal();
+          return;
+        }
+        if (lightbox && !lightbox.classList.contains("hidden")) {
+          this.closeBookImageLightbox();
+        }
       }
     });
   }
@@ -5568,7 +6167,7 @@ class EchoesOfTheMoonApp {
     this.renderUI();
     if (this.visitedStations.size >= STATION_ORDER.length && !this._hasShownCertReward) {
       this._hasShownCertReward = true;
-      this.openCertificateModal();
+      this.openAstronautQuizModal();
     }
   }
 
@@ -5780,6 +6379,294 @@ class EchoesOfTheMoonApp {
     this.audio.playPing(880, 0.08);
   }
 
+  // ==========================================================================
+  // FRIENDLY ASTRONAUT FINAL QUIZ (COMANDANTE VEGA)
+  // ==========================================================================
+  openAstronautQuizModal(forceRestart = false) {
+    this.audio.stopSpeech(false);
+    if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed) {
+      this.quizState = {
+        phase: "welcome",
+        questionIdx: 0,
+        score: 0,
+        answeredIdx: null,
+        completed: this.quizState.completed,
+        rankTitle: this.quizState.rankTitle
+      };
+    }
+    document.getElementById("astronautQuizModal").classList.remove("hidden");
+    this.audio.playQuindarTone(true);
+    this.renderAstronautQuiz();
+  }
+
+  closeAstronautQuizModal() {
+    this.audio.stopVegaClip();
+    this.updateVegaSpeakingUI(false);
+    document.getElementById("astronautQuizModal").classList.add("hidden");
+  }
+
+  updateVegaSpeakingUI(isSpeaking) {
+    const ringEl = document.getElementById("quizAvatarRing");
+    const waveEl = document.getElementById("quizVoiceWave");
+    if (ringEl) ringEl.classList.toggle("is-speaking", Boolean(isSpeaking));
+    if (waveEl) waveEl.classList.toggle("playing", Boolean(isSpeaking));
+  }
+
+  updateVegaVoiceControlsUI() {
+    const isPt = this.lang === "pt";
+    const replayText = document.getElementById("quizReplayVoiceText");
+    const toggleBtn = document.getElementById("quizVoiceToggleBtn");
+    const toggleText = document.getElementById("quizVoiceToggleText");
+    if (replayText) {
+      replayText.textContent = isPt ? "Ouvir Vega" : "Hear Vega";
+    }
+    if (toggleBtn && toggleText) {
+      toggleBtn.classList.toggle("is-muted", Boolean(this.audio.vegaMuted));
+      toggleText.textContent = this.audio.vegaMuted
+        ? isPt
+          ? "🔇 Sem voz"
+          : "🔇 Muted"
+        : isPt
+        ? "🔊 Voz ON"
+        : "🔊 Voice ON";
+    }
+  }
+
+  speakVegaClip(audioUrl, spokenText) {
+    this._lastVegaVoice = { audioUrl, spokenText };
+    this.updateVegaVoiceControlsUI();
+    this.audio.playVegaClip(audioUrl, spokenText, this.lang, {
+      onStart: () => this.updateVegaSpeakingUI(true),
+      onEnd: () => this.updateVegaSpeakingUI(false)
+    });
+  }
+
+  handleQuizAnswer(pickedIdx) {
+    if (this.quizState.phase !== "question" || this.quizState.answeredIdx !== null) return;
+    const isPt = this.lang === "pt";
+    const quiz = MISSION_QUIZ[isPt ? "pt" : "en"];
+    const age = this.ageProfile || "adult";
+    const qData = quiz.questions[this.quizState.questionIdx];
+    const q = qData[age] || qData.adult;
+
+    this.quizState.answeredIdx = pickedIdx;
+    const isCorrect = pickedIdx === q.correctIndex;
+    if (isCorrect) {
+      this.quizState.score += 1;
+      this.audio.playPing(660, 0.14);
+    } else {
+      this.audio.playPing(390, 0.14);
+    }
+    this.renderAstronautQuiz();
+  }
+
+  renderAstronautQuiz() {
+    const isPt = this.lang === "pt";
+    const age = this.ageProfile || "adult";
+    const quiz = MISSION_QUIZ[isPt ? "pt" : "en"];
+    const total = quiz.questions.length;
+
+    const ringEl = document.getElementById("quizAvatarRing");
+    const badgeEl = document.getElementById("quizAvatarBadge");
+    const roleEl = document.getElementById("quizGuideRole");
+    const nameEl = document.getElementById("quizGuideName");
+    const chipEl = document.getElementById("quizArtifactChip");
+    const dotsEl = document.getElementById("quizStepDots");
+    const feedbackEl = document.getElementById("quizFeedbackPill");
+    const titleEl = document.getElementById("quizGreetingTitle");
+    const textEl = document.getElementById("quizSpeechText");
+    const optionsEl = document.getElementById("quizOptionsList");
+    const actionsEl = document.getElementById("quizActionsRow");
+
+    roleEl.textContent = quiz.guideRole;
+    nameEl.textContent = quiz.guideName;
+    this.updateVegaVoiceControlsUI();
+
+    dotsEl.innerHTML = quiz.questions
+      .map((_, i) => {
+        let cls = "quiz-step-dot";
+        if (this.quizState.phase === "question") {
+          if (i < this.quizState.questionIdx) cls += " done";
+          else if (i === this.quizState.questionIdx) cls += " active";
+        } else if (this.quizState.phase === "summary") {
+          cls += " done";
+        }
+        return `<span class="${cls}">0${i + 1}</span>`;
+      })
+      .join("");
+
+    ringEl.classList.remove("is-greeting", "is-asking", "is-correct", "is-helping", "is-celebrating");
+    const langKey = isPt ? "pt" : "en";
+
+    if (this.quizState.phase === "welcome") {
+      const g = quiz.greeting[age] || quiz.greeting.adult;
+      ringEl.classList.add("is-greeting");
+      badgeEl.textContent = "✦";
+      chipEl.textContent = isPt ? "MENSAGEM DE BOAS-VINDAS" : "MISSION GUIDE GREETING";
+      feedbackEl.classList.add("hidden");
+      titleEl.textContent = g.title;
+      textEl.textContent = g.message;
+      optionsEl.classList.add("hidden");
+      optionsEl.innerHTML = "";
+      this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-greeting.mp3`, `${g.title} ${g.message}`);
+
+      actionsEl.innerHTML = `
+        <button class="btn-quiz-skip" id="quizSkipBtn" type="button">${g.skipBtn}</button>
+        <button class="btn-quiz-primary" id="quizStartBtn" type="button">${g.startBtn}</button>
+      `;
+      document.getElementById("quizStartBtn").addEventListener("click", () => {
+        this.audio.playPing(580, 0.08);
+        this.quizState.phase = "question";
+        this.quizState.questionIdx = 0;
+        this.quizState.score = 0;
+        this.quizState.answeredIdx = null;
+        this.renderAstronautQuiz();
+      });
+      document.getElementById("quizSkipBtn").addEventListener("click", () => {
+        this.closeAstronautQuizModal();
+        this.openCertificateModal();
+      });
+      return;
+    }
+
+    if (this.quizState.phase === "question") {
+      const qData = quiz.questions[this.quizState.questionIdx];
+      const q = qData[age] || qData.adult;
+      const art = ARTIFACTS.find((a) => a.id === qData.artifactId);
+      const answered = this.quizState.answeredIdx !== null;
+      const isCorrect = answered && this.quizState.answeredIdx === q.correctIndex;
+
+      chipEl.textContent = art ? `${art.mission.toUpperCase()} • ${art.id.toUpperCase()}` : "APOLLO";
+      titleEl.textContent = answered
+        ? q.question
+        : `${quiz.progressPrefix} 0${this.quizState.questionIdx + 1} / 0${total}`;
+
+      if (!answered) {
+        ringEl.classList.add("is-asking");
+        badgeEl.textContent = "?";
+        feedbackEl.classList.add("hidden");
+        feedbackEl.classList.remove("is-correct", "is-helping");
+        textEl.textContent = q.question;
+        this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-q${this.quizState.questionIdx}.mp3`, q.question);
+      } else if (isCorrect) {
+        ringEl.classList.add("is-correct");
+        badgeEl.textContent = "✓";
+        feedbackEl.textContent = quiz.correctChip;
+        feedbackEl.classList.remove("hidden", "is-helping");
+        feedbackEl.classList.add("is-correct");
+        textEl.textContent = q.onCorrect;
+        this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-q${this.quizState.questionIdx}-ok.mp3`, q.onCorrect);
+      } else {
+        ringEl.classList.add("is-helping");
+        badgeEl.textContent = "↺";
+        feedbackEl.textContent = quiz.helpingChip;
+        feedbackEl.classList.remove("hidden", "is-correct");
+        feedbackEl.classList.add("is-helping");
+        textEl.textContent = q.onWrong;
+        this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-q${this.quizState.questionIdx}-help.mp3`, q.onWrong);
+      }
+
+      const letters = ["A", "B", "C"];
+      optionsEl.classList.remove("hidden");
+      optionsEl.innerHTML = q.options
+        .map((opt, idx) => {
+          let cls = "quiz-option-btn";
+          if (answered) {
+            if (idx === q.correctIndex) cls += " is-correct";
+            else if (idx === this.quizState.answeredIdx) cls += " is-wrong";
+            else cls += " is-dimmed";
+          }
+          return `
+            <button class="${cls}" data-quiz-opt="${idx}" type="button" ${answered ? "disabled" : ""}>
+              <span class="quiz-opt-letter">${letters[idx] || idx + 1}</span>
+              <span class="quiz-opt-copy">${opt}</span>
+            </button>
+          `;
+        })
+        .join("");
+
+      if (!answered) {
+        optionsEl.querySelectorAll("[data-quiz-opt]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = parseInt(btn.getAttribute("data-quiz-opt"), 10);
+            this.handleQuizAnswer(idx);
+          });
+        });
+        actionsEl.innerHTML = `
+          <button class="btn-quiz-skip" id="quizSkipBtn" type="button">${quiz.greeting[age]?.skipBtn || quiz.greeting.adult.skipBtn}</button>
+        `;
+        document.getElementById("quizSkipBtn").addEventListener("click", () => {
+          this.closeAstronautQuizModal();
+          this.openCertificateModal();
+        });
+      } else {
+        const isLast = this.quizState.questionIdx >= total - 1;
+        actionsEl.innerHTML = `
+          <button class="btn-quiz-skip" id="quizSkipBtn" type="button">${quiz.greeting[age]?.skipBtn || quiz.greeting.adult.skipBtn}</button>
+          <button class="btn-quiz-primary" id="quizNextBtn" type="button">${isLast ? quiz.finishBtn : quiz.nextBtn}</button>
+        `;
+        document.getElementById("quizNextBtn").addEventListener("click", () => {
+          this.audio.playPing(620, 0.08);
+          if (isLast) {
+            this.quizState.phase = "summary";
+          } else {
+            this.quizState.questionIdx += 1;
+            this.quizState.answeredIdx = null;
+          }
+          this.renderAstronautQuiz();
+        });
+        document.getElementById("quizSkipBtn").addEventListener("click", () => {
+          this.closeAstronautQuizModal();
+          this.openCertificateModal();
+        });
+      }
+      return;
+    }
+
+    // Summary phase
+    const tierKey =
+      this.quizState.score >= total
+        ? "perfect"
+        : this.quizState.score >= 2
+        ? "great"
+        : "curious";
+    const tier = quiz.summary[tierKey];
+    this.quizState.completed = true;
+    this.quizState.rankTitle = tier.rank;
+
+    ringEl.classList.add("is-celebrating");
+    badgeEl.textContent = "★";
+    chipEl.textContent = `${this.quizState.score}/${total} • ${tier.rank.toUpperCase()}`;
+    feedbackEl.textContent = isPt
+      ? `★ MISSÃO CONCLUÍDA • ${this.quizState.score} DE ${total}`
+      : `★ MISSION COMPLETE • ${this.quizState.score} OF ${total}`;
+    feedbackEl.classList.remove("hidden", "is-helping");
+    feedbackEl.classList.add("is-correct");
+    titleEl.textContent = tier.title;
+    textEl.textContent = tier.message;
+    optionsEl.classList.add("hidden");
+    optionsEl.innerHTML = "";
+    this.audio.playQuindarTone(true);
+    this.speakVegaClip(`assets/audio/vega-${langKey}-sum-${tierKey}.mp3`, `${tier.title} ${tier.message}`);
+
+    actionsEl.innerHTML = `
+      <button class="btn-quiz-secondary" id="quizRetryBtn" type="button">↺ ${quiz.retryBtn}</button>
+      <button class="btn-quiz-primary" id="quizGoCertBtn" type="button">${quiz.certBtn}</button>
+    `;
+    document.getElementById("quizRetryBtn").addEventListener("click", () => {
+      this.audio.playPing(540, 0.08);
+      this.quizState.phase = "question";
+      this.quizState.questionIdx = 0;
+      this.quizState.score = 0;
+      this.quizState.answeredIdx = null;
+      this.renderAstronautQuiz();
+    });
+    document.getElementById("quizGoCertBtn").addEventListener("click", () => {
+      this.closeAstronautQuizModal();
+      this.openCertificateModal();
+    });
+  }
+
   openCertificateModal() {
     const isPt = this.lang === "pt";
     const age = this.ageProfile || "adult";
@@ -5847,6 +6734,16 @@ class EchoesOfTheMoonApp {
     document.getElementById("certModalSub").textContent = c.sub;
     document.getElementById("certNameInput").placeholder = c.placeholder;
     document.getElementById("downloadCertBtn").textContent = c.btn;
+    const replayQuizBtn = document.getElementById("openQuizFromCertBtn");
+    if (replayQuizBtn) {
+      replayQuizBtn.textContent = this.quizState.completed
+        ? isPt
+          ? "↺ Refazer Quiz"
+          : "↺ Retake Quiz"
+        : isPt
+        ? "✦ Quiz com Vega"
+        : "✦ Quiz with Vega";
+    }
 
     document.getElementById("certificateModal").classList.remove("hidden");
     this.audio.playQuindarTone(true);
@@ -5914,7 +6811,7 @@ class EchoesOfTheMoonApp {
     ctx.fillStyle = "#60a5fa";
     ctx.font = "600 20px monospace";
     ctx.fillText(
-      isPt ? "MUSEU DO SILÊNCIO LUNAR  •  NASA SPACE APPS" : "SILENT LUNAR MUSEUM  •  NASA SPACE APPS",
+      "MUSEUM OF LOST SPACE TECHNOLOGY  •  NASA SPACE APPS",
       w / 2,
       178
     );
@@ -5949,6 +6846,15 @@ class EchoesOfTheMoonApp {
     ctx.moveTo(w * 0.25, 466);
     ctx.lineTo(w * 0.75, 466);
     ctx.stroke();
+
+    if (this.quizState.completed && this.quizState.rankTitle) {
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "600 18px monospace";
+      const honorLabel = isPt
+        ? `DISTINÇÃO DE BORDO: ${this.quizState.rankTitle.toUpperCase()}`
+        : `MISSION DISTINCTION: ${this.quizState.rankTitle.toUpperCase()}`;
+      ctx.fillText(honorLabel, w / 2, 502);
+    }
 
     // Completion body
     ctx.fillStyle = "#dbe4f0";

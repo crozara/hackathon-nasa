@@ -4,7 +4,7 @@
 // -> Open Deep Science & NASA Specs on Demand
 // ============================================================================
 
-import { UI_TEXT, ARTIFACTS, ARTIFACT_INTERACTIONS } from "./data.js";
+import { UI_TEXT, ARTIFACTS, ARTIFACT_INTERACTIONS, MISSION_QUIZ } from "./data.js";
 import { LunarSurface3D } from "./lunarSurface3d.js";
 import { MuseumAudioEngine } from "./audio.js";
 import { getArtifactBlueprintSVG } from "./schematics.js";
@@ -33,6 +33,14 @@ class EchoesOfTheMoonApp {
     this._hasRenderedEditorialOnce = false;
     this._hasSeenMissionLetter = false;
     this._hasShownCertReward = false;
+    this.quizState = {
+      phase: "welcome",
+      questionIdx: 0,
+      score: 0,
+      answeredIdx: null,
+      completed: false,
+      rankTitle: null
+    };
 
     this.audio = new MuseumAudioEngine();
     this.surface3D = null;
@@ -729,11 +737,59 @@ class EchoesOfTheMoonApp {
 
     document.getElementById("missionProgressBadge").addEventListener("click", () => {
       if (this.visitedStations.size >= STATION_ORDER.length) {
-        this.openCertificateModal();
+        if (this.quizState.completed) {
+          this.openCertificateModal();
+        } else {
+          this.openAstronautQuizModal();
+        }
       } else {
         this.openMissionLetter();
       }
     });
+
+    document.getElementById("closeQuizBtn").addEventListener("click", () => {
+      this.closeAstronautQuizModal();
+    });
+
+    document.getElementById("astronautQuizModal").addEventListener("click", (e) => {
+      if (e.target.id === "astronautQuizModal") {
+        this.closeAstronautQuizModal();
+      }
+    });
+
+    const quizReplayBtn = document.getElementById("quizReplayVoiceBtn");
+    if (quizReplayBtn) {
+      quizReplayBtn.addEventListener("click", () => {
+        if (this.audio.vegaMuted) {
+          this.audio.vegaMuted = false;
+        }
+        if (this._lastVegaVoice) {
+          this.speakVegaClip(this._lastVegaVoice.audioUrl, this._lastVegaVoice.spokenText);
+        }
+      });
+    }
+
+    const quizVoiceToggleBtn = document.getElementById("quizVoiceToggleBtn");
+    if (quizVoiceToggleBtn) {
+      quizVoiceToggleBtn.addEventListener("click", () => {
+        this.audio.vegaMuted = !this.audio.vegaMuted;
+        if (this.audio.vegaMuted) {
+          this.audio.stopVegaClip();
+          this.updateVegaSpeakingUI(false);
+        } else if (this._lastVegaVoice) {
+          this.speakVegaClip(this._lastVegaVoice.audioUrl, this._lastVegaVoice.spokenText);
+        }
+        this.updateVegaVoiceControlsUI();
+      });
+    }
+
+    const openQuizFromCertBtn = document.getElementById("openQuizFromCertBtn");
+    if (openQuizFromCertBtn) {
+      openQuizFromCertBtn.addEventListener("click", () => {
+        this.closeCertificateModal();
+        this.openAstronautQuizModal(true);
+      });
+    }
 
     document.getElementById("closeCertificateBtn").addEventListener("click", () => {
       this.closeCertificateModal();
@@ -780,8 +836,15 @@ class EchoesOfTheMoonApp {
     }
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lightbox && !lightbox.classList.contains("hidden")) {
-        this.closeBookImageLightbox();
+      if (e.key === "Escape") {
+        const quizModal = document.getElementById("astronautQuizModal");
+        if (quizModal && !quizModal.classList.contains("hidden")) {
+          this.closeAstronautQuizModal();
+          return;
+        }
+        if (lightbox && !lightbox.classList.contains("hidden")) {
+          this.closeBookImageLightbox();
+        }
       }
     });
   }
@@ -837,7 +900,7 @@ class EchoesOfTheMoonApp {
     this.renderUI();
     if (this.visitedStations.size >= STATION_ORDER.length && !this._hasShownCertReward) {
       this._hasShownCertReward = true;
-      this.openCertificateModal();
+      this.openAstronautQuizModal();
     }
   }
 
@@ -1049,6 +1112,294 @@ class EchoesOfTheMoonApp {
     this.audio.playPing(880, 0.08);
   }
 
+  // ==========================================================================
+  // FRIENDLY ASTRONAUT FINAL QUIZ (COMANDANTE VEGA)
+  // ==========================================================================
+  openAstronautQuizModal(forceRestart = false) {
+    this.audio.stopSpeech(false);
+    if (forceRestart || this.quizState.phase === "summary" || !this.quizState.completed) {
+      this.quizState = {
+        phase: "welcome",
+        questionIdx: 0,
+        score: 0,
+        answeredIdx: null,
+        completed: this.quizState.completed,
+        rankTitle: this.quizState.rankTitle
+      };
+    }
+    document.getElementById("astronautQuizModal").classList.remove("hidden");
+    this.audio.playQuindarTone(true);
+    this.renderAstronautQuiz();
+  }
+
+  closeAstronautQuizModal() {
+    this.audio.stopVegaClip();
+    this.updateVegaSpeakingUI(false);
+    document.getElementById("astronautQuizModal").classList.add("hidden");
+  }
+
+  updateVegaSpeakingUI(isSpeaking) {
+    const ringEl = document.getElementById("quizAvatarRing");
+    const waveEl = document.getElementById("quizVoiceWave");
+    if (ringEl) ringEl.classList.toggle("is-speaking", Boolean(isSpeaking));
+    if (waveEl) waveEl.classList.toggle("playing", Boolean(isSpeaking));
+  }
+
+  updateVegaVoiceControlsUI() {
+    const isPt = this.lang === "pt";
+    const replayText = document.getElementById("quizReplayVoiceText");
+    const toggleBtn = document.getElementById("quizVoiceToggleBtn");
+    const toggleText = document.getElementById("quizVoiceToggleText");
+    if (replayText) {
+      replayText.textContent = isPt ? "Ouvir Vega" : "Hear Vega";
+    }
+    if (toggleBtn && toggleText) {
+      toggleBtn.classList.toggle("is-muted", Boolean(this.audio.vegaMuted));
+      toggleText.textContent = this.audio.vegaMuted
+        ? isPt
+          ? "🔇 Sem voz"
+          : "🔇 Muted"
+        : isPt
+        ? "🔊 Voz ON"
+        : "🔊 Voice ON";
+    }
+  }
+
+  speakVegaClip(audioUrl, spokenText) {
+    this._lastVegaVoice = { audioUrl, spokenText };
+    this.updateVegaVoiceControlsUI();
+    this.audio.playVegaClip(audioUrl, spokenText, this.lang, {
+      onStart: () => this.updateVegaSpeakingUI(true),
+      onEnd: () => this.updateVegaSpeakingUI(false)
+    });
+  }
+
+  handleQuizAnswer(pickedIdx) {
+    if (this.quizState.phase !== "question" || this.quizState.answeredIdx !== null) return;
+    const isPt = this.lang === "pt";
+    const quiz = MISSION_QUIZ[isPt ? "pt" : "en"];
+    const age = this.ageProfile || "adult";
+    const qData = quiz.questions[this.quizState.questionIdx];
+    const q = qData[age] || qData.adult;
+
+    this.quizState.answeredIdx = pickedIdx;
+    const isCorrect = pickedIdx === q.correctIndex;
+    if (isCorrect) {
+      this.quizState.score += 1;
+      this.audio.playPing(660, 0.14);
+    } else {
+      this.audio.playPing(390, 0.14);
+    }
+    this.renderAstronautQuiz();
+  }
+
+  renderAstronautQuiz() {
+    const isPt = this.lang === "pt";
+    const age = this.ageProfile || "adult";
+    const quiz = MISSION_QUIZ[isPt ? "pt" : "en"];
+    const total = quiz.questions.length;
+
+    const ringEl = document.getElementById("quizAvatarRing");
+    const badgeEl = document.getElementById("quizAvatarBadge");
+    const roleEl = document.getElementById("quizGuideRole");
+    const nameEl = document.getElementById("quizGuideName");
+    const chipEl = document.getElementById("quizArtifactChip");
+    const dotsEl = document.getElementById("quizStepDots");
+    const feedbackEl = document.getElementById("quizFeedbackPill");
+    const titleEl = document.getElementById("quizGreetingTitle");
+    const textEl = document.getElementById("quizSpeechText");
+    const optionsEl = document.getElementById("quizOptionsList");
+    const actionsEl = document.getElementById("quizActionsRow");
+
+    roleEl.textContent = quiz.guideRole;
+    nameEl.textContent = quiz.guideName;
+    this.updateVegaVoiceControlsUI();
+
+    dotsEl.innerHTML = quiz.questions
+      .map((_, i) => {
+        let cls = "quiz-step-dot";
+        if (this.quizState.phase === "question") {
+          if (i < this.quizState.questionIdx) cls += " done";
+          else if (i === this.quizState.questionIdx) cls += " active";
+        } else if (this.quizState.phase === "summary") {
+          cls += " done";
+        }
+        return `<span class="${cls}">0${i + 1}</span>`;
+      })
+      .join("");
+
+    ringEl.classList.remove("is-greeting", "is-asking", "is-correct", "is-helping", "is-celebrating");
+    const langKey = isPt ? "pt" : "en";
+
+    if (this.quizState.phase === "welcome") {
+      const g = quiz.greeting[age] || quiz.greeting.adult;
+      ringEl.classList.add("is-greeting");
+      badgeEl.textContent = "✦";
+      chipEl.textContent = isPt ? "MENSAGEM DE BOAS-VINDAS" : "MISSION GUIDE GREETING";
+      feedbackEl.classList.add("hidden");
+      titleEl.textContent = g.title;
+      textEl.textContent = g.message;
+      optionsEl.classList.add("hidden");
+      optionsEl.innerHTML = "";
+      this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-greeting.mp3`, `${g.title} ${g.message}`);
+
+      actionsEl.innerHTML = `
+        <button class="btn-quiz-skip" id="quizSkipBtn" type="button">${g.skipBtn}</button>
+        <button class="btn-quiz-primary" id="quizStartBtn" type="button">${g.startBtn}</button>
+      `;
+      document.getElementById("quizStartBtn").addEventListener("click", () => {
+        this.audio.playPing(580, 0.08);
+        this.quizState.phase = "question";
+        this.quizState.questionIdx = 0;
+        this.quizState.score = 0;
+        this.quizState.answeredIdx = null;
+        this.renderAstronautQuiz();
+      });
+      document.getElementById("quizSkipBtn").addEventListener("click", () => {
+        this.closeAstronautQuizModal();
+        this.openCertificateModal();
+      });
+      return;
+    }
+
+    if (this.quizState.phase === "question") {
+      const qData = quiz.questions[this.quizState.questionIdx];
+      const q = qData[age] || qData.adult;
+      const art = ARTIFACTS.find((a) => a.id === qData.artifactId);
+      const answered = this.quizState.answeredIdx !== null;
+      const isCorrect = answered && this.quizState.answeredIdx === q.correctIndex;
+
+      chipEl.textContent = art ? `${art.mission.toUpperCase()} • ${art.id.toUpperCase()}` : "APOLLO";
+      titleEl.textContent = answered
+        ? q.question
+        : `${quiz.progressPrefix} 0${this.quizState.questionIdx + 1} / 0${total}`;
+
+      if (!answered) {
+        ringEl.classList.add("is-asking");
+        badgeEl.textContent = "?";
+        feedbackEl.classList.add("hidden");
+        feedbackEl.classList.remove("is-correct", "is-helping");
+        textEl.textContent = q.question;
+        this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-q${this.quizState.questionIdx}.mp3`, q.question);
+      } else if (isCorrect) {
+        ringEl.classList.add("is-correct");
+        badgeEl.textContent = "✓";
+        feedbackEl.textContent = quiz.correctChip;
+        feedbackEl.classList.remove("hidden", "is-helping");
+        feedbackEl.classList.add("is-correct");
+        textEl.textContent = q.onCorrect;
+        this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-q${this.quizState.questionIdx}-ok.mp3`, q.onCorrect);
+      } else {
+        ringEl.classList.add("is-helping");
+        badgeEl.textContent = "↺";
+        feedbackEl.textContent = quiz.helpingChip;
+        feedbackEl.classList.remove("hidden", "is-correct");
+        feedbackEl.classList.add("is-helping");
+        textEl.textContent = q.onWrong;
+        this.speakVegaClip(`assets/audio/vega-${langKey}-${age}-q${this.quizState.questionIdx}-help.mp3`, q.onWrong);
+      }
+
+      const letters = ["A", "B", "C"];
+      optionsEl.classList.remove("hidden");
+      optionsEl.innerHTML = q.options
+        .map((opt, idx) => {
+          let cls = "quiz-option-btn";
+          if (answered) {
+            if (idx === q.correctIndex) cls += " is-correct";
+            else if (idx === this.quizState.answeredIdx) cls += " is-wrong";
+            else cls += " is-dimmed";
+          }
+          return `
+            <button class="${cls}" data-quiz-opt="${idx}" type="button" ${answered ? "disabled" : ""}>
+              <span class="quiz-opt-letter">${letters[idx] || idx + 1}</span>
+              <span class="quiz-opt-copy">${opt}</span>
+            </button>
+          `;
+        })
+        .join("");
+
+      if (!answered) {
+        optionsEl.querySelectorAll("[data-quiz-opt]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = parseInt(btn.getAttribute("data-quiz-opt"), 10);
+            this.handleQuizAnswer(idx);
+          });
+        });
+        actionsEl.innerHTML = `
+          <button class="btn-quiz-skip" id="quizSkipBtn" type="button">${quiz.greeting[age]?.skipBtn || quiz.greeting.adult.skipBtn}</button>
+        `;
+        document.getElementById("quizSkipBtn").addEventListener("click", () => {
+          this.closeAstronautQuizModal();
+          this.openCertificateModal();
+        });
+      } else {
+        const isLast = this.quizState.questionIdx >= total - 1;
+        actionsEl.innerHTML = `
+          <button class="btn-quiz-skip" id="quizSkipBtn" type="button">${quiz.greeting[age]?.skipBtn || quiz.greeting.adult.skipBtn}</button>
+          <button class="btn-quiz-primary" id="quizNextBtn" type="button">${isLast ? quiz.finishBtn : quiz.nextBtn}</button>
+        `;
+        document.getElementById("quizNextBtn").addEventListener("click", () => {
+          this.audio.playPing(620, 0.08);
+          if (isLast) {
+            this.quizState.phase = "summary";
+          } else {
+            this.quizState.questionIdx += 1;
+            this.quizState.answeredIdx = null;
+          }
+          this.renderAstronautQuiz();
+        });
+        document.getElementById("quizSkipBtn").addEventListener("click", () => {
+          this.closeAstronautQuizModal();
+          this.openCertificateModal();
+        });
+      }
+      return;
+    }
+
+    // Summary phase
+    const tierKey =
+      this.quizState.score >= total
+        ? "perfect"
+        : this.quizState.score >= 2
+        ? "great"
+        : "curious";
+    const tier = quiz.summary[tierKey];
+    this.quizState.completed = true;
+    this.quizState.rankTitle = tier.rank;
+
+    ringEl.classList.add("is-celebrating");
+    badgeEl.textContent = "★";
+    chipEl.textContent = `${this.quizState.score}/${total} • ${tier.rank.toUpperCase()}`;
+    feedbackEl.textContent = isPt
+      ? `★ MISSÃO CONCLUÍDA • ${this.quizState.score} DE ${total}`
+      : `★ MISSION COMPLETE • ${this.quizState.score} OF ${total}`;
+    feedbackEl.classList.remove("hidden", "is-helping");
+    feedbackEl.classList.add("is-correct");
+    titleEl.textContent = tier.title;
+    textEl.textContent = tier.message;
+    optionsEl.classList.add("hidden");
+    optionsEl.innerHTML = "";
+    this.audio.playQuindarTone(true);
+    this.speakVegaClip(`assets/audio/vega-${langKey}-sum-${tierKey}.mp3`, `${tier.title} ${tier.message}`);
+
+    actionsEl.innerHTML = `
+      <button class="btn-quiz-secondary" id="quizRetryBtn" type="button">↺ ${quiz.retryBtn}</button>
+      <button class="btn-quiz-primary" id="quizGoCertBtn" type="button">${quiz.certBtn}</button>
+    `;
+    document.getElementById("quizRetryBtn").addEventListener("click", () => {
+      this.audio.playPing(540, 0.08);
+      this.quizState.phase = "question";
+      this.quizState.questionIdx = 0;
+      this.quizState.score = 0;
+      this.quizState.answeredIdx = null;
+      this.renderAstronautQuiz();
+    });
+    document.getElementById("quizGoCertBtn").addEventListener("click", () => {
+      this.closeAstronautQuizModal();
+      this.openCertificateModal();
+    });
+  }
+
   openCertificateModal() {
     const isPt = this.lang === "pt";
     const age = this.ageProfile || "adult";
@@ -1116,6 +1467,16 @@ class EchoesOfTheMoonApp {
     document.getElementById("certModalSub").textContent = c.sub;
     document.getElementById("certNameInput").placeholder = c.placeholder;
     document.getElementById("downloadCertBtn").textContent = c.btn;
+    const replayQuizBtn = document.getElementById("openQuizFromCertBtn");
+    if (replayQuizBtn) {
+      replayQuizBtn.textContent = this.quizState.completed
+        ? isPt
+          ? "↺ Refazer Quiz"
+          : "↺ Retake Quiz"
+        : isPt
+        ? "✦ Quiz com Vega"
+        : "✦ Quiz with Vega";
+    }
 
     document.getElementById("certificateModal").classList.remove("hidden");
     this.audio.playQuindarTone(true);
@@ -1183,7 +1544,7 @@ class EchoesOfTheMoonApp {
     ctx.fillStyle = "#60a5fa";
     ctx.font = "600 20px monospace";
     ctx.fillText(
-      isPt ? "MUSEU DO SILÊNCIO LUNAR  •  NASA SPACE APPS" : "SILENT LUNAR MUSEUM  •  NASA SPACE APPS",
+      "MUSEUM OF LOST SPACE TECHNOLOGY  •  NASA SPACE APPS",
       w / 2,
       178
     );
@@ -1218,6 +1579,15 @@ class EchoesOfTheMoonApp {
     ctx.moveTo(w * 0.25, 466);
     ctx.lineTo(w * 0.75, 466);
     ctx.stroke();
+
+    if (this.quizState.completed && this.quizState.rankTitle) {
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "600 18px monospace";
+      const honorLabel = isPt
+        ? `DISTINÇÃO DE BORDO: ${this.quizState.rankTitle.toUpperCase()}`
+        : `MISSION DISTINCTION: ${this.quizState.rankTitle.toUpperCase()}`;
+      ctx.fillText(honorLabel, w / 2, 502);
+    }
 
     // Completion body
     ctx.fillStyle = "#dbe4f0";

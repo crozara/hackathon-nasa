@@ -29,6 +29,10 @@ export class MuseumAudioEngine {
     this._speechLang = "pt";
     this._speechAge = "adult";
     this._speechArtifactId = null;
+    this.vegaAudioEl = null;
+    this.vegaMuted = false;
+    this.isVegaSpeaking = false;
+    this._vegaToken = 0;
   }
 
   estimateParagraphDuration(text, rate = this.speechRate) {
@@ -601,6 +605,85 @@ export class MuseumAudioEngine {
     if (this.onParagraphChange) this.onParagraphChange(-1);
     this.emitProgress();
     if (this.onSpeechEnd) this.onSpeechEnd();
+    this.stopVegaClip();
+  }
+
+  playVegaClip(audioUrl, fallbackText = "", lang = "pt", callbacks = {}) {
+    this.stopVegaClip();
+    if (this.vegaMuted) {
+      if (callbacks.onEnd) callbacks.onEnd();
+      return;
+    }
+
+    const token = ++this._vegaToken;
+    const finish = () => {
+      if (token !== this._vegaToken) return;
+      this.isVegaSpeaking = false;
+      this.vegaAudioEl = null;
+      if (callbacks.onEnd) callbacks.onEnd();
+    };
+
+    const useSpeechFallback = () => {
+      if (token !== this._vegaToken || this.vegaMuted || !fallbackText || !("speechSynthesis" in window)) {
+        finish();
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(fallbackText);
+        utt.lang = lang === "pt" ? "pt-BR" : "en-US";
+        utt.pitch = 1.18;
+        utt.rate = 1.08;
+        utt.onstart = () => {
+          if (token !== this._vegaToken) return;
+          this.isVegaSpeaking = true;
+          if (callbacks.onStart) callbacks.onStart();
+        };
+        utt.onend = finish;
+        utt.onerror = finish;
+        window.speechSynthesis.speak(utt);
+      } catch (_) {
+        finish();
+      }
+    };
+
+    if (!audioUrl) {
+      useSpeechFallback();
+      return;
+    }
+
+    let fellBack = false;
+    const fallbackOnce = () => {
+      if (fellBack || token !== this._vegaToken) return;
+      fellBack = true;
+      useSpeechFallback();
+    };
+
+    const audioEl = new Audio(audioUrl);
+    this.vegaAudioEl = audioEl;
+    audioEl.addEventListener("playing", () => {
+      if (token !== this._vegaToken || fellBack) return;
+      this.isVegaSpeaking = true;
+      if (callbacks.onStart) callbacks.onStart();
+    });
+    audioEl.onended = finish;
+    audioEl.onerror = fallbackOnce;
+    audioEl.play().catch(fallbackOnce);
+  }
+
+  stopVegaClip() {
+    this._vegaToken++;
+    this.isVegaSpeaking = false;
+    if (this.vegaAudioEl) {
+      try {
+        this.vegaAudioEl.pause();
+        this.vegaAudioEl.currentTime = 0;
+      } catch (_) {}
+      this.vegaAudioEl = null;
+    }
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
   }
 
   /**

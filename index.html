@@ -613,6 +613,61 @@
   </div>
 
   <!-- ========================================================================
+       FRIENDLY ASTRONAUT FINAL QUIZ MODAL (UNLOCKED AT 4/4 STORIES)
+       ======================================================================== -->
+  <div class="astronaut-quiz-backdrop hidden" id="astronautQuizModal" role="dialog" aria-modal="true" aria-labelledby="quizGreetingTitle">
+    <div class="astronaut-quiz-card">
+      <button class="btn-close-modal quiz-close-btn" id="closeQuizBtn" type="button" aria-label="Fechar quiz">✕</button>
+
+      <div class="quiz-top-meta">
+        <div class="quiz-guide-id">
+          <span class="quiz-live-dot" aria-hidden="true"></span>
+          <span id="quizGuideRole">GUIA ESPACIAL • MUSEUM OF LOST SPACE TECHNOLOGY</span>
+        </div>
+        <div class="quiz-step-dots" id="quizStepDots" aria-hidden="true"></div>
+      </div>
+
+      <div class="quiz-stage-grid">
+        <div class="quiz-astronaut-column">
+          <div class="quiz-avatar-ring is-greeting" id="quizAvatarRing">
+            <img src="assets/images/astronaut-guide.jpg" alt="Comandante Vega" id="quizAstronautImg" />
+            <span class="quiz-avatar-badge" id="quizAvatarBadge">✦</span>
+          </div>
+          <div class="quiz-astronaut-plate">
+            <strong id="quizGuideName">Comandante Vega</strong>
+            <span id="quizArtifactChip">MISSÃO APOLLO</span>
+          </div>
+        </div>
+
+        <div class="quiz-dialogue-column">
+          <div class="quiz-speech-bubble" id="quizSpeechBubble">
+            <div class="quiz-bubble-top">
+              <span class="quiz-feedback-pill hidden" id="quizFeedbackPill"></span>
+              <div class="quiz-voice-controls" id="quizVoiceControls">
+                <button class="quiz-voice-btn" id="quizReplayVoiceBtn" type="button" title="Ouvir novamente">
+                  <span class="mini-wave" id="quizVoiceWave" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                  </span>
+                  <span id="quizReplayVoiceText">Ouvir Vega</span>
+                </button>
+                <button class="quiz-voice-btn" id="quizVoiceToggleBtn" type="button" title="Alternar áudio da Comandante Vega">
+                  <span id="quizVoiceToggleText">🔊 Voz ON</span>
+                </button>
+              </div>
+            </div>
+            <h2 class="quiz-greeting-title" id="quizGreetingTitle"></h2>
+            <p class="quiz-speech-text" id="quizSpeechText"></p>
+          </div>
+
+          <div class="quiz-options-list hidden" id="quizOptionsList"></div>
+
+          <div class="quiz-actions-row" id="quizActionsRow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        LUNAR EXPLORER CERTIFICATE REWARD MODAL (UNLOCKED AT 4/4 STORIES)
        ======================================================================== -->
   <div class="certificate-backdrop hidden" id="certificateModal">
@@ -627,6 +682,7 @@
       <div class="cert-input-row">
         <input type="text" id="certNameInput" class="cert-name-input" maxlength="42" placeholder="Seu nome completo..." />
         <button class="btn-glow-blue" id="downloadCertBtn">Baixar Certificado (PNG)</button>
+        <button class="btn-quiz-replay-sec" id="openQuizFromCertBtn" type="button">✦ Refazer Quiz</button>
       </div>
 
       <div class="cert-preview-wrap">
