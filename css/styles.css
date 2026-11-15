@@ -6233,15 +6233,15 @@ input:focus-visible {
   .hero-moon-col {
     justify-content: flex-end;
     align-items: center;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero-moon-img {
-    width: clamp(360px, 52vw, 540px);
+    width: clamp(320px, 46vw, 500px);
     max-width: none;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    transform: translateX(12%);
+    transform: translateX(8%);
   }
 
   /* Stories & Equipment Presentation on Tablet */
@@ -6519,25 +6519,26 @@ input:focus-visible {
     background: radial-gradient(circle at 82% 22%, #0a1428 0%, #03060f 48%, #000000 84%);
   }
 
-  /* Moon in its own dedicated upper visual zone, anchored top-right */
+  /* Moon in its own dedicated upper visual zone, anchored top-right without clipping */
   .hero-moon-col {
     order: 1;
     width: calc(100% + 36px);
     margin: 0 -18px;
+    padding-top: 8px;
     min-height: clamp(196px, 54vw, 264px);
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
-    overflow: hidden;
+    align-items: center;
+    overflow: visible;
     pointer-events: none;
   }
 
   .hero-moon-img {
-    width: clamp(228px, 68vw, 310px);
+    width: clamp(220px, 64vw, 304px);
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    transform: translate(11%, -4%);
+    transform: translateX(6%);
     filter: contrast(1.08);
   }
 
@@ -7678,11 +7679,12 @@ input:focus-visible {
     width: calc(100% + 32px);
     margin: 0 -16px;
     min-height: 205px;
+    padding-top: 6px;
   }
 
   .hero-moon-img {
-    width: clamp(212px, 68vw, 244px);
-    transform: translate(10%, -3%);
+    width: clamp(204px, 62vw, 236px);
+    transform: translateX(4%);
   }
 
   .hero-display-title {
