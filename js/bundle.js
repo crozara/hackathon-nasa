@@ -4725,7 +4725,8 @@ class LunarSurface3D {
 
     const qTex = new THREE.CanvasTexture(qCanvas);
 
-    initialOffsets.forEach((coords, orbIndex) => {
+    initialOffsets.forEach((rawCoords, orbIndex) => {
+      const coords = this._getStationOrbCoords(artifactId, rawCoords);
       const orbGroup = new THREE.Group();
       orbGroup.position.set(coords[0], coords[1], coords[2]);
 
@@ -4962,6 +4963,12 @@ class LunarSurface3D {
 
     this.addStationPerimeter(group, 0xeab308, "eagle");
 
+    const modelGroup = new THREE.Group();
+    const eagleScale = this._getEagleScale();
+    modelGroup.scale.set(eagleScale, eagleScale, eagleScale);
+    this.eagleModelGroup = modelGroup;
+    group.add(modelGroup);
+
     const kaptonGoldMat = new THREE.MeshStandardMaterial({
       color: 0xeab308,
       bumpMap: this.kaptonBumpTex,
@@ -4987,21 +4994,21 @@ class LunarSurface3D {
     bodyMesh.position.y = 1.65;
     bodyMesh.castShadow = true;
     bodyMesh.receiveShadow = true;
-    group.add(bodyMesh);
+    modelGroup.add(bodyMesh);
 
     const topDeck = new THREE.Mesh(
       new THREE.CylinderGeometry(1.82, 1.96, 0.14, 8),
       darkAlloyMat
     );
     topDeck.position.y = 2.42;
-    group.add(topDeck);
+    modelGroup.add(topDeck);
 
     const engineBell = new THREE.Mesh(
       new THREE.CylinderGeometry(0.55, 0.82, 0.78, 24, 1, true),
       darkAlloyMat
     );
     engineBell.position.y = 0.65;
-    group.add(engineBell);
+    modelGroup.add(engineBell);
 
     for (let i = 0; i < 4; i++) {
       const angle = (i * Math.PI) / 2 + Math.PI / 4;
@@ -5066,7 +5073,7 @@ class LunarSurface3D {
         legGroup.add(plaque);
       }
 
-      group.add(legGroup);
+      modelGroup.add(legGroup);
     }
 
     this.scene.add(group);
@@ -5239,14 +5246,15 @@ class LunarSurface3D {
 
     this.orbitTheta = 0.34;
     this.orbitPhi = 1.22;
-    this.orbitRadius = inspectMode ? st.radius * 0.85 : st.radius;
+    this.orbitRadius = this._getResponsiveRadius(inspectMode ? st.radius * 0.85 : st.radius);
     this.targetOrbitTheta = this.orbitTheta;
     this.targetOrbitPhi = this.orbitPhi;
     this.targetOrbitRadius = this.orbitRadius;
 
-    const shiftX = inspectMode ? 1.15 : 0;
-    this.lookTarget = { x: shiftX, y: st.targetY, z: 0 };
-    this.targetLook = { x: shiftX, y: st.targetY, z: 0 };
+    const shiftX = inspectMode ? this._getInspectOffsetX() : 0;
+    const targetY = this._getStationTargetY(st);
+    this.lookTarget = { x: shiftX, y: targetY, z: 0 };
+    this.targetLook = { x: shiftX, y: targetY, z: 0 };
 
     this.updateVisibleStation();
   }
@@ -5255,9 +5263,9 @@ class LunarSurface3D {
     const st = this.stations[this.currentStationIndex];
     this.isInOrbit = false;
     this.isDescending = false;
-    this.targetOrbitRadius = st.radius;
+    this.targetOrbitRadius = this._getResponsiveRadius(st.radius);
     this.targetOrbitPhi = 1.22;
-    this.targetLook = { x: 0, y: st.targetY, z: 0 };
+    this.targetLook = { x: 0, y: this._getStationTargetY(st), z: 0 };
     this.updateVisibleStation();
   }
 
@@ -5293,13 +5301,51 @@ class LunarSurface3D {
 
     this.targetOrbitPhi = 1.22;
     this.targetOrbitRadius = this._getResponsiveRadius(inspectMode ? st.radius * 0.85 : st.radius);
-    this.targetLook = { x: inspectMode ? this._getInspectOffsetX() : 0, y: st.targetY, z: 0 };
+    this.targetLook = {
+      x: inspectMode ? this._getInspectOffsetX() : 0,
+      y: this._getStationTargetY(st),
+      z: 0
+    };
 
     this.updateVisibleStation();
 
     if (this.onStationChange) {
       this.onStationChange(st.id, clamped, inspectMode);
     }
+  }
+
+  _getEagleScale() {
+    const w = (this.container && this.container.clientWidth) || window.innerWidth || 1280;
+    if (w <= 480) return 0.55;
+    if (w <= 767) return 0.72;
+    return 1.0;
+  }
+
+  _getStationTargetY(st) {
+    if (!st) return 0.65;
+    return st.id === "eagle" ? st.targetY * this._getEagleScale() : st.targetY;
+  }
+
+  _getStationOrbCoords(artifactId, coords) {
+    const s = artifactId === "eagle" ? this._getEagleScale() : 1.0;
+    return [coords[0] * s, coords[1] * s, coords[2] * s];
+  }
+
+  _syncEagleCuriosityOrbs() {
+    if (!this.curiosityMeshes || this.curiosityMeshes.length === 0) return;
+    this.curiosityMeshes.forEach((m) => {
+      if (m.userData.artifactId !== "eagle") return;
+      const { orbGroup, orbIndex, offsetsByAge } = m.userData;
+      const rawCoords =
+        offsetsByAge &&
+        offsetsByAge[this.ageDifficulty] &&
+        offsetsByAge[this.ageDifficulty][orbIndex];
+      if (rawCoords && orbGroup) {
+        const coords = this._getStationOrbCoords("eagle", rawCoords);
+        orbGroup.position.set(coords[0], coords[1], coords[2]);
+        m.userData.baseY = coords[1];
+      }
+    });
   }
 
   _getResponsiveRadius(baseRadius) {
@@ -5322,7 +5368,11 @@ class LunarSurface3D {
     this.isInspectMode = inspectMode;
     const st = this.stations[this.currentStationIndex];
     this.targetOrbitRadius = this._getResponsiveRadius(inspectMode ? st.radius * 0.85 : st.radius);
-    this.targetLook = { x: inspectMode ? this._getInspectOffsetX() : 0, y: st.targetY, z: 0 };
+    this.targetLook = {
+      x: inspectMode ? this._getInspectOffsetX() : 0,
+      y: this._getStationTargetY(st),
+      z: 0
+    };
   }
 
   bindEvents() {
@@ -5446,12 +5496,18 @@ class LunarSurface3D {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(w, h);
+    if (this.eagleModelGroup) {
+      const eagleScale = this._getEagleScale();
+      this.eagleModelGroup.scale.set(eagleScale, eagleScale, eagleScale);
+      this._syncEagleCuriosityOrbs();
+    }
     if (!this.isDescending && this.stations && this.stations[this.currentStationIndex]) {
       const st = this.stations[this.currentStationIndex];
       this.targetOrbitRadius = this._getResponsiveRadius(
         this.isInspectMode ? st.radius * 0.85 : st.radius
       );
       this.targetLook.x = this.isInspectMode ? this._getInspectOffsetX() : 0;
+      this.targetLook.y = this._getStationTargetY(st);
     }
   }
 
@@ -5484,7 +5540,7 @@ class LunarSurface3D {
         }
         this.targetOrbitRadius = this._getResponsiveRadius(st.radius);
         this.targetOrbitPhi = 1.22;
-        this.targetLook = { x: 0, y: st.targetY, z: 0 };
+        this.targetLook = { x: 0, y: this._getStationTargetY(st), z: 0 };
       }
 
       if (t >= 1.0) {
@@ -5581,10 +5637,11 @@ class LunarSurface3D {
       this.ageDifficulty === "child" ? 0.98 : this.ageDifficulty === "teen" ? 0.72 : 0.42;
 
     this.curiosityMeshes.forEach((m) => {
-      const { orbGroup, orbIndex, offsetsByAge, spriteMat, discovered } = m.userData;
+      const { artifactId, orbGroup, orbIndex, offsetsByAge, spriteMat, discovered } = m.userData;
       if (offsetsByAge && offsetsByAge[this.ageDifficulty]) {
-        const coords = offsetsByAge[this.ageDifficulty][orbIndex];
-        if (coords && orbGroup) {
+        const rawCoords = offsetsByAge[this.ageDifficulty][orbIndex];
+        if (rawCoords && orbGroup) {
+          const coords = this._getStationOrbCoords(artifactId, rawCoords);
           orbGroup.position.set(coords[0], coords[1], coords[2]);
           m.userData.baseY = coords[1];
         }
@@ -5611,7 +5668,6 @@ class LunarSurface3D {
     });
   }
 }
-
 
 /* ===== js/app.js ===== */
 // ============================================================================
