@@ -16,7 +16,7 @@ class EchoesOfTheMoonApp {
   constructor() {
     this.lang = localStorage.getItem("nasa_lang") || "en";
     this.ageProfile = localStorage.getItem("nasa_age") || "adult"; // 'child' | 'teen' | 'adult'
-    this.hasOnboarded = localStorage.getItem("nasa_onboarded") === "true";
+    this.hasOnboarded = false; // Always prompt language & age profile on initial site open
     this.stationIndex = 0;
     this.storyPageIndex = 0;
     this.is3DActive = false;
@@ -57,8 +57,8 @@ class EchoesOfTheMoonApp {
 
   init() {
     const onboardingModal = document.getElementById("onboardingModal");
-    if (this.hasOnboarded && onboardingModal) {
-      onboardingModal.classList.add("hidden");
+    if (onboardingModal) {
+      onboardingModal.classList.remove("hidden");
     }
 
     const labMount = document.getElementById("scienceLabMount");
