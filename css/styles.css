@@ -2285,13 +2285,13 @@ body:not(.in-3d-mode) .book-page-left .story-quote-highlight {
 .anatomy-viewport {
   position: relative;
   width: 100%;
+  max-width: 728px;
   aspect-ratio: 16 / 9;
-  max-height: 410px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border-glass);
   background: #04070f;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
 }
 
 .anatomy-photo,

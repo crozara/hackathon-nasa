@@ -52,7 +52,11 @@ export class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">SIMULADOR ÓPTICO // LUNAR LASER RANGING (LLR)</span>
+            <span class="lab-badge">${
+              isPt
+                ? "SIMULADOR ÓPTICO // LUNAR LASER RANGING (LLR)"
+                : "OPTICAL SIMULATOR // LUNAR LASER RANGING (LLR)"
+            }</span>
             <h4>${
               isPt
                 ? "Disparo Laser Terra–Lua & Geometria do Prisma Corner-Cube"
@@ -69,17 +73,17 @@ export class ScienceLabController {
         <div class="lab-telemetry-grid">
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Tempo de Ida e Volta (Δt)" : "Round-Trip Time (Δt)"}</span>
-            <strong class="t-value emerald" id="llrTimeVal">2,5644 s</strong>
-            <span class="t-sub">c = 299.792.458 m/s</span>
+            <strong class="t-value emerald" id="llrTimeVal">${isPt ? "2,5644 s" : "2.5644 s"}</strong>
+            <span class="t-sub">${isPt ? "c = 299.792.458 m/s" : "c = 299,792,458 m/s"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Distância Calculada d = (c × Δt)/2" : "Calculated Distance d = (c × Δt)/2"}</span>
-            <strong class="t-value cyan" id="llrDistVal">384.400,00 km</strong>
-            <span class="t-sub" id="llrDriftSub">+216,6 cm ${isPt ? "desde Jul/1969" : "since Jul/1969"}</span>
+            <strong class="t-value cyan" id="llrDistVal">${isPt ? "384.400,00 km" : "384,400.00 km"}</strong>
+            <span class="t-sub" id="llrDriftSub">${isPt ? "+216,6 cm desde Jul/1969" : "+216.6 cm since Jul/1969"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Eficiência de Retorno Óptico" : "Optical Return Efficiency"}</span>
-            <strong class="t-value gold" id="llrPhotonVal">1 / 10¹⁷ fótons</strong>
+            <strong class="t-value gold" id="llrPhotonVal">${isPt ? "1 / 10¹⁷ fótons" : "1 / 10¹⁷ photons"}</strong>
             <span class="t-sub">${isPt ? "100 prismas de sílica fundida" : "100 fused-silica prisms"}</span>
           </div>
         </div>
@@ -143,11 +147,9 @@ export class ScienceLabController {
       yearLabel.textContent = selectedYear;
       angleLabel.textContent = `${angleDeg > 0 ? "+" : ""}${angleDeg}°`;
       timeVal.textContent = `${dt.replace(".", isPt ? "," : ".")} s`;
-      distVal.textContent = `${
-        isPt
-          ? baseKm.toFixed(2).replace(".", ",")
-          : baseKm.toFixed(2)
-      } km (+${isPt ? driftCm.replace(".", ",") : driftCm} cm)`;
+      distVal.textContent = isPt
+        ? `${baseKm.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km (+${driftCm.replace(".", ",")} cm)`
+        : `${baseKm.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km (+${driftCm} cm)`;
       driftSub.textContent = `+${isPt ? driftCm.replace(".", ",") : driftCm} cm ${
         isPt ? `desde 1969 (${yearsElapsed} anos)` : `since 1969 (${yearsElapsed} yrs)`
       }`;
@@ -217,21 +219,29 @@ export class ScienceLabController {
 
       ctx.fillStyle = "#34D399";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
-      ctx.fillText("PRISMA CORNER-CUBE (LUA)", w - 195, py + 76);
+      ctx.fillText(isPt ? "PRISMA CORNER-CUBE (LUA)" : "CORNER-CUBE PRISM (MOON)", w - 205, py + 76);
 
-      // Ray Tracing (Incoming ray at angleDeg + internal bounce + parallel return ray)
-      const offsetY = (angleDeg / 35) * 32;
-      const hit1X = px + 14;
-      const hit1Y = py - 24 + offsetY * 0.35;
-      const hit2X = px + 14;
-      const hit2Y = py + 24 + offsetY * 0.35;
+      // True 90-degree Corner-Cube Ray Tracing (3-segment retroreflection)
+      const rad = (angleDeg * Math.PI) / 180;
+      const vx = px + prismSize * 0.5;
+      const vy = py;
+      const d1 = 22;
+      const hit1X = vx - d1;
+      const hit1Y = vy - d1;
+      const hit2T = (2 * d1) / (Math.cos(rad) + Math.sin(rad));
+      const hit2X = hit1X + hit2T * Math.sin(rad);
+      const hit2Y = hit1Y + hit2T * Math.cos(rad);
+      const startX = ex + 32;
+      const endX = ex + 32;
+      const startY = hit1Y - (hit1X - startX) * Math.tan(rad);
+      const endY = hit2Y - (hit2X - endX) * Math.tan(rad);
 
       // Incoming Beam (Dashed Green)
       ctx.strokeStyle = "rgba(16, 185, 129, 0.65)";
       ctx.lineWidth = 2;
       ctx.setLineDash([6, 4]);
       ctx.beginPath();
-      ctx.moveTo(ex + 32, ey - 10 + offsetY);
+      ctx.moveTo(startX, Math.max(18, Math.min(h - 18, startY)));
       ctx.lineTo(hit1X, hit1Y);
       ctx.stroke();
 
@@ -244,25 +254,31 @@ export class ScienceLabController {
       ctx.lineTo(hit2X, hit2Y);
       ctx.stroke();
 
-      // Parallel Reflected Beam Returning to Earth
+      // Strictly Parallel Reflected Beam Returning to Earth
       ctx.strokeStyle = "#34D399";
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(hit2X, hit2Y);
-      ctx.lineTo(ex + 32, ey + 14 + offsetY);
+      ctx.lineTo(endX, Math.max(18, Math.min(h - 18, endY)));
       ctx.stroke();
 
       // Animated Pulse Packet if fired
       if (pulseProgress >= 0) {
         pulseProgress += 0.018;
         let dotX, dotY;
+        const clampedStartY = Math.max(18, Math.min(h - 18, startY));
+        const clampedEndY = Math.max(18, Math.min(h - 18, endY));
         if (pulseProgress <= 1) {
-          dotX = ex + 32 + (hit1X - (ex + 32)) * pulseProgress;
-          dotY = ey - 10 + offsetY + (hit1Y - (ey - 10 + offsetY)) * pulseProgress;
-        } else if (pulseProgress <= 2) {
-          const t = pulseProgress - 1;
-          dotX = hit2X + (ex + 32 - hit2X) * t;
-          dotY = hit2Y + (ey + 14 + offsetY - hit2Y) * t;
+          dotX = startX + (hit1X - startX) * pulseProgress;
+          dotY = clampedStartY + (hit1Y - clampedStartY) * pulseProgress;
+        } else if (pulseProgress <= 1.15) {
+          const b = (pulseProgress - 1) / 0.15;
+          dotX = hit1X + (hit2X - hit1X) * b;
+          dotY = hit1Y + (hit2Y - hit1Y) * b;
+        } else if (pulseProgress <= 2.15) {
+          const t = pulseProgress - 1.15;
+          dotX = hit2X + (endX - hit2X) * t;
+          dotY = hit2Y + (clampedEndY - hit2Y) * t;
         } else {
           pulseProgress = -1;
           if (this.audio) this.audio.playPing(1320, 0.12);
@@ -295,7 +311,9 @@ export class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">LABORATÓRIO SISMOLÓGICO // APOLLO 11 PSE</span>
+            <span class="lab-badge">${
+              isPt ? "LABORATÓRIO SISMOLÓGICO // APOLLO 11 PSE" : "SEISMOLOGY LAB // APOLLO 11 PSE"
+            }</span>
             <h4>${
               isPt
                 ? "Sismógrafo de 3 Eixos (Moonquakes) & Luta Térmica Dia/Noite"
@@ -325,7 +343,9 @@ export class ScienceLabController {
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Temperatura Interna do PSE" : "PSE Internal Temperature"}</span>
-            <strong class="t-value emerald" id="pseCoreTemp">-54,0°C ( Seguro )</strong>
+            <strong class="t-value emerald" id="pseCoreTemp">${
+              isPt ? "-54,0°C (Protegido)" : "-54.0°C (Protected)"
+            }</strong>
             <span class="t-sub" id="pseHeaterStatus">${
               isPt ? "Aquecedor Nuclear Pu-238: ATIVO" : "Pu-238 Nuclear Heater: ACTIVE"
             }</span>
@@ -347,7 +367,7 @@ export class ScienceLabController {
                   ? "Simulador Térmico (Deslize entre a Noite de -170°C e o Meio-Dia de +120°C):"
                   : "Thermal Simulator (Slide between -170°C Night and +120°C Lunar Noon):"
               }</span>
-              <strong id="solarHourLabel">Noite (-170°C)</strong>
+              <strong id="solarHourLabel">${isPt ? "Noite (-170°C)" : "Night (-170°C)"}</strong>
             </label>
             <input type="range" id="pseThermalSlider" min="0" max="100" value="15" />
             <small class="lab-hint" id="pseThermalHint">
@@ -407,8 +427,8 @@ export class ScienceLabController {
           freq = 0.8;
           decay = 0.975;
           eventStatus.textContent = isPt
-            ? "Passos de Astronauta a 16,8m"
-            : "Astronaut Footsteps at 16.8m";
+            ? "Passos de Astronauta (~16,8m–27m)"
+            : "Astronaut Footsteps (~16.8m–27m)";
           if (this.audio) this.audio.playPing(320, 0.1);
         }
       });
@@ -421,18 +441,22 @@ export class ScienceLabController {
 
       if (extTemp < -54) {
         // Nuclear RHU clamps internal minimum at -54°C!
-        cycleVal.textContent = isPt ? "Noite Lunar (340h)" : "Lunar Night (340h)";
-        solarHourLabel.textContent = `${extTemp}°C (Noite)`;
-        coreTemp.textContent = "-54,0°C (Protegido)";
+        cycleVal.textContent = isPt ? "Noite Lunar (~340h)" : "Lunar Night (~340h)";
+        solarHourLabel.textContent = isPt ? `${extTemp}°C (Noite)` : `${extTemp}°C (Night)`;
+        coreTemp.textContent = isPt ? "-54,0°C (Protegido)" : "-54.0°C (Protected)";
         coreTemp.className = "t-value emerald";
         heaterStatus.textContent = isPt
-          ? "Aquecedor Nuclear (Radioisótopo): ATIVO • Painéis Solares: STANDBY"
-          : "Radioisotope Heater: ACTIVE • Solar Panels: STANDBY";
+          ? "Aquecedor Nuclear (Pu-238): ATIVO • Painéis Solares: STANDBY"
+          : "Radioisotope Heater (Pu-238): ACTIVE • Solar Panels: STANDBY";
       } else if (extTemp <= 65) {
         const internal = Math.round(extTemp * 0.7 - coolingOffset);
         cycleVal.textContent = isPt ? "Manhã / Tarde Lunar" : "Lunar Morning / Afternoon";
-        solarHourLabel.textContent = `+${extTemp}°C (Dia Operacional)`;
-        coreTemp.textContent = `${internal}°C (Operação Nominal)`;
+        solarHourLabel.textContent = isPt
+          ? `${extTemp >= 0 ? "+" : ""}${extTemp}°C (Dia Operacional)`
+          : `${extTemp >= 0 ? "+" : ""}${extTemp}°C (Operational Day)`;
+        coreTemp.textContent = isPt
+          ? `${internal}°C (Operação Nominal)`
+          : `${internal}°C (Nominal Operation)`;
         coreTemp.className = "t-value cyan";
         heaterStatus.textContent = isPt
           ? "Painéis Solares: GERANDO ENERGIA"
@@ -440,15 +464,21 @@ export class ScienceLabController {
       } else {
         const internal = Math.max(45, Math.round(extTemp * 0.85 - coolingOffset));
         cycleVal.textContent = isPt ? "Meio-Dia Escaldante!" : "Scorching Lunar Noon!";
-        solarHourLabel.textContent = `+${extTemp}°C (Alerta Térmico!)`;
+        solarHourLabel.textContent = isPt
+          ? `+${extTemp}°C (Alerta Térmico!)`
+          : `+${extTemp}°C (Thermal Alert!)`;
         if (internal > 75) {
-          coreTemp.textContent = `+${internal}°C (SUPERAQUECIMENTO!)`;
+          coreTemp.textContent = isPt
+            ? `+${internal}°C (SUPERAQUECIMENTO!)`
+            : `+${internal}°C (OVERHEATING!)`;
           coreTemp.className = "t-value gold";
           heaterStatus.textContent = isPt
             ? "Risco de falha (como ocorreu em 25/08/1969 às 04:00 UT)!"
             : "Risk of failure (as occurred Aug 25, 1969 at 04:00 UT)!";
         } else {
-          coreTemp.textContent = `+${internal}°C (Resfriado por Power Dump)`;
+          coreTemp.textContent = isPt
+            ? `+${internal}°C (Resfriado por Power Dump)`
+            : `+${internal}°C (Cooled by Power Dump)`;
           coreTemp.className = "t-value emerald";
           heaterStatus.textContent = isPt
             ? "Power Dump ativo estabilizando eletrônica!"
@@ -494,9 +524,9 @@ export class ScienceLabController {
       ctx.fillRect(0, 0, w, h);
 
       const channels = [
-        { label: "EIXO Z (CIMA-BAIXO)", y: 42, data: historyZ, color: "#FBBF24" },
-        { label: "EIXO N-S (NORTE-SUL)", y: 105, data: historyNS, color: "#38BDF8" },
-        { label: "EIXO L-O (LESTE-OESTE)", y: 168, data: historyEW, color: "#34D399" }
+        { label: isPt ? "EIXO Z (CIMA-BAIXO)" : "Z-AXIS (UP-DOWN)", y: 42, data: historyZ, color: "#FBBF24" },
+        { label: isPt ? "EIXO N-S (NORTE-SUL)" : "N-S AXIS (NORTH-SOUTH)", y: 105, data: historyNS, color: "#38BDF8" },
+        { label: isPt ? "EIXO L-O (LESTE-OESTE)" : "E-W AXIS (EAST-WEST)", y: 168, data: historyEW, color: "#34D399" }
       ];
 
       channels.forEach((ch) => {
@@ -539,7 +569,11 @@ export class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">PAINEL DE NAVEGAÇÃO LRV // GIROSCÓPIO & CÂMERA DE ED FENDELL</span>
+            <span class="lab-badge">${
+              isPt
+                ? "PAINEL DE NAVEGAÇÃO LRV // GIROSCÓPIO & CÂMERA DE ED FENDELL"
+                : "LRV NAVIGATION CONSOLE // GYRO & ED FENDELL CAMERA"
+            }</span>
             <h4>${
               isPt
                 ? "Navegação Sem Bússola ('Fio de Ariadne') & A Despedida da Apollo 17"
@@ -564,18 +598,22 @@ export class ScienceLabController {
         <div class="lab-telemetry-grid">
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Fio de Ariadne (Seta p/ Módulo Lunar)" : "Ariadne's Thread (Bearing to LM)"}</span>
-            <strong class="t-value gold" id="lrvBearingVal">248° WSW (Direto p/ Casa)</strong>
+            <strong class="t-value gold" id="lrvBearingVal">${
+              isPt ? "132° SE (Seta p/ LM Falcon)" : "132° SE (Arrow to LM Falcon)"
+            }</strong>
             <span class="t-sub">${isPt ? "Giroscópio Direcional + 4 Odômetros" : "Directional Gyro + 4 Wheel Odometers"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Distância do Módulo / Odômetro" : "Range to LM / Total Odometer"}</span>
-            <strong class="t-value cyan" id="lrvRangeVal">7,6 km / 35,9 km</strong>
-            <span class="t-sub">${isPt ? "Soma das 3 missões: 90,5 km" : "Combined 3 missions: 90.5 km"}</span>
+            <strong class="t-value cyan" id="lrvRangeVal">${
+              isPt ? "4,8 km / 27,8 km (Apollo 15)" : "4.8 km / 27.8 km (Apollo 15)"
+            }</strong>
+            <span class="t-sub">${isPt ? "Soma das 3 missões (NSSDCA): 90,4 km" : "3-mission total (NSSDCA): 90.4 km"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Episódio Ativo no Simulador" : "Active Mission Episode"}</span>
             <strong class="t-value emerald" id="lrvEpisodeTitle">${
-              isPt ? "Taurus-Littrow (Apollo 17)" : "Taurus-Littrow (Apollo 17)"
+              isPt ? "O Segredo do 'Seatbelt Basalt'" : "The 'Seatbelt Basalt' Prank"
             }</strong>
             <span class="t-sub" id="lrvEpisodeSub">${
               isPt ? "Clique nos botões acima para simular" : "Click the buttons above to simulate"
@@ -604,8 +642,12 @@ export class ScienceLabController {
         if (this.audio) this.audio.playQuindarTone(true);
 
         if (mode === "seatbelt") {
-          bearingEl.textContent = "132° SE (Seta p/ LM Falcon)";
-          rangeEl.textContent = "4,8 km / 27,9 km (Apollo 15)";
+          bearingEl.textContent = isPt
+            ? "132° SE (Seta p/ LM Falcon)"
+            : "132° SE (Arrow to LM Falcon)";
+          rangeEl.textContent = isPt
+            ? "4,8 km / 27,8 km (Apollo 15)"
+            : "4.8 km / 27.8 km (Apollo 15)";
           epTitle.textContent = isPt
             ? "O Segredo do 'Seatbelt Basalt'"
             : "The 'Seatbelt Basalt' Prank";
@@ -613,8 +655,12 @@ export class ScienceLabController {
             ? "Scott e Irwin fingiram defeito no cinto para pegar um basalto cheio de bolhas!"
             : "Scott & Irwin faked a seatbelt issue to grab a vesicular volcanic rock!";
         } else if (mode === "fender") {
-          bearingEl.textContent = "248° WSW (Seta p/ LM Challenger)";
-          rangeEl.textContent = "7,6 km / 35,9 km (Apollo 17)";
+          bearingEl.textContent = isPt
+            ? "248° WSW (Seta p/ LM Challenger)"
+            : "248° WSW (Arrow to LM Challenger)";
+          rangeEl.textContent = isPt
+            ? "7,6 km / 35,9 km (Apollo 17)"
+            : "7.6 km / 35.9 km (Apollo 17)";
           epTitle.textContent = isPt
             ? "Reparo com Mapas e Fita Adesiva"
             : "Lunar Map & Duct Tape Fender Fix";
@@ -622,14 +668,18 @@ export class ScienceLabController {
             ? "Para-lama traseiro direito consertado contra a chuva de poeira abrasiva!"
             : "Right-rear fender improvised with laminated lunar maps & clamps!";
         } else {
-          bearingEl.textContent = "090° E (Estacionado a 145 m do LM)";
-          rangeEl.textContent = "0,14 km / 90,5 km Totais";
+          bearingEl.textContent = isPt
+            ? "090° E (Estacionado a ~145 m do LM)"
+            : "090° E (Parked ~145 m from LM)";
+          rangeEl.textContent = isPt
+            ? "0,14 km / 90,4 km Totais"
+            : "0.14 km / 90.4 km Combined";
           epTitle.textContent = isPt
             ? "14 Dez 1972: 'Ignition!' (Câmera de Ed Fendell)"
             : "Dec 14, 1972: 'Ignition!' (Ed Fendell Camera)";
           epSub.textContent = isPt
             ? "Ed Fendell em Houston inclina a lente (+1,28s delay) e filma a subida às estrelas!"
-            : "Ed Fendell in Houston tilts the lens (+1.28s delay) to film the ascent to the stars!";
+            : "Ed Fendell in Houston tilts the lens (~1.28s delay) to film the ascent to the stars!";
         }
       });
     });
@@ -655,8 +705,8 @@ export class ScienceLabController {
       ctx.font = "600 9.5px 'JetBrains Mono', monospace";
       ctx.fillText("N", dialX - 3, dialY - dialR + 12);
       ctx.fillText("S", dialX - 3, dialY + dialR - 5);
-      ctx.fillText("E", dialX + dialR - 11, dialY + 3);
-      ctx.fillText("O", dialX - dialR + 5, dialY + 3);
+      ctx.fillText(isPt ? "L" : "E", dialX + dialR - 11, dialY + 3);
+      ctx.fillText(isPt ? "O" : "W", dialX - dialR + 5, dialY + 3);
 
       // Ariadne's Thread Golden Arrow pointing back to Lunar Module
       const targetAngle = mode === "seatbelt" ? 2.1 : mode === "fender" ? 4.1 : 1.57;
@@ -754,15 +804,19 @@ export class ScienceLabController {
 
       ctx.fillStyle = "#BAE6FD";
       ctx.font = "600 10.5px 'JetBrains Mono', monospace";
-      ctx.fillText(
+      const bannerText =
         mode === "liftoff"
-          ? `CÂMERA DE ED FENDELL // TILT: +${cameraTiltDeg}° (TRANSMISSÃO AO VIVO)`
+          ? isPt
+            ? `CÂMERA DE ED FENDELL // TILT: +${cameraTiltDeg}° (TRANSMISSÃO AO VIVO)`
+            : `ED FENDELL CAMERA // TILT: +${cameraTiltDeg}° (LIVE BROADCAST)`
           : mode === "seatbelt"
-          ? "PARADA SECRETA: BASALTO DO CINTO DE SEGURANÇA (77,31 KG AMOSTRAS)"
-          : "REPARO DE EMERGÊNCIA: MAPA LUNAR + FITA NO PARA-LAMA TRASEIRO",
-        sceneX + 24,
-        28
-      );
+          ? isPt
+            ? "PARADA SECRETA: BASALTO DO CINTO DE SEGURANÇA (77,31 KG AMOSTRAS)"
+            : "SECRET STOP: SEATBELT BASALT (77.31 KG SAMPLES COLLECTED)"
+          : isPt
+          ? "REPARO DE EMERGÊNCIA: MAPA LUNAR + FITA NO PARA-LAMA TRASEIRO"
+          : "EMERGENCY REPAIR: LUNAR MAP + TAPE ON REAR FENDER";
+      ctx.fillText(bannerText, sceneX + 24, 28);
 
       this.animFrame = requestAnimationFrame(drawRoverSim);
     };
@@ -779,7 +833,11 @@ export class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">LABORATÓRIO BASE TRANQUILIDADE // GRAVIDADE 1/6 & PLACA HISTÓRICA</span>
+            <span class="lab-badge">${
+              isPt
+                ? "LABORATÓRIO BASE TRANQUILIDADE // GRAVIDADE 1/6 & PLACA HISTÓRICA"
+                : "TRANQUILITY BASE LAB // 1/6 GRAVITY & HISTORIC PLAQUE"
+            }</span>
             <h4>${
               isPt
                 ? "Simulador de Gravidade Lunar (1/6) & A Placa da Escada da Eagle"
@@ -791,18 +849,41 @@ export class ScienceLabController {
         <div class="lab-telemetry-grid">
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Rover LRV Vazio (Terra → Lua)" : "Empty LRV Rover (Earth → Moon)"}</span>
-            <strong class="t-value cyan">210 kg → 35 kg</strong>
-            <span class="t-sub">${isPt ? "Carrega +490 kg de carga útil!" : "Carries +490 kg payload!"}</span>
+            <strong class="t-value cyan">210 kg → ~35 kg</strong>
+            <span class="t-sub">${isPt ? "Carrega +490 kg de carga útil!" : "Carries +490 kg lunar payload!"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Amostras da Apollo 11" : "Apollo 11 Rock Samples"}</span>
-            <strong class="t-value gold">21,55 kg → 3,59 kg</strong>
+            <strong class="t-value gold">${isPt ? "21,55 kg → 3,57 kg" : "21.55 kg → 3.57 kg"}</strong>
             <span class="t-sub">${isPt ? "Quarentena até 10/08/1969" : "Quarantined until Aug 10, 1969"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Precisão Translunar Apollo 11" : "Apollo 11 Translunar Precision"}</span>
-            <strong class="t-value emerald">Erro: 1,6 pé/s</strong>
-            <span class="t-sub">${isPt ? "12 min de descida motorizada" : "12 min powered descent"}</span>
+            <strong class="t-value emerald">${isPt ? "Erro: 1,6 pé/s" : "Error: 1.6 ft/s"}</strong>
+            <span class="t-sub">${isPt ? "~12 min de descida motorizada" : "~12 min powered descent"}</span>
+          </div>
+        </div>
+
+        <div class="lab-controls-row">
+          <div class="lab-slider-group">
+            <label>
+              <span>${
+                isPt
+                  ? "Balança Lunar Interativa (g = 1,62 m/s² ≈ 16,5% da Terra):"
+                  : "Interactive Lunar Weight Scale (g = 1.62 m/s² ≈ 16.5% of Earth):"
+              }</span>
+              <strong id="eagleGravityResult">${
+                isPt ? "160 kg (Astronauta+Traje) → 26,5 kg na Lua" : "160 kg (Suited Astronaut) → 26.5 kg on Moon"
+              }</strong>
+            </label>
+            <input type="range" id="eagleMassSlider" min="10" max="2100" step="5" value="160" />
+            <small class="lab-hint" id="eagleGravityHint">
+              ${
+                isPt
+                  ? "Arraste para comparar pesos de carga na Base Tranquilidade (~2.034 kg secos no estágio de descida)."
+                  : "Slide to compare lunar payloads at Tranquility Base (~2,034 kg descent stage dry mass)."
+              }
+            </small>
           </div>
         </div>
 
@@ -811,7 +892,7 @@ export class ScienceLabController {
             <div class="plaque-header">HERE MEN FROM THE PLANET EARTH</div>
             <div class="plaque-body">
               FIRST SET FOOT UPON THE MOON<br/>
-              JULY 1969, A.D.<br/>
+              JULY 1969 A.D.<br/>
               <strong>WE CAME IN PEACE FOR ALL MANKIND</strong>
             </div>
             <div class="plaque-sigs">
@@ -826,13 +907,33 @@ export class ScienceLabController {
             <p>
               ${
                 isPt
-                  ? "\"Aqui homens do planeta Terra pisaram pela primeira vez na Lua. Julho de 1969 d.C. Viemos em paz por toda a humanidade.\" — Gravada em aço inoxidável presa entre o terceiro e o quarto degrau da perna dianteira do Estágio de Descida da Eagle, ela permanece intocada no vácuo do Mar da Tranquilidade (0° 41' 15\" N, 23° 26' E)."
-                  : "Mounted on the front landing strut between the third and fourth ladder rungs of Eagle's Descent Stage, this stainless-steel plaque remains untouched in the vacuum of Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E)."
+                  ? "\"Aqui homens do planeta Terra pisaram pela primeira vez na Lua. Julho de 1969 d.C. Viemos em paz por toda a humanidade.\" — Gravada em aço inoxidável presa entre o terceiro e o quarto degrau da perna dianteira do Estágio de Descida da Eagle, ela permanece intocada no vácuo do Mar da Tranquilidade (0° 40' 27\" N, 23° 28' 23\" E)."
+                  : "Mounted on the front landing strut between the third and fourth ladder rungs of Eagle's Descent Stage, this stainless-steel plaque remains untouched in the vacuum of Mare Tranquillitatis (0° 40' 27\" N, 23° 28' 23\" E)."
               }
             </p>
           </div>
         </div>
       </div>
     `;
+
+    const massSlider = this.container.querySelector("#eagleMassSlider");
+    const gravResult = this.container.querySelector("#eagleGravityResult");
+    const gravHint = this.container.querySelector("#eagleGravityHint");
+    if (massSlider && gravResult) {
+      massSlider.addEventListener("input", (e) => {
+        const earthKg = parseInt(e.target.value, 10);
+        const moonKg = (earthKg * (1.62 / 9.80665)).toFixed(1);
+        const fmtEarth = earthKg.toLocaleString(isPt ? "pt-BR" : "en-US");
+        const fmtMoon = isPt ? moonKg.replace(".", ",") : moonKg;
+        gravResult.textContent = isPt
+          ? `${fmtEarth} kg (Terra) → ${fmtMoon} kg-f equivalentes na Lua`
+          : `${fmtEarth} kg (Earth) → ${fmtMoon} kgf equivalent on Moon`;
+        if (gravHint) {
+          gravHint.textContent = isPt
+            ? `Na gravidade lunar (1,62 m/s²), ${fmtEarth} kg exigem força equivalente a apenas ${fmtMoon} kg na Terra.`
+            : `In lunar gravity (1.62 m/s²), ${fmtEarth} kg requires lift equivalent to just ${fmtMoon} kg on Earth.`;
+        }
+      });
+    }
   }
 }

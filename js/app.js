@@ -3061,19 +3061,24 @@ class EchoesOfTheMoonApp {
     bBtn.classList.toggle("active", this.anatomyMode === "blueprint");
 
     const container = document.getElementById("anatomyViewportContainer");
+    const safeIdx = Math.min(this.activeHotspotIdx, Math.max(0, loc.hotspots.length - 1));
+    this.activeHotspotIdx = safeIdx;
+    const isBlueprint = this.anatomyMode === "blueprint";
     const visual =
       this.anatomyMode === "photo" && art.imagePath
         ? `<img src="${art.imagePath}" alt="${loc.name}" class="anatomy-photo" />`
-        : getArtifactBlueprintSVG(art.id);
+        : getArtifactBlueprintSVG(art.id, this.lang);
 
     const pins = loc.hotspots
-      .map(
-        (h, i) => `
-        <button class="hotspot-pin ${i === this.activeHotspotIdx ? "active" : ""}" style="left:${h.x}%;top:${h.y}%;" data-hidx="${i}">
+      .map((h, i) => {
+        const px = isBlueprint && h.bpX !== undefined ? h.bpX : h.x;
+        const py = isBlueprint && h.bpY !== undefined ? h.bpY : h.y;
+        return `
+        <button class="hotspot-pin ${i === safeIdx ? "active" : ""}" style="left:${px}%;top:${py}%;" data-hidx="${i}">
           ${i + 1}
         </button>
-      `
-      )
+      `;
+      })
       .join("");
 
     container.innerHTML = `
@@ -3118,6 +3123,17 @@ class EchoesOfTheMoonApp {
       ? "Estado Atual e Preservação"
       : "Current State & Preservation";
     document.getElementById("stateBodyText").textContent = loc.currentState;
+
+    const distBlock = document.getElementById("distinctionsBlock");
+    if (distBlock) {
+      distBlock.style.display = loc.distinctions ? "" : "none";
+      if (loc.distinctions) {
+        document.getElementById("distinctionsHeading").textContent = isPt
+          ? "Diferencial Técnico & Científico"
+          : "Engineering & Science Distinction";
+        document.getElementById("distinctionsBodyText").textContent = loc.distinctions;
+      }
+    }
 
     document.getElementById("refsHeading").textContent = isPt
       ? "Fontes Oficiais da NASA e Artigos"

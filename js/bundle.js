@@ -204,11 +204,11 @@ const ARTIFACTS = [
     statusType: "active",
     frequency: "532.0 THz OPTIC // PASSIVE PULSE",
     coordinates: {
-      lat: 0.6733,
-      lon: 23.4729,
-      display: "0° 41' 15\" N, 23° 26' E",
-      sitePt: "Mare Tranquillitatis (Mar da Tranquilidade)",
-      siteEn: "Mare Tranquillitatis (Sea of Tranquility)"
+      lat: 0.67345,
+      lon: 23.47307,
+      display: "0° 40' 24.42\" N, 23° 28' 23.05\" E",
+      sitePt: "Mare Tranquillitatis (~21 m ao sul do LM Eagle)",
+      siteEn: "Mare Tranquillitatis (~21 m south of LM Eagle)"
     },
     accentColor: "#38BDF8", // Electric blue observatory accent
     secondaryColor: "#34D399",
@@ -242,68 +242,82 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Instalado durante a histórica caminhada espacial de 2 horas e 31 minutos da Apollo 11 no Mar da Tranquilidade (0° 41' 15\" N, 23° 26' E), ao lado do sismômetro passivo (PSE) e do coletor de vento solar. Os astronautas se adaptaram tão rápido à gravidade lunar de 1/6 que adiantaram a saída do módulo lunar antes mesmo do período de descanso previsto no plano de voo.",
+        "Instalado durante a histórica caminhada espacial de 2 horas e 31 minutos da Apollo 11 no Mar da Tranquilidade (~21 m ao sul do módulo lunar Eagle, coordenadas LROC 0° 40' 24,4\" N, 23° 28' 23,1\" E), ao lado do sismômetro passivo (PSE) e do coletor de vento solar. Os astronautas se adaptaram tão rápido à gravidade lunar de 1/6 que adiantaram a saída do módulo lunar antes mesmo do período de descanso previsto no plano de voo.",
       currentState:
-        "Permanece na superfície lunar em operação passiva contínua há mais de 55 anos. Não transmite dados nem emite luz por conta própria. Pesquisadores investigam uma redução gradual na intensidade de retorno óptico observada nos refletores antigos, associada à deposição de poeira lunar levantada por micrometeoritos e a efeitos térmicos solares sobre a sílica fundida.",
+        "Permanece na superfície lunar em operação passiva contínua há mais de 55 anos. Não transmite dados nem emite luz por conta própria. Pesquisadores (como Murphy et al., 2010) documentaram uma redução gradual de ~10× na eficiência de retorno óptico dos refletores Apollo (e até outro fator de 10 próximo à Lua cheia), associada à deposição de poeira lunar e gradientes térmicos na sílica fundida.",
       distinctions:
-        "Não é um espelho plano comum (que exigiria alinhamento angular perfeito de 90°) nem um transponder eletrônico. É uma matriz de prismas ópticos de canto de cubo que reflete uma fração extremamente pequena dos fótons recebidos. As descobertas sobre a órbita lunar e a gravitação resultam de séries históricas de medições estatísticas combinadas com modelagem física nos observatórios da Terra.",
+        "Não é um espelho plano comum (que exigiria alinhamento angular perfeito de 90°) nem um transponder eletrônico. É uma matriz de prismas ópticos de canto de cubo que reflete uma fração minúscula dos fótons recebidos. As descobertas sobre afastamento lunar (~3,8 cm/ano), núcleo fluido, testes da Relatividade Geral e estabilidade posicional (Williams & Boggs, 2021) resultam de séries históricas de medições combinadas com modelagem física na Terra.",
       specs: [
-        { label: "Missão e Ano", value: "Apollo 11 (20 de Julho de 1969)" },
-        { label: "Local de Instalação", value: "Mare Tranquillitatis / Mar da Tranquilidade (0° 41' 15\" N, 23° 26' E)" },
+        { label: "Missão e Ano", value: "Apollo 11 (20 de Julho de 1969 EDT / 21 Jul UT)" },
+        { label: "Coordenadas (LROC / DE421)", value: "0° 40' 24,42\" N, 23° 28' 23,05\" E (0,67345° N, 23,47307° E)" },
         { label: "Tipo de Instrumento", value: "Instrumento óptico passivo (Lunar Laser Ranging - LLR)" },
-        { label: "Elementos Ópticos", value: "100 prismas retrorefletores (corner cube) em matriz 10 × 10" },
+        { label: "Elementos e Dimensões", value: "100 prismas corner cube em matriz 10 × 10 • Painel 46 × 46 cm (~20,4 kg)" },
         { label: "Material dos Prismas", value: "Sílica fundida de alta pureza (fused silica)" },
-        { label: "Diâmetro de Cada Prisma", value: "Aproximadamente 3,8 cm cada" },
-        { label: "Alimentação Elétrica", value: "Não necessita (100% passivo)" },
-        { label: "Equação Fundamental", value: "d = (c × Δt) / 2  [c = 299.792.458 m/s; Δt ≈ 2,56 s para 384.400 km]" },
-        { label: "Descoberta Chave", value: "Afastamento médio da Lua de ~3,8 cm/ano + núcleo fluido + testes da Relatividade Geral" }
+        { label: "Diâmetro de Cada Prisma", value: "3,8 cm (1,5 polegada) cada" },
+        { label: "Alimentação Elétrica", value: "Não necessita (100% passivo — 0 W)" },
+        { label: "Equação Fundamental", value: "d = (c × Δt) / 2  [c = 299.792.458 m/s; Δt ≈ 2,564 s para 384.400 km]" },
+        { label: "Descobertas Chave", value: "Recessão lunar de ~3,8 cm/ano + núcleo fluido + testes da Relatividade Geral" }
       ],
       hotspots: [
         {
           id: "lrrr-h1",
           x: 56,
           y: 48,
+          bpX: 51,
+          bpY: 45,
           title: "Matriz 10 × 10 de Prismas Corner-Cube",
           detail:
-            "100 cavidades circulares contendo prismas de três faces perpendiculares entre si. Ao contrário de um espelho plano, qualquer raio laser que entra em um prisma corner-cube reflete nas 3 faces e sai exatamente paralelo à direção de chegada, retornando direto para o telescópio na Terra!"
+            "100 cavidades circulares em um painel de 46 × 46 cm contendo prismas de três faces perpendiculares entre si. Ao contrário de um espelho plano, qualquer raio laser que entra em um prisma corner-cube reflete nas 3 faces e sai exatamente paralelo à direção de chegada, retornando direto para o telescópio na Terra."
         },
         {
           id: "lrrr-h2",
           x: 50,
           y: 40,
+          bpX: 14,
+          bpY: 47,
           title: "Prismas de Sílica Fundida (3,8 cm)",
           detail:
-            "Fabricados com sílica fundida sintética ultra-pura (fused silica), escolhida por ter coeficiente de dilatação térmica quase zero — essencial para não deformar o feixe de luz entre os -170°C da noite lunar e os +120°C do dia lunar."
+            "Cada prisma tem 3,8 cm (1,5 pol.) de diâmetro e é fabricado em sílica fundida sintética ultra-pura, escolhida pelo baixíssimo coeficiente de dilatação térmica para preservar a precisão óptica entre -170°C (noite) e +120°C (dia)."
         },
         {
           id: "lrrr-h3",
           x: 63,
           y: 60,
-          title: "Estrutura de Alumínio e Sombra Térmica",
+          bpX: 67,
+          bpY: 66,
+          title: "Estrutura de Alumínio e Cavidades Térmicas",
           detail:
-            "Cada prisma fica recuado dentro de uma cavidade cônica no bloco de alumínio, protegendo o vidro contra a luz solar lateral e ajudando a estabilizar a temperatura dos elementos ópticos."
+            "Cada prisma fica recuado dentro de uma cavidade cônica no bloco de alumínio (~20,4 kg no conjunto), protegendo o vidro contra a luz solar oblíqua e ajudando a estabilizar a temperatura dos elementos ópticos."
         },
         {
           id: "lrrr-h4",
           x: 45,
           y: 58,
+          bpX: 28,
+          bpY: 67,
           title: "Bolha de Nivelamento e Gnomon Solar",
           detail:
-            "Buzz Aldrin e Neil Armstrong usaram um nível de bolha e um indicador de sombra solar para alinhar o painel com precisão em direção à região central onde a Terra oscila no céu da Lua."
+            "Buzz Aldrin e Neil Armstrong usaram um nível de bolha e um indicador de sombra solar para nivelar e orientar o painel em direção à posição média da Terra no céu lunar."
         },
         {
           id: "lrrr-h5",
           x: 61,
           y: 44,
+          bpX: 64,
+          bpY: 28,
           title: "Superfície Exposta à Poeira Lunar (Degradação)",
           detail:
-            "Estudos recentes (Williams et al., 2021) mostram que uma fina camada microscópica de poeira lunar eletrostática reduziu a eficiência de retorno em cerca de 10 vezes ao longo das décadas — mas o painel continua refletindo fótons suficientes para a ciência hoje!"
+            "Medições de alta precisão analisadas por Murphy et al. (2010) mostraram que poeira lunar e efeitos térmicos reduziram o retorno óptico em ~10× (com queda adicional na Lua cheia), enquanto Williams & Boggs (2021) usaram os retornos contínuos para estudar a estabilidade dos refletores."
         }
       ],
       references: [
         {
-          title: "NASA — Apollo 11 Preliminary Science Report (1969)",
-          url: "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/as11psr.pdf"
+          title: "NASA NTRS — Apollo 11 Preliminary Science Report (NASA SP-214, Ch. 7: LRRR)",
+          url: "https://ntrs.nasa.gov/citations/19700000726"
+        },
+        {
+          title: "NASA NSSDCA — Apollo Landing Site Coordinates (LRO / DE421)",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html"
         },
         {
           title: "NASA JPL — Apollo 11 Experiment Still Going Strong After 35 Years",
@@ -318,7 +332,11 @@ const ARTIFACTS = [
           url: "https://ilrs.gsfc.nasa.gov/science/scienceContributions/lunar.html"
         },
         {
-          title: "Williams et al. (2021) — Testing the Motion of Lunar Retroreflectors (JGR Planets)",
+          title: "Murphy et al. (2010) — Long-Term Degradation of Optical Devices on the Moon (Icarus / arXiv)",
+          url: "https://arxiv.org/abs/1003.0713"
+        },
+        {
+          title: "Williams & Boggs (2021) — Testing the Motion of Lunar Retroreflectors (JGR Planets)",
           url: "https://doi.org/10.1029/2021JE006920"
         }
       ]
@@ -351,20 +369,20 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Deployed during Apollo 11's historic 2-hour-31-minute moonwalk at Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E), alongside the Passive Seismic Experiment (PSE) and Solar Wind Composition experiment. Feeling exhilarated in the 1/6 lunar gravity, Armstrong and Aldrin requested to begin the EVA ahead of their scheduled rest period.",
+        "Deployed during Apollo 11's historic 2-hour-31-minute moonwalk at Mare Tranquillitatis (~21 m south of LM Eagle, LROC coordinates 0° 40' 24.4\" N, 23° 28' 23.1\" E), alongside the Passive Seismic Experiment (PSE) and Solar Wind Composition experiment. Feeling exhilarated in the 1/6 lunar gravity, Armstrong and Aldrin requested to begin the EVA ahead of their scheduled rest period.",
       currentState:
-        "Remains on the lunar surface in continuous passive operation for over 55 years. It neither transmits telemetry nor emits light of its own. Researchers investigate a gradual reduction in optical return efficiency in Apollo-era reflectors, linked to electrostatic lunar dust and solar thermal heating of the fused silica prisms.",
+        "Remains on the lunar surface in continuous passive operation for over 55 years. It neither transmits telemetry nor emits light of its own. Studies (e.g. Murphy et al., 2010) documented a ~10× reduction in optical return efficiency across Apollo reflectors (plus an additional factor of 10 near full moon) linked to lunar dust and solar thermal gradients in the fused silica prisms.",
       distinctions:
-        "It is neither an ordinary flat mirror nor an electronic communication device. It reflects an extremely tiny fraction of laser pulses sent from Earth. Scientific breakthroughs come from decades of repeated time-of-flight observations combined with statistical and orbital modeling on Earth.",
+        "It is neither an ordinary flat mirror nor an electronic transponder. It reflects an extremely tiny fraction of laser pulses sent from Earth. Breakthroughs on lunar recession (~3.8 cm/yr), fluid core dynamics, General Relativity tests, and reflector stability (Williams & Boggs, 2021) come from decades of time-of-flight ranging paired with orbital and physical modeling.",
       specs: [
-        { label: "Mission & Year", value: "Apollo 11 (July 20, 1969)" },
-        { label: "Installation Site", value: "Mare Tranquillitatis / Sea of Tranquility (0° 41' 15\" N, 23° 26' E)" },
+        { label: "Mission & Year", value: "Apollo 11 (July 20, 1969 EDT / July 21 UT)" },
+        { label: "Coordinates (LROC / DE421)", value: "0° 40' 24.42\" N, 23° 28' 23.05\" E (0.67345° N, 23.47307° E)" },
         { label: "Instrument Type", value: "Passive Optical Retroreflector (Lunar Laser Ranging - LLR)" },
-        { label: "Optical Elements", value: "100 corner-cube retroreflector prisms in a 10 × 10 matrix" },
-        { label: "Prism Material", value: "Ultra-pure fused silica" },
-        { label: "Prism Diameter", value: "Approximately 3.8 cm each" },
-        { label: "Electrical Power", value: "None required (100% passive)" },
-        { label: "Core Equation", value: "d = (c × Δt) / 2  [c = 299,792,458 m/s; Δt ≈ 2.56 s for 384,400 km]" },
+        { label: "Optical Elements & Size", value: "100 corner-cube prisms in a 10 × 10 matrix • 46 × 46 cm panel (~20.4 kg)" },
+        { label: "Prism Material", value: "Ultra-pure synthetic fused silica" },
+        { label: "Prism Diameter", value: "3.8 cm (1.5 inches) each" },
+        { label: "Electrical Power", value: "None required (100% passive — 0 W)" },
+        { label: "Core Equation", value: "d = (c × Δt) / 2  [c = 299,792,458 m/s; Δt ≈ 2.564 s at 384,400 km]" },
         { label: "Key Discoveries", value: "3.8 cm/year lunar recession + fluid core + General Relativity tests" }
       ],
       hotspots: [
@@ -372,47 +390,61 @@ const ARTIFACTS = [
           id: "lrrr-h1",
           x: 56,
           y: 48,
+          bpX: 51,
+          bpY: 45,
           title: "10 × 10 Corner-Cube Prism Matrix",
           detail:
-            "100 recessed cavities holding three-sided orthogonal prisms. Any laser beam entering a corner cube bounces off all three inner faces and exits exactly parallel to its incoming path, heading straight back to the telescope on Earth."
+            "100 recessed cavities in a 46 × 46 cm panel holding three-sided orthogonal prisms. Any laser beam entering a corner cube bounces off all three inner faces and exits strictly parallel to its incoming path, heading straight back to the telescope on Earth."
         },
         {
           id: "lrrr-h2",
           x: 50,
           y: 40,
+          bpX: 14,
+          bpY: 47,
           title: "Fused Silica Prisms (3.8 cm)",
           detail:
-            "Crafted from synthetic ultra-pure fused silica with near-zero thermal expansion so the prisms keep their sub-arcsecond optical precision between -170°C lunar nights and +120°C lunar days."
+            "Each prism measures 3.8 cm (1.5 in) in diameter and is crafted from synthetic ultra-pure fused silica with near-zero thermal expansion so it keeps optical precision between -170°C lunar nights and +120°C lunar days."
         },
         {
           id: "lrrr-h3",
           x: 63,
           y: 60,
-          title: "Recessed Aluminum Thermal Cavities",
+          bpX: 67,
+          bpY: 66,
+          title: "Machined Aluminum Thermal Housing",
           detail:
-            "Each prism sits recessed inside a machined aluminum pocket to shade the silica from oblique sunlight and minimize thermal gradients."
+            "Each prism sits recessed inside a machined aluminum pocket (~20.4 kg assembly mass) to shade the silica from oblique sunlight and minimize thermal gradients."
         },
         {
           id: "lrrr-h4",
           x: 45,
           y: 58,
+          bpX: 28,
+          bpY: 67,
           title: "Bubble Level & Solar Gnomon",
           detail:
-            "Used by Buzz Aldrin and Neil Armstrong to level the pallet on the lunar regolith and orient its face accurately toward Earth's sky position."
+            "Used by Buzz Aldrin and Neil Armstrong to level the pallet on the lunar regolith and orient its face accurately toward Earth's mean sky position."
         },
         {
           id: "lrrr-h5",
           x: 61,
           y: 44,
+          bpX: 64,
+          bpY: 28,
           title: "Lunar Dust & Thermal Degradation Layer",
           detail:
-            "Over decades, fine lunar dust levitated by micrometeorites and thermal effects reduced return intensity (Williams et al., 2021), yet single-photon detectors on Earth still receive its reflections every clear night."
+            "APOLLO laser measurements analyzed by Murphy et al. (2010) revealed a ~10× drop in optical return due to dust and thermal lensing (plus another 10× drop near full moon), while Williams & Boggs (2021) used continuous LLR data to verify reflector stability."
         }
       ],
       references: [
         {
-          title: "NASA — Apollo 11 Preliminary Science Report (1969)",
-          url: "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/as11psr.pdf"
+          title: "NASA NTRS — Apollo 11 Preliminary Science Report (NASA SP-214, Ch. 7: LRRR)",
+          url: "https://ntrs.nasa.gov/citations/19700000726"
+        },
+        {
+          title: "NASA NSSDCA — Apollo Landing Site Coordinates (LRO / DE421)",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html"
         },
         {
           title: "NASA JPL — Apollo 11 Experiment Still Going Strong After 35 Years",
@@ -427,7 +459,11 @@ const ARTIFACTS = [
           url: "https://ilrs.gsfc.nasa.gov/science/scienceContributions/lunar.html"
         },
         {
-          title: "Williams et al. (2021) — Testing the Motion of Lunar Retroreflectors (JGR Planets)",
+          title: "Murphy et al. (2010) — Long-Term Degradation of Optical Devices on the Moon (Icarus / arXiv)",
+          url: "https://arxiv.org/abs/1003.0713"
+        },
+        {
+          title: "Williams & Boggs (2021) — Testing the Motion of Lunar Retroreflectors (JGR Planets)",
           url: "https://doi.org/10.1029/2021JE006920"
         }
       ]
@@ -446,9 +482,9 @@ const ARTIFACTS = [
     statusType: "silent",
     frequency: "2276.5 MHz S-BAND // CARRIER LOST AUG 1969",
     coordinates: {
-      lat: 0.6731,
-      lon: 23.4732,
-      display: "0° 41' 15\" N, 23° 26' E (16,8m S-SE do LM)",
+      lat: 0.6739,
+      lon: 23.4731,
+      display: "~0.674° N, 23.473° E (~27 m S do LM Eagle / ~16,8 m nom.)",
       sitePt: "Mare Tranquillitatis (Mar da Tranquilidade)",
       siteEn: "Mare Tranquillitatis (Sea of Tranquility)"
     },
@@ -484,75 +520,89 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Lançada em 16 de julho de 1969 pelo Saturno V, a Apollo 11 teve uma viagem translunar com desvio mínimo de apenas 1,6 pé/s e pousou no Mar da Tranquilidade após 12 minutos de descida motorizada. Após deixarem o PSE, o LRRR e o experimento de vento solar na Lua, os astronautas amerissaram no Pacífico após 195,5 horas de missão e cumpriram quarentena no USS Hornet e em Houston até 10 de agosto de 1969 para descartar qualquer risco de microrganismos lunares.",
+        "Lançada em 16 de julho de 1969 pelo Saturno V, a Apollo 11 teve uma viagem translunar com desvio mínimo de apenas 1,6 pé/s e pousou no Mar da Tranquilidade após ~12 minutos de descida motorizada. Posicionado a ~16,8 m nominais (~27 m ao sul nas imagens da LROC) do LM Eagle, o pacote PSEP (~47,7 kg) integrou o EASEP antes da amerissagem no Pacífico (195h 18m 35s de missão) e da quarentena até 10 de agosto de 1969.",
       currentState:
-        "Inativo desde 25 de agosto de 1969, às 04:00 UT, após parar de responder aos comandos da Terra devido ao superaquecimento eletrônico durante o segundo dia lunar. Permanece intacto na Base Tranquilidade como patrimônio histórico da sismologia planetária.",
+        "Inativo desde agosto de 1969: parou de responder a comandos em 25 de agosto às 04:00 UT durante o segundo dia lunar devido ao superaquecimento eletrônico (encerramento oficial em 27 de agosto de 1969), após fornecer ~21 dias de dados pioneiros. Permanece intacto na Base Tranquilidade.",
       distinctions:
-        "Diferente dos sismômetros das missões Apollo 12 a 16 (que eram alimentados continuamente dia e noite por geradores termoelétricos de radioisótopos SNAP-27), o PSE da Apollo 11 dependia de painéis solares para eletricidade (operando só de dia) e usava o radioisótopo apenas como aquecedor térmico para não congelar à noite.",
+        "Diferente dos sismômetros das missões Apollo 12 a 16 (que eram alimentados continuamente dia e noite por geradores termoelétricos de radioisótopos SNAP-27), o PSE da Apollo 11 dependia de painéis solares para eletricidade (operando só de dia) e usava duas cápsulas de radioisótopo (Plutônio-238) apenas como aquecedor térmico para não congelar à noite.",
       specs: [
-        { label: "Missão e Ano", value: "Apollo 11 (Julho–Agosto de 1969)" },
-        { label: "Local de Instalação", value: "Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E)" },
-        { label: "Sensores Internos", value: "4 sismômetros medindo 3 eixos (Cima-Baixo, Norte-Sul e Leste-Oeste)" },
-        { label: "Alimentação Elétrica", value: "2 painéis solares desdobráveis (operação exclusiva durante o dia lunar)" },
-        { label: "Proteção na Noite Lunar", value: "Aquecedor de radioisótopo (Plutônio-238) mantendo mínimo de -54°C contra os -170°C da noite de 340h" },
-        { label: "Marco Tecnológico", value: "Primeiro uso importante de energia nuclear em uma missão tripulada da NASA" },
-        { label: "Controle de Superaquecimento", value: "Série de cortes de energia (power dumps) contra o calor do meio-dia lunar" },
-        { label: "Descobertas Registadas", value: "Primeiros moonquakes (terremotos lunares) + 100 a 200 impactos de meteoritos" },
-        { label: "Fim da Operação e Legado", value: "25 de agosto de 1969 às 04:00 UT (3 semanas de dados) • Abriu caminho para Apollo 12, 14, 15 e 16 (ativas até set/1977)" }
+        { label: "Missão e Designação", value: "Apollo 11 — EASEP / PSEP (NSSDCA 1969-059C-03)" },
+        { label: "Local de Instalação", value: "Mare Tranquillitatis (~0,674° N, 23,473° E • ~27 m S do LM na LROC)" },
+        { label: "Massa Total do Pacote", value: "Aproximadamente 47,7 kg (incluindo painéis e estrutura)" },
+        { label: "Sensores Internos", value: "4 sismômetros: 3 de longo período ortogonais (Z, N-S, L-O) + 1 curto período" },
+        { label: "Alimentação Elétrica", value: "2 painéis solares desdobráveis (~34–46 W, operação apenas no dia lunar)" },
+        { label: "Proteção na Noite Lunar", value: "Aquecedor de radioisótopo (Pu-238) mantendo mínimo de -54°C na noite de ~340h (-170°C)" },
+        { label: "Controle de Superaquecimento", value: "Cortes programados de energia (power dumps) contra o calor do meio-dia lunar" },
+        { label: "Descobertas Registradas", value: "Primeiros moonquakes (terremotos lunares) + 100 a 200 impactos de meteoritos" },
+        { label: "Fim da Operação e Legado", value: "25–27 de agosto de 1969 (~21 dias úteis) • Base para a rede Apollo 12–16 (até set/1977)" }
       ],
       hotspots: [
         {
           id: "pse-h1",
           x: 42,
           y: 48,
+          bpX: 50,
+          bpY: 54,
           title: "Cilindro Central com 4 Sismômetros (3 Eixos)",
           detail:
-            "Dentro do cilindro isolado ficam 4 sismômetros ultra-sensíveis que medem o deslocamento do solo lunar em três dimensões: vertical (cima-baixo), norte-sul e leste-oeste, detectando vibrações subnanométricas."
+            "Dentro do cilindro isolado ficam 4 sismômetros ultra-sensíveis (3 de longo período nos eixos vertical Z, norte-sul e leste-oeste, mais 1 de curto período) capazes de detectar vibrações subnanométricas do solo lunar."
         },
         {
           id: "pse-h2",
           x: 22,
           y: 60,
+          bpX: 24,
+          bpY: 64,
           title: "Asas de Painéis Solares Desdobráveis",
           detail:
-            "Duas pás cobertas de células fotovoltaicas que geravam energia elétrica durante o dia lunar. Quando o sol se punha, o aparelho entrava automaticamente em modo de espera."
+            "Dois painéis fotovoltaicos que geravam ~34–46 W durante o dia lunar. Sem gerador RTG elétrico, o aparelho entrava em modo de espera (standby) ao cair da noite."
         },
         {
           id: "pse-h3",
           x: 42,
           y: 34,
-          title: "Aquecedor Nuclear de Radioisótopo (RHU)",
+          bpX: 50,
+          bpY: 32,
+          title: "Aquecedor Nuclear de Radioisótopo (Pu-238 RHU)",
           detail:
-            "Para enfrentar a noite lunar de 340 horas a -170°C, uma cápsula de Plutônio-238 gerava calor constante para manter o instrumento acima de -54°C — o primeiro uso importante de energia nuclear em missão tripulada da NASA!"
+            "Para enfrentar a noite lunar de ~340 horas a -170°C, cápsulas térmicas de Plutônio-238 geravam calor constante para manter a eletrônica acima de -54°C — o primeiro uso significativo de energia nuclear em missão tripulada da NASA."
         },
         {
           id: "pse-h4",
           x: 47,
           y: 56,
+          bpX: 50,
+          bpY: 67,
           title: "Manta Térmica e Sistema de Power Dumps",
           detail:
-            "Enquanto a noite congelava, o meio-dia lunar escaldava os circuitos. Os cientistas na Terra aplicavam cortes programados de energia (power dumps) para tentar resfriar o equipamento."
+            "Enquanto a noite congelava, o meio-dia lunar escaldava os circuitos. Os engenheiros na Terra aplicavam cortes de energia (power dumps) para dissipar calor, mas o segundo dia lunar levou o sistema ao silêncio em 25 de agosto de 1969."
         },
         {
           id: "pse-h5",
           x: 42,
           y: 24,
+          bpX: 50,
+          bpY: 14,
           title: "Antena de Transmissão S-Band",
           detail:
-            "Transmitiu dados vitais sobre 100 a 200 impactos de meteoritos e moonquakes até 25 de agosto de 1969 às 04:00 UT, inaugurando a sismologia fora da Terra."
+            "Transmitiu dados vitais sobre 100 a 200 impactos de meteoritos e moonquakes durante ~21 dias úteis, inaugurando a sismologia fora da Terra."
         }
       ],
       references: [
         {
-          title: "NASA — Apollo 11 Preliminary Science Report (Passive Seismic Experiment)",
-          url: "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/as11psr.pdf"
+          title: "NASA NTRS — Apollo 11 Preliminary Science Report (NASA SP-214, Ch. 6: Passive Seismic)",
+          url: "https://ntrs.nasa.gov/citations/19700000726"
         },
         {
-          title: "NASA NSSDCA — Apollo 11 Passive Seismic Experiment (1969-059C-01)",
-          url: "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059C-01"
+          title: "NASA NSSDCA — Apollo 11 Mission & Surface Experiments Directory",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11info.html"
         },
         {
-          title: "NASA History — Apollo 11 Mission Overview & Quarantine",
+          title: "NASA PDS Geosciences Node — Apollo Passive Seismic Experiment Archive",
+          url: "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-apollo_pse/"
+        },
+        {
+          title: "NASA — Apollo 11 Mission Overview & Quarantine",
           url: "https://www.nasa.gov/mission/apollo-11/"
         }
       ]
@@ -585,75 +635,89 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Launched July 16, 1969 aboard Saturn V, Apollo 11 achieved a translunar velocity within 1.6 ft/s of plan and landed at Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E). After deploying the PSE, LRRR, and solar wind collector, the crew splashed down in the Pacific after 195.5 hours and remained in quarantine aboard USS Hornet and in Houston until August 10, 1969.",
+        "Launched July 16, 1969 aboard Saturn V, Apollo 11 achieved a translunar velocity within 1.6 ft/s of plan and landed in Mare Tranquillitatis after a ~12-minute powered descent. Deployed ~16.8 m nominal (~27 m south in LROC imagery) from LM Eagle, the ~47.7 kg PSEP formed part of EASEP before splashdown in the Pacific (195h 18m 35s mission) and quarantine until August 10, 1969.",
       currentState:
-        "Inactive since August 25, 1969 at 04:00 UT after ceasing response to commands due to midday overheating after returning data for three weeks. Remains preserved at Tranquility Base.",
+        "Inactive since August 1969: ceased responding to commands on Aug 25 at 04:00 UT during its second lunar day due to electronics overheating (mission officially ended Aug 27, 1969) after delivering ~21 days of pioneering data. Remains intact at Tranquility Base.",
       distinctions:
-        "Unlike the later Apollo 12–16 seismometers (powered day and night by SNAP-27 radioisotope thermoelectric generators), the Apollo 11 PSE relied on solar panels for electricity (operating only by day) and used its radioisotope unit strictly for thermal heating during the -170°C lunar night.",
+        "Unlike the later Apollo 12–16 seismometers (powered day and night by SNAP-27 radioisotope thermoelectric generators), the Apollo 11 PSE relied on solar panels for electricity (operating only by day) and used Plutonium-238 radioisotope heater units strictly for thermal survival during the -170°C lunar night.",
       specs: [
-        { label: "Mission & Year", value: "Apollo 11 (July–August 1969)" },
-        { label: "Installation Site", value: "Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E)" },
-        { label: "Internal Sensors", value: "4 seismometers measuring 3 axes (Up-Down, North-South, East-West)" },
-        { label: "Electrical Power", value: "2 deployable solar panel wings (lunar daytime operation only)" },
-        { label: "Lunar Night Protection", value: "Radioisotope heater keeping -54°C minimum during the 340-hour night (-170°C)" },
-        { label: "Technological Milestone", value: "First major use of nuclear energy on a crewed NASA mission" },
-        { label: "Overheat Control", value: "Series of power dumps applied by scientists to fight midday overheating" },
+        { label: "Mission & Designation", value: "Apollo 11 — EASEP / PSEP (NSSDCA 1969-059C-03)" },
+        { label: "Installation Site", value: "Mare Tranquillitatis (~0.674° N, 23.473° E • ~27 m S of LM per LROC)" },
+        { label: "Total Package Mass", value: "Approximately 47.7 kg (including frame and solar panels)" },
+        { label: "Internal Sensors", value: "4 seismometers: 3 orthogonal long-period (Z, N-S, E-W) + 1 short-period" },
+        { label: "Electrical Power", value: "2 deployable solar wings (~34–46 W, lunar daytime operation only)" },
+        { label: "Lunar Night Protection", value: "Radioisotope heater (Pu-238) keeping ≥ -54°C through the 340h night (-170°C)" },
+        { label: "Overheat Control", value: "Scheduled 'power dumps' executed by Earth controllers against noon heat" },
         { label: "Recorded Discoveries", value: "First moonquakes + 100 to 200 meteorite impacts" },
-        { label: "End of Signal & Legacy", value: "August 25, 1969 at 04:00 UT (3 weeks) • Paved way for Apollo 12, 14, 15 & 16 (active until Sep 1977)" }
+        { label: "End of Signal & Legacy", value: "August 25–27, 1969 (~21 active days) • Paved way for Apollo 12–16 network (until Sep 1977)" }
       ],
       hotspots: [
         {
           id: "pse-h1",
           x: 42,
           y: 48,
+          bpX: 50,
+          bpY: 54,
           title: "Central Cylinder with 4 Seismometers (3 Axes)",
           detail:
-            "Contains four ultra-sensitive seismometers measuring ground motion across three axes (up-down, north-south, east-west) to detect moonquakes and meteorite impacts."
+            "Contains four ultra-sensitive seismometers (three orthogonal long-period sensors for Z, N-S, E-W axes plus one vertical short-period sensor) capable of detecting sub-nanometer lunar ground displacement."
         },
         {
           id: "pse-h2",
           x: 22,
           y: 60,
+          bpX: 24,
+          bpY: 64,
           title: "Deployable Solar Panel Wings",
           detail:
-            "Two solar arrays resting near the regolith that converted sunlight into electricity during the lunar day before the unit entered standby mode at sunset."
+            "Two solar arrays generating ~34–46 W during the lunar day. Lacking an electrical RTG, the unit shifted into standby mode whenever sunset arrived."
         },
         {
           id: "pse-h3",
           x: 42,
           y: 34,
-          title: "Radioisotope Heater Unit (Nuclear Warmth)",
+          bpX: 50,
+          bpY: 32,
+          title: "Radioisotope Heater Unit (Pu-238 RHU)",
           detail:
-            "During the 340-hour lunar night (-170°C), a Plutonium-238 heater maintained at least -54°C — the first major use of nuclear energy on a crewed NASA mission."
+            "During the ~340-hour lunar night (-170°C), Plutonium-238 heater capsules kept internal components above -54°C — marking the first major use of nuclear energy on a crewed NASA mission."
         },
         {
           id: "pse-h4",
           x: 47,
           y: 56,
+          bpX: 50,
+          bpY: 67,
           title: "Thermal Shroud & Power Dump System",
           detail:
-            "To fight scorching midday temperatures, engineers on Earth executed 'power dumps' to cool the electronics, though overheating eventually ended its mission on Aug 25, 1969."
+            "To fight scorching midday temperatures, mission controllers executed 'power dumps' to shed heat, though overheating during the second lunar day silenced commands on Aug 25, 1969."
         },
         {
           id: "pse-h5",
           x: 42,
           y: 24,
+          bpX: 50,
+          bpY: 14,
           title: "S-Band Command & Telemetry Antenna",
           detail:
-            "Transmitted three weeks of pioneering seismic data to Earth stations, proving lunar seismology worked and enabling the Apollo 12–16 network."
+            "Transmitted ~21 days of pioneering seismic telemetry to Earth stations, proving lunar seismology worked and enabling the Apollo 12–16 seismic network."
         }
       ],
       references: [
         {
-          title: "NASA — Apollo 11 Preliminary Science Report (Passive Seismic Experiment)",
-          url: "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/as11psr.pdf"
+          title: "NASA NTRS — Apollo 11 Preliminary Science Report (NASA SP-214, Ch. 6: Passive Seismic)",
+          url: "https://ntrs.nasa.gov/citations/19700000726"
         },
         {
-          title: "NASA NSSDCA — Apollo 11 Passive Seismic Experiment (1969-059C-01)",
-          url: "https://nssdc.gsfc.nasa.gov/nmc/experiment/display.action?id=1969-059C-01"
+          title: "NASA NSSDCA — Apollo 11 Mission & Surface Experiments Directory",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11info.html"
         },
         {
-          title: "NASA History — Apollo 11 Mission Overview & Quarantine",
+          title: "NASA PDS Geosciences Node — Apollo Passive Seismic Experiment Archive",
+          url: "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-apollo_pse/"
+        },
+        {
+          title: "NASA — Apollo 11 Mission Overview & Quarantine",
           url: "https://www.nasa.gov/mission/apollo-11/"
         }
       ]
@@ -672,9 +736,9 @@ const ARTIFACTS = [
     statusType: "protected",
     frequency: "2265.5 MHz TV-LINK // ED FENDELL CAMERA",
     coordinates: {
-      lat: 20.1908,
-      lon: 30.7717,
-      display: "20° 11' 27\" N, 30° 46' 18\" E (Vale Taurus-Littrow)",
+      lat: 20.1911,
+      lon: 30.7723,
+      display: "20° 11' 28\" N, 30° 46' 20\" E (Taurus-Littrow • LRV-3 ~145m E)",
       sitePt: "Taurus-Littrow (A17) • Hadley-Apennine (A15) • Descartes (A16)",
       siteEn: "Taurus-Littrow (A17) • Hadley-Apennine (A15) • Descartes (A16)"
     },
@@ -685,7 +749,7 @@ const ARTIFACTS = [
     pt: {
       name: "Lunar Roving Vehicle (LRV / Moon Buggy)",
       personaTitle: "O Origami de Alumínio e Cinegrafista da Despedida",
-      shortTag: "90,5 km rodados na Lua • Rodas de fio de piano • Filmou a última decolagem humana",
+      shortTag: "90,4 km rodados na Lua • Rodas de fio de piano • Filmou a última decolagem humana",
       statusText: "3 jipes estacionados intactos em Zonas de Exclusão da NASA (1971–1972)",
       quote:
         "Meus rastros continuam intocados na poeira onde o vento não sopra. Eu não fui abandonado. Eu apenas fiquei guardando a vaga até vocês voltarem.",
@@ -713,62 +777,72 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Três unidades operaram na Lua: LRV-1 na Apollo 15 (Jul/1971, Hadley-Apennine, 27,9 km rodados e 77,31 kg de amostras, incluindo o 'Seatbelt Basalt'); LRV-2 na Apollo 16 (Abr/1972, Descartes Highlands, 26,7 km); e LRV-3 na Apollo 17 (Dez/1972, Vale Taurus-Littrow, recorde de 35,9 km em 4h26min, reparo do para-lama e transmissão ao vivo da decolagem por Ed Fendell).",
+        "Três unidades operaram na Lua (NSSDCA): LRV-1 na Apollo 15 (Jul/1971, Hadley-Apennine, 27,8 km em 3h 02m e 77,31 kg de amostras, incluindo o 'Seatbelt Basalt'); LRV-2 na Apollo 16 (Abr/1972, Descartes Highlands, 26,7 km em 3h 26m); e LRV-3 na Apollo 17 (Dez/1972, Vale Taurus-Littrow, recorde de 35,9 km em 4h 26m, reparo do para-lama e transmissão ao vivo da decolagem por Ed Fendell).",
       currentState:
-        "Os três Lunar Roving Vehicles permanecem estacionados exatamente onde foram deixados entre 1971 e 1972. Fotografias de altíssima resolução (27 cm por pixel) da sonda Lunar Reconnaissance Orbiter (LRO) mostram os três jipes e as marcas paralelas de suas rodas perfeitamente desenhadas no regolito. Protegidos pelo documento 'NASA's Recommendations to Space-Faring Entities' com Zonas de Exclusão (raio de 225 m no sítio da Apollo 17).",
+        "Os três Lunar Roving Vehicles permanecem estacionados exatamente onde foram deixados entre 1971 e 1972 (LRV-3 a ~145 m a leste do módulo Challenger). Fotografias de altíssima resolução da sonda Lunar Reconnaissance Orbiter (LRO) mostram os jipes e as marcas paralelas de suas rodas no regolito. Protegidos pelas recomendações da NASA com Zonas de Exclusão (raio de 225 m no sítio da Apollo 17).",
       distinctions:
         "Diferente dos rovers robóticos marcianos (como Sojourner, Opportunity ou Perseverance), o LRV era um veículo elétrico tripulado guiado manualmente por dois astronautas através de um manche em 'T', mas que em seus minutos finais operou remotamente da Terra como câmera robótica de televisão.",
       specs: [
         { label: "Missões de Operação", value: "Apollo 15 (Jul/1971), Apollo 16 (Abr/1972) e Apollo 17 (Dez/1972)" },
         { label: "Locais de Estacionamento", value: "Hadley-Apennine (A15), Descartes Highlands (A16) e Vale Taurus-Littrow (A17)" },
-        { label: "Dimensões e Dobramento", value: "3,1 m compr. × 2,3 m entre eixos × 1,14 m alt. (dobrado em 1,67 × 1,52 × 0,91 m; aberto em ~7 min)" },
-        { label: "Massa Vazia vs. Carga Útil", value: "210 kg na Terra (~35 kg na Lua) • Carrega até 490 kg adicionais (mais que o dobro do peso!)" },
-        { label: "Propulsão e Energia", value: "4 motores elétricos individuais (1 por roda) • 2 baterias de prata-zinco de 36 V" },
-        { label: "Rodas de Fio de Piano", value: "Malha flexível de aço de mola musical (music spring wire), Ø 81 cm, tiras de titânio, 5,4 kg cada" },
-        { label: "Controle e Velocidade", value: "Manche em formato de 'T' (sem volante) • ~15 km/h (10 mph) • Estabilidade em encostas de até 45°" },
-        { label: "Navegação Sem Bússola/GPS", value: "Giroscópio direcional + odômetros nas rodas ('Fio de Ariadne' apontando sempre para o Módulo Lunar)" },
-        { label: "Distância Total Percorrida", value: "90,5 km somados (27,9 km na A15 + 26,7 km na A16 + 35,9 km na A17; distância máx. de 7,6 km do LM)" }
+        { label: "Dimensões e Dobramento", value: "3,1 m compr. × 2,3 m entre eixos × 1,14 m alt. • vão livre 36 cm (dobrado no Quad 1)" },
+        { label: "Massa Vazia vs. Carga Útil", value: "210 kg na Terra (~35 kg na Lua) • Carrega até 490 kg adicionais na superfície lunar" },
+        { label: "Propulsão e Energia", value: "4 motores de tração de 0,25 HP + 2 de direção 0,1 HP • 2 baterias 36 V Ag-Zn (121 Ah)" },
+        { label: "Rodas de Fio de Piano", value: "Malha flexível de aço zincado, Ø 81,8 cm × 23 cm largura, tiras de titânio (50%), ~5,4 kg cada" },
+        { label: "Controle, Velocidade e Rampa", value: "Manche em 'T' • ~13 km/h nominal (máx. ~18 km/h A17) • Sobe 25°; estabilidade estática até 45°" },
+        { label: "Navegação Sem Bússola/GPS", value: "Giroscópio direcional + odômetros nas rodas ('Fio de Ariadne' apontando sempre para o LM)" },
+        { label: "Distância Total (NSSDCA)", value: "90,4 km somados (27,8 km A15 + 26,7 km A16 + 35,9 km A17; raio máx. de 7,6 km do LM)" }
       ],
       hotspots: [
         {
           id: "lrv-h1",
           x: 48,
           y: 68,
-          title: "Rodas de Fio de Piano e Titânio (81 cm / 5,4 kg)",
+          bpX: 25,
+          bpY: 70,
+          title: "Rodas de Fio de Piano e Titânio (81,8 cm / 5,4 kg)",
           detail:
-            "Sem ar nem borracha! Cada roda é uma malha tecida à mão com fios de aço de mola musical (piano wire) revestida com tiras de titânio em formato de divisa para flutuar sobre a poeira lunar sem afundar, pesando apenas 5,4 kg cada."
+            "Sem ar nem borracha! Cada roda (Ø 81,8 cm × 23 cm) é tecida com fios de aço de 0,083 cm e revestida com tiras de titânio cobrindo 50% da área de contato para flutuar sobre a poeira lunar sem afundar, pesando ~5,4 kg cada."
         },
         {
           id: "lrv-h2",
           x: 37,
           y: 27,
+          bpX: 27,
+          bpY: 22,
           title: "Câmera Colorida de Ed Fendell & Antena Guarda-Chuva",
           detail:
-            "Na frente ficam a antena de alto ganho (como um guarda-chuva dourado invertido) e a câmera de TV colorida controlada remotamente de Houston por Ed Fendell para filmar a decolagem final da Apollo 17!"
+            "Na frente ficam a antena parabólica dobrável de alto ganho e a câmera de TV colorida controlada remotamente de Houston por Ed Fendell (~1,28 s de atraso por trecho) para filmar a decolagem final da Apollo 17 em 14/12/1972!"
         },
         {
           id: "lrv-h3",
           x: 48,
           y: 46,
+          bpX: 45,
+          bpY: 42,
           title: "Painel com Giroscópio Direcional ('O Fio de Ariadne')",
           detail:
-            "Como a Lua não tem campo magnético global nem GPS, um giroscópio direcional e odômetros em cada roda calculavam continuamente a distância e a seta exata em linha reta de volta para o Módulo Lunar."
+            "Como a Lua não tem campo magnético global nem GPS, um giroscópio direcional e odômetros calculavam continuamente o rumo e a distância exata em linha reta de volta para o Módulo Lunar."
         },
         {
           id: "lrv-h4",
           x: 55,
           y: 49,
+          bpX: 53,
+          bpY: 47,
           title: "Manche em 'T' e Cinto do 'Seatbelt Basalt'",
           detail:
-            "Trajes pressurizados não permitiam girar um volante comum, então o LRV usava um manche em 'T' entre os bancos. Na Apollo 15, Scott e Irwin fingiram um defeito no cinto de segurança daqui para parar e pegar o famoso 'Seatbelt Basalt'!"
+            "Trajes pressurizados não permitiam girar um volante comum, então o LRV usava um manche em 'T' entre os bancos. Na Apollo 15, Scott e Irwin fingiram um problema no cinto de segurança aqui para parar e pegar o famoso 'Seatbelt Basalt'!"
         },
         {
           id: "lrv-h5",
           x: 70,
           y: 56,
+          bpX: 75,
+          bpY: 49,
           title: "Para-Lama Traseiro Direito (O Reparo da Apollo 17)",
           detail:
-            "Na Apollo 17, Eugene Cernan esbarrou com o martelo no para-lama traseiro direito e o quebrou, levantando uma chuva de poeira abrasiva. A solução? Improvisaram um para-lama novo usando mapas lunares plastificados e fita adesiva (duct tape)!"
+            "Na Apollo 17, Eugene Cernan esbarrou com o martelo na extensão do para-lama traseiro direito e a quebrou, levantando nuvens de poeira abrasiva. A solução foi improvisar uma extensão nova com mapas lunares plastificados e presilhas!"
         }
       ],
       references: [
@@ -801,7 +875,7 @@ const ARTIFACTS = [
     en: {
       name: "Lunar Roving Vehicle (LRV / Moon Buggy)",
       personaTitle: "The Aluminum Origami & Lone Cameraman of Farewell",
-      shortTag: "90.5 km driven on the Moon • Piano-wire wheels • Filmed humanity's final liftoff",
+      shortTag: "90.4 km driven on the Moon • Piano-wire wheels • Filmed humanity's final liftoff",
       statusText: "3 rovers parked intact inside NASA Exclusion Zones (1971–1972)",
       quote:
         "My tire tracks remain untouched in the dust where the wind never blows. I was not abandoned. I only stayed behind to save your parking spot until you return.",
@@ -829,62 +903,72 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Three rovers operated on the Moon: LRV-1 on Apollo 15 (Jul 1971, Hadley-Apennine, 27.9 km driven and 77.31 kg of samples, including the 'Seatbelt Basalt'); LRV-2 on Apollo 16 (Apr 1972, Descartes Highlands, 26.7 km); and LRV-3 on Apollo 17 (Dec 1972, Taurus-Littrow valley, record 35.9 km in 4h 26m, emergency fender repair, and live liftoff broadcast operated by Ed Fendell).",
+        "Three rovers operated on the Moon (NSSDCA): LRV-1 on Apollo 15 (Jul 1971, Hadley-Apennine, 27.8 km in 3h 02m and 77.31 kg of samples, including the 'Seatbelt Basalt'); LRV-2 on Apollo 16 (Apr 1972, Descartes Highlands, 26.7 km in 3h 26m); and LRV-3 on Apollo 17 (Dec 1972, Taurus-Littrow valley, record 35.9 km in 4h 26m, emergency fender repair, and live liftoff broadcast operated by Ed Fendell).",
       currentState:
-        "All three Lunar Roving Vehicles remain parked exactly where left between 1971 and 1972. High-resolution (27 cm/pixel) photographs from NASA's Lunar Reconnaissance Orbiter (LRO) show the intact rovers and their parallel wheel tracks etched in the regolith. Protected by 'NASA's Recommendations to Space-Faring Entities' with Exclusion Zones (such as a 225 m radius at Apollo 17).",
+        "All three Lunar Roving Vehicles remain parked exactly where left between 1971 and 1972 (LRV-3 parked ~145 m east of Challenger). High-resolution Lunar Reconnaissance Orbiter (LRO) imagery reveals the intact rovers and parallel wheel tracks etched into the regolith, protected by NASA Exclusion Zone guidelines (225 m radius at Apollo 17).",
       distinctions:
         "Unlike robotic Mars rovers, the LRV was a crewed electric vehicle driven manually by two suited astronauts via a T-shaped hand controller, which in its final minutes operated as a remotely controlled television broadcast station commanded from Houston.",
       specs: [
         { label: "Operating Missions", value: "Apollo 15 (Jul/1971), Apollo 16 (Apr/1972), and Apollo 17 (Dec/1972)" },
         { label: "Parking Sites", value: "Hadley-Apennine (A15), Descartes Highlands (A16), Taurus-Littrow Valley (A17)" },
-        { label: "Dimensions & Folding", value: "3.1 m length × 2.3 m wheelbase × 1.14 m height (folded in 1.67 × 1.52 × 0.91 m; deployed in ~7 min)" },
-        { label: "Empty Mass vs. Payload", value: "210 kg on Earth (~35 kg on Moon) • Carries up to 490 kg payload (more than double its own weight!)" },
-        { label: "Propulsion & Power", value: "4 individual electric motors (1 per wheel) • Two 36 V non-rechargeable silver-zinc batteries" },
-        { label: "Piano-Wire Wheels", value: "Flexible mesh woven from music spring steel wire, Ø 81 cm (32 in), titanium chevrons, 5.4 kg each" },
-        { label: "Steering & Speed", value: "T-shaped hand controller (no steering wheel) • ~15 km/h (10 mph) • Static stability on slopes up to 45°" },
-        { label: "Compass-Free Navigation", value: "Directional gyroscope + wheel odometers ('Thread of Ariadne' pointing back to Lunar Module)" },
-        { label: "Total Distance Driven", value: "90.5 km combined (27.9 km on A15 + 26.7 km on A16 + 35.9 km on A17; max range 7.6 km from LM)" }
+        { label: "Dimensions & Folding", value: "3.1 m length × 2.3 m wheelbase × 1.14 m height • 36 cm ground clearance (folded in Quad 1)" },
+        { label: "Empty Mass vs. Payload", value: "210 kg on Earth (~35 kg on Moon) • Carries up to 490 kg additional lunar payload" },
+        { label: "Propulsion & Power", value: "Four 0.25 HP drive motors + two 0.1 HP steering motors • Two 36 V Ag-Zn batteries (121 Ah)" },
+        { label: "Piano-Wire Wheels", value: "Zinc-coated woven steel mesh, Ø 81.8 cm × 23 cm wide, titanium chevrons (50%), ~5.4 kg each" },
+        { label: "Control, Speed & Slopes", value: "T-shaped hand controller • ~13 km/h cruise (~18 km/h max A17) • Climbs 25°; static stability 45°" },
+        { label: "Compass-Free Navigation", value: "Directional gyroscope + wheel odometers ('Ariadne's Thread' pointing back to Lunar Module)" },
+        { label: "Total Distance (NSSDCA)", value: "90.4 km combined (27.8 km A15 + 26.7 km A16 + 35.9 km A17; max range 7.6 km from LM)" }
       ],
       hotspots: [
         {
           id: "lrv-h1",
           x: 48,
           y: 68,
-          title: "Piano-Wire & Titanium Mesh Wheels (81 cm / 5.4 kg)",
+          bpX: 25,
+          bpY: 70,
+          title: "Piano-Wire & Titanium Mesh Wheels (81.8 cm / 5.4 kg)",
           detail:
-            "Woven from music spring wire with titanium chevron treads to float across abrasive lunar dust without sinking or puncturing, weighing just 5.4 kg (12 lbs) per wheel."
+            "No air or rubber! Each wheel (Ø 81.8 cm × 23 cm wide) is woven from 0.083 cm zinc-coated steel wire with titanium chevrons covering 50% of the tread to glide over lunar dust without sinking, weighing ~5.4 kg (12 lbs) each."
         },
         {
           id: "lrv-h2",
           x: 37,
           y: 27,
-          title: "Ed Fendell's Color TV Camera & Golden Umbrella Antenna",
+          bpX: 27,
+          bpY: 22,
+          title: "Ed Fendell's Color TV Camera & Umbrella Antenna",
           detail:
-            "Mounted up front, the high-gain umbrella antenna and color TV camera were remotely tilted from Houston by Ed Fendell on Dec 14, 1972 to film Apollo 17's liftoff into space."
+            "Mounted up front, the high-gain umbrella dish antenna and color TV camera were remotely tilted from Houston by Ed Fendell (~1.28 s one-way delay) on Dec 14, 1972 to broadcast Apollo 17's liftoff live!"
         },
         {
           id: "lrv-h3",
           x: 48,
           y: 46,
+          bpX: 45,
+          bpY: 42,
           title: "Directional Gyroscope Navigation Console ('Ariadne's Thread')",
           detail:
-            "With no magnetic field or GPS on the Moon, a directional gyroscope and wheel odometers continuously displayed exact straight-line bearing and distance back to the Lunar Module."
+            "With no global magnetic field or GPS on the Moon, a directional gyroscope and wheel odometers continuously displayed exact straight-line bearing and distance back to the Lunar Module."
         },
         {
           id: "lrv-h4",
           x: 55,
           y: 49,
+          bpX: 53,
+          bpY: 47,
           title: "T-Shaped Hand Controller & 'Seatbelt Basalt' Seats",
           detail:
-            "Designed for pressurized gloves. On Apollo 15, David Scott and James Irwin faked a seatbelt issue here so Houston would let them stop and secretly collect the 'Seatbelt Basalt'!"
+            "Designed for pressurized gloves. On Apollo 15, David Scott and James Irwin faked a seatbelt issue here so Houston would let them stop and secretly collect the vesicular volcanic 'Seatbelt Basalt'!"
         },
         {
           id: "lrv-h5",
           x: 70,
           y: 56,
-          title: "Right-Rear Fender (Apollo 17 Map & Duct Tape Repair)",
+          bpX: 75,
+          bpY: 49,
+          title: "Right-Rear Fender (Apollo 17 Map & Clamp Repair)",
           detail:
-            "When Eugene Cernan accidentally knocked off the rear fender extension on Apollo 17, kicking up clouds of dark lunar dust, the crew improvised a replacement using laminated lunar maps and clamps!"
+            "When Eugene Cernan accidentally knocked off the right-rear fender extension on Apollo 17, kicking up clouds of abrasive dust, the crew improvised a replacement using laminated lunar maps, duct tape, and clamps!"
         }
       ],
       references: [
@@ -928,9 +1012,9 @@ const ARTIFACTS = [
     statusType: "protected",
     frequency: "2282.5 MHz VHF // TRANQUILITY BASE MONUMENT",
     coordinates: {
-      lat: 0.6741,
-      lon: 23.473,
-      display: "0° 40' 26.69\" N, 23° 28' 22.69\" E",
+      lat: 0.67416,
+      lon: 23.47314,
+      display: "0° 40' 26.98\" N, 23° 28' 23.30\" E (0.67416° N, 23.47314° E)",
       sitePt: "Base Tranquilidade, Mare Tranquillitatis",
       siteEn: "Tranquility Base, Mare Tranquillitatis"
     },
@@ -966,42 +1050,48 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Estágio de descida do Módulo Lunar LM-5 'Eagle' da Apollo 11. Pousou no Mar da Tranquilidade após 12 minutos de descida final. Transportou os equipamentos científicos do pacote EASEP (LRRR e PSE) e serviu como base de lançamento para o retorno de Armstrong e Aldrin.",
+        "Estágio de descida do Módulo Lunar LM-5 'Eagle' da Apollo 11. Pousou no Mar da Tranquilidade em 20 de julho de 1969 (20:17:40 UT) após ~12 minutos de descida motorizada. Transportou o pacote EASEP (LRRR e PSE) e serviu como base de lançamento para o estágio de subida no retorno de Armstrong e Aldrin.",
       currentState:
-        "Permanece intacto na Base Tranquilidade (0° 41' 15\" N, 23° 26' E), fotografado regularmente pela sonda LRO. Protegido pelas diretrizes de preservação histórica da NASA com zona de exclusão para evitar que poeira de novos pousos danifique o local.",
+        "Permanece intacto na Base Tranquilidade (coordenadas LROC / DE421: 0° 40' 26,98\" N, 23° 28' 23,30\" E), fotografado regularmente pela sonda Lunar Reconnaissance Orbiter (LRO) e protegido pelas diretrizes da NASA com zona de exclusão para preservação do patrimônio histórico.",
       distinctions:
-        "O Módulo Lunar Apollo era dividido em duas partes independentes: o Estágio de Descida (que pousava e ficava para sempre na Lua funcionando como plataforma de lançamento) e o Estágio de Subida (que levava os astronautas de volta à órbita lunar).",
+        "O Módulo Lunar Apollo era dividido em duas partes independentes: o Estágio de Descida (que pousava e ficava para sempre na Lua funcionando como plataforma de lançamento) e o Estágio de Subida (que levava os astronautas de volta à nave Columbia em órbita lunar).",
       specs: [
         { label: "Missão e Designação", value: "Apollo 11 — Lunar Module LM-5 'Eagle' (Descent Stage)" },
-        { label: "Data e Local de Pouso", value: "20 de Julho de 1969 • Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E)" },
+        { label: "Pouso e Coordenadas (LROC)", value: "20 de Julho de 1969 (20:17:40 UT) • 0,67416° N, 23,47314° E" },
         { label: "Duração da Descida Final", value: "Cerca de 12 minutos até o desligamento do motor no toque" },
         { label: "Revestimento Térmico", value: "Múltiplas camadas de Kapton dourado, Mylar aluminizado e Inconel" },
         { label: "Carga Científica (SEQ Bay)", value: "Retrorefletor Laser (LRRR), Sismômetro Passivo (PSE) e Vento Solar" },
-        { label: "Amostras Coletadas na Base", value: "Cerca de 21,55 kg de rochas e poeira lunar levadas para a Terra" },
-        { label: "Placa Comemorativa", value: "Aço inoxidável na perna dianteira com a escada ('We came in peace for all mankind')" },
-        { label: "Duração Total da Apollo 11", value: "195 horas e meia + quarentena no USS Hornet e em Houston até 10/08/1969" }
+        { label: "Amostras Coletadas na Base", value: "21,55 kg (47,5 lbs) de rochas e regolito lunar levados para a Terra" },
+        { label: "Placa Comemorativa", value: "Aço inoxidável na perna dianteira ('HERE MEN FROM THE PLANET EARTH... JULY 1969 A.D.')" },
+        { label: "Duração Total da Apollo 11", value: "195h 18m 35s + quarentena no USS Hornet e em Houston até 10/08/1969" }
       ],
       hotspots: [
         {
           id: "eagle-h1",
           x: 56,
           y: 28,
+          bpX: 50,
+          bpY: 34,
           title: "Plataforma de Decolagem Octogonal & Defletor de Chamas",
           detail:
-            "O topo do estágio de descida serviu como rampa de lançamento na gravidade de 1/6 para o estágio de subida disparar rumo à nave Columbia em órbita lunar."
+            "O topo do estágio de descida serviu como plataforma de lançamento na gravidade de 1/6 para o estágio de subida disparar rumo à nave Columbia em órbita lunar."
         },
         {
           id: "eagle-h2",
           x: 55,
           y: 51,
+          bpX: 50,
+          bpY: 49,
           title: "Escada de 9 Degraus & Placa 'We Came in Peace'",
           detail:
-            "Presa entre o terceiro e o quarto degrau da perna dianteira está a placa de aço inoxidável assinada por Armstrong, Aldrin, Collins e o presidente Nixon celebrando o primeiro pouso humano."
+            "Presa entre o terceiro e o quarto degrau da perna dianteira está a placa de aço inoxidável assinada por Armstrong, Aldrin, Collins e pelo presidente Nixon celebrando o primeiro pouso humano."
         },
         {
           id: "eagle-h3",
           x: 71,
           y: 47,
+          bpX: 65,
+          bpY: 47,
           title: "Compartimento Científico SEQ Bay (Quadrante II)",
           detail:
             "Aqui viajaram guardados o Retrorefletor Laser (LRRR) e o Sismômetro Passivo (PSE), retirados pelos astronautas através de um sistema de cabos."
@@ -1010,23 +1100,35 @@ const ARTIFACTS = [
           id: "eagle-h4",
           x: 53,
           y: 84,
+          bpX: 50,
+          bpY: 78,
           title: "Sapatas de Pouso de 94 cm & Sondas de Contato Lunar",
           detail:
-            "Quatro pratos circulares de alumínio em colmeia absorveram o impacto do pouso. Hastes metálicas sob as sapatas acenderam a luz 'CONTACT LIGHT' na cabine segundos antes do toque!"
+            "Quatro pratos circulares de alumínio em colmeia (94 cm) absorveram o impacto do pouso. Hastes metálicas sob as sapatas (~1,73 m) acenderam a luz 'CONTACT LIGHT' na cabine segundos antes do toque."
         },
         {
           id: "eagle-h5",
           x: 62,
           y: 54,
+          bpX: 50,
+          bpY: 70,
           title: "Saia do Motor de Descida & Manta de Kapton Dourado",
           detail:
-            "O motor desacelerou a nave durante os 12 minutos finais. As folhas douradas de Kapton refletiam a radiação solar intensa no vácuo."
+            "O motor de empuxo variável desacelerou a nave durante os ~12 minutos finais. As folhas douradas de Kapton refletiam a radiação solar intensa no vácuo."
         }
       ],
       references: [
         {
-          title: "NASA — Apollo 11 Mission Report (MSC-00171)",
-          url: "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11mr.pdf"
+          title: "NASA NTRS — Apollo 11 Mission Report (MSC-00171)",
+          url: "https://ntrs.nasa.gov/citations/19700008096"
+        },
+        {
+          title: "NASA NSSDCA — Apollo Landing Site LRO Coordinates (Eagle: 0.67416° N, 23.47314° E)",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html"
+        },
+        {
+          title: "NASA NSSDCA — Apollo 11 Mission & Spacecraft Summary (LM-5 Eagle)",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11info.html"
         },
         {
           title: "NASA Recommendations to Space-Faring Entities: How to Protect and Preserve Lunar Artifacts",
@@ -1062,26 +1164,28 @@ const ARTIFACTS = [
         ]
       },
       missionContext:
-        "Descent stage of the Apollo 11 Lunar Module LM-5 'Eagle'. Landed in Mare Tranquillitatis after a 12-minute final descent, carried the EASEP science instruments (LRRR and PSE), and served as the launch platform for the crew's return.",
+        "Descent stage of the Apollo 11 Lunar Module LM-5 'Eagle'. Landed in Mare Tranquillitatis on July 20, 1969 (20:17:40 UT) after a ~12-minute powered descent, carried the EASEP science instruments (LRRR and PSE), and served as the launch platform for the ascent stage.",
       currentState:
-        "Remains intact at Tranquility Base (0° 41' 15\" N, 23° 26' E), regularly imaged by NASA's Lunar Reconnaissance Orbiter (LRO) and protected inside a NASA Historic Exclusion Zone.",
+        "Remains intact at Tranquility Base (LROC / DE421 coordinates: 0° 40' 26.98\" N, 23° 28' 23.30\" E), regularly imaged by NASA's Lunar Reconnaissance Orbiter (LRO) and protected inside a NASA Historic Exclusion Zone.",
       distinctions:
-        "The Apollo Lunar Module consisted of two separate stages: the Descent Stage (which landed and stayed permanently on the Moon as a launch base) and the Ascent Stage (which carried the crew back to lunar orbit).",
+        "The Apollo Lunar Module consisted of two separate stages: the Descent Stage (which landed and stayed permanently on the Moon as a launch base) and the Ascent Stage (which carried the crew back to Command Module Columbia in lunar orbit).",
       specs: [
         { label: "Mission & Designation", value: "Apollo 11 — Lunar Module LM-5 'Eagle' (Descent Stage)" },
-        { label: "Landing Date & Site", value: "July 20, 1969 • Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E)" },
+        { label: "Touchdown & LROC Coords", value: "July 20, 1969 (20:17:40 UT) • 0.67416° N, 23.47314° E" },
         { label: "Final Powered Descent", value: "~12 minutes until engine cutoff at touchdown" },
         { label: "Thermal Insulation", value: "Multi-layer golden Kapton, aluminized Mylar, and Inconel shields" },
         { label: "Science Payload (SEQ Bay)", value: "Laser Retroreflector (LRRR), Passive Seismic Experiment (PSE), Solar Wind" },
-        { label: "Samples Gathered", value: "~21.55 kg of lunar rocks and regolith returned to Earth" },
-        { label: "Commemorative Plaque", value: "Stainless steel plaque on front landing strut ('We came in peace for all mankind')" },
-        { label: "Total Mission & Quarantine", value: "195.5 hours flight + quarantine on USS Hornet & Houston until Aug 10, 1969" }
+        { label: "Samples Gathered", value: "21.55 kg (47.5 lbs) of lunar rocks and regolith returned to Earth" },
+        { label: "Commemorative Plaque", value: "Stainless steel plaque on front strut ('HERE MEN FROM THE PLANET EARTH... JULY 1969 A.D.')" },
+        { label: "Total Mission & Quarantine", value: "195h 18m 35s flight + quarantine on USS Hornet & Houston until Aug 10, 1969" }
       ],
       hotspots: [
         {
           id: "eagle-h1",
           x: 56,
           y: 28,
+          bpX: 50,
+          bpY: 34,
           title: "Octagonal Launch Deck & Blast Deflector",
           detail:
             "Served as the launchpad in 1/6 lunar gravity when the Ascent Stage fired its engine to carry Armstrong and Aldrin back to orbit."
@@ -1090,39 +1194,55 @@ const ARTIFACTS = [
           id: "eagle-h2",
           x: 55,
           y: 51,
+          bpX: 50,
+          bpY: 49,
           title: "9-Rung Ladder & 'We Came in Peace' Plaque",
           detail:
-            "Mounted on the front landing gear strut between the third and fourth rungs is the stainless-steel plaque commemorating humanity's first footsteps on another world."
+            "Mounted on the front landing gear strut between the third and fourth rungs is the stainless-steel plaque signed by Armstrong, Aldrin, Collins, and President Nixon commemorating the first Moon landing."
         },
         {
           id: "eagle-h3",
           x: 71,
           y: 47,
+          bpX: 65,
+          bpY: 47,
           title: "Scientific Equipment (SEQ) Bay",
           detail:
-            "External compartment that housed the Apollo 11 Laser Retroreflector (LRRR) and Passive Seismic Experiment (PSE) during the flight from Earth."
+            "External compartment in Quadrant II that housed the Apollo 11 Laser Retroreflector (LRRR) and Passive Seismic Experiment (PSE) during the flight from Earth."
         },
         {
           id: "eagle-h4",
           x: 53,
           y: 84,
-          title: "Honeycomb Landing Pads & Lunar Contact Probes",
+          bpX: 50,
+          bpY: 78,
+          title: "94 cm Honeycomb Pads & Lunar Contact Probes",
           detail:
-            "Four crushable aluminum honeycomb footpads absorbed touchdown energy, while wire probes beneath them triggered the 'CONTACT LIGHT' in the cabin."
+            "Four crushable aluminum honeycomb footpads (94 cm / 37 in wide) absorbed touchdown energy, while ~1.73 m wire probes beneath them triggered the cabin 'CONTACT LIGHT' just above the surface."
         },
         {
           id: "eagle-h5",
           x: 62,
           y: 54,
+          bpX: 50,
+          bpY: 70,
           title: "Throttleable Descent Engine Skirt & Kapton Foil",
           detail:
-            "Slowed the spacecraft during the 12-minute descent and insulated propellant tanks from extreme solar radiation."
+            "Slowed the spacecraft during the ~12-minute descent and insulated propellant tanks from extreme solar radiation in vacuum."
         }
       ],
       references: [
         {
-          title: "NASA — Apollo 11 Mission Report (MSC-00171)",
-          url: "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11mr.pdf"
+          title: "NASA NTRS — Apollo 11 Mission Report (MSC-00171)",
+          url: "https://ntrs.nasa.gov/citations/19700008096"
+        },
+        {
+          title: "NASA NSSDCA — Apollo Landing Site LRO Coordinates (Eagle: 0.67416° N, 23.47314° E)",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html"
+        },
+        {
+          title: "NASA NSSDCA — Apollo 11 Mission & Spacecraft Summary (LM-5 Eagle)",
+          url: "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11info.html"
         },
         {
           title: "NASA Recommendations to Space-Faring Entities: How to Protect and Preserve Lunar Artifacts",
@@ -3235,7 +3355,8 @@ class MuseumAudioEngine {
 // THE SILENT MUSEUM: NASA ENGINEERING BLUEPRINTS (SVG SCHEMATICS)
 // High-precision technical schematics for LRRR, PSE, LRV, and LM-5 EAGLE
 // ============================================================================
-function getArtifactBlueprintSVG(artifactId) {
+function getArtifactBlueprintSVG(artifactId, lang = "pt") {
+  const isPt = lang === "pt";
   switch (artifactId) {
     case "lrrr":
       return `
@@ -3255,23 +3376,38 @@ function getArtifactBlueprintSVG(artifactId) {
           <!-- Technical Border & Blueprint Header -->
           <rect x="16" y="16" width="768" height="418" fill="none" stroke="#10B981" stroke-opacity="0.4" stroke-width="1.5"/>
           <text x="32" y="42" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.5">
-            NASA DWG // APOLLO 11 LRRR — 10x10 CORNER-CUBE FUSED SILICA ARRAY (Ø 3.8 CM)
+            NASA DWG // APOLLO 11 LRRR — 10x10 CORNER-CUBE FUSED SILICA ARRAY (Ø 3.8 CM • 46×46 CM)
           </text>
           <text x="32" y="418" fill="#6EE7B7" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.75">
-            PRINCIPLE: d = (c × Δt) / 2   |   MATERIAL: SUPRASIL FUSED SILICA   |   POWER: PASSIVE (0 W)
+            ${
+              isPt
+                ? "PRINCÍPIO: d = (c × Δt) / 2   |   MATERIAL: SÍLICA FUNDIDA ULTRA-PURA   |   ENERGIA: PASSIVO (0 W)"
+                : "PRINCIPLE: d = (c × Δt) / 2   |   MATERIAL: ULTRA-PURE FUSED SILICA   |   POWER: PASSIVE (0 W)"
+            }
           </text>
 
           <!-- Incoming & Outgoing Laser Beam Diagram -->
           <line x1="680" y1="35" x2="435" y2="185" stroke="#10B981" stroke-width="2.5" stroke-dasharray="7 5"/>
           <line x1="425" y1="195" x2="670" y2="45" stroke="#34D399" stroke-width="2.5"/>
-          <text x="565" y="72" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="10">
-            FEIXE LASER 532nm (Δt ≈ 2,56 s)
+          <text x="545" y="72" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="10">
+            ${isPt ? "FEIXE LASER 532nm (Δt ≈ 2,56 s)" : "532nm LASER BEAM (Δt ≈ 2.56 s)"}
           </text>
 
           <!-- Tilted Pallet Frame (3D Isometric Projection) -->
           <polygon points="220,120 550,95 600,285 270,315" fill="rgba(16, 185, 129, 0.08)" stroke="#34D399" stroke-width="2"/>
           <polygon points="270,315 600,285 600,320 270,350" fill="rgba(16, 185, 129, 0.16)" stroke="#10B981" stroke-width="1.5"/>
           <polygon points="180,340 270,350 220,120 165,305" fill="rgba(16, 185, 129, 0.05)" stroke="#10B981" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+          <!-- Bubble Level & Solar Gnomon Alignment Bracket (Bottom-Left of Pallet) -->
+          <g transform="translate(212, 290)">
+            <rect x="0" y="0" width="38" height="22" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="#34D399" stroke-width="1.4"/>
+            <circle cx="19" cy="11" r="6" fill="none" stroke="#6EE7B7" stroke-width="1.2"/>
+            <circle cx="19" cy="11" r="2" fill="#34D399"/>
+            <line x1="19" y1="-16" x2="19" y2="0" stroke="#A7F3D0" stroke-width="1.8"/>
+            <text x="-10" y="34" fill="#6EE7B7" font-family="JetBrains Mono, monospace" font-size="8.5">
+              ${isPt ? "GNOMON + NÍVEL" : "GNOMON + LEVEL"}
+            </text>
+          </g>
 
           <!-- 10x10 Grid of 100 Corner-Cube Prisms -->
           ${Array.from({ length: 10 })
@@ -3300,8 +3436,8 @@ function getArtifactBlueprintSVG(artifactId) {
           <line x1="114" y1="212" x2="114" y2="155" stroke="#34D399" stroke-width="1"/>
           <line x1="114" y1="212" x2="168" y2="245" stroke="#34D399" stroke-width="1"/>
           <line x1="114" y1="212" x2="60" y2="245" stroke="#34D399" stroke-width="1"/>
-          <text x="52" y="296" fill="#A7F3D0" font-family="JetBrains Mono, monospace" font-size="9.5">
-            PRISMA CORNER-CUBE (Ø 3,8cm)
+          <text x="48" y="296" fill="#A7F3D0" font-family="JetBrains Mono, monospace" font-size="9.5">
+            ${isPt ? "PRISMA CORNER-CUBE (Ø 3,8cm)" : "CORNER-CUBE PRISM (Ø 3.8cm)"}
           </text>
 
           <!-- Lunar Regolith Base Line -->
@@ -3392,13 +3528,21 @@ function getArtifactBlueprintSVG(artifactId) {
             NASA BOEING/GM DWG // LUNAR ROVING VEHICLE (LRV) — 3.10m × 2.30m WHEELBASE (210 KG)
           </text>
           <text x="32" y="418" fill="#BAE6FD" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.8">
-            MOTORS: 4 × 0.25 HP (36V Ag-Zn)  |  WHEELS: Ø 81cm PIANO-WIRE MESH (5.4 KG)  |  NAV: DIRECTIONAL GYRO + ODOMETERS
+            ${
+              isPt
+                ? "MOTORES: 4 × 0,25 HP (36V Ag-Zn)  |  RODAS: Ø 81,8cm MALHA DE AÇO (5,4 KG)  |  NAV: GIROSCÓPIO + ODÔMETROS"
+                : "MOTORS: 4 × 0.25 HP (36V Ag-Zn)  |  WHEELS: Ø 81.8cm PIANO-WIRE MESH (5.4 KG)  |  NAV: DIRECTIONAL GYRO + ODOMETERS"
+            }
           </text>
 
           <!-- Dimension Callout Lines -->
           <line x1="130" y1="388" x2="670" y2="388" stroke="#38BDF8" stroke-width="1" stroke-dasharray="4 4"/>
-          <text x="330" y="382" fill="#7DD3FC" font-family="JetBrains Mono, monospace" font-size="10">
-            COMPRIMENTO TOTAL: 3,10 METROS (ENTRE-EIXOS: 2,30 m)
+          <text x="310" y="382" fill="#7DD3FC" font-family="JetBrains Mono, monospace" font-size="10">
+            ${
+              isPt
+                ? "COMPRIMENTO TOTAL: 3,10 METROS (ENTRE-EIXOS: 2,30 m)"
+                : "OVERALL LENGTH: 3.10 METERS (WHEELBASE: 2.30 m)"
+            }
           </text>
 
           <!-- High-Gain Golden Umbrella Antenna (Front Left) -->
@@ -3409,6 +3553,7 @@ function getArtifactBlueprintSVG(artifactId) {
           <!-- Ed Fendell Color TV Camera (Front) -->
           <rect x="178" y="192" width="42" height="24" rx="3" fill="rgba(56, 189, 248, 0.25)" stroke="#FBBF24" stroke-width="1.8"/>
           <polygon points="178,196 156,186 156,222 178,212" fill="rgba(251, 191, 36, 0.3)" stroke="#FBBF24" stroke-width="1.4"/>
+          <text x="150" y="178" fill="#FDE68A" font-family="JetBrains Mono, monospace" font-size="8.5">TV CAM</text>
 
           <!-- Aluminum Chassis Frame (Folded Origami 3-Part Chassis) -->
           <rect x="175" y="255" width="450" height="22" rx="4" fill="rgba(56, 189, 248, 0.18)" stroke="#38BDF8" stroke-width="2"/>
@@ -3426,9 +3571,9 @@ function getArtifactBlueprintSVG(artifactId) {
           <!-- Lawn-Chair Tubular Aluminum Seats & Seatbelt Basalt Strap -->
           <polyline points="395,255 465,255 488,182" fill="none" stroke="#E2E8F0" stroke-width="3.5"/>
           <polyline points="435,255 505,255 528,182" fill="none" stroke="#38BDF8" stroke-width="3"/>
-          <!-- Rear Lunar Communications Relay Unit & Sample Bags (77.31 kg) -->
+          <!-- Rear Lunar Communications Relay Unit & Sample Bags -->
           <rect x="535" y="205" width="78" height="50" rx="4" fill="rgba(56, 189, 248, 0.15)" stroke="#38BDF8" stroke-width="1.6"/>
-          <text x="544" y="233" fill="#BAE6FD" font-family="JetBrains Mono, monospace" font-size="8.5">CARGA: 490 KG</text>
+          <text x="541" y="233" fill="#BAE6FD" font-family="JetBrains Mono, monospace" font-size="8.5">${isPt ? "CARGA: 490 KG" : "PAYLOAD: 490KG"}</text>
 
           <!-- Front & Rear Fenders (Right-Rear Map Repair Highlighted!) -->
           <path d="M 135 285 A 72 72 0 0 1 265 285" fill="none" stroke="#38BDF8" stroke-width="3"/>
@@ -3479,7 +3624,7 @@ function getArtifactBlueprintSVG(artifactId) {
             GRUMMAN / NASA DWG // APOLLO 11 LM-5 "EAGLE" DESCENT STAGE — TRANQUILITY BASE
           </text>
           <text x="32" y="418" fill="#FEF08A" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.8">
-            COORDS: 0° 41' 15" N, 23° 26' E  |  DESCENT TIME: 12 MIN  |  PLAQUE: "WE CAME IN PEACE FOR ALL MANKIND"
+            LROC COORDS: 0° 40' 27" N, 23° 28' 23" E (0.67416° N, 23.47314° E)  |  DESCENT: ~12 MIN  |  PLAQUE: "WE CAME IN PEACE FOR ALL MANKIND"
           </text>
 
           <!-- Octagonal Kapton Gold Descent Stage Body -->
@@ -3507,16 +3652,19 @@ function getArtifactBlueprintSVG(artifactId) {
           <!-- Descent Engine Skirt -->
           <polygon points="348,290 452,290 472,338 328,338" fill="rgba(148, 163, 184, 0.28)" stroke="#E2E8F0" stroke-width="1.8"/>
 
-          <!-- Left & Right Outrigger Landing Gear Struts & 94cm Footpads -->
+          <!-- Left & Right Outrigger Landing Gear Struts & 94cm Footpads + Contact Probes -->
           <line x1="235" y1="185" x2="145" y2="345" stroke="#FACC15" stroke-width="3.5"/>
           <line x1="235" y1="275" x2="145" y2="345" stroke="#FACC15" stroke-width="2.5"/>
           <ellipse cx="145" cy="350" rx="42" ry="10" fill="rgba(234, 179, 8, 0.35)" stroke="#FEF08A" stroke-width="2"/>
+          <line x1="145" y1="360" x2="145" y2="380" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="3 2"/>
 
           <line x1="565" y1="185" x2="655" y2="345" stroke="#FACC15" stroke-width="3.5"/>
           <line x1="565" y1="275" x2="655" y2="345" stroke="#FACC15" stroke-width="2.5"/>
           <ellipse cx="655" cy="350" rx="42" ry="10" fill="rgba(234, 179, 8, 0.35)" stroke="#FEF08A" stroke-width="2"/>
+          <line x1="655" y1="360" x2="655" y2="380" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="3 2"/>
 
           <ellipse cx="400" cy="352" rx="40" ry="10" fill="rgba(234, 179, 8, 0.35)" stroke="#FEF08A" stroke-width="2"/>
+          <line x1="400" y1="362" x2="400" y2="382" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="3 2"/>
         </svg>
       `;
   }
@@ -3577,7 +3725,11 @@ class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">SIMULADOR ÓPTICO // LUNAR LASER RANGING (LLR)</span>
+            <span class="lab-badge">${
+              isPt
+                ? "SIMULADOR ÓPTICO // LUNAR LASER RANGING (LLR)"
+                : "OPTICAL SIMULATOR // LUNAR LASER RANGING (LLR)"
+            }</span>
             <h4>${
               isPt
                 ? "Disparo Laser Terra–Lua & Geometria do Prisma Corner-Cube"
@@ -3594,17 +3746,17 @@ class ScienceLabController {
         <div class="lab-telemetry-grid">
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Tempo de Ida e Volta (Δt)" : "Round-Trip Time (Δt)"}</span>
-            <strong class="t-value emerald" id="llrTimeVal">2,5644 s</strong>
-            <span class="t-sub">c = 299.792.458 m/s</span>
+            <strong class="t-value emerald" id="llrTimeVal">${isPt ? "2,5644 s" : "2.5644 s"}</strong>
+            <span class="t-sub">${isPt ? "c = 299.792.458 m/s" : "c = 299,792,458 m/s"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Distância Calculada d = (c × Δt)/2" : "Calculated Distance d = (c × Δt)/2"}</span>
-            <strong class="t-value cyan" id="llrDistVal">384.400,00 km</strong>
-            <span class="t-sub" id="llrDriftSub">+216,6 cm ${isPt ? "desde Jul/1969" : "since Jul/1969"}</span>
+            <strong class="t-value cyan" id="llrDistVal">${isPt ? "384.400,00 km" : "384,400.00 km"}</strong>
+            <span class="t-sub" id="llrDriftSub">${isPt ? "+216,6 cm desde Jul/1969" : "+216.6 cm since Jul/1969"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Eficiência de Retorno Óptico" : "Optical Return Efficiency"}</span>
-            <strong class="t-value gold" id="llrPhotonVal">1 / 10¹⁷ fótons</strong>
+            <strong class="t-value gold" id="llrPhotonVal">${isPt ? "1 / 10¹⁷ fótons" : "1 / 10¹⁷ photons"}</strong>
             <span class="t-sub">${isPt ? "100 prismas de sílica fundida" : "100 fused-silica prisms"}</span>
           </div>
         </div>
@@ -3668,11 +3820,9 @@ class ScienceLabController {
       yearLabel.textContent = selectedYear;
       angleLabel.textContent = `${angleDeg > 0 ? "+" : ""}${angleDeg}°`;
       timeVal.textContent = `${dt.replace(".", isPt ? "," : ".")} s`;
-      distVal.textContent = `${
-        isPt
-          ? baseKm.toFixed(2).replace(".", ",")
-          : baseKm.toFixed(2)
-      } km (+${isPt ? driftCm.replace(".", ",") : driftCm} cm)`;
+      distVal.textContent = isPt
+        ? `${baseKm.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km (+${driftCm.replace(".", ",")} cm)`
+        : `${baseKm.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km (+${driftCm} cm)`;
       driftSub.textContent = `+${isPt ? driftCm.replace(".", ",") : driftCm} cm ${
         isPt ? `desde 1969 (${yearsElapsed} anos)` : `since 1969 (${yearsElapsed} yrs)`
       }`;
@@ -3742,21 +3892,29 @@ class ScienceLabController {
 
       ctx.fillStyle = "#34D399";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
-      ctx.fillText("PRISMA CORNER-CUBE (LUA)", w - 195, py + 76);
+      ctx.fillText(isPt ? "PRISMA CORNER-CUBE (LUA)" : "CORNER-CUBE PRISM (MOON)", w - 205, py + 76);
 
-      // Ray Tracing (Incoming ray at angleDeg + internal bounce + parallel return ray)
-      const offsetY = (angleDeg / 35) * 32;
-      const hit1X = px + 14;
-      const hit1Y = py - 24 + offsetY * 0.35;
-      const hit2X = px + 14;
-      const hit2Y = py + 24 + offsetY * 0.35;
+      // True 90-degree Corner-Cube Ray Tracing (3-segment retroreflection)
+      const rad = (angleDeg * Math.PI) / 180;
+      const vx = px + prismSize * 0.5;
+      const vy = py;
+      const d1 = 22;
+      const hit1X = vx - d1;
+      const hit1Y = vy - d1;
+      const hit2T = (2 * d1) / (Math.cos(rad) + Math.sin(rad));
+      const hit2X = hit1X + hit2T * Math.sin(rad);
+      const hit2Y = hit1Y + hit2T * Math.cos(rad);
+      const startX = ex + 32;
+      const endX = ex + 32;
+      const startY = hit1Y - (hit1X - startX) * Math.tan(rad);
+      const endY = hit2Y - (hit2X - endX) * Math.tan(rad);
 
       // Incoming Beam (Dashed Green)
       ctx.strokeStyle = "rgba(16, 185, 129, 0.65)";
       ctx.lineWidth = 2;
       ctx.setLineDash([6, 4]);
       ctx.beginPath();
-      ctx.moveTo(ex + 32, ey - 10 + offsetY);
+      ctx.moveTo(startX, Math.max(18, Math.min(h - 18, startY)));
       ctx.lineTo(hit1X, hit1Y);
       ctx.stroke();
 
@@ -3769,25 +3927,31 @@ class ScienceLabController {
       ctx.lineTo(hit2X, hit2Y);
       ctx.stroke();
 
-      // Parallel Reflected Beam Returning to Earth
+      // Strictly Parallel Reflected Beam Returning to Earth
       ctx.strokeStyle = "#34D399";
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(hit2X, hit2Y);
-      ctx.lineTo(ex + 32, ey + 14 + offsetY);
+      ctx.lineTo(endX, Math.max(18, Math.min(h - 18, endY)));
       ctx.stroke();
 
       // Animated Pulse Packet if fired
       if (pulseProgress >= 0) {
         pulseProgress += 0.018;
         let dotX, dotY;
+        const clampedStartY = Math.max(18, Math.min(h - 18, startY));
+        const clampedEndY = Math.max(18, Math.min(h - 18, endY));
         if (pulseProgress <= 1) {
-          dotX = ex + 32 + (hit1X - (ex + 32)) * pulseProgress;
-          dotY = ey - 10 + offsetY + (hit1Y - (ey - 10 + offsetY)) * pulseProgress;
-        } else if (pulseProgress <= 2) {
-          const t = pulseProgress - 1;
-          dotX = hit2X + (ex + 32 - hit2X) * t;
-          dotY = hit2Y + (ey + 14 + offsetY - hit2Y) * t;
+          dotX = startX + (hit1X - startX) * pulseProgress;
+          dotY = clampedStartY + (hit1Y - clampedStartY) * pulseProgress;
+        } else if (pulseProgress <= 1.15) {
+          const b = (pulseProgress - 1) / 0.15;
+          dotX = hit1X + (hit2X - hit1X) * b;
+          dotY = hit1Y + (hit2Y - hit1Y) * b;
+        } else if (pulseProgress <= 2.15) {
+          const t = pulseProgress - 1.15;
+          dotX = hit2X + (endX - hit2X) * t;
+          dotY = hit2Y + (clampedEndY - hit2Y) * t;
         } else {
           pulseProgress = -1;
           if (this.audio) this.audio.playPing(1320, 0.12);
@@ -3820,7 +3984,9 @@ class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">LABORATÓRIO SISMOLÓGICO // APOLLO 11 PSE</span>
+            <span class="lab-badge">${
+              isPt ? "LABORATÓRIO SISMOLÓGICO // APOLLO 11 PSE" : "SEISMOLOGY LAB // APOLLO 11 PSE"
+            }</span>
             <h4>${
               isPt
                 ? "Sismógrafo de 3 Eixos (Moonquakes) & Luta Térmica Dia/Noite"
@@ -3850,7 +4016,9 @@ class ScienceLabController {
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Temperatura Interna do PSE" : "PSE Internal Temperature"}</span>
-            <strong class="t-value emerald" id="pseCoreTemp">-54,0°C ( Seguro )</strong>
+            <strong class="t-value emerald" id="pseCoreTemp">${
+              isPt ? "-54,0°C (Protegido)" : "-54.0°C (Protected)"
+            }</strong>
             <span class="t-sub" id="pseHeaterStatus">${
               isPt ? "Aquecedor Nuclear Pu-238: ATIVO" : "Pu-238 Nuclear Heater: ACTIVE"
             }</span>
@@ -3872,7 +4040,7 @@ class ScienceLabController {
                   ? "Simulador Térmico (Deslize entre a Noite de -170°C e o Meio-Dia de +120°C):"
                   : "Thermal Simulator (Slide between -170°C Night and +120°C Lunar Noon):"
               }</span>
-              <strong id="solarHourLabel">Noite (-170°C)</strong>
+              <strong id="solarHourLabel">${isPt ? "Noite (-170°C)" : "Night (-170°C)"}</strong>
             </label>
             <input type="range" id="pseThermalSlider" min="0" max="100" value="15" />
             <small class="lab-hint" id="pseThermalHint">
@@ -3932,8 +4100,8 @@ class ScienceLabController {
           freq = 0.8;
           decay = 0.975;
           eventStatus.textContent = isPt
-            ? "Passos de Astronauta a 16,8m"
-            : "Astronaut Footsteps at 16.8m";
+            ? "Passos de Astronauta (~16,8m–27m)"
+            : "Astronaut Footsteps (~16.8m–27m)";
           if (this.audio) this.audio.playPing(320, 0.1);
         }
       });
@@ -3946,18 +4114,22 @@ class ScienceLabController {
 
       if (extTemp < -54) {
         // Nuclear RHU clamps internal minimum at -54°C!
-        cycleVal.textContent = isPt ? "Noite Lunar (340h)" : "Lunar Night (340h)";
-        solarHourLabel.textContent = `${extTemp}°C (Noite)`;
-        coreTemp.textContent = "-54,0°C (Protegido)";
+        cycleVal.textContent = isPt ? "Noite Lunar (~340h)" : "Lunar Night (~340h)";
+        solarHourLabel.textContent = isPt ? `${extTemp}°C (Noite)` : `${extTemp}°C (Night)`;
+        coreTemp.textContent = isPt ? "-54,0°C (Protegido)" : "-54.0°C (Protected)";
         coreTemp.className = "t-value emerald";
         heaterStatus.textContent = isPt
-          ? "Aquecedor Nuclear (Radioisótopo): ATIVO • Painéis Solares: STANDBY"
-          : "Radioisotope Heater: ACTIVE • Solar Panels: STANDBY";
+          ? "Aquecedor Nuclear (Pu-238): ATIVO • Painéis Solares: STANDBY"
+          : "Radioisotope Heater (Pu-238): ACTIVE • Solar Panels: STANDBY";
       } else if (extTemp <= 65) {
         const internal = Math.round(extTemp * 0.7 - coolingOffset);
         cycleVal.textContent = isPt ? "Manhã / Tarde Lunar" : "Lunar Morning / Afternoon";
-        solarHourLabel.textContent = `+${extTemp}°C (Dia Operacional)`;
-        coreTemp.textContent = `${internal}°C (Operação Nominal)`;
+        solarHourLabel.textContent = isPt
+          ? `${extTemp >= 0 ? "+" : ""}${extTemp}°C (Dia Operacional)`
+          : `${extTemp >= 0 ? "+" : ""}${extTemp}°C (Operational Day)`;
+        coreTemp.textContent = isPt
+          ? `${internal}°C (Operação Nominal)`
+          : `${internal}°C (Nominal Operation)`;
         coreTemp.className = "t-value cyan";
         heaterStatus.textContent = isPt
           ? "Painéis Solares: GERANDO ENERGIA"
@@ -3965,15 +4137,21 @@ class ScienceLabController {
       } else {
         const internal = Math.max(45, Math.round(extTemp * 0.85 - coolingOffset));
         cycleVal.textContent = isPt ? "Meio-Dia Escaldante!" : "Scorching Lunar Noon!";
-        solarHourLabel.textContent = `+${extTemp}°C (Alerta Térmico!)`;
+        solarHourLabel.textContent = isPt
+          ? `+${extTemp}°C (Alerta Térmico!)`
+          : `+${extTemp}°C (Thermal Alert!)`;
         if (internal > 75) {
-          coreTemp.textContent = `+${internal}°C (SUPERAQUECIMENTO!)`;
+          coreTemp.textContent = isPt
+            ? `+${internal}°C (SUPERAQUECIMENTO!)`
+            : `+${internal}°C (OVERHEATING!)`;
           coreTemp.className = "t-value gold";
           heaterStatus.textContent = isPt
             ? "Risco de falha (como ocorreu em 25/08/1969 às 04:00 UT)!"
             : "Risk of failure (as occurred Aug 25, 1969 at 04:00 UT)!";
         } else {
-          coreTemp.textContent = `+${internal}°C (Resfriado por Power Dump)`;
+          coreTemp.textContent = isPt
+            ? `+${internal}°C (Resfriado por Power Dump)`
+            : `+${internal}°C (Cooled by Power Dump)`;
           coreTemp.className = "t-value emerald";
           heaterStatus.textContent = isPt
             ? "Power Dump ativo estabilizando eletrônica!"
@@ -4019,9 +4197,9 @@ class ScienceLabController {
       ctx.fillRect(0, 0, w, h);
 
       const channels = [
-        { label: "EIXO Z (CIMA-BAIXO)", y: 42, data: historyZ, color: "#FBBF24" },
-        { label: "EIXO N-S (NORTE-SUL)", y: 105, data: historyNS, color: "#38BDF8" },
-        { label: "EIXO L-O (LESTE-OESTE)", y: 168, data: historyEW, color: "#34D399" }
+        { label: isPt ? "EIXO Z (CIMA-BAIXO)" : "Z-AXIS (UP-DOWN)", y: 42, data: historyZ, color: "#FBBF24" },
+        { label: isPt ? "EIXO N-S (NORTE-SUL)" : "N-S AXIS (NORTH-SOUTH)", y: 105, data: historyNS, color: "#38BDF8" },
+        { label: isPt ? "EIXO L-O (LESTE-OESTE)" : "E-W AXIS (EAST-WEST)", y: 168, data: historyEW, color: "#34D399" }
       ];
 
       channels.forEach((ch) => {
@@ -4064,7 +4242,11 @@ class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">PAINEL DE NAVEGAÇÃO LRV // GIROSCÓPIO & CÂMERA DE ED FENDELL</span>
+            <span class="lab-badge">${
+              isPt
+                ? "PAINEL DE NAVEGAÇÃO LRV // GIROSCÓPIO & CÂMERA DE ED FENDELL"
+                : "LRV NAVIGATION CONSOLE // GYRO & ED FENDELL CAMERA"
+            }</span>
             <h4>${
               isPt
                 ? "Navegação Sem Bússola ('Fio de Ariadne') & A Despedida da Apollo 17"
@@ -4089,18 +4271,22 @@ class ScienceLabController {
         <div class="lab-telemetry-grid">
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Fio de Ariadne (Seta p/ Módulo Lunar)" : "Ariadne's Thread (Bearing to LM)"}</span>
-            <strong class="t-value gold" id="lrvBearingVal">248° WSW (Direto p/ Casa)</strong>
+            <strong class="t-value gold" id="lrvBearingVal">${
+              isPt ? "132° SE (Seta p/ LM Falcon)" : "132° SE (Arrow to LM Falcon)"
+            }</strong>
             <span class="t-sub">${isPt ? "Giroscópio Direcional + 4 Odômetros" : "Directional Gyro + 4 Wheel Odometers"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Distância do Módulo / Odômetro" : "Range to LM / Total Odometer"}</span>
-            <strong class="t-value cyan" id="lrvRangeVal">7,6 km / 35,9 km</strong>
-            <span class="t-sub">${isPt ? "Soma das 3 missões: 90,5 km" : "Combined 3 missions: 90.5 km"}</span>
+            <strong class="t-value cyan" id="lrvRangeVal">${
+              isPt ? "4,8 km / 27,8 km (Apollo 15)" : "4.8 km / 27.8 km (Apollo 15)"
+            }</strong>
+            <span class="t-sub">${isPt ? "Soma das 3 missões (NSSDCA): 90,4 km" : "3-mission total (NSSDCA): 90.4 km"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Episódio Ativo no Simulador" : "Active Mission Episode"}</span>
             <strong class="t-value emerald" id="lrvEpisodeTitle">${
-              isPt ? "Taurus-Littrow (Apollo 17)" : "Taurus-Littrow (Apollo 17)"
+              isPt ? "O Segredo do 'Seatbelt Basalt'" : "The 'Seatbelt Basalt' Prank"
             }</strong>
             <span class="t-sub" id="lrvEpisodeSub">${
               isPt ? "Clique nos botões acima para simular" : "Click the buttons above to simulate"
@@ -4129,8 +4315,12 @@ class ScienceLabController {
         if (this.audio) this.audio.playQuindarTone(true);
 
         if (mode === "seatbelt") {
-          bearingEl.textContent = "132° SE (Seta p/ LM Falcon)";
-          rangeEl.textContent = "4,8 km / 27,9 km (Apollo 15)";
+          bearingEl.textContent = isPt
+            ? "132° SE (Seta p/ LM Falcon)"
+            : "132° SE (Arrow to LM Falcon)";
+          rangeEl.textContent = isPt
+            ? "4,8 km / 27,8 km (Apollo 15)"
+            : "4.8 km / 27.8 km (Apollo 15)";
           epTitle.textContent = isPt
             ? "O Segredo do 'Seatbelt Basalt'"
             : "The 'Seatbelt Basalt' Prank";
@@ -4138,8 +4328,12 @@ class ScienceLabController {
             ? "Scott e Irwin fingiram defeito no cinto para pegar um basalto cheio de bolhas!"
             : "Scott & Irwin faked a seatbelt issue to grab a vesicular volcanic rock!";
         } else if (mode === "fender") {
-          bearingEl.textContent = "248° WSW (Seta p/ LM Challenger)";
-          rangeEl.textContent = "7,6 km / 35,9 km (Apollo 17)";
+          bearingEl.textContent = isPt
+            ? "248° WSW (Seta p/ LM Challenger)"
+            : "248° WSW (Arrow to LM Challenger)";
+          rangeEl.textContent = isPt
+            ? "7,6 km / 35,9 km (Apollo 17)"
+            : "7.6 km / 35.9 km (Apollo 17)";
           epTitle.textContent = isPt
             ? "Reparo com Mapas e Fita Adesiva"
             : "Lunar Map & Duct Tape Fender Fix";
@@ -4147,14 +4341,18 @@ class ScienceLabController {
             ? "Para-lama traseiro direito consertado contra a chuva de poeira abrasiva!"
             : "Right-rear fender improvised with laminated lunar maps & clamps!";
         } else {
-          bearingEl.textContent = "090° E (Estacionado a 145 m do LM)";
-          rangeEl.textContent = "0,14 km / 90,5 km Totais";
+          bearingEl.textContent = isPt
+            ? "090° E (Estacionado a ~145 m do LM)"
+            : "090° E (Parked ~145 m from LM)";
+          rangeEl.textContent = isPt
+            ? "0,14 km / 90,4 km Totais"
+            : "0.14 km / 90.4 km Combined";
           epTitle.textContent = isPt
             ? "14 Dez 1972: 'Ignition!' (Câmera de Ed Fendell)"
             : "Dec 14, 1972: 'Ignition!' (Ed Fendell Camera)";
           epSub.textContent = isPt
             ? "Ed Fendell em Houston inclina a lente (+1,28s delay) e filma a subida às estrelas!"
-            : "Ed Fendell in Houston tilts the lens (+1.28s delay) to film the ascent to the stars!";
+            : "Ed Fendell in Houston tilts the lens (~1.28s delay) to film the ascent to the stars!";
         }
       });
     });
@@ -4180,8 +4378,8 @@ class ScienceLabController {
       ctx.font = "600 9.5px 'JetBrains Mono', monospace";
       ctx.fillText("N", dialX - 3, dialY - dialR + 12);
       ctx.fillText("S", dialX - 3, dialY + dialR - 5);
-      ctx.fillText("E", dialX + dialR - 11, dialY + 3);
-      ctx.fillText("O", dialX - dialR + 5, dialY + 3);
+      ctx.fillText(isPt ? "L" : "E", dialX + dialR - 11, dialY + 3);
+      ctx.fillText(isPt ? "O" : "W", dialX - dialR + 5, dialY + 3);
 
       // Ariadne's Thread Golden Arrow pointing back to Lunar Module
       const targetAngle = mode === "seatbelt" ? 2.1 : mode === "fender" ? 4.1 : 1.57;
@@ -4279,15 +4477,19 @@ class ScienceLabController {
 
       ctx.fillStyle = "#BAE6FD";
       ctx.font = "600 10.5px 'JetBrains Mono', monospace";
-      ctx.fillText(
+      const bannerText =
         mode === "liftoff"
-          ? `CÂMERA DE ED FENDELL // TILT: +${cameraTiltDeg}° (TRANSMISSÃO AO VIVO)`
+          ? isPt
+            ? `CÂMERA DE ED FENDELL // TILT: +${cameraTiltDeg}° (TRANSMISSÃO AO VIVO)`
+            : `ED FENDELL CAMERA // TILT: +${cameraTiltDeg}° (LIVE BROADCAST)`
           : mode === "seatbelt"
-          ? "PARADA SECRETA: BASALTO DO CINTO DE SEGURANÇA (77,31 KG AMOSTRAS)"
-          : "REPARO DE EMERGÊNCIA: MAPA LUNAR + FITA NO PARA-LAMA TRASEIRO",
-        sceneX + 24,
-        28
-      );
+          ? isPt
+            ? "PARADA SECRETA: BASALTO DO CINTO DE SEGURANÇA (77,31 KG AMOSTRAS)"
+            : "SECRET STOP: SEATBELT BASALT (77.31 KG SAMPLES COLLECTED)"
+          : isPt
+          ? "REPARO DE EMERGÊNCIA: MAPA LUNAR + FITA NO PARA-LAMA TRASEIRO"
+          : "EMERGENCY REPAIR: LUNAR MAP + TAPE ON REAR FENDER";
+      ctx.fillText(bannerText, sceneX + 24, 28);
 
       this.animFrame = requestAnimationFrame(drawRoverSim);
     };
@@ -4304,7 +4506,11 @@ class ScienceLabController {
       <div class="lab-card">
         <div class="lab-header">
           <div>
-            <span class="lab-badge">LABORATÓRIO BASE TRANQUILIDADE // GRAVIDADE 1/6 & PLACA HISTÓRICA</span>
+            <span class="lab-badge">${
+              isPt
+                ? "LABORATÓRIO BASE TRANQUILIDADE // GRAVIDADE 1/6 & PLACA HISTÓRICA"
+                : "TRANQUILITY BASE LAB // 1/6 GRAVITY & HISTORIC PLAQUE"
+            }</span>
             <h4>${
               isPt
                 ? "Simulador de Gravidade Lunar (1/6) & A Placa da Escada da Eagle"
@@ -4316,18 +4522,41 @@ class ScienceLabController {
         <div class="lab-telemetry-grid">
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Rover LRV Vazio (Terra → Lua)" : "Empty LRV Rover (Earth → Moon)"}</span>
-            <strong class="t-value cyan">210 kg → 35 kg</strong>
-            <span class="t-sub">${isPt ? "Carrega +490 kg de carga útil!" : "Carries +490 kg payload!"}</span>
+            <strong class="t-value cyan">210 kg → ~35 kg</strong>
+            <span class="t-sub">${isPt ? "Carrega +490 kg de carga útil!" : "Carries +490 kg lunar payload!"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Amostras da Apollo 11" : "Apollo 11 Rock Samples"}</span>
-            <strong class="t-value gold">21,55 kg → 3,59 kg</strong>
+            <strong class="t-value gold">${isPt ? "21,55 kg → 3,57 kg" : "21.55 kg → 3.57 kg"}</strong>
             <span class="t-sub">${isPt ? "Quarentena até 10/08/1969" : "Quarantined until Aug 10, 1969"}</span>
           </div>
           <div class="telemetry-box">
             <span class="t-label">${isPt ? "Precisão Translunar Apollo 11" : "Apollo 11 Translunar Precision"}</span>
-            <strong class="t-value emerald">Erro: 1,6 pé/s</strong>
-            <span class="t-sub">${isPt ? "12 min de descida motorizada" : "12 min powered descent"}</span>
+            <strong class="t-value emerald">${isPt ? "Erro: 1,6 pé/s" : "Error: 1.6 ft/s"}</strong>
+            <span class="t-sub">${isPt ? "~12 min de descida motorizada" : "~12 min powered descent"}</span>
+          </div>
+        </div>
+
+        <div class="lab-controls-row">
+          <div class="lab-slider-group">
+            <label>
+              <span>${
+                isPt
+                  ? "Balança Lunar Interativa (g = 1,62 m/s² ≈ 16,5% da Terra):"
+                  : "Interactive Lunar Weight Scale (g = 1.62 m/s² ≈ 16.5% of Earth):"
+              }</span>
+              <strong id="eagleGravityResult">${
+                isPt ? "160 kg (Astronauta+Traje) → 26,5 kg na Lua" : "160 kg (Suited Astronaut) → 26.5 kg on Moon"
+              }</strong>
+            </label>
+            <input type="range" id="eagleMassSlider" min="10" max="2100" step="5" value="160" />
+            <small class="lab-hint" id="eagleGravityHint">
+              ${
+                isPt
+                  ? "Arraste para comparar pesos de carga na Base Tranquilidade (~2.034 kg secos no estágio de descida)."
+                  : "Slide to compare lunar payloads at Tranquility Base (~2,034 kg descent stage dry mass)."
+              }
+            </small>
           </div>
         </div>
 
@@ -4336,7 +4565,7 @@ class ScienceLabController {
             <div class="plaque-header">HERE MEN FROM THE PLANET EARTH</div>
             <div class="plaque-body">
               FIRST SET FOOT UPON THE MOON<br/>
-              JULY 1969, A.D.<br/>
+              JULY 1969 A.D.<br/>
               <strong>WE CAME IN PEACE FOR ALL MANKIND</strong>
             </div>
             <div class="plaque-sigs">
@@ -4351,14 +4580,34 @@ class ScienceLabController {
             <p>
               ${
                 isPt
-                  ? "\"Aqui homens do planeta Terra pisaram pela primeira vez na Lua. Julho de 1969 d.C. Viemos em paz por toda a humanidade.\" — Gravada em aço inoxidável presa entre o terceiro e o quarto degrau da perna dianteira do Estágio de Descida da Eagle, ela permanece intocada no vácuo do Mar da Tranquilidade (0° 41' 15\" N, 23° 26' E)."
-                  : "Mounted on the front landing strut between the third and fourth ladder rungs of Eagle's Descent Stage, this stainless-steel plaque remains untouched in the vacuum of Mare Tranquillitatis (0° 41' 15\" N, 23° 26' E)."
+                  ? "\"Aqui homens do planeta Terra pisaram pela primeira vez na Lua. Julho de 1969 d.C. Viemos em paz por toda a humanidade.\" — Gravada em aço inoxidável presa entre o terceiro e o quarto degrau da perna dianteira do Estágio de Descida da Eagle, ela permanece intocada no vácuo do Mar da Tranquilidade (0° 40' 27\" N, 23° 28' 23\" E)."
+                  : "Mounted on the front landing strut between the third and fourth ladder rungs of Eagle's Descent Stage, this stainless-steel plaque remains untouched in the vacuum of Mare Tranquillitatis (0° 40' 27\" N, 23° 28' 23\" E)."
               }
             </p>
           </div>
         </div>
       </div>
     `;
+
+    const massSlider = this.container.querySelector("#eagleMassSlider");
+    const gravResult = this.container.querySelector("#eagleGravityResult");
+    const gravHint = this.container.querySelector("#eagleGravityHint");
+    if (massSlider && gravResult) {
+      massSlider.addEventListener("input", (e) => {
+        const earthKg = parseInt(e.target.value, 10);
+        const moonKg = (earthKg * (1.62 / 9.80665)).toFixed(1);
+        const fmtEarth = earthKg.toLocaleString(isPt ? "pt-BR" : "en-US");
+        const fmtMoon = isPt ? moonKg.replace(".", ",") : moonKg;
+        gravResult.textContent = isPt
+          ? `${fmtEarth} kg (Terra) → ${fmtMoon} kg-f equivalentes na Lua`
+          : `${fmtEarth} kg (Earth) → ${fmtMoon} kgf equivalent on Moon`;
+        if (gravHint) {
+          gravHint.textContent = isPt
+            ? `Na gravidade lunar (1,62 m/s²), ${fmtEarth} kg exigem força equivalente a apenas ${fmtMoon} kg na Terra.`
+            : `In lunar gravity (1.62 m/s²), ${fmtEarth} kg requires lift equivalent to just ${fmtMoon} kg on Earth.`;
+        }
+      });
+    }
   }
 }
 
@@ -8931,19 +9180,24 @@ class EchoesOfTheMoonApp {
     bBtn.classList.toggle("active", this.anatomyMode === "blueprint");
 
     const container = document.getElementById("anatomyViewportContainer");
+    const safeIdx = Math.min(this.activeHotspotIdx, Math.max(0, loc.hotspots.length - 1));
+    this.activeHotspotIdx = safeIdx;
+    const isBlueprint = this.anatomyMode === "blueprint";
     const visual =
       this.anatomyMode === "photo" && art.imagePath
         ? `<img src="${art.imagePath}" alt="${loc.name}" class="anatomy-photo" />`
-        : getArtifactBlueprintSVG(art.id);
+        : getArtifactBlueprintSVG(art.id, this.lang);
 
     const pins = loc.hotspots
-      .map(
-        (h, i) => `
-        <button class="hotspot-pin ${i === this.activeHotspotIdx ? "active" : ""}" style="left:${h.x}%;top:${h.y}%;" data-hidx="${i}">
+      .map((h, i) => {
+        const px = isBlueprint && h.bpX !== undefined ? h.bpX : h.x;
+        const py = isBlueprint && h.bpY !== undefined ? h.bpY : h.y;
+        return `
+        <button class="hotspot-pin ${i === safeIdx ? "active" : ""}" style="left:${px}%;top:${py}%;" data-hidx="${i}">
           ${i + 1}
         </button>
-      `
-      )
+      `;
+      })
       .join("");
 
     container.innerHTML = `
@@ -8988,6 +9242,17 @@ class EchoesOfTheMoonApp {
       ? "Estado Atual e Preservação"
       : "Current State & Preservation";
     document.getElementById("stateBodyText").textContent = loc.currentState;
+
+    const distBlock = document.getElementById("distinctionsBlock");
+    if (distBlock) {
+      distBlock.style.display = loc.distinctions ? "" : "none";
+      if (loc.distinctions) {
+        document.getElementById("distinctionsHeading").textContent = isPt
+          ? "Diferencial Técnico & Científico"
+          : "Engineering & Science Distinction";
+        document.getElementById("distinctionsBodyText").textContent = loc.distinctions;
+      }
+    }
 
     document.getElementById("refsHeading").textContent = isPt
       ? "Fontes Oficiais da NASA e Artigos"

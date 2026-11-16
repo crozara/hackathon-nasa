@@ -3,7 +3,8 @@
 // High-precision technical schematics for LRRR, PSE, LRV, and LM-5 EAGLE
 // ============================================================================
 
-export function getArtifactBlueprintSVG(artifactId) {
+export function getArtifactBlueprintSVG(artifactId, lang = "pt") {
+  const isPt = lang === "pt";
   switch (artifactId) {
     case "lrrr":
       return `
@@ -23,23 +24,38 @@ export function getArtifactBlueprintSVG(artifactId) {
           <!-- Technical Border & Blueprint Header -->
           <rect x="16" y="16" width="768" height="418" fill="none" stroke="#10B981" stroke-opacity="0.4" stroke-width="1.5"/>
           <text x="32" y="42" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.5">
-            NASA DWG // APOLLO 11 LRRR — 10x10 CORNER-CUBE FUSED SILICA ARRAY (Ø 3.8 CM)
+            NASA DWG // APOLLO 11 LRRR — 10x10 CORNER-CUBE FUSED SILICA ARRAY (Ø 3.8 CM • 46×46 CM)
           </text>
           <text x="32" y="418" fill="#6EE7B7" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.75">
-            PRINCIPLE: d = (c × Δt) / 2   |   MATERIAL: SUPRASIL FUSED SILICA   |   POWER: PASSIVE (0 W)
+            ${
+              isPt
+                ? "PRINCÍPIO: d = (c × Δt) / 2   |   MATERIAL: SÍLICA FUNDIDA ULTRA-PURA   |   ENERGIA: PASSIVO (0 W)"
+                : "PRINCIPLE: d = (c × Δt) / 2   |   MATERIAL: ULTRA-PURE FUSED SILICA   |   POWER: PASSIVE (0 W)"
+            }
           </text>
 
           <!-- Incoming & Outgoing Laser Beam Diagram -->
           <line x1="680" y1="35" x2="435" y2="185" stroke="#10B981" stroke-width="2.5" stroke-dasharray="7 5"/>
           <line x1="425" y1="195" x2="670" y2="45" stroke="#34D399" stroke-width="2.5"/>
-          <text x="565" y="72" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="10">
-            FEIXE LASER 532nm (Δt ≈ 2,56 s)
+          <text x="545" y="72" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="10">
+            ${isPt ? "FEIXE LASER 532nm (Δt ≈ 2,56 s)" : "532nm LASER BEAM (Δt ≈ 2.56 s)"}
           </text>
 
           <!-- Tilted Pallet Frame (3D Isometric Projection) -->
           <polygon points="220,120 550,95 600,285 270,315" fill="rgba(16, 185, 129, 0.08)" stroke="#34D399" stroke-width="2"/>
           <polygon points="270,315 600,285 600,320 270,350" fill="rgba(16, 185, 129, 0.16)" stroke="#10B981" stroke-width="1.5"/>
           <polygon points="180,340 270,350 220,120 165,305" fill="rgba(16, 185, 129, 0.05)" stroke="#10B981" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+          <!-- Bubble Level & Solar Gnomon Alignment Bracket (Bottom-Left of Pallet) -->
+          <g transform="translate(212, 290)">
+            <rect x="0" y="0" width="38" height="22" rx="4" fill="rgba(16, 185, 129, 0.2)" stroke="#34D399" stroke-width="1.4"/>
+            <circle cx="19" cy="11" r="6" fill="none" stroke="#6EE7B7" stroke-width="1.2"/>
+            <circle cx="19" cy="11" r="2" fill="#34D399"/>
+            <line x1="19" y1="-16" x2="19" y2="0" stroke="#A7F3D0" stroke-width="1.8"/>
+            <text x="-10" y="34" fill="#6EE7B7" font-family="JetBrains Mono, monospace" font-size="8.5">
+              ${isPt ? "GNOMON + NÍVEL" : "GNOMON + LEVEL"}
+            </text>
+          </g>
 
           <!-- 10x10 Grid of 100 Corner-Cube Prisms -->
           ${Array.from({ length: 10 })
@@ -68,8 +84,8 @@ export function getArtifactBlueprintSVG(artifactId) {
           <line x1="114" y1="212" x2="114" y2="155" stroke="#34D399" stroke-width="1"/>
           <line x1="114" y1="212" x2="168" y2="245" stroke="#34D399" stroke-width="1"/>
           <line x1="114" y1="212" x2="60" y2="245" stroke="#34D399" stroke-width="1"/>
-          <text x="52" y="296" fill="#A7F3D0" font-family="JetBrains Mono, monospace" font-size="9.5">
-            PRISMA CORNER-CUBE (Ø 3,8cm)
+          <text x="48" y="296" fill="#A7F3D0" font-family="JetBrains Mono, monospace" font-size="9.5">
+            ${isPt ? "PRISMA CORNER-CUBE (Ø 3,8cm)" : "CORNER-CUBE PRISM (Ø 3.8cm)"}
           </text>
 
           <!-- Lunar Regolith Base Line -->
@@ -160,13 +176,21 @@ export function getArtifactBlueprintSVG(artifactId) {
             NASA BOEING/GM DWG // LUNAR ROVING VEHICLE (LRV) — 3.10m × 2.30m WHEELBASE (210 KG)
           </text>
           <text x="32" y="418" fill="#BAE6FD" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.8">
-            MOTORS: 4 × 0.25 HP (36V Ag-Zn)  |  WHEELS: Ø 81cm PIANO-WIRE MESH (5.4 KG)  |  NAV: DIRECTIONAL GYRO + ODOMETERS
+            ${
+              isPt
+                ? "MOTORES: 4 × 0,25 HP (36V Ag-Zn)  |  RODAS: Ø 81,8cm MALHA DE AÇO (5,4 KG)  |  NAV: GIROSCÓPIO + ODÔMETROS"
+                : "MOTORS: 4 × 0.25 HP (36V Ag-Zn)  |  WHEELS: Ø 81.8cm PIANO-WIRE MESH (5.4 KG)  |  NAV: DIRECTIONAL GYRO + ODOMETERS"
+            }
           </text>
 
           <!-- Dimension Callout Lines -->
           <line x1="130" y1="388" x2="670" y2="388" stroke="#38BDF8" stroke-width="1" stroke-dasharray="4 4"/>
-          <text x="330" y="382" fill="#7DD3FC" font-family="JetBrains Mono, monospace" font-size="10">
-            COMPRIMENTO TOTAL: 3,10 METROS (ENTRE-EIXOS: 2,30 m)
+          <text x="310" y="382" fill="#7DD3FC" font-family="JetBrains Mono, monospace" font-size="10">
+            ${
+              isPt
+                ? "COMPRIMENTO TOTAL: 3,10 METROS (ENTRE-EIXOS: 2,30 m)"
+                : "OVERALL LENGTH: 3.10 METERS (WHEELBASE: 2.30 m)"
+            }
           </text>
 
           <!-- High-Gain Golden Umbrella Antenna (Front Left) -->
@@ -177,6 +201,7 @@ export function getArtifactBlueprintSVG(artifactId) {
           <!-- Ed Fendell Color TV Camera (Front) -->
           <rect x="178" y="192" width="42" height="24" rx="3" fill="rgba(56, 189, 248, 0.25)" stroke="#FBBF24" stroke-width="1.8"/>
           <polygon points="178,196 156,186 156,222 178,212" fill="rgba(251, 191, 36, 0.3)" stroke="#FBBF24" stroke-width="1.4"/>
+          <text x="150" y="178" fill="#FDE68A" font-family="JetBrains Mono, monospace" font-size="8.5">TV CAM</text>
 
           <!-- Aluminum Chassis Frame (Folded Origami 3-Part Chassis) -->
           <rect x="175" y="255" width="450" height="22" rx="4" fill="rgba(56, 189, 248, 0.18)" stroke="#38BDF8" stroke-width="2"/>
@@ -194,9 +219,9 @@ export function getArtifactBlueprintSVG(artifactId) {
           <!-- Lawn-Chair Tubular Aluminum Seats & Seatbelt Basalt Strap -->
           <polyline points="395,255 465,255 488,182" fill="none" stroke="#E2E8F0" stroke-width="3.5"/>
           <polyline points="435,255 505,255 528,182" fill="none" stroke="#38BDF8" stroke-width="3"/>
-          <!-- Rear Lunar Communications Relay Unit & Sample Bags (77.31 kg) -->
+          <!-- Rear Lunar Communications Relay Unit & Sample Bags -->
           <rect x="535" y="205" width="78" height="50" rx="4" fill="rgba(56, 189, 248, 0.15)" stroke="#38BDF8" stroke-width="1.6"/>
-          <text x="544" y="233" fill="#BAE6FD" font-family="JetBrains Mono, monospace" font-size="8.5">CARGA: 490 KG</text>
+          <text x="541" y="233" fill="#BAE6FD" font-family="JetBrains Mono, monospace" font-size="8.5">${isPt ? "CARGA: 490 KG" : "PAYLOAD: 490KG"}</text>
 
           <!-- Front & Rear Fenders (Right-Rear Map Repair Highlighted!) -->
           <path d="M 135 285 A 72 72 0 0 1 265 285" fill="none" stroke="#38BDF8" stroke-width="3"/>
@@ -247,7 +272,7 @@ export function getArtifactBlueprintSVG(artifactId) {
             GRUMMAN / NASA DWG // APOLLO 11 LM-5 "EAGLE" DESCENT STAGE — TRANQUILITY BASE
           </text>
           <text x="32" y="418" fill="#FEF08A" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.8">
-            COORDS: 0° 41' 15" N, 23° 26' E  |  DESCENT TIME: 12 MIN  |  PLAQUE: "WE CAME IN PEACE FOR ALL MANKIND"
+            LROC COORDS: 0° 40' 27" N, 23° 28' 23" E (0.67416° N, 23.47314° E)  |  DESCENT: ~12 MIN  |  PLAQUE: "WE CAME IN PEACE FOR ALL MANKIND"
           </text>
 
           <!-- Octagonal Kapton Gold Descent Stage Body -->
@@ -275,16 +300,19 @@ export function getArtifactBlueprintSVG(artifactId) {
           <!-- Descent Engine Skirt -->
           <polygon points="348,290 452,290 472,338 328,338" fill="rgba(148, 163, 184, 0.28)" stroke="#E2E8F0" stroke-width="1.8"/>
 
-          <!-- Left & Right Outrigger Landing Gear Struts & 94cm Footpads -->
+          <!-- Left & Right Outrigger Landing Gear Struts & 94cm Footpads + Contact Probes -->
           <line x1="235" y1="185" x2="145" y2="345" stroke="#FACC15" stroke-width="3.5"/>
           <line x1="235" y1="275" x2="145" y2="345" stroke="#FACC15" stroke-width="2.5"/>
           <ellipse cx="145" cy="350" rx="42" ry="10" fill="rgba(234, 179, 8, 0.35)" stroke="#FEF08A" stroke-width="2"/>
+          <line x1="145" y1="360" x2="145" y2="380" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="3 2"/>
 
           <line x1="565" y1="185" x2="655" y2="345" stroke="#FACC15" stroke-width="3.5"/>
           <line x1="565" y1="275" x2="655" y2="345" stroke="#FACC15" stroke-width="2.5"/>
           <ellipse cx="655" cy="350" rx="42" ry="10" fill="rgba(234, 179, 8, 0.35)" stroke="#FEF08A" stroke-width="2"/>
+          <line x1="655" y1="360" x2="655" y2="380" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="3 2"/>
 
           <ellipse cx="400" cy="352" rx="40" ry="10" fill="rgba(234, 179, 8, 0.35)" stroke="#FEF08A" stroke-width="2"/>
+          <line x1="400" y1="362" x2="400" y2="382" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="3 2"/>
         </svg>
       `;
   }
